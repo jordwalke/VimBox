@@ -1,0 +1,466 @@
+#jordow's snippets:
+
+# module definition
+snippet mod "Module declaration"
+/**
+ * @providesModule ${1:`!p snip.rv = snip.basename`}
+ */
+
+var $1 = ${2:{
+  ${3: /* fields */}
+}};
+
+module.exports = $1;
+endsnippet
+
+snippet for "for (...) {...}" !
+for (var ${2:i} = 0; $2 < ${1:Things}.length; $2++) {
+	${3:$1[$2]}$0
+}
+endsnippet
+
+snippet te "tripple equals" !w
+${1:one} === ${2:two}$0
+endsnippet
+
+snippet ne "not tripple equals" !w
+${1:one} !== ${2:two}
+endsnippet
+
+snippet a
+<a href="$1"${2: class="${3:link}"}>
+	$0
+</a>
+endsnippet
+
+# Then do imap (  (<Tab>
+#snippet ( "paren insertion" !w
+#($0)
+#endsnippet
+
+snippet forr "for (...) {...}" !
+for (${2:i} = 0; $2 < ${1:Things}.length; $2++) {
+	${3:$1[$2]}$0
+}
+endsnippet
+
+snippet forin "forin (...) {...}" !
+for (var ${1:key} in ${2:obj}) {
+	if (!$2.hasOwnProperty($1)) {
+		continue;
+	}
+	${3:$2[$1]}$0
+}
+endsnippet
+
+snippet throwIf "throwIf(bool, ERR);" !
+throwIf(${1:condition}, ${2:ERR});
+endsnippet
+
+snippet db "debugger;" !
+debugger;
+endsnippet
+
+snippet dbif "if(x) debugger;" !
+if (${1:cond}) {
+	debugger;
+}
+endsnippet
+
+snippet forinn "forinn (...) {...}" !
+for (${1:key} in ${2:obj}) {
+	if (!$2.hasOwnProperty($1)) {
+		continue;
+	}
+	${3:$2[$1]}$0
+}
+endsnippet
+
+snippet ifcond "ifcondition" !
+if (${VISUAL:expr}) {
+	$0
+}
+endsnippet
+
+snippet ret "return ;" !
+return $0;
+endsnippet
+
+snippet if "if" !
+if (${1:true}) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet try "try" !
+try {
+	${VISUAL}$0
+} catch (e) {
+	$0
+}
+endsnippet
+
+snippet code "<code>" !
+<code>$1</code>$0
+endsnippet
+
+snippet param "<code>" !
+@param {${1:type}} ${2:name Description}
+endsnippet
+
+
+snippet testmod "Test module"
+var mocks = require('mock-modules')
+	.dontMock('${1:moduleToTest}');
+
+var $1;
+
+describe('$1', function() {
+	beforeEach(function() {
+		require('mock-modules').dumpCache();
+		$1 = require('$1');
+	});
+
+	it('should pass the test', function() {
+		expect(function() {
+			throw "You need to implement this!";
+		}).toThrow();
+	});
+});
+endsnippet
+
+snippet it "Test case"
+it('${1:should pass the test}', function() {
+	${0://code here};
+});
+endsnippet
+
+snippet expect "Expect"
+expect(${1:thing}).${2:toEqual(${3:thingToBeEqualTo})};
+endsnippet
+
+# snip.rv is the "return value and !p executes python code. snip.fn is the
+# complete file name, snip.basename is the base of the file name
+# You can use snip.t[2] to get the second placeholder value and run arbitrary
+# expressions on it!
+
+snippet time "time block" !
+var start = (new Date()).getTime();
+${VISUAL}$0
+var end = (new Date()).getTime();
+alert('total time:' + (end - start));
+endsnippet
+
+snippet profile "this.setState." !
+console.profile('$0');
+${VISUAL}$0
+console.profileEnd();
+endsnippet
+
+
+snippet ss "this.setState." !
+this.setState({
+	${1:stateField}: ${2:newValue}
+});
+endsnippet
+
+snippet s "this.state." !w
+this.state.
+endsnippet
+
+snippet p "this.props." !w
+this.props.
+endsnippet
+
+snippet proto "Prototype method" !
+${1:`!p snip.rv = snip.basename`}.prototype.${2:methodName} = function(${3:args}) {
+	$0
+};
+endsnippet
+
+
+snippet component "React UI component module" !
+/**
+ * @providesModule $1
+ * @jsx React.DOM
+ */
+
+var React = require('React');
+
+var ${1:`!p snip.rv = snip.basename`} = React.createClass({
+	render: function() {
+		return (
+			<${2:tag}`!p snip.rv = ' ' if t[3] else ''`${3:className={${4:cssClass}}}>
+				`!p snip.rv = '' if t[3].endswith('/') else  '  '`${VISUAL}$0
+			`!p snip.rv = '' if t[3].endswith('/') else '</' + (t[2].split()[0] if t[2].split() else '') + '>'`
+		);
+	}
+});
+
+module.exports = $1;
+endsnippet
+
+snippet v "var"
+var ${1:varName}`!p snip.rv = ' = ' if not (len(t[2]) == 0) else ''`${2:boundValue};
+endsnippet
+
+
+
+# The others are just copied from this.
+snippet tag "XHTML <tag>"
+<${1:tag}`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</' + (t[1].split()[0] if t[1].split() else '') + '>'`
+endsnippet
+
+# The others are just copied from this.
+snippet tagret "XHTML return <tag>" !
+return (
+	<${1:tag}`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+	`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+	`!p snip.rv = '' if t[2].endswith('/') else '</' + (t[1].split()[0] if t[1].split() else '') + '>'`
+);
+endsnippet
+
+snippet tago "XHTML <tagopen>"
+<${1:tag}
+	${2:className={${3:cssClass}}}
+/>
+endsnippet
+
+snippet om "XHTML ImmutableMap" w
+ImmutableMap.create(${1:{
+  ${2:field}:${3:value}
+}})$0
+endsnippet
+
+snippet om; "XHTML ImmutableMap" w
+ImmutableMap.create(${1:{
+  ${2:field}:${3:value}
+}});
+endsnippet
+
+snippet span "XHTML <span>"
+<span`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</span>'`
+endsnippet
+
+snippet div "XHTML <div>"
+<div`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</div>'`
+endsnippet
+
+snippet img "XHTML <img>"
+<img`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</img>'`
+endsnippet
+
+snippet button "XHTML <button>"
+<button`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</button>'`
+endsnippet
+
+snippet h1 "XHTML <h1>"
+<h1`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</h1>'`
+endsnippet
+
+snippet h1 "XHTML <h1>"
+<h1`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</h1>'`
+endsnippet
+
+snippet h2 "XHTML <h2>"
+<h2`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</h2>'`
+endsnippet
+
+snippet h3 "XHTML <h3>"
+<h3`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</h3>'`
+endsnippet
+
+snippet h4 "XHTML <h4>"
+<h4`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</h4>'`
+endsnippet
+
+snippet h5 "XHTML <h5>"
+<h5`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</h5>'`
+endsnippet
+
+snippet ul "XHTML <ul>"
+<ul`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</ul>'`
+endsnippet
+
+snippet li "XHTML <li>"
+<li`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</li>'`
+endsnippet
+
+snippet at "XHTML attr={}"
+${1:attr}={${0:value}}
+endsnippet
+
+snippet =set "class set" w
+={{${1:key}:${0:true}}}
+endsnippet
+
+snippet ={set "class set" w
+={{${1:key}:${0:true}}
+endsnippet
+
+
+snippet : "keyval" !
+${1:key}: ${0:val}
+endsnippet
+
+snippet :f "keyvalFunc" !
+${1:key}: function(${2:args}) {
+	$0
+}
+endsnippet
+
+snippet init, "getInitialState" !
+getInitialState: function(${1:args}) {
+	$0
+},
+endsnippet
+
+snippet init "getInitialState" !
+getInitialState: function(${1:args}) {
+	$0
+}
+endsnippet
+
+snippet :f, "keyvalFuncComma" !
+${1:key}: function(${2:args}) {
+	$0
+},
+endsnippet
+
+snippet :o "keyvalObjComma" !
+${1:key}: {
+	${2:key}: ${3:val}
+}
+endsnippet
+
+snippet :o, "keyvalObjComma" !
+${1:key}: {
+	${2:key}: ${3:val}
+},
+endsnippet
+
+snippet lam "lambda" !w
+function(${1:args}) {
+	$0
+}
+endsnippet
+
+
+snippet lam; "lambda;" !w
+function(${1:args}) {
+	$0
+};
+endsnippet
+
+snippet lam, "lambda," !w
+function(${1:args}) {
+	$0
+},
+endsnippet
+
+
+snippet o "obj" !
+{
+	${1:key}: ${0:val}
+}
+endsnippet
+
+snippet o; "obj;" !
+{
+	${1:key}: ${0:val}
+};
+endsnippet
+
+snippet o, "obj," !
+{
+	${1:key}: ${0:val}
+},
+endsnippet
+
+snippet }, "}," !
+},
+${1:key}: ${0}
+endsnippet
+
+# w means word boundary
+snippet tt "ternary" !w
+${1:test} ? ${2:this} : ${3:that}
+endsnippet
+
+snippet { "braces" !w
+{
+	$0
+}
+endsnippet
+
+snippet r "require" !
+var ${1:ModuleName} = require('$1');$0
+endsnippet
+
+snippet el "else"
+else {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet json "JSON.stringify()" !w
+JSON.stringify($0)
+endsnippet
+
+snippet jsonp "JSON.parse()" !w
+JSON.parse($0)
+endsnippet
+
+snippet log "log"
+console.log($0);
+endsnippet
+
+snippet logs "logs"
+console.log('$0');
+endsnippet
+
+snippet logsif "if (x) log"
+if (${1:cond}) {
+	console.log('$0');
+}
+endsnippet
+
+snippet logo "logobject"
+console.log("$1:" + JSON.stringify($1));
+endsnippet
+
+
+snippet fun "function(fun)" !
+function ${1:function_name}(${2:argument}) {
+	${0:// body...}
+}
+endsnippet
+
+
+# vim:ft=snippets:
