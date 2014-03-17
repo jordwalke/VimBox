@@ -1,9 +1,15 @@
 VimBox
-======
+------
+
+> Clean and Simple MacVim Editing
 
 <img src=".vim/images/VimBox.png" height=256 width=256 />
 
-A modern setup for MacVim.
+- Mac OS Keyboard mappings
+- Consistent and familiar autocomplete behavior
+- Natural JavaScript indentation and editing/lint support.
+- Snippets (includes JavaScript example snippets).
+
 
 Installation:
 
