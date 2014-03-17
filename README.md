@@ -1,36 +1,54 @@
 VimBox
 ======
 
+<img src=".vim/images/VimBox.png" height=256 width=256 />
+
 A modern setup for MacVim.
 
 Installation:
 
-    1 Install HomeBrew if needed.
+     1 Install HomeBrew if needed.
 
-        http://brew.sh/
+         http://brew.sh/
 
-    2. Install MacVim with lua/python support using HomeBrew:
+     2. Install MacVim with lua/python support using HomeBrew:
 
-       # Move any existing MacVim.app out of the way.
-       mv /Applications/MacVim.app /Applications/MacVim_Backup.app
+        # Move any existing MacVim.app out of the way.
+        mv /Applications/MacVim.app /Applications/MacVim_Backup.app
 
-       # Run the brew install command:
-       brew install macvim --with-cscope --with-lua --python --HEAD
+        # Run the brew install command:
+        brew install macvim --with-cscope --with-lua --python --HEAD
 
-       # Put the app in your /Applications directory
-       brew linkapps
+        # Put the app in your /Applications directory
+        brew linkapps
 
-    3. Install vim-airline font:
+     3. Back up your old .vim folder/files
+        mv ~/.vim/ ~/.vim_backup/
+        mv ~/.vimrc/ ~/.vimrc_backup/
+        mv ~/.gvimrc/ ~/.gvimrc_backup/
 
-       open Fonts/Inconsolata-dz+for+Powerline.otf
-       # Click "Install Font"
+     4. Clone `VimBox` wherever you like to keep your github clones
+        # cd ~/github/     # Or wherever you like to keep github clones
+        git clone https://github.com/jordwalke/VimBox/
 
-    3. Install node.js if you want JS features such as linting.
+        # Link to the clone
+        ln -s ~/.vim ./VimBox/.vim
+        ln -s ~/.vimrc ./VimBox/.vimrc
+        ln -s ~/.gvimrc ./VimBox/.gvimrc
 
-    4. Install NeoBundle:
+     5. Install vim-airline font:
 
-      mkdir -p ~/.vim/bundle
-      git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-      # Then open Vim/MacVim and run:
-      :NeoBundleInstall
+        open Fonts/Inconsolata-dz+for+Powerline.otf
+        # Click "Install Font"
+
+     6. Install node.js if you want JS features such as linting.
+
+     7. Install NeoBundle:
+
+       mkdir -p ~/.vim/bundle
+       git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+       # Then open Vim/MacVim and run:
+
+     8. Open MacVim and run:
+       :NeoBundleInstall
 

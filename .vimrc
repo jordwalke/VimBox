@@ -15,19 +15,35 @@
 
 "        # Put the app in your /Applications directory
 "        brew linkapps
-
-"     3. Install vim-airline font:
+"
+"     3. Back up your old .vim folder/files
+"        mv ~/.vim/ ~/.vim_backup/
+"        mv ~/.vimrc/ ~/.vimrc_backup/
+"        mv ~/.gvimrc/ ~/.gvimrc_backup/
+"
+"     4. Clone `VimBox` wherever you like to keep your github clones
+"        # cd ~/github/     # Or wherever you like to keep github clones
+"        git clone https://github.com/jordwalke/VimBox/
+"
+"        # Link to the clone
+"        ln -s ~/.vim ./VimBox/.vim
+"        ln -s ~/.vimrc ./VimBox/.vimrc
+"        ln -s ~/.gvimrc ./VimBox/.gvimrc
+"
+"     5. Install vim-airline font:
 
 "        open Fonts/Inconsolata-dz+for+Powerline.otf
 "        # Click "Install Font"
 
-"     3. Install node.js if you want JS features such as linting.
+"     6. Install node.js if you want JS features such as linting.
 
-"     4. Install NeoBundle:
+"     7. Install NeoBundle:
 
 "       mkdir -p ~/.vim/bundle
 "       git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 "       # Then open Vim/MacVim and run:
+"
+"     8. Open MacVim and run:
 "       :NeoBundleInstall
 
 "
