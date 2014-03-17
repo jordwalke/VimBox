@@ -1,0 +1,412 @@
+" ================= Mac OS X Usage =================:
+" Pretty much plug and play with MacVim
+" ==================================================
+
+
+" ================================= Jordow Colors ==============================
+set runtimepath+=~/.vim/localBundle/vim-colors-jordow/
+" ==============================================================================
+
+
+" =========================== Bootstrap for Vim ================================
+NeoBundle "tpope/vim-sensible"
+" ==============================================================================
+
+
+" ======================= AutoMakeDirectory if needed ==========================
+NeoBundle "jordwalke/VimAutoMakeDirectory"
+" ==============================================================================
+
+
+" ======================= Custom Resizing for SplitBalancer ======================
+NeoBundle "git://github.com/jordwalke/VimSplitBalancer.git"
+" ==============================================================================
+
+" ==============================================================================
+NeoBundle "git://github.com/tpope/vim-fugitive.git"
+NeoBundle "git://github.com/gregsexton/gitv.git"
+"Neither of these two commands seem to do what I want
+let g:Gitv_OpenHorizontal = 1
+let g:Gitv_WipeAllOnClose = 1
+let g:Gitv_DoNotMapCtrlKey = 1
+" ==============================================================================
+
+
+" ========== Use arrow keys in block mode to move things around ================
+NeoBundle "git://github.com/gavinbeatty/dragvisuals.vim.git"
+vmap  <expr>  <LEFT>   DVB_Drag('left')
+vmap  <expr>  <RIGHT>  DVB_Drag('right')
+vmap  <expr>  <DOWN>   DVB_Drag('down')
+vmap  <expr>  <UP>     DVB_Drag('up')
+" vmap  <expr>  D        DVB_Duplicate() (Causes hanving on linewise visual mode)
+" Remove any introduced trailing whitespace after moving..
+let g:DVB_TrimWS = 1
+" ==============================================================================
+
+" Windows:
+" Need dependent package to be installed.
+" You must copy the dlls to the gvim directory usually C:\Program Files (x86)\vim\vim73
+"
+" Bundle "https://github.com/xolox/vim-misc"
+" Bundle "https://github.com/xolox/vim-shell"
+" Trouble: can_use_dll is returning false :/ Version number !== .5
+
+" ====================== Vim Surround ==========================================
+NeoBundle "git://github.com/tpope/vim-surround.git"
+" ==============================================================================
+
+
+" =================== TODO, Check Out:==========================================
+" https://github.com/bootleq/vim-gitdiffall
+" ==============================================================================
+
+
+
+" " ========================== Unite.vim uses ====================================
+" NeoBundle 'Shougo/vimproc', {
+"       \ 'build' : {
+"       \     'windows' : 'make -f make_mingw32.mak',
+"       \     'cygwin' : 'make -f make_cygwin.mak',
+"       \     'mac' : 'make -f make_mac.mak',
+"       \     'unix' : 'make -f make_unix.mak',
+"       \    },
+"       \ }
+
+" NeoBundle "git://github.com/Shougo/unite.vim.git"
+" source ~/.vim/pluginRc/uniteVimRc
+
+" =============================== Thumbnail ====================================
+NeoBundle "https://github.com/itchyny/thumbnail.vim.git"
+" ==============================================================================
+
+" =============================== Better Markdown ==============================
+NeoBundle "https://github.com/tpope/vim-markdown.git"
+" ==============================================================================
+
+" =============================== Session = ====================================
+NeoBundle "https://github.com/xolox/vim-misc.git"
+NeoBundle "https://github.com/xolox/vim-session.git"
+let g:session_autosave_periodic = 0  "Every three minutes + on close seems fine.
+" But saving resets window dims!
+let g:session_autosave = 'yes'       "Auto-save on close
+let g:session_autoload = 'no'
+
+" Make sure to save sessions outside of your dotfiles in case you publish your
+" dotfiles to github etc.
+let g:session_directory="~/vim_sessions/"
+" ==============================================================================
+
+" My custom session management GUI tools (in menu bar) Based on one of the
+" other session managers.
+set runtimepath+=~/.vim/localBundle/sessions
+
+
+" ================================ VimJSDocSnippets ============================
+NeoBundle 'jordwalke/VimJSDocSnippets'
+if has('gui_win32')
+  let g:JSDocSnippetsMapping='<S-M-c>'
+else
+  let g:JSDocSnippetsMapping='<D-C>'
+endif
+" ==============================================================================
+
+" ================================= VimJSXHint =================================
+NeoBundle 'jordwalke/VimJSXhint'
+" Custom JSX enabled JSHint. Has been known to not work well on terminals, but
+" works with MacVim perfectly! IMPORTANT: JsLint causes a delay when
+" pressing 'd' in visual mode. So, I ommented out the following lines in
+" jslint.
+" noremap <buffer><silent> dd dd:JSLintUpdate<CR>
+" noremap <buffer><silent> dw dw:JSLintUpdate<CR>
+if has('win32unix')
+  let g:jsCommand='~/cyg-wrapper.sh node'
+else
+  let g:jsCommand='node'
+endif
+" ==============================================================================
+
+
+" ==================== Best Pair Tool Ever =====================================
+NeoBundle "git://github.com/MartinLafreniere/vim-PairTools.git"
+source ~/.vim/pluginRc/pairToolsVimRc
+" ==============================================================================
+
+
+" ==================== Vaxe ====================================================
+" set runtimepath+=~/.vim/localBundle/vaxe/
+" autocmd FileType haxe set autowrite
+
+" preview adds odd preview window at the top
+" Cannot upgrade to Vim 7.4 due to the following autocomplete bug listed in the
+" TODOs.
+" https://vim.googlecode.com/hg/runtime/doc/todo.txt
+" ==============================================================================
+
+
+" ========================== Cocoa Vim =========================================
+" NeoBundle "http://github.com/msanders/cocoa.vim"
+" ==============================================================================
+
+
+" =================================== LastTab  =================================
+set runtimepath+=~/.vim/localBundle/LastTab
+map <D-L> :SwitchToLastTab<CR>
+imap <D-L> <Esc>:SwitchToLastTab<CR>
+" ==============================================================================
+
+
+" =================================== Closer  ==================================
+" Go to Left when closing like everything else in the world
+NeoBundle "jordwalke/VimCloser"
+" ==============================================================================
+
+
+" =============================== SmartGUITabs =================================
+NeoBundle "jordwalke/MacVimSmartGUITabs"
+" Make sure to have `set guioptions+=e` in your `.gvimrc`.
+map <D-Cr> :SmartGUITabsToggleFullScreen<CR>
+imap <D-Cr> <Esc>:SmartGUITabsToggleFullScreen<CR>
+" ==============================================================================
+
+
+" =================================== NERDTree =================================
+" Q : How can I open a NERDTree automatically when vim starts up if no files
+" were specified?  A : NerdTreeTabs handles this
+NeoBundle "https://github.com/scrooloose/nerdtree"
+source ~/.vim/pluginRc/nerdTreeVimRc
+" Also see ~/.vim/nerdtree_plugin/myMappings.vim (NERDTree requires mappings
+" exist there)
+" ==============================================================================
+
+
+
+" ============================= NERDTreeSideBar ================================
+NeoBundle "https://github.com/jistr/vim-nerdtree-tabs"
+source ~/.vim/pluginRc/nerdTreeTabsVimRc
+" ==============================================================================
+
+" ============================ OCaml ===========================================
+" Bundles installed with OPAM:
+" ==============================================================================
+"Merlin AutoComplete:
+"Just install OCaml/OPAM
+" # wget http://www.ocamlpro.com/pub/opam_installer.sh
+" # sh ./opam_installer.sh /usr/local/bin 4.00.1
+"
+" > To find the "share_dir", do: `opam config var share`
+" < /Users/jwalke/.opam/4.00.1/share
+"
+" Hacked ACP to support this and haxe.
+if !empty(system('which opam'))
+  " =================================== Merlin ================================
+  let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','') . "/ocamlmerlin"
+  execute "set rtp+=".s:ocamlmerlin."/vim"
+  execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
+
+  " =================================== OCP-indent ============================
+  let g:ocp_indent_vimfile = system("opam config var share")
+  let g:ocp_indent_vimfile = substitute(g:ocp_indent_vimfile, '[\r\n]*$', '', '')
+  let g:ocp_indent_vimfile = g:ocp_indent_vimfile . "/vim/syntax/ocp-indent.vim"
+
+  autocmd FileType ocaml exec ":source " . g:ocp_indent_vimfile
+  " See: https://github.com/the-lambda-church/merlin/issues/184
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+  " autocmd FileType ocaml exec "let g:neocomplete#sources#omni#functions = {}"
+  " autocmd FileType ocaml exec "let g:neocomplete#sources#omni#functions.ocaml = 'merlin#Complete'"
+  let g:neocomplete#force_omni_input_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
+  let g:syntastic_ocaml_checkers=['merlin']
+endif
+" ==============================================================================
+
+
+
+
+" ======================= A lighterweight Powerline ============================
+NeoBundle "https://github.com/bling/vim-airline"
+let g:airline_powerline_fonts = 1
+set laststatus=2
+" Disable truncation
+let g:airline#extensions#default#section_truncate_width = {}
+" ==============================================================================
+
+
+
+
+
+" ==================================== Syntastic ================================
+NeoBundle "https://github.com/scrooloose/syntastic"
+" TODO: Disable signs in merlin/syntastic, and only use the VimHint strategy of
+" underlining *just* the region of error.
+let g:syntastic_enable_signs=0
+" let g:syntastic_warning_symbol=""
+" let g:syntastic_error_symbol=""
+" highlight link SyntasticErrorLine Spellbad
+" highlight link SyntasticWarningLine Spellbad
+" highlight link SyntasticStyleErrorLine Spellbad
+" highlight link SyntasticStyleWarningLine Spellbad
+" For OCaml (which uses syntastic + merlin) always show the sign gutter
+" otherwise it's jarring when it appears.
+" autocmd FileType ocaml sign define dummy
+" autocmd FileType ocaml execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
+" ==============================================================================
+
+
+
+" ==================================== TaskList ================================
+NeoBundle "git://github.com/vim-scripts/TaskList.vim.git"
+" ==============================================================================
+
+
+
+" ================================== Expand-Region =================================
+NeoBundle "git://github.com/terryma/vim-expand-region.git"
+
+" Override the default expand region to avoid paragraphs and lines, and also add
+" "around" braces/brackets/parens/quotes. Remove "W" word - it extends beyond
+" paren boundaries in an unbalanced way.
+let g:expand_region_text_objects = {
+      \ 'iw'  :0,
+      \ 'i"'  :0,
+      \ 'i''' :0,
+      \ 'i]'  :1,
+      \ 'ib'  :1,
+      \ 'iB'  :1,
+      \ 'a]' :1,
+      \ 'ab' :1,
+      \ 'aB' :1,
+      \ 'a"'  :0,
+      \ 'a''' :0
+      \ }
+" ==============================================================================
+
+
+
+
+" ================================== Smooth-Scroll =================================
+NeoBundle "git://github.com/terryma/vim-smooth-scroll.git"
+"Normal mode
+noremap <silent> <c-u> :call smooth_scroll#up(40, 20, 6)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(40, 20, 6)<CR>
+
+" smooth_scroll is broken in visual mode currently - unmap
+vnoremap <silent> <c-u> <c-u>
+vnoremap <silent> <c-d> <c-d>
+" ==============================================================================
+
+
+
+" ================================= Flatlandia ==================================
+NeoBundle "git://github.com/jordwalke/flatlandia"
+" ==============================================================================
+
+
+" ================================= Solarized ==================================
+NeoBundle "git://github.com/altercation/vim-colors-solarized"
+"default value is 1
+let g:solarized_underline=0
+"default value is 16
+let g:solarized_termcolors=256
+"default value is normal
+let g:solarized_contrast="high"
+"default value is normal
+let g:solarized_visibility="high"
+" ==============================================================================
+
+
+" ================================= Ctrl-p =====================================
+" See ~/.gvimrc as well
+NeoBundle "git://github.com/kien/ctrlp.vim.git"
+source ~/.vim/pluginRc/ctrlPVimRc
+" ==============================================================================
+
+
+" ================================== Headlights ================================
+" Shows all plugin options as menu items like textmate bundles!
+NeoBundle 'mbadran/headlights'
+"let g:headlights_use_plugin_menu = 1;
+let g:headlights_smart_menus = 1
+" ==============================================================================
+
+
+" ============================= UltiSnips-quite awesome=========================
+" Check out snippets in ~/.vim/personalSnippets/
+NeoBundle "Shougo/neocomplete.vim"
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_auto_select = 1
+
+NeoBundle "git://github.com/SirVer/ultisnips.git"
+NeoBundle "jordwalke/VimCompleteLikeAModernEditor"
+
+" ============================= Commenter ======================================
+NeoBundle "git://github.com/tpope/vim-commentary.git"
+" ==============================================================================
+
+" Allow ocaml comments toggling
+autocmd FileType ocaml set commentstring=(*\ %s\ *)
+
+
+
+NeoBundle "https://github.com/pangloss/vim-javascript"
+
+
+" =============================Javascript-Indent================================
+NeoBundle "git://github.com/vim-scripts/JavaScript-Indent.git"
+" ==============================================================================
+
+
+
+" ========================= Simulator Refresh ==================================
+" 'delay 0.5\n tell application "iOS Simulator"\n activate\n tell application "System Events"\n keystroke "r" using command down\n end tell\n end tell'
+function! RefreshTheSimulator()
+  silent :!osascript -e 'delay 0.5' -e 'tell application "iOS Simulator"' -e 'activate' -e 'tell application "System Events"' -e 'keystroke "r" using command down' -e 'end tell' -e 'activate me' -e 'end tell'
+  redraw!
+  if (has('gui_macvim'))
+    silent :!ps -xc|grep -sq MacVim && osascript -e 'tell app "MacVim"' -e 'activate' -e 'end tell'
+  endif
+endfunction
+:command! RefreshSimulator :call RefreshTheSimulator()
+
+map <silent><D-r> :w<CR>:RefreshSimulator<CR>
+imap <silent><D-r> <Esc>:w<CR>:RefreshSimulator<CR>
+vmap <silent><D-r> <Esc>:w<CR>:RefreshSimulator<CR>
+map <silent><D-R> :w<CR>:OpenDebugger<CR>
+
+" ==============================================================================
+
+
+" ================================= Less========================================
+NeoBundle "git://github.com/groenewege/vim-less.git"
+" ==============================================================================
+
+
+
+" ======================= Parameter Text Objects ===============================
+" ciP  (change in paramater  - changes the single argument under cursor!
+NeoBundle "git://github.com/vim-scripts/Parameter-Text-Objects.git"
+" ==============================================================================
+
+
+
+" ============================ GUndo ============================================
+" Visualize a tree of your document history
+NeoBundle "http://github.com/sjl/gundo.vim.git"
+nnoremap <D-U> :GundoToggle<CR>
+let g:gundo_close_on_revert=1
+" ==============================================================================
+
+" ========================== Undo Quit of a window =============================
+NeoBundle "https://github.com/AndrewRadev/undoquit.vim"
+map <D-T> <Esc>:Undoquit<CR>
+" ==============================================================================
+
+
+" =======================GUI File Browser like CMD+T ===========================
+" NeoBundle "https://github.com/twe4ked/vim-peepopen"
+" if has("gui_macvim")
+"   map <D-t> <Plug>PeepOpen
+" end
+" ==============================================================================
+
+NeoBundleCheck
