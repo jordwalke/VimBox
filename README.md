@@ -74,6 +74,7 @@ Optional Install:
 
 Features:
 ----------
+
 ####Familiar Window/Tab Key Commands
 
 | Key          | Action        |
@@ -83,6 +84,9 @@ Features:
 | `⌘+shift+t`       | Reopen Last Closed Tab   |
 | `⌘+w`       | Close tab/split/window   |
 | `⌘+s`       | Save file  |
+| `⌘+enter`       | Special Distraction-Free FullScreen Mode|
+| `⌘+e`       | Toggle File Explorer (Docked `NERDTree`) |
+| `⌘+p`       | Open Anything (`ctrl-p`) |
 
 
 ####Airline/Flatlandia
