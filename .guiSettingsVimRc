@@ -1,0 +1,61 @@
+if has("gui_running") " all this for gui use
+  " ugly MacVim Cruft
+  set guioptions-=r "remove scrollbars
+  set guioptions-=R "remove scrollbars
+  set guioptions-=l "remove scrollbars
+  set guioptions-=L "remove scrollbars
+  set guioptions-=T " Remove toolbars
+
+  "========== Windows ===================================
+" Shouldn't this check apply to windows in general, not just gui (want to
+" include cygwin as well - but some settings don't really apply in cygwin
+" windows)?
+  if has("gui_win32")
+    " http://unix.stackexchange.com/questions/44616/why-is-vim-creating-files-with-dos-line-endings
+    " #Windwos
+    set fileformats=unix,dos
+    " set nobinary
+    " remove tabs on Gvim - for different reasons than removing them on MacVim -
+    " They do not play well with the fullscreen plugin for vim
+    " https://github.com/derekmcloughlin/gvimfullscreen_win32
+    set guioptions-=e
+    set novisualbell     "Visual Bell Looks really ghetto on Windows GVim.
+    set guioptions-=m
+    set guifont=Lucida\ Console:h10.00
+    " Needed to NOT break symlinks on windows! Will write to new file instead of
+    " original symlinked file if you do not inclue the following line:
+    " Doesn't seem to fix the issue - always go to the source when editing files!
+    set backupcopy=yes
+  else
+    " Not has(gui_win32)
+    set fileformats=unix
+  endif
+
+  "========== Mac OS X ==================================
+  " Pro Tips:
+  " Make sure to turn off anti-aliasing in general preferences panel.
+  if has("gui_macvim")
+    " Don't remove tabs on MacVim because VimGUITabs plugin makes them get out
+    " of the way when we want them to get out of the way (in full screen mode).
+    " set guioptions-=e
+    " set guifont=Menlo:h12.00
+    " like A CSS Reset:
+    let macvim_skip_colorscheme = 1
+    set transparency=0
+    set fuoptions=maxvert,maxhorz
+    set lines=45
+    set columns=85
+    " If using Menlo font
+    set guifont=Inconsolata-dz\ for\ Powerline:h14
+    " set guifont=Courier:h15.00
+    set linespace=-4
+  endif
+endif
+
+set t_Co=256
+syntax enable
+set background=light
+colorscheme solarizedLight
+set background=dark
+colorscheme lightBrightMuted
+colorscheme flatlandia
