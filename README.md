@@ -12,13 +12,17 @@
 <ul>
   <li><h5>Mac Keyboard mappings</h5></li>
   <li><h5>Familiar autocomplete behavior</h5></li>
-  <li><h5>JavaScript indentation lint support</h5></li>
+  <li><h5>JavaScript indentation and lint support</h5></li>
   <li><h5>Snippets (with JavaScript examples)</h5></li>
   <li><h5><a href="https://github.com/jordwalke/flatlandia/">Flatlandia</a> theme</h5></li>
 </ul>
 </td>
 </tr>
 </table>
+
+
+> `VimBox` configures MacVim to behave like modern editors such as Sublime.
+
 
 <img src="https://github.com/jordwalke/flatlandia/raw/master/images/flatlandia_completion.png" />
 
@@ -57,6 +61,7 @@ Optional Install:
 -----------------
        
 1. Install vim-airline font:
+> You should install this font so that the `vim-airline` themes look decent (as in the screenshot).
 
         open Fonts/Inconsolata-dz+for+Powerline.otf
         # Click "Install Font"
@@ -64,11 +69,8 @@ Optional Install:
 2. Install node.js if you want JS features such as linting (http://nodejs.org/)
 
 
-About:
+Features:
 ----------
-
-> `VimBox` configures MacVim to behave like modern editors such as XCode and Sublime. Keyboard mappings resemble more familiar editors and plugins are configured to work well together to provide a frictionless editing experience.
-
 ####Familiar Window/Tab Key Commands
 
 | Key          | Action        |
