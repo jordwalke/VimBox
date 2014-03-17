@@ -24,7 +24,10 @@
 > `VimBox` configures MacVim to behave like modern editors such as Sublime.
 
 
+Screen Shot:
+-------------
 <img src="https://github.com/jordwalke/flatlandia/raw/master/images/flatlandia_completion.png" />
+
 
 
 Installation:
