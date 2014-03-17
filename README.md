@@ -41,8 +41,8 @@ Installation:
 2. If you already have a vim setup, move it safely out of the way or back it up.
 
         mv ~/.vim/ ~/.vim_backup/
-        mv ~/.vimrc/ ~/.vimrc_backup/
-        mv ~/.gvimrc/ ~/.gvimrc_backup/
+        mv ~/.vimrc ~/.vimrc_backup
+        mv ~/.gvimrc ~/.gvimrc_backup
 
 
 3. Install HomeBrew if needed.
