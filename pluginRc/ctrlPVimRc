@@ -1,0 +1,142 @@
+" Splitting rightwards helps preserve a left nav when opening ctrlp.
+" TODO: Disable ctrlp for network mount use
+set splitright
+"jump to existing buffer on ANY open command (split/tab/etc).
+let g:ctrlp_switch_buffer="ETVH"
+
+" Assumes autohotkey mappings
+if has("gui_win32")
+  " Open ctrlp with cmd+p
+  let g:ctrlp_map = '<F12>'
+
+  " Open goto symbol on current buffer
+  nmap <F9> :MyCtrlPTag<cr>
+  imap <F9> <esc>:MyCtrlPTag<cr>
+
+  " Open goto symbol on all buffers
+  nmap <F10> :CtrlPBufTagAll<cr>
+  imap <F10> <esc>:CtrlPBufTagAll<cr>
+
+  " Open goto file
+  nmap <F8> :CtrlP<cr>
+  imap <F8> <esc>:CtrlP<cr>
+else
+  " Open ctrlp with cmd+p
+  let g:ctrlp_map = '<D-p>'
+  " Open goto symbol on current buffer
+  " Not mapping D-r like sublime/etc so we can use it for refreshing an app.
+  " nmap <D-r> :MyCtrlPTag<cr>
+  " imap <D-r> <esc>:MyCtrlPTag<cr>
+  " Open goto symbol on all buffers
+  " nmap <D-R> :CtrlPBufTagAll<cr>
+  " imap <D-R> <esc>:CtrlPBufTagAll<cr>
+  " Open goto file
+  " nmap <D-t> :CtrlPBuffer<cr>
+  " imap <D-t> <esc>:CtrlPBuffer<cr>
+endif
+
+" search anything (in files, buffers and MRU files at the same time.)
+let g:ctrlp_cmd = 'CtrlPCurWD'
+"search for nearest ancestor like .git, .hg, else the directory of the current file
+let g:ctrlp_working_path_mode = 'raw'
+" show the match window at the top of the screen
+let g:ctrlp_match_window_bottom = 0
+" maxiumum height of match window
+" See other match window setting
+" let g:ctrlp_max_height = 10
+let g:ctrlp_match_window = 'bottom,order:btt,min:13,max:13'
+" enable caching
+let g:ctrlp_use_caching = 1
+" speed up by not removing clearing cache evertime
+let g:ctrlp_clear_cache_on_exit=0
+" show me dotfiles
+let g:ctrlp_show_hidden = 1
+" number of recently opened files
+let g:ctrlp_mruf_max = 250
+
+" Exact same mappings as non-win32 but with D-c Replaced with AHK shift+F7
+if has("gui_win32")
+  " See https://github.com/kien/ctrlp.vim/issues/389
+  func! MyPrtMappings()
+    let g:ctrlp_prompt_mappings = {
+          \ 'CreateNewFile()':      [''],
+          \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
+          \ 'ToggleType(-1)':       ['<c-y>', '<c-down>'],
+          \ 'PrtCurLeft()':         ['<c-b>', '<left>', '<c-^>'],
+          \ 'PrtCurRight()':        ['<c-f>', '<right>'],
+          \ 'AcceptSelection("e")': ['<c-t>'],
+          \ 'AcceptSelection("h")': ['<c-v>'],
+          \ 'AcceptSelection("v")': ['<c-s>'],
+          \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+          \ 'PrtClearCache()':      ['<M-C>'],
+          \ }
+  endfunc
+
+  func! MyCtrlPTag()
+    let g:ctrlp_prompt_mappings = {
+          \ 'CreateNewFile()':      [''],
+          \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
+          \ 'ToggleType(-1)':       ['<c-y>', '<c-down>'],
+          \ 'PrtCurLeft()':         ['<c-b>', '<left>', '<c-^>'],
+          \ 'PrtCurRight()':        ['<c-f>', '<right>'],
+          \ 'AcceptSelection("e")': ['<c-t>'],
+          \ 'AcceptSelection("h")': ['<c-v>'],
+          \ 'AcceptSelection("v")': ['<c-s>'],
+          \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+          \ 'PrtClearCache()':      ['<M-C>'],
+          \ }
+    CtrlPBufTag
+  endfunc
+
+else
+  " See https://github.com/kien/ctrlp.vim/issues/389
+  func! MyPrtMappings()
+    let g:ctrlp_prompt_mappings = {
+          \ 'CreateNewFile()':      [''],
+          \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
+          \ 'ToggleType(-1)':       ['<c-y>', '<c-down>'],
+          \ 'PrtCurLeft()':         ['<c-b>', '<left>', '<c-^>'],
+          \ 'PrtCurRight()':        ['<c-f>', '<right>'],
+          \ 'AcceptSelection("e")': ['<c-t>'],
+          \ 'AcceptSelection("h")': ['<c-v>'],
+          \ 'AcceptSelection("v")': ['<c-s>'],
+          \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+          \ 'PrtClearCache()':      ['<D-C>'],
+          \ }
+  endfunc
+
+  func! MyCtrlPTag()
+    let g:ctrlp_prompt_mappings = {
+          \ 'CreateNewFile()':      [''],
+          \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
+          \ 'ToggleType(-1)':       ['<c-y>', '<c-down>'],
+          \ 'PrtCurLeft()':         ['<c-b>', '<left>', '<c-^>'],
+          \ 'PrtCurRight()':        ['<c-f>', '<right>'],
+          \ 'AcceptSelection("e")': ['<c-t>'],
+          \ 'AcceptSelection("h")': ['<c-v>'],
+          \ 'AcceptSelection("v")': ['<c-s>'],
+          \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+          \ 'PrtClearCache()':      ['<D-C>'],
+          \ }
+    CtrlPBufTag
+  endfunc
+
+endif
+
+let g:ctrlp_buffer_func = { 'exit': 'MyPrtMappings' }
+com! MyCtrlPTag call MyCtrlPTag()
+
+" TODO: add javascript and some other languages who doesn't have ctags support
+" coffee: https://gist.github.com/michaelglass/5210282
+" go: http://stackoverflow.com/a/8236826/462233
+" objc:  http://www.gregsexton.org/2011/04/objective-c-exuberant-ctags-regex/
+" rust: https://github.com/mozilla/rust/blob/master/src/etc/ctags.rust
+let g:ctrlp_buftag_types = {
+      \ 'go'     	   : '--language-force=go --golang-types=ftv',
+      \ 'coffee'     : '--language-force=coffee --coffee-types=cmfvf',
+      \ 'markdown'   : '--language-force=markdown --markdown-types=hik',
+      \ 'objc'       : '--language-force=objc --objc-types=mpci',
+      \ 'rc'         : '--language-force=rust --rust-types=fTm'
+      \ }
+
+
