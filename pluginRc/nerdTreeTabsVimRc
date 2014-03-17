@@ -1,0 +1,16 @@
+let g:nerdtree_tabs_focus_on_files = 1
+let g:nerdtree_tabs_open_on_gui_startup = 0
+if has("gui_running")
+  if has("gui_macvim")
+    map <D-e> :NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    imap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    vmap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    nmap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+  endif
+  if has("gui_win32")
+    map <F11> :NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    imap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    vmap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    nmap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+  endif
+endif
