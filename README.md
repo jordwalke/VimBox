@@ -34,31 +34,33 @@ Installation:
 -------------
 > Quickly try VimBox in place of your existing setup. Back up your existing vim files, and move them out of the way as instructed:
 
-1. Install HomeBrew if needed.
+1. If you already have MacVim installed:
 
-         http://brew.sh/
-
-2. Install MacVim with lua/python support using HomeBrew:
-
-        # Move any existing MacVim.app out of the way.
         mv /Applications/MacVim.app /Applications/MacVim_Backup.app
-        brew install macvim --with-cscope --with-lua --python --HEAD
-        brew linkapps    # Put the app in your /Applications directory
 
-3. Back up your old .vim folder/files
+2. If you already have a vim setup, move it safely out of the way or back it up.
 
         mv ~/.vim/ ~/.vim_backup/
         mv ~/.vimrc/ ~/.vimrc_backup/
         mv ~/.gvimrc/ ~/.gvimrc_backup/
 
-4. Clone `VimBox` wherever you like to keep your github clones
+
+3. Install HomeBrew if needed.
+
+        http://brew.sh/
+
+4. Install MacVim with lua/python support using HomeBrew:
+
+        brew install macvim --with-cscope --with-lua --python --HEAD
+        brew linkapps    # Put the app in your /Applications directory
+
+6. Clone `VimBox` wherever you like to keep your github clones
 
         # cd ~/github/     # Or wherever you like to keep github clones
         git clone https://github.com/jordwalke/VimBox/
-        ln -s ~/.vim ./VimBox/.vim   # Link to the clone
+        ln -s ~/.vim ./VimBox/.vim       # Link to the cloned vim config
         ln -s ~/.vimrc ./VimBox/.vimrc
         ln -s ~/.gvimrc ./VimBox/.gvimrc
-        # Now you can simply rebase in updates for `VimBox`
 
 Optional Install:
 -----------------
@@ -75,7 +77,7 @@ Optional Install:
 Features:
 ----------
 
-####Familiar Window/Tab Key Commands
+####Familiar Mac Key Commands
 
 | Key          | Action        |
 | ------------ |-------------|
@@ -84,10 +86,22 @@ Features:
 | `⌘+shift+t`       | Reopen Last Closed Tab   |
 | `⌘+w`       | Close tab/split/window   |
 | `⌘+s`       | Save file  |
+| `⌘+z`       | Undo  |
+| `⌘+shift+z`       | Redo  |
 | `⌘+enter`       | Special Distraction-Free FullScreen Mode|
 | `⌘+e`       | Toggle File Explorer (Docked `NERDTree`) |
+| `⌘+shift+[` / `⌘+shift+]` |Go to previous/next tab |
+| `^+tab` / `^+shift+tab` |Go to previous/next tab (in normal Vim mode)|
+| `⌘+1 `  |                 Go to tab `1` |
 | `⌘+p`       | Open Anything (`ctrl-p`) |
+| `F5`       | Sort lines (like Textmate) |
 
+#####Mega Escape
+> `VimBox` has mapped `^+l` to exit out of any modal window/prompt/mode/command to bring you back to normal Vim navigation mode. It's like the home button on the iPhone. Remap <a href="http://stackoverflow.com/questions/15435253/how-to-remap-the-caps-lock-key-to-control-in-os-x-10-8"> CapsLock to control</a> and never reach for `Escape` again. Hit the `CapsLock` key and `l` right on the home row.
+
+| Key          | Action        |
+| ------------ |-------------|
+| `^+l`       | Mega Escape |
 
 ####Airline/Flatlandia
 
@@ -117,25 +131,43 @@ Vim had a flat design Before It Was Cool. `VimBox` includes `vim-airline` and `f
 
 Included plugins are configured so that opening a file will always focus the window/tab/split where that file is already open. This is how most modern editors work.
 
-####Control-P
+####Command-P Search Window
 
-`VimBox` includes `ctrl-p` and has been configured with keymappings that are consistent with its `NERDTree` keymappings.
-
-| Key          | Action        |
-| ------------ |-------------|
-| `enter`      | opens a file in new tab or jump to existing window if already open |
-| `c-s`        | opens a file in a vertical split or jump to existing window if already open |
-| `c-h`        | opens a file in horizontal split or jump to existing window if already open |
-
-###NERDTree
-
-`NERDTree` is included and is configured to act as a left-nav bar (toggle it via `CMD+e`). Its keymappings have been configured to be consistent with `ctrl-p`.
+`VimBox` includes the `ctrl-p` plugin and has been configured with keymappings that are consistent with its `NERDTree` keymappings.
 
 | Key          | Action        |
 | ------------ |-------------|
-| `enter`      | opens a file in new tab or jump to existing window if already open |
-| `s`          | opens a file in a vertical split or jump to existing window if already open |
-| `h`          | opens a file in horizontal split or jump to existing window if already open |
+| `⌘+p`       | Open Anything and begin searching for file|
+| `enter`      | While searching, opens the top hit in new tab or jump to existing window if already open |
+| `c-s`        | While searching, opens the top hit in a vertical split or jump to existing window if already open |
+| `c-h`        | While searching, opens the top hit in horizontal split or jump to existing window if already open |
+
+####NERDTree
+
+`NERDTree` is included and is configured to act as a left-nav bar (toggle it via `⌘+e`). Its keymappings have been configured to be consistent with the `ctrl-p` plugin.
+
+| Key          | Action        |
+| ------------ |-------------|
+| `⌘+e`       | Toggle side bar file exporer |
+| `j`/`k`      | While explorer focused, move up and down |
+| `enter`      | While explorer focused, opens a file in new tab or jump to existing window if already open |
+| `s`          | While explorer focused, opens a file in a vertical split or jump to existing window if already open |
+| `h`          | While explorer focused, opens a file in horizontal split or jump to existing window if already open |
+| `u`          | While explorer focused, Move up a directory |
+| `o`          | While explorer focused, Expand a subdirectory |
+| `CD`         | While explorer focused, Make the file exporer's directory equal to Vim's `cwd`  |
+| `cd`         | While explorer focused, make Vim's `cwd` equal to the directory under the cursor |
+| `m`         | While explorer focused, show complete menu of possible commands to execute |
+
+
+####Tabs And Splits Navigation
+> Jump around quickly to the next tab or split with a single key press. Go back the other direction by pressing shift.
+
+| Key          | Action        |
+| ------------ |-------------|
+| `Space`/`shift+Space`       | While in Vim's normal mode - go to next/preious tab |
+| `tab`/`shift+tab`      | While in Vim's normal mode - go to next/previous split |
+
 
 ####JavaScript Development
 
@@ -153,10 +185,10 @@ Included plugins are configured so that opening a file will always focus the win
 | `if`       | `if` statement|
 | `forin` `tab`| `for`-`in` loop |
 | `fun` `tab`| `function` definition |
-| `lam` `tab`| lambda function |
+| `lam` `tab`| Lambda function |
 | `try` `tab`| `try`/`catch` |
 | `log` `tab`| `console.log` |
-| `logo` `tab`| log stringified object to console |
+| `logo` `tab`| Log stringified object to console |
 | `tag` `tab`| `JSX` tag `<typeHere att={}></typeHere>`|
 | `logo` `tab`| Many more including <a href="https://github.com/facebook/react">ReactJS</a> helpers |
 
