@@ -40,7 +40,7 @@ Installation:
 
 2. If you already have a vim setup, move it safely out of the way or back it up.
 
-        mv ~/.vim/ ~/.vim_backup/
+        mv ~/.vim ~/.vim_backup    #No trailing slashes to preserve symlinks!
         mv ~/.vimrc ~/.vimrc_backup
         mv ~/.gvimrc ~/.gvimrc_backup
 
