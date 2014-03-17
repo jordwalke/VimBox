@@ -78,7 +78,8 @@ Features:
 | `⌘+n`       | New Tab        
 | `⌘+shift+n`       | New Window  |
 | `⌘+shift+t`       | Reopen Last Closed Tab   |
-| `⌘+p`       | Open Anything   |
+| `⌘+w`       | Close tab/split/window   |
+| `⌘+s`       | Save file  |
 
 
 ####Airline/Flatlandia
@@ -128,6 +129,38 @@ Included plugins are configured so that opening a file will always focus the win
 | `enter`      | opens a file in new tab or jump to existing window if already open |
 | `s`          | opens a file in a vertical split or jump to existing window if already open |
 | `h`          | opens a file in horizontal split or jump to existing window if already open |
+
+####JavaScript Development
+
+#####JavaScript Linting
+- Excellent JavaScript indenting and inline linting with support for `JSX`.
+
+<img src="https://github.com/jordwalke/VimJSXHint/raw/master/images/VimJSXHint.png" />
+
+#####JavaScript Snippets
+- JavaScript snippets are include, but you can add your own for any language you like
+
+| Key          | Action        |
+| ------------ |-------------|
+| `for` `tab`  | `for` loop |
+| `if`       | `if` statement|
+| `forin` `tab`| `for`-`in` loop |
+| `fun` `tab`| `function` definition |
+| `lam` `tab`| lambda function |
+| `try` `tab`| `try`/`catch` |
+| `log` `tab`| `console.log` |
+| `logo` `tab`| log stringified object to console |
+| `tag` `tab`| `JSX` tag `<typeHere att={}></typeHere>`|
+| `logo` `tab`| Many more including <a href="https://github.com/facebook/react">ReactJS</a> helpers |
+
+
+#####JavaScript DocBlock Generator
+
+The following key mapping generates docblock comments. `<tab>` will select the parameters in the generated docblock so you can edit the descriptions/types. Works with `ES6` functions.
+
+| Key          | Action        |
+| ------------ |-------------|
+| `⌘+shift+c` | Generate JS Docblock  - when currsor is above a function| 
 
 
 Plugin System:
