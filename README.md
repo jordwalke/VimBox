@@ -1,28 +1,31 @@
-VimBox
-------
-
-> Clean and Simple MacVim Editing
+<h1>VimBox</h1>
+<blockquote>Clean and Simple MacVim Editing</blockquote>
 
 <table>
 <tr>
 <td>
+
 <img src=".vim/images/VimBox.png" height=256 width=256 />
 </td>
 <td>
+
 <ul>
-  <li><h4>Mac Keyboard mappings</h4></li>
-  <li><h4>Familiar autocomplete behavior</h4></li>
-  <li><h4>JavaScript indentation lint support</h4></li>
-  <li><h4>Snippets (with JavaScript examples)</h4></li>
+  <li><h5>Mac Keyboard mappings</h5></li>
+  <li><h5>Familiar autocomplete behavior</h5></li>
+  <li><h5>JavaScript indentation lint support</h5></li>
+  <li><h5>Snippets (with JavaScript examples)</h5></li>
+  <li><h5><a href="https://github.com/jordwalke/flatlandia/">Flatlandia</a> theme</h5></li>
 </ul>
 </td>
 </tr>
 </table>
 
+<img src="https://github.com/jordwalke/flatlandia/raw/master/images/flatlandia_completion.png" />
+
 
 Installation:
 -------------
-> Quickly try VimBox in place of your existing setup. Instructions include steps for backing up your existing setup (but you should already have your vim setup under revision control.)
+> Quickly try VimBox in place of your existing setup. Back up your existing vim files, and move them out of the way as instructed:
 
 1. Install HomeBrew if needed.
 
@@ -48,19 +51,7 @@ Installation:
         ln -s ~/.vim ./VimBox/.vim   # Link to the clone
         ln -s ~/.vimrc ./VimBox/.vimrc
         ln -s ~/.gvimrc ./VimBox/.gvimrc
-
-5. Install NeoBundle:
-
-       ```
-       mkdir -p ~/.vim/bundle
-       git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-       # Then open Vim/MacVim and run:
-       ```
-
-6. Open MacVim and run:
-
-        :NeoBundleInstall
-       
+        # Now you can simply rebase in updates for `VimBox`
 
 Optional Install:
 -----------------
@@ -73,3 +64,76 @@ Optional Install:
 2. Install node.js if you want JS features such as linting (http://nodejs.org/)
 
 
+About:
+----------
+
+> `VimBox` configures MacVim to behave like modern editors such as XCode and Sublime. Keyboard mappings resemble more familiar editors and plugins are configured to work well together to provide a frictionless editing experience.
+
+####Familiar Window/Tab Key Commands
+
+| Key          | Action        |
+| ------------ |-------------|
+| `⌘+n`       | New Tab        
+| `⌘+shift+n`       | New Window  |
+| `⌘+shift+t`       | Reopen Last Closed Tab   |
+| `⌘+p`       | Open Anything   |
+
+
+####Airline/Flatlandia
+
+Vim had a flat design Before It Was Cool. `VimBox` includes `vim-airline` and `flatlandia`.
+
+####Braces and Pairs
+
+- Inserting `{`, `[`, `'`, or `"` automatically inserts the closing character.
+- When hitting enter with the cursor between two braces `{|}` the newline is formatted with an extra indentation.
+- The behavior is identical to Sublime/Textmate.
+
+####AutoComplete/Snippets
+
+- Completions pop up automatically.
+- Like Sublime, `VimBox` accepts highlighted entries via `tab` or `enter`.
+- `tab` also triggers a snippet when applicable, and `tab` will allow "tabbing" through the snippet placeholders.
+- Place custom snippets in `~/.vim/myUltiSnippets/`
+
+
+####Distraction Free UI Tabs
+
+- When not in full screen mode, Mac style metalic tabs are used.
+- When in full-screen mode, those tabs become flat and blend into the background so you can focus on the code.
+
+
+####One File, One Location
+
+Included plugins are configured so that opening a file will always focus the window/tab/split where that file is already open. This is how most modern editors work.
+
+####Control-P
+
+`VimBox` includes `ctrl-p` and has been configured with keymappings that are consistent with its `NERDTree` keymappings.
+
+| Key          | Action        |
+| ------------ |-------------|
+| `enter`      | opens a file in new tab or jump to existing window if already open |
+| `c-s`        | opens a file in a vertical split or jump to existing window if already open |
+| `c-h`        | opens a file in horizontal split or jump to existing window if already open |
+
+###NERDTree
+
+`NERDTree` is included and is configured to act as a left-nav bar (toggle it via `CMD+e`). Its keymappings have been configured to be consistent with `ctrl-p`.
+
+| Key          | Action        |
+| ------------ |-------------|
+| `enter`      | opens a file in new tab or jump to existing window if already open |
+| `s`          | opens a file in a vertical split or jump to existing window if already open |
+| `h`          | opens a file in horizontal split or jump to existing window if already open |
+
+
+Plugin System:
+---------
+
+`VimBox` achieves its features through configuration of several plugins, but those should be considered implementation details of the `VimBox` distribution. `VimBox` uses modern editors as a "spec" for features and will configure several plugins in order to conform to that spec.
+
+- You can add any plugin you like using the `NeoBundle` command.
+- Edit `~/.vim/vimrc.custom.before` and `~/.vim/vimrc.custom.after`.
+- `~/.vim/vimrc.custom.before` is executed before the stock plugins are configured.
+- `~/.vim/vimrc.custom.after` is executed after the stock plugins are configured.
