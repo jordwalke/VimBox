@@ -269,11 +269,10 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 source ~/.vim/.bundlesVimRc
+NeoBundleCheck
 source ~/.vim/.guiSettingsVimRc   " Must come after .bundlesVimRc
 source ~/.vim/.keysVimRc
 source ~/.vim/.customFunctions.vim
-
-NeoBundleCheck
 
 if filereadable(expand("~/.vim/vimrc.custom.after"))
   source ~/.vim/vimrc.custom.after
