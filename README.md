@@ -62,6 +62,8 @@ Installation:
         ln -s `pwd`/VimBox/dotVimRc ~/.vimrc
         ln -s `pwd`/VimBox/dotGVimRc ~/.gvimrc
 
+7. Start `MacVim` that was installed from `homebrew`. Confirm that you want to install bundles. Wait. Restart `MacVim` when it's finished.
+
 Optional Install:
 -----------------
        
