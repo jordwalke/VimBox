@@ -58,9 +58,9 @@ Installation:
 
         # cd ~/github/     # Or wherever you like to keep github clones
         git clone https://github.com/jordwalke/VimBox/
-        ln -s ./VimBox/dotVim ~/.vim      # Link to the cloned vim config
-        ln -s ./VimBox/dotVimRc ~/.vimrc
-        ln -s ./VimBox/dotGVimRc ~/.gvimrc
+        ln -s `pwd`/VimBox/dotVim ~/.vim      # Link to the cloned vim config
+        ln -s `pwd`/VimBox/dotVimRc ~/.vimrc
+        ln -s `pwd`/VimBox/dotGVimRc ~/.gvimrc
 
 Optional Install:
 -----------------
