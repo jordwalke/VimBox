@@ -54,8 +54,5 @@ endif
 
 set t_Co=256
 syntax enable
-set background=light
-colorscheme solarizedLight
 set background=dark
-colorscheme lightBrightMuted
 colorscheme flatlandia
