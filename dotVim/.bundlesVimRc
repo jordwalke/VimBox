@@ -76,7 +76,7 @@ NeoBundle "git://github.com/tpope/vim-surround.git"
 " source ~/.vim/pluginRc/uniteVimRc
 
 " =============================== Thumbnail ====================================
-NeoBundle "https://github.com/itchyny/thumbnail.vim.git"
+" NeoBundle "https://github.com/itchyny/thumbnail.vim.git"
 " ==============================================================================
 
 " =============================== Better Markdown ==============================
@@ -255,13 +255,13 @@ let g:syntastic_enable_signs=0
 
 
 " ==================================== TaskList ================================
-NeoBundle "git://github.com/vim-scripts/TaskList.vim.git"
+" NeoBundle "git://github.com/vim-scripts/TaskList.vim.git"
 " ==============================================================================
 
 
 
 " ================================== Expand-Region =================================
-NeoBundle "git://github.com/terryma/vim-expand-region.git"
+" NeoBundle "git://github.com/terryma/vim-expand-region.git"
 
 " Override the default expand region to avoid paragraphs and lines, and also add
 " "around" braces/brackets/parens/quotes. Remove "W" word - it extends beyond
@@ -324,9 +324,9 @@ source ~/.vim/pluginRc/ctrlPVimRc
 
 " ================================== Headlights ================================
 " Shows all plugin options as menu items like textmate bundles!
-NeoBundle 'mbadran/headlights'
+" NeoBundle 'mbadran/headlights'
 "let g:headlights_use_plugin_menu = 1;
-let g:headlights_smart_menus = 1
+" let g:headlights_smart_menus = 1
 " ==============================================================================
 
 
@@ -377,7 +377,7 @@ map <silent><D-R> :w<CR>:OpenDebugger<CR>
 
 
 " ================================= Less========================================
-NeoBundle "git://github.com/groenewege/vim-less.git"
+" NeoBundle "git://github.com/groenewege/vim-less.git"
 " ==============================================================================
 
 
