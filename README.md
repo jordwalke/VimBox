@@ -5,7 +5,7 @@
 <tr>
 <td>
 
-<img src=".vim/images/VimBox.png" height=256 width=256 />
+<img src="dotVim/images/VimBox.png" height="256px" width="256px" />
 </td>
 <td>
 
