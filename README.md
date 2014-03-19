@@ -203,6 +203,17 @@ The following key mapping generates docblock comments. `<tab>` will select the p
 | ------------ |-------------|
 | `⌘+shift+c` | Generate JS Docblock  - when currsor is above a function| 
 
+Customizing:
+---------
+In `~/.vim/vimrc.custom.before`/`~/.vim/vimrc.custom.after` you may set any options you like. (See "Plugin System" section below).
+
+`VimBox` will look to see if you have defined the following variables defined in your `~/.vim/vimrc.custom.before`:
+
+| Key                      | Behavior                |
+| ------------------------ |-------------------------|
+| `let g:textColumns = 80` | Set text wrapping width | 
+| `let g:tabSize = 2`      | Set tab width           | 
+
 
 Plugin System:
 ---------
