@@ -66,7 +66,7 @@ Installation:
 
 Optional Install:
 -----------------
-       
+
 1. Install vim-airline font:
 > You should install this font so that the `vim-airline` themes look decent (as in the screenshot).
 
@@ -83,7 +83,7 @@ Features:
 
 | Key          | Action        |
 | ------------ |-------------|
-| `⌘+n`       | New Tab        
+| `⌘+n`       | New Tab      |
 | `⌘+shift+n`       | New Window  |
 | `⌘+shift+t`       | Reopen Last Closed Tab   |
 | `⌘+w`       | Close tab/split/window   |
@@ -150,14 +150,14 @@ Included plugins are configured so that opening a file will always focus the win
 
 | Key          | Action        |
 | ------------ |-------------|
-| `⌘+e`       | Toggle side bar file exporer |
+| `⌘+e`       | Toggle side bar file explorer |
 | `j`/`k`      | While explorer focused, move up and down |
 | `enter`      | While explorer focused, opens a file in new tab or jump to existing window if already open |
 | `s`          | While explorer focused, opens a file in a vertical split or jump to existing window if already open |
 | `h`          | While explorer focused, opens a file in horizontal split or jump to existing window if already open |
 | `u`          | While explorer focused, Move up a directory |
 | `o`          | While explorer focused, Expand a subdirectory |
-| `CD`         | While explorer focused, Make the file exporer's directory equal to Vim's `cwd`  |
+| `CD`         | While explorer focused, Make the file explorer's directory equal to Vim's `cwd`  |
 | `cd`         | While explorer focused, make Vim's `cwd` equal to the directory under the cursor |
 | `m`         | While explorer focused, show complete menu of possible commands to execute |
 
@@ -201,7 +201,9 @@ The following key mapping generates docblock comments. `<tab>` will select the p
 
 | Key          | Action        |
 | ------------ |-------------|
-| `⌘+shift+c` | Generate JS Docblock  - when currsor is above a function| 
+| `⌘+shift+c` | Generate JS Docblock  - when currsor is above a function|
+
+
 
 Customizing:
 ---------
@@ -211,8 +213,69 @@ In `~/.vim/vimrc.custom.before`/`~/.vim/vimrc.custom.after` you may set any opti
 
 | Key                      | Behavior                |
 | ------------------------ |-------------------------|
-| `let g:textColumns = 80` | Set text wrapping width | 
-| `let g:tabSize = 2`      | Set tab width           | 
+| `let g:textColumns = 82` | Set text wrapping width |
+| `let g:tabSize = 2`      | Set tab width           |
+
+
+Git Integration:
+---------
+
+#####MacVim as a `difftool` and `mergetool`.
+
+Any result of a `git diff` command can be viewed in a side-by-side diff view inside of `MacVim`. All of your familiar `vim` key commands work while browsing your diff.
+
+`VimBox` includes a script `mvimgitdiff.sh` that can be used as your `git difftool`. It will show side-by-side comparisons of two versions of a file.
+
+######Setup DiffTool:
+
+Place this in your `~/.gitconfig`:
+
+        [diff]
+            tool = default-difftool
+        [difftool "default-difftool"]
+            cmd = "~/.vim/mvimgitdiff.sh " $LOCAL $REMOTE
+
+This aliases a special version of the `git diff` command called `git difftool`. You can use it just like you would use `git diff`, but it shows the diff in `MacVim` instead.
+
+Executing the following
+
+        `git difftool`
+
+Will cause a window like this to appear:
+
+<img src="images/mvimdifftool.png" />
+
+######Setup MergeTool:
+
+Resolving merge conflicts is simple with `MacVim`.
+
+Put this in your `~/.gitconfig`.
+
+        [mergetool]
+          prompt = false
+          # See bashrc for exporting the editor across all apps, not just git.
+        [mergetool "mvimdiff"]
+          cmd="mvim -f '+windo set diff scrollbind scrollopt+=hor nowrap' -c 'Gdiff' $MERGED -c 'au VimLeave * !open -a iTerm'"
+          # cmd="mvim -c 'Gdiff' $MERGED"     # use fugitive.vim for 3-way merge
+          keepbackup=false
+
+        [merge]
+          tool = mvimdiff
+
+
+Now, `git mergetool` will resolve rebase and merge conflicts directly inside of `MacVim`.
+
+
+#####MacVim as a git commit message editor:
+
+The following will tell git to use `MacVim` as your git commit message editor. This special command will ensure that when you close your `MacVim` window, that you resume back to the command line `iTerm`. Replace with your shell rc file and terminal app name.
+
+######Setup:
+
+    echo export EDITOR='mvim -f --nomru -c "au VimLeave * !open -a iTerm"' >> ~/.bashrc
+    echo export GIT_EDITOR='mvim -f --nomru -c "au VimLeave * !open -a iTerm"' >> ~/.bashrc
+
+
 
 
 Plugin System:
