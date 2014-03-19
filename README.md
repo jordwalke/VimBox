@@ -79,7 +79,7 @@ Optional Install:
 Features:
 ----------
 
-####Familiar Mac Key Commands
+#####Familiar Mac Key Commands
 
 | Key          | Action        |
 | ------------ |-------------|
@@ -105,17 +105,17 @@ Features:
 | ------------ |-------------|
 | `^+l`       | Mega Escape |
 
-####Airline/Flatlandia
+#####Airline/Flatlandia
 
 Vim had a flat design Before It Was Cool. `VimBox` includes `vim-airline` and `flatlandia`.
 
-####Braces and Pairs
+#####Braces and Pairs
 
 - Inserting `{`, `[`, `'`, or `"` automatically inserts the closing character.
 - When hitting enter with the cursor between two braces `{|}` the newline is formatted with an extra indentation.
 - The behavior is identical to Sublime/Textmate.
 
-####AutoComplete/Snippets
+#####AutoComplete/Snippets
 
 - Completions pop up automatically.
 - Like Sublime, `VimBox` accepts highlighted entries via `tab` or `enter`.
@@ -123,17 +123,17 @@ Vim had a flat design Before It Was Cool. `VimBox` includes `vim-airline` and `f
 - Place custom snippets in `~/.vim/myUltiSnippets/`
 
 
-####Distraction Free UI Tabs
+#####Distraction Free UI Tabs
 
 - When not in full screen mode, Mac style metalic tabs are used.
 - When in full-screen mode, those tabs become flat and blend into the background so you can focus on the code.
 
 
-####One File, One Location
+#####One File, One Location
 
 Included plugins are configured so that opening a file will always focus the window/tab/split where that file is already open. This is how most modern editors work.
 
-####Command-P Search Window
+#####Command-P Search Window
 
 `VimBox` includes the `ctrl-p` plugin and has been configured with keymappings that are consistent with its `NERDTree` keymappings.
 
@@ -144,7 +144,7 @@ Included plugins are configured so that opening a file will always focus the win
 | `c-s`        | While searching, opens the top hit in a vertical split or jump to existing window if already open |
 | `c-h`        | While searching, opens the top hit in horizontal split or jump to existing window if already open |
 
-####NERDTree
+#####NERDTree
 
 `NERDTree` is included and is configured to act as a left-nav bar (toggle it via `⌘+e`). Its keymappings have been configured to be consistent with the `ctrl-p` plugin.
 
@@ -162,7 +162,7 @@ Included plugins are configured so that opening a file will always focus the win
 | `m`         | While explorer focused, show complete menu of possible commands to execute |
 
 
-####Tabs And Splits Navigation
+#####Tabs And Splits Navigation
 > Jump around quickly to the next tab or split with a single key press. Go back the other direction by pressing shift.
 
 | Key          | Action        |
@@ -204,52 +204,25 @@ The following key mapping generates docblock comments. `<tab>` will select the p
 | `⌘+shift+c` | Generate JS Docblock  - when currsor is above a function|
 
 
-
-Customizing:
----------
-In `~/.vim/vimrc.custom.before`/`~/.vim/vimrc.custom.after` you may set any options you like. (See "Plugin System" section below).
-
-`VimBox` will look to see if you have defined the following variables defined in your `~/.vim/vimrc.custom.before`:
-
-| Key                      | Behavior                |
-| ------------------------ |-------------------------|
-| `let g:textColumns = 82` | Set text wrapping width |
-| `let g:tabSize = 2`      | Set tab width           |
-
-
 Git Integration:
 ---------
 
-#####MacVim as a `difftool` and `mergetool`.
+#####Setup DiffTool:
 
-Any result of a `git diff` command can be viewed in a side-by-side diff view inside of `MacVim`. All of your familiar `vim` key commands work while browsing your diff.
-
-`VimBox` includes a script `mvimgitdiff.sh` that can be used as your `git difftool`. It will show side-by-side comparisons of two versions of a file.
-
-######Setup DiffTool:
-
-Place this in your `~/.gitconfig`:
+Any result of a `git diff` command can be viewed in a side-by-side diff view inside of `MacVim`. All of your familiar `vim` key commands work while browsing your diff. Place this in your `~/.gitconfig`:
 
         [diff]
             tool = default-difftool
         [difftool "default-difftool"]
             cmd = "~/.vim/mvimgitdiff.sh " $LOCAL $REMOTE
 
-This aliases a special version of the `git diff` command called `git difftool`. You can use it just like you would use `git diff`, but it shows the diff in `MacVim` instead.
+Now you can use the `git difftool` command exactly like you use `git diff`, but a MacVim window will appear:
 
-Executing the following
+<img src="dotVim/images/mvimdifftool.png" />
 
-        `git difftool`
+#####Setup MergeTool:
 
-Will cause a window like this to appear:
-
-<img src="images/mvimdifftool.png" />
-
-######Setup MergeTool:
-
-Resolving merge conflicts is simple with `MacVim`.
-
-Put this in your `~/.gitconfig`.
+Resolving merge conflicts is simple with `MacVim`. Just put this in your `~/.gitconfig`.
 
         [mergetool]
           prompt = false
@@ -266,11 +239,10 @@ Put this in your `~/.gitconfig`.
 Now, `git mergetool` will resolve rebase and merge conflicts directly inside of `MacVim`.
 
 
-#####MacVim as a git commit message editor:
+#####Setup Commit Message Editor:
 
-The following will tell git to use `MacVim` as your git commit message editor. This special command will ensure that when you close your `MacVim` window, that you resume back to the command line `iTerm`. Replace with your shell rc file and terminal app name.
+Make sure to tell your shell that `MacVim` is the way that you'd like to edit commit messages. This special command will ensure that when you close your `MacVim` window, you will return back to the command line `iTerm`. Replace with your shell rc file and terminal app name.
 
-######Setup:
 
     echo export EDITOR='mvim -f --nomru -c "au VimLeave * !open -a iTerm"' >> ~/.bashrc
     echo export GIT_EDITOR='mvim -f --nomru -c "au VimLeave * !open -a iTerm"' >> ~/.bashrc
@@ -287,3 +259,16 @@ Plugin System:
 - Edit `~/.vim/vimrc.custom.before` and `~/.vim/vimrc.custom.after`.
 - `~/.vim/vimrc.custom.before` is executed before the stock plugins are configured.
 - `~/.vim/vimrc.custom.after` is executed after the stock plugins are configured.
+
+
+Customizing:
+---------
+In `~/.vim/vimrc.custom.before`/`~/.vim/vimrc.custom.after` you may set any options you like. (See "Plugin System" section below).
+
+`VimBox` will look to see if you have defined the following variables defined in your `~/.vim/vimrc.custom.before`:
+
+| Key                      | Behavior                |
+| ------------------------ |-------------------------|
+| `let g:textColumns = 82` | Set text wrapping width |
+| `let g:tabSize = 2`      | Set tab width           |
+
