@@ -245,10 +245,17 @@ set undofile
 " " Create undo dir if needed - not in your dotVim folder! It should be local to
 " " your computer.
 if !isdirectory(s:undoDir)
-	call mkdir(s:undoDir)
+  call mkdir(s:undoDir)
 endif
 execute "set undodir=".s:undoDir
 " ================================================================
+
+" =========================== FIX SHELL ==========================
+if &shell =~# 'fish$'
+    set shell=sh
+endif
+" ================================================================
+
 
 " http://stackoverflow.com/questions/6852763/vim-quickfix-list-launch-files-in-new-tab
 set switchbuf+=usetab,newtab
