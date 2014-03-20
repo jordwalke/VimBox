@@ -38,7 +38,7 @@ endif
 " search anything (in files, buffers and MRU files at the same time.)
 let g:ctrlp_cmd = 'CtrlPMixed'
 "search for nearest ancestor like .git, .hg, else the directory of the current file
-let g:ctrlp_working_path_mode = 'raw'
+let g:ctrlp_working_path_mode = 'a'
 " show the match window at the top of the screen
 let g:ctrlp_match_window_bottom = 0
 " maxiumum height of match window
