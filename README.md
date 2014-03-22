@@ -27,7 +27,7 @@
 
 Screen Shot:
 -------------
-<img src="https://github.com/jordwalke/flatlandia/raw/master/images/flatlandia_completion.png" />
+<img src="dotVim/images/flatlandia_completion.png" />
 
 
 
@@ -177,7 +177,7 @@ Included plugins are configured so that opening a file will always focus the win
 #####JavaScript Linting
 - Excellent JavaScript indenting and inline linting with support for `JSX`.
 
-<img src="https://github.com/jordwalke/VimJSXHint/raw/master/images/VimJSXHint.png" />
+<img src="dotVim/images/VimJSXHint.png" />
 
 #####JavaScript Snippets
 - JavaScript snippets are include, but you can add your own for any language you like
@@ -219,7 +219,7 @@ Any result of a `git diff` command can be viewed in a side-by-side diff view ins
 
 Now you can use the `git difftool` command exactly like you use `git diff`, but a MacVim window will appear:
 
-<img src="dotVim/images/mvimdifftool.png" />
+<img src="dotVim/images/VimBoxGitDiffTool.png" />
 
 #####Setup MergeTool:
 
