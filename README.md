@@ -1,10 +1,12 @@
-<h1>VimBox</h1>
-<blockquote>Clean and Simple MacVim Editing</blockquote>
 
-<table>
+<table width="100%">
+<tr>
+</tr>
+
 <tr>
 <td>
-
+<h2>VimBox</h2>
+<blockquote>Modern MacVim Configuration</blockquote>
 <img src="dotVim/images/VimBox.png" height="256px" width="256px" />
 </td>
 <td>
@@ -21,7 +23,6 @@
 </table>
 
 
-> `VimBox` configures MacVim to behave like modern editors such as Sublime.
 
 
 Screen Shot:
