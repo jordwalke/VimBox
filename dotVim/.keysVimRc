@@ -33,6 +33,8 @@ smap <C-l> <Esc>
 cmap <C-l> <C-c>
 
 
+
+
 " == c-h always does the same as c-l but also saves.
 vmap <C-h> <Esc><Cr>:w<Cr>
 imap <C-h> <Esc>:w<Cr>l
@@ -75,6 +77,11 @@ imap <D->> <Esc>:vertical resize +10<CR>
 imap <D->> <Esc>:vertical resize +10<CR>
 nmap <D->> :vertical resize +10<CR>
 nmap <D-<> :vertical resize -10<CR>
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 
 " Clear search highlight when escape is pressed.

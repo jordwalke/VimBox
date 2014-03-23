@@ -166,6 +166,7 @@ NeoBundle "jordwalke/MacVimSmartGUITabs"
 " Make sure to have `set guioptions+=e` in your `.gvimrc`.
 map <D-Cr> :SmartGUITabsToggleFullScreen<CR>
 imap <D-Cr> <Esc>:SmartGUITabsToggleFullScreen<CR>
+nmap <D-Cr> <Esc>:SmartGUITabsToggleFullScreen<CR>
 " ==============================================================================
 
 
@@ -336,7 +337,11 @@ NeoBundle "Shougo/neocomplete.vim"
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_auto_select = 1
 
+"See corresponding entries in `.keysVimRc`.
 NeoBundle "git://github.com/SirVer/ultisnips.git"
+let g:UltiSnipsSnippetsDir="~/.vim"
+let g:UltiSnipsSnippetDirectories=["myUltiSnippets"]
+
 NeoBundle "jordwalke/VimCompleteLikeAModernEditor"
 
 " ============================= Commenter ======================================
