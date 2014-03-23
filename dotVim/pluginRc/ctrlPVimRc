@@ -38,7 +38,7 @@ endif
 " search anything (in files, buffers and MRU files at the same time.)
 let g:ctrlp_cmd = 'CtrlPMixed'
 "search for nearest ancestor like .git, .hg, else the directory of the current file
-let g:ctrlp_working_path_mode = 'a'
+let g:ctrlp_working_path_mode = 'ra'
 " show the match window at the top of the screen
 let g:ctrlp_match_window_bottom = 0
 " maxiumum height of match window
@@ -53,11 +53,13 @@ let g:ctrlp_clear_cache_on_exit=0
 let g:ctrlp_show_hidden = 1
 " number of recently opened files
 let g:ctrlp_mruf_max = 250
+let g:ctrlp_max_depth = 8
+let g:ctrlp_max_files = 130000
+
 
 " Exact same mappings as non-win32 but with D-c Replaced with AHK shift+F7
 if has("gui_win32")
   " See https://github.com/kien/ctrlp.vim/issues/389
-  func! MyPrtMappings()
     let g:ctrlp_prompt_mappings = {
           \ 'CreateNewFile()':      [''],
           \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
@@ -69,28 +71,10 @@ if has("gui_win32")
           \ 'AcceptSelection("v")': ['<c-s>'],
           \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
           \ 'PrtClearCache()':      ['<M-C>'],
+          \ 'PrtExit()':            ['<c-l>', '<esc>', '<c-c>', '<c-g>'],
           \ }
-  endfunc
-
-  func! MyCtrlPTag()
-    let g:ctrlp_prompt_mappings = {
-          \ 'CreateNewFile()':      [''],
-          \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
-          \ 'ToggleType(-1)':       ['<c-y>', '<c-down>'],
-          \ 'PrtCurLeft()':         ['<c-b>', '<left>', '<c-^>'],
-          \ 'PrtCurRight()':        ['<c-f>', '<right>'],
-          \ 'AcceptSelection("e")': ['<c-t>'],
-          \ 'AcceptSelection("h")': ['<c-v>'],
-          \ 'AcceptSelection("v")': ['<c-s>'],
-          \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-          \ 'PrtClearCache()':      ['<M-C>'],
-          \ }
-    CtrlPBufTag
-  endfunc
-
 else
   " See https://github.com/kien/ctrlp.vim/issues/389
-  func! MyPrtMappings()
     let g:ctrlp_prompt_mappings = {
           \ 'CreateNewFile()':      [''],
           \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
@@ -102,29 +86,10 @@ else
           \ 'AcceptSelection("v")': ['<c-s>'],
           \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
           \ 'PrtClearCache()':      ['<D-C>'],
+          \ 'PrtExit()':            ['<c-l>', '<esc>', '<c-c>', '<c-g>'],
           \ }
-  endfunc
-
-  func! MyCtrlPTag()
-    let g:ctrlp_prompt_mappings = {
-          \ 'CreateNewFile()':      [''],
-          \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
-          \ 'ToggleType(-1)':       ['<c-y>', '<c-down>'],
-          \ 'PrtCurLeft()':         ['<c-b>', '<left>', '<c-^>'],
-          \ 'PrtCurRight()':        ['<c-f>', '<right>'],
-          \ 'AcceptSelection("e")': ['<c-t>'],
-          \ 'AcceptSelection("h")': ['<c-v>'],
-          \ 'AcceptSelection("v")': ['<c-s>'],
-          \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-          \ 'PrtClearCache()':      ['<D-C>'],
-          \ }
-    CtrlPBufTag
-  endfunc
 
 endif
-
-let g:ctrlp_buffer_func = { 'exit': 'MyPrtMappings' }
-com! MyCtrlPTag call MyCtrlPTag()
 
 " TODO: add javascript and some other languages who doesn't have ctags support
 " coffee: https://gist.github.com/michaelglass/5210282
