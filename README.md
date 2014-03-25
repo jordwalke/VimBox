@@ -1,4 +1,3 @@
-
 <table width="100%">
 <tr>
 </tr>
@@ -87,7 +86,7 @@ Features:
 | `⌘+n`       | New Tab      |
 | `⌘+shift+n`       | New Window  |
 | `⌘+shift+t`       | Reopen Last Closed Tab   |
-| `⌘+w`       | Close tab/split/window   |
+| `⌘+w`       | Close tab/split: Opens left tab (like Sublime) not right (like vim)  |
 | `⌘+s`       | Save file  |
 | `⌘+z`       | Undo  |
 | `⌘+shift+z`       | Redo  |
