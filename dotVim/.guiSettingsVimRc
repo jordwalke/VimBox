@@ -44,10 +44,6 @@ if has("gui_running") " all this for gui use
     set transparency=0
     set fuoptions=maxvert,maxhorz
     set lines=45
-    set columns=85
-    " If using Menlo font
-    set guifont=Inconsolata-dz\ for\ Powerline:h14
-    " set guifont=Courier:h15.00
     set linespace=-4
   endif
 endif

@@ -64,16 +64,12 @@ Installation:
 
 7. Start `MacVim` that was installed from `homebrew`. Confirm that you want to install bundles. If it asks you to hit any key to continue, just keep hitting enter. Restart `MacVim` when it's finished.
 
-Optional Install:
------------------
+8. `[Recommended]` Install the included vim-airline font so `VimBox` looks like
+   the screenshot with the `vim-airline` bar. From the command line:
 
-1. Install vim-airline font:
-> You should install this font so that the `vim-airline` themes look decent (as in the screenshot).
+        open Fonts/Inconsolata-dz+for+Powerline.otf # Then click "Install Font"
 
-        open Fonts/Inconsolata-dz+for+Powerline.otf
-        # Click "Install Font"
-
-2. Install node.js if you want JS features such as linting (http://nodejs.org/)
+2. Install up-to-date node.js if you want JS linting (http://nodejs.org/)
 
 
 Features:
@@ -81,29 +77,34 @@ Features:
 
 #####Familiar Mac Key Commands
 
-| Key          | Action        |
-| ------------ |-------------|
-| `⌘+n`       | New Tab      |
-| `⌘+shift+n`       | New Window  |
-| `⌘+shift+t`       | Reopen Last Closed Tab   |
-| `⌘+w`       | Close tab/split: Opens left tab (like Sublime) not right (like vim)  |
-| `⌘+s`       | Save file  |
-| `⌘+z`       | Undo  |
-| `⌘+shift+z`       | Redo  |
-| `⌘+enter`       | Special Distraction-Free FullScreen Mode|
-| `⌘+e`       | Toggle File Explorer (Docked `NERDTree`) |
-| `⌘+shift+[` / `⌘+shift+]` |Go to previous/next tab |
-| `^+tab` / `^+shift+tab` |Go to previous/next tab (in normal Vim mode)|
-| `⌘+1 `  |                 Go to tab `1` |
-| `⌘+p`       | Open Anything (`ctrl-p`) |
-| `F5`       | Sort lines (like Textmate) |
+| Key                       | Action                                          |
+| ------------------------- |-------------------------------------------------|
+| `⌘+p`                     | Open Anything (`ctrl-p`)                        |
+| `⌘+n`                     | New Tab                                         |
+| `⌘+shift+n`               | New Window                                      |
+| `⌘+shift+t`               | Reopen Last Closed Tab                          |
+| `⌘+w`                     | Close tab/split: Opens to the left (like Sublime) not right (like vim)  |
+| `⌘+s`                     | Save file                                       |
+| `⌘+z`                     | Undo                                            |
+| `⌘+shift+z`               | Redo                                            |
+| `⌘+enter`                 | Special Distraction-Free FullScreen Mode        |
+| `⌘+e`                     | Toggle File Explorer (Docked `NERDTree`)        |
+| `⌘+shift+[` / `⌘+shift+]` | Go to previous/next tab                         |
+| `^+tab` / `^+shift+tab`   | Go to previous/next tab (in normal Vim mode)    |
+| `⌘+1 `                    |                 Go to tab `1`                   |
+| `F5`                      | Sort lines (like Textmate)                      |
+| `⌘+shift+p`               | Toggle spell-check                              |
+| `⌘+/`                     | Toggle comments - selected range - or line      |
 
 #####Mega Escape
-> `VimBox` has mapped `^+l` to exit out of any modal window/prompt/mode/command to bring you back to normal Vim navigation mode. It's like the home button on the iPhone. Remap <a href="http://stackoverflow.com/questions/15435253/how-to-remap-the-caps-lock-key-to-control-in-os-x-10-8"> CapsLock to control</a> and never reach for `Escape` again. Hit the `CapsLock` key and `l` right on the home row.
+> - `VimBox` has mapped `^+l` to exit out of any modal window/prompt/mode/command to bring you back to normal Vim navigation mode.
+> - Unlike regular `<Esc>`, mega-escape doesn't move your cursor when escaping.
+> - It's like the home button on the iPhone.
+> - Remap <a href="http://stackoverflow.com/questions/15435253/how-to-remap-the-caps-lock-key-to-control-in-os-x-10-8"> CapsLock to control</a> and never reach for `Escape` again. Hit the `CapsLock` key and `l` right on the home row.
 
-| Key          | Action        |
+| Key          | Action      |
 | ------------ |-------------|
-| `^+l`       | Mega Escape |
+| `^+l`        | Mega Escape |
 
 #####Airline/Flatlandia
 

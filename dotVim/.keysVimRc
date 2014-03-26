@@ -34,6 +34,11 @@ cmap <C-l> <C-c>
 
 
 
+"Toggle comment
+vmap <D-/> gc
+"Comment until end of line
+nmap <D-/> gc$
+
 
 " == c-h always does the same as c-l but also saves.
 vmap <C-h> <Esc><Cr>:w<Cr>

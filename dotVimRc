@@ -10,9 +10,9 @@
 "
 " See `README.md` for features and shortcuts
 " Additional features not mentioned in README:
-" 
+"
 " Spell Check:
-" Command+P to toggle spell check on comments (underlines in red).
+" Command+shift+p to toggle spell check on comments (underlines in red).
 "
 " Mac ProTips:
 "  To further improve the text rendering on Mac OSX:
@@ -137,14 +137,24 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+" <temporary until neobundle stops asking to hit enter for more>
+set guifont=Monaco:h10
+set columns=195
+" </temporary until neobundle stops asking to hit enter for more>
+
 source ~/.vim/.bundlesVimRc
+
+" <temporary until neobundle stops asking to hit enter for more>
+autocmd VimEnter * exec ":set columns=85"
+autocmd VimEnter * exec ":set guifont=Inconsolata-dz\\ for\\ Powerline:h14"
+" </temporary until neobundle stops asking to hit enter for more>
+
 source ~/.vim/.guiSettingsVimRc   " Must come after .bundlesVimRc
 source ~/.vim/.keysVimRc
 source ~/.vim/.customFunctions.vim
 
 " sensible.vim disturbs this - reset it.
 set listchars = "eol:$"
-
 if filereadable(expand("~/.vim/vimrc.custom.after"))
   source ~/.vim/vimrc.custom.after
 endif

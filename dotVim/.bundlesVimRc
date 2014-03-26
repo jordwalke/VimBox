@@ -18,8 +18,13 @@ NeoBundle "jordwalke/VimAutoMakeDirectory"
 " ==============================================================================
 
 
-" ======================= Custom Resizing for SplitBalancer ======================
+" ======================= Custom Resizing for SplitBalancer ====================
 NeoBundle "git://github.com/jordwalke/VimSplitBalancer.git"
+" ==============================================================================
+
+
+" ================== Allow plugins to tap into repeating =======================
+NeoBundle "git://github.com/tpope/vim-repeat.git"
 " ==============================================================================
 
 " ==============================================================================
@@ -345,12 +350,8 @@ let g:UltiSnipsSnippetDirectories=["myUltiSnippets"]
 NeoBundle "jordwalke/VimCompleteLikeAModernEditor"
 
 " ============================= Commenter ======================================
-NeoBundle "git://github.com/tpope/vim-commentary.git"
+NeoBundle "https://github.com/tomtom/tcomment_vim"
 " ==============================================================================
-
-" Allow ocaml comments toggling
-autocmd FileType ocaml set commentstring=(*\ %s\ *)
-
 
 
 NeoBundle "https://github.com/pangloss/vim-javascript"
@@ -391,7 +392,6 @@ map <silent><D-R> :w<CR>:OpenDebugger<CR>
 " ciP  (change in paramater  - changes the single argument under cursor!
 NeoBundle "git://github.com/vim-scripts/Parameter-Text-Objects.git"
 " ==============================================================================
-
 
 
 " ============================ GUndo ============================================
