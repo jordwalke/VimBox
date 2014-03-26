@@ -98,8 +98,8 @@ Features:
 
 #####Mega Escape
 > - `VimBox` has mapped `^+l` to exit out of any modal window/prompt/mode/command to bring you back to normal Vim navigation mode.
-> - Unlike regular `<Esc>`, mega-escape doesn't move your cursor when escaping.
 > - It's like the home button on the iPhone.
+> - Unlike regular `<Esc>`, mega-escape doesn't move your cursor when escaping.
 > - Remap <a href="http://stackoverflow.com/questions/15435253/how-to-remap-the-caps-lock-key-to-control-in-os-x-10-8"> CapsLock to control</a> and never reach for `Escape` again. Hit the `CapsLock` key and `l` right on the home row.
 
 | Key          | Action      |
