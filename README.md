@@ -67,7 +67,7 @@ Installation:
 8. `[Recommended]` Install the included vim-airline font so `VimBox` looks like
    the screenshot with the `vim-airline` bar. From the command line:
 
-        open Fonts/Inconsolata-dz+for+Powerline.otf # Then click "Install Font"
+        open Fonts/InconsolataDz/Inconsolata-dz\ for\ Powerline.otf # Then click "Install Font"
 
 2. Install up-to-date node.js if you want JS linting (http://nodejs.org/)
 
@@ -273,3 +273,10 @@ In `~/.vim/vimrc.custom.before`/`~/.vim/vimrc.custom.after` you may set any opti
 | `let g:textColumns = 82` | Set text wrapping width |
 | `let g:tabSize = 2`      | Set tab width           |
 
+
+License:
+-------
+
+See the license file included. Any dependencies that are included in `VimBox`
+may have their own license. In the event any dependency is include in `VimBox`,
+an attempt has been made to also include its corresponding license.
