@@ -94,6 +94,7 @@ set diffopt=filler,context:9999
 " ============= Configure as Privacy Plugin =========================
 " All sensitive data is not stored in your ~/.vimrc folder
 " Configure the spelling language and file.
+" ================================================================
 set spelllang=en
 set spellfile=$HOME/vim_spell/en.utf-8.add
 " UndoDir:
@@ -110,6 +111,8 @@ if !isdirectory(s:undoDir)
   call mkdir(s:undoDir)
 endif
 execute "set undodir=".s:undoDir
+" Since your file/folder history may show up in a git commit!
+let g:netrw_dirhistmax=0
 " ================================================================
 
 " =========================== FIX SHELL ==========================
