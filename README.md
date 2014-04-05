@@ -34,27 +34,26 @@ Installation:
 -------------
 > Quickly try VimBox in place of your existing setup. Back up your existing vim files, and move them out of the way as instructed:
 
-1. If you already have MacVim installed:
-
-        mv /Applications/MacVim.app /Applications/MacVim_Backup.app
-
-2. If you already have a vim setup, move it safely out of the way or back it up.
+1. If you already have a vim setup, move it safely out of the way or back it up.
 
         mv ~/.vim ~/.vim_backup    #No trailing slashes to preserve symlinks!
         mv ~/.vimrc ~/.vimrc_backup
         mv ~/.gvimrc ~/.gvimrc_backup
 
 
-3. Install HomeBrew if needed.
+2. You *Must* Install a Recent Version of MacVim: (Snapshot 72 or above) (with python support)
 
-        http://brew.sh/
+        Lion/Mountain Lion: Snapshot 72:
+        https://github.com/eee19/macvim/releases
 
-4. Install MacVim with lua/python support using HomeBrew:
+        Mavericks: Snapshot 72 here:
+        https://github.com/b4winckler/macvim/releases
 
-        brew install macvim --with-cscope --with-lua --python --HEAD
+        # Alternatively, if you'd rather install via `brew`
+        brew install macvim --with-cscope --python --HEAD
         brew linkapps    # Put the app in your /Applications directory
 
-6. Clone `VimBox` wherever you like to keep your github clones
+3. Clone `VimBox` wherever you like to keep your github clones
 
         # cd ~/github/     # Or wherever you like to keep github clones
         git clone https://github.com/jordwalke/VimBox/
@@ -62,14 +61,14 @@ Installation:
         ln -s `pwd`/VimBox/dotVimRc ~/.vimrc
         ln -s `pwd`/VimBox/dotGVimRc ~/.gvimrc
 
-7. Start `MacVim` that was installed from `homebrew`. Confirm that you want to install bundles. If it asks you to hit any key to continue, just keep hitting enter. Restart `MacVim` when it's finished.
+4. Start `MacVim` that you just installed. Confirm that you want to install bundles. If it asks you to hit any key to continue, just keep hitting enter. Restart `MacVim` when it's finished.
 
-8. `[Recommended]` Install the included vim-airline font so `VimBox` looks like
+5. `[Recommended]` Install the included vim-airline font so `VimBox` looks like
    the screenshot with the `vim-airline` bar. From the command line:
 
         open Fonts/InconsolataDz/Inconsolata-dz\ for\ Powerline.otf # Then click "Install Font"
 
-2. Install up-to-date node.js if you want JS linting (http://nodejs.org/)
+6. Install up-to-date node.js if you want JS linting (http://nodejs.org/)
 
 
 Features:

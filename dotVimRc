@@ -77,7 +77,9 @@ set ignorecase
 set infercase
 let g:omni_syntax_ignorecase=1
 set wildmode=full
-set wildignore+=*node_modules*
+set wildignore+=*/node_modules/**
+" Including this messes up fugitive in git mergetool:
+" set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 set sm!  " show matching brace/paren
 set visualbell
 " Should avoid "Hit Enter" annoyingness (Does *not* work)
@@ -145,11 +147,13 @@ set guifont=Monaco:h10
 set columns=195
 " </temporary until neobundle stops asking to hit enter for more>
 
+set t_Co=256
+
 source ~/.vim/.bundlesVimRc
 
 " <temporary until neobundle stops asking to hit enter for more>
+set linespace=0
 autocmd VimEnter * exec ":set columns=85"
-autocmd VimEnter * exec ":set guifont=Inconsolata-dz\\ for\\ Powerline:h14"
 " </temporary until neobundle stops asking to hit enter for more>
 
 source ~/.vim/.guiSettingsVimRc   " Must come after .bundlesVimRc

@@ -53,8 +53,8 @@ let g:ctrlp_clear_cache_on_exit=0
 let g:ctrlp_show_hidden = 1
 " number of recently opened files
 let g:ctrlp_mruf_max = 250
-let g:ctrlp_max_depth = 8
-let g:ctrlp_max_files = 130000
+let g:ctrlp_max_depth = 7
+let g:ctrlp_max_files = 30000
 
 
 " Exact same mappings as non-win32 but with D-c Replaced with AHK shift+F7

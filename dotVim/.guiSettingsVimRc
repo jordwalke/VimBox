@@ -44,11 +44,16 @@ if has("gui_running") " all this for gui use
     set transparency=0
     set fuoptions=maxvert,maxhorz
     set lines=45
+    set guifont=Monaco:h10
+    set columns=285
+    set nolazyredraw
+    autocmd VimEnter * exec ":set columns=85"
+    autocmd VimEnter * exec ":set guifont=Inconsolata-dz\\ for\\ Powerline:h14"
+
     set linespace=-4
   endif
 endif
 
-set t_Co=256
 syntax enable
 set background=dark
 colorscheme flatlandia

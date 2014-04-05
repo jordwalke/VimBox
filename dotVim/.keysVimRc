@@ -34,9 +34,11 @@ cmap <C-l> <C-c>
 
 
 
+" TComment
 "Toggle comment
-vmap <D-/> gc
-"Comment until end of line
+"mapping to `gc` doesn't toggle one visually selected line - only multiples.
+vmap <D-/> <c-_><c-_>
+vmap <D-s-/> <c-_>b
 nmap <D-/> gc$
 
 

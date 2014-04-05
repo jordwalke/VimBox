@@ -76,7 +76,7 @@ NeoBundle "git://github.com/tpope/vim-surround.git"
 "       \     'unix' : 'make -f make_unix.mak',
 "       \    },
 "       \ }
-
+"
 " NeoBundle "git://github.com/Shougo/unite.vim.git"
 " source ~/.vim/pluginRc/uniteVimRc
 
@@ -336,18 +336,21 @@ source ~/.vim/pluginRc/ctrlPVimRc
 " ==============================================================================
 
 
-" ============================= UltiSnips-quite awesome=========================
+" ============================= ACP Forked =========================
 " Check out snippets in ~/.vim/personalSnippets/
-NeoBundle "Shougo/neocomplete.vim"
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_auto_select = 1
+NeoBundle "https://github.com/jordwalke/AutoComplPop"
+" ==============================================================================
 
+" ============================= UltiSnips ======================================
 "See corresponding entries in `.keysVimRc`.
 NeoBundle "git://github.com/SirVer/ultisnips.git"
 let g:UltiSnipsSnippetsDir="~/.vim"
 let g:UltiSnipsSnippetDirectories=["myUltiSnippets"]
+" ==============================================================================
 
+" ======== Combine Previous Plugins For Modern Completion Experience ===========
 NeoBundle "jordwalke/VimCompleteLikeAModernEditor"
+" ==============================================================================
 
 " ============================= Commenter ======================================
 NeoBundle "https://github.com/tomtom/tcomment_vim"
@@ -356,10 +359,11 @@ NeoBundle "https://github.com/tomtom/tcomment_vim"
 
 NeoBundle "https://github.com/pangloss/vim-javascript"
 
-
 " =============================Javascript-Indent================================
 NeoBundle "git://github.com/vim-scripts/JavaScript-Indent.git"
 " ==============================================================================
+
+NeoBundle "https://github.com/mxw/vim-jsx"
 
 
 
