@@ -66,7 +66,7 @@ Installation:
 5. `[Recommended]` Install the included vim-airline font so `VimBox` looks like
    the screenshot with the `vim-airline` bar. From the command line:
 
-        open Fonts/InconsolataDz/Inconsolata-dz\ for\ Powerline.otf # Then click "Install Font"
+        open ./VimBox/dotVim/Fonts/InconsolataDz/Inconsolata-dz\ for\ Powerline.otf # Then click "Install Font"
 
 6. Install up-to-date node.js if you want JS linting (http://nodejs.org/)
 
