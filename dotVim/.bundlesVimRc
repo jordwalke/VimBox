@@ -185,11 +185,11 @@ source ~/.vim/pluginRc/nerdTreeVimRc
 " ==============================================================================
 
 
-
 " ============================= NERDTreeSideBar ================================
 NeoBundle "https://github.com/jistr/vim-nerdtree-tabs"
 source ~/.vim/pluginRc/nerdTreeTabsVimRc
 " ==============================================================================
+
 
 " ============================ OCaml ===========================================
 " Bundles installed with OPAM:
@@ -210,11 +210,6 @@ if !empty(system('which opam'))
   execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
 
   " =================================== OCP-indent ============================
-  let g:ocp_indent_vimfile = system("opam config var share")
-  let g:ocp_indent_vimfile = substitute(g:ocp_indent_vimfile, '[\r\n]*$', '', '')
-  let g:ocp_indent_vimfile = g:ocp_indent_vimfile . "/vim/syntax/ocp-indent.vim"
-
-  autocmd FileType ocaml exec ":source " . g:ocp_indent_vimfile
   " See: https://github.com/the-lambda-church/merlin/issues/184
   if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
@@ -224,6 +219,12 @@ if !empty(system('which opam'))
   let g:neocomplete#force_omni_input_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
   let g:syntastic_ocaml_checkers=['merlin']
 endif
+" ==============================================================================
+
+" =================================== OCP-indent ================================
+" This is a better version than what comes directly out of OPAM (it does not
+" destroy undo/redo).
+NeoBundle "https://github.com/def-lkb/ocp-indent-vim"
 " ==============================================================================
 
 
