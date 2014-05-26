@@ -144,9 +144,7 @@ function! Preserve(command)
   let @/=_s
   call cursor(l, c)
 endfunction
-nmap <D-F> :call Preserve("normal gg=G")<CR>
-" This one doesn't work - still need to figure it out.
-" vmap <D-F> :call Preserve("visual =")<CR>
+nmap <D-M> :call Preserve("normal gg=G")<CR>
 
 
 
