@@ -94,6 +94,8 @@ Features:
 | `F5`                      | Sort lines (like Textmate)                      |
 | `⌘+shift+p`               | Toggle spell-check                              |
 | `⌘+/`                     | Toggle comments - selected range - or line      |
+| `⌘+shift+m`               | format/indent entire file then restore cursor   |
+
 
 #####Mega Escape
 > - `VimBox` has mapped `^+l` to exit out of any modal window/prompt/mode/command to bring you back to normal Vim navigation mode.
