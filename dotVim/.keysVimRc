@@ -114,16 +114,16 @@ if has('gui_win32')
   " shift-space backwards - doesn't work on terminal, I believe
   imap <M-{> <Esc>gT
 
-  " Assumes appropriate autohotkey has been setup
   nmap <F13> :q<Cr>
   imap <F13> <Esc>:q<Cr>
   nmap <F14> :qall<Cr>
   imap <F14> <Esc>:qall<Cr>
-  
-  nmap <c-n> :tabnew<Cr>
-  imap <c-n> <Esc> :tabnew<Cr>
-  vmap <c-n> <Esc> :tabnew<Cr>
-
+  nmap <F17> :tabnew<Cr>
+  imap <F17> <Esc> :tabnew<Cr>
+  vmap <F17> <Esc> :tabnew<Cr>
+  nmap <F16> :w<Cr>
+  imap <F16> <Esc>:w<Cr>l
+  vmap <F16> <Esc>:w<Cr>
 endif
 
 "Emacs keybindings while inserting.
