@@ -351,12 +351,13 @@ NeoBundle "https://github.com/jordwalke/AutoComplPop"
 "See corresponding entries in `.keysVimRc`.
 NeoBundle "git://github.com/SirVer/ultisnips.git"
 if has('gui_win32')
-  let g:UltiSnipsSnippetsDir=$HOME . "/.vim/myUltiSnippets"
+  let g:UltiSnipsSnippetsDir=$HOME
   let g:UltiSnipsSnippetDirectories=["myUltiSnippets"]
 else
   let g:UltiSnipsSnippetsDir="~/.vim"
   let g:UltiSnipsSnippetDirectories=["myUltiSnippets"]
 endif
+
 
 " ==============================================================================
 
