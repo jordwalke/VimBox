@@ -203,22 +203,27 @@ source ~/.vim/pluginRc/nerdTreeTabsVimRc
 " < /Users/jwalke/.opam/4.00.1/share
 "
 " Hacked ACP to support this and haxe.
-if !empty(system('which opam'))
-  " =================================== Merlin ================================
-  let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','') . "/ocamlmerlin"
-  execute "set rtp+=".s:ocamlmerlin."/vim"
-  execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
+if !has('windows')
+  if !empty(system('which opam'))
+    " =================================== Merlin ================================
+    let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','') . "/ocamlmerlin"
+    execute "set rtp+=".s:ocamlmerlin."/vim"
+    execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
 
-  " =================================== OCP-indent ============================
-  " See: https://github.com/the-lambda-church/merlin/issues/184
-  if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
+    " =================================== OCP-indent ============================
+    " See: https://github.com/the-lambda-church/merlin/issues/184
+    if !exists('g:neocomplete#force_omni_input_patterns')
+      let g:neocomplete#force_omni_input_patterns = {}
+    endif
+    " autocmd FileType ocaml exec "let g:neocomplete#sources#omni#functions = {}"
+    " autocmd FileType ocaml exec "let g:neocomplete#sources#omni#functions.ocaml = 'merlin#Complete'"
+    let g:neocomplete#force_omni_input_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
+    let g:syntastic_ocaml_checkers=['merlin']
   endif
-  " autocmd FileType ocaml exec "let g:neocomplete#sources#omni#functions = {}"
-  " autocmd FileType ocaml exec "let g:neocomplete#sources#omni#functions.ocaml = 'merlin#Complete'"
-  let g:neocomplete#force_omni_input_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
-  let g:syntastic_ocaml_checkers=['merlin']
+else
+  " TODO: figure out opam for windows
 endif
+
 " ==============================================================================
 
 " =================================== OCP-indent ================================
