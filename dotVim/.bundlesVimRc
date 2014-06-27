@@ -350,8 +350,14 @@ NeoBundle "https://github.com/jordwalke/AutoComplPop"
 " ============================= UltiSnips ======================================
 "See corresponding entries in `.keysVimRc`.
 NeoBundle "git://github.com/SirVer/ultisnips.git"
-let g:UltiSnipsSnippetsDir="~/.vim"
-let g:UltiSnipsSnippetDirectories=["myUltiSnippets"]
+if has('gui_win32')
+  let g:UltiSnipsSnippetsDir=$HOME . "/.vim/myUltiSnippets"
+  let g:UltiSnipsSnippetDirectories=["myUltiSnippets"]
+else
+  let g:UltiSnipsSnippetsDir="~/.vim"
+  let g:UltiSnipsSnippetDirectories=["myUltiSnippets"]
+endif
+
 " ==============================================================================
 
 " ======== Combine Previous Plugins For Modern Completion Experience ===========
