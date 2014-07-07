@@ -84,7 +84,7 @@ set ignorecase
 set infercase
 let g:omni_syntax_ignorecase=1
 set wildmode=full
-set wildignore+=*/node_modules/**
+" set wildignore+=*/node_modules/**
 " Including this messes up fugitive in git mergetool:
 " set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 set sm!  " show matching brace/paren
