@@ -87,6 +87,7 @@ function! DrawSessionMenu()
 	exec "55amenu Sessions.Restart\\ Vim\\ With\\ Current\\ Session :RestartVim<CR>"
 endfunction
 
-autocmd BufWinEnter * call DrawSessionMenu()
+" Leaving this commented out to see if it improves lockup situation.
+" autocmd BufWinEnter * call DrawSessionMenu()
 
 call DrawSessionMenu()
