@@ -64,7 +64,7 @@ endfunction
 " Copy of the above that opens results in a new tab.
 function! s:RunShellCommandInTab(cmdline)
   tabnew
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  setlocal buftype=nofile nobuflisted noswapfile nowrap
   call setline(1,a:cmdline)
   call setline(2,substitute(a:cmdline,'.','=','g'))
   execute 'silent $read !'.escape(a:cmdline,'%#')

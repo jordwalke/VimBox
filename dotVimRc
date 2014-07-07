@@ -70,7 +70,7 @@ set scs
 " Editing code
 set nowrap
 set wrapmargin=0
-let &textwidth=exists('g:textColumns') && !empty(g:textColumns) ? g:textColumns : 80
+" let &textwidth=exists('g:textColumns') && !empty(g:textColumns) ? g:textColumns : 80
 set nolinebreak
 
 set hlsearch

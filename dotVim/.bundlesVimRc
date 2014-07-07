@@ -154,9 +154,8 @@ source ~/.vim/pluginRc/pairToolsVimRc
 
 
 " =================================== LastTab  =================================
-set runtimepath+=~/.vim/localBundle/LastTab
-map <D-L> :SwitchToLastTab<CR>
-imap <D-L> <Esc>:SwitchToLastTab<CR>
+" See .keysVimRc
+NeoBundle "http://github.com/jordwalke/VimLastTab"
 " ==============================================================================
 
 
@@ -203,23 +202,12 @@ source ~/.vim/pluginRc/nerdTreeTabsVimRc
 " < /Users/jwalke/.opam/4.00.1/share
 "
 " Hacked ACP to support this and haxe.
-if !has('windows')
-  if !empty(system('which opam'))
-    " =================================== Merlin ================================
-    let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','') . "/ocamlmerlin"
-    execute "set rtp+=".s:ocamlmerlin."/vim"
-    execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
-
-    " =================================== OCP-indent ============================
-    " See: https://github.com/the-lambda-church/merlin/issues/184
-    if !exists('g:neocomplete#force_omni_input_patterns')
-      let g:neocomplete#force_omni_input_patterns = {}
-    endif
-    " autocmd FileType ocaml exec "let g:neocomplete#sources#omni#functions = {}"
-    " autocmd FileType ocaml exec "let g:neocomplete#sources#omni#functions.ocaml = 'merlin#Complete'"
-    let g:neocomplete#force_omni_input_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
-    let g:syntastic_ocaml_checkers=['merlin']
-  endif
+if !empty(system('which opam'))
+  " =================================== Merlin ================================
+  let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','') . "/ocamlmerlin"
+  execute "set rtp+=".s:ocamlmerlin."/vim"
+  execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
+  let g:syntastic_ocaml_checkers=['merlin']
 else
   " TODO: figure out opam for windows
 endif
@@ -232,8 +220,23 @@ endif
 NeoBundle "https://github.com/def-lkb/ocp-indent-vim"
 " ==============================================================================
 
+" =================================== OCP-indent ================================
+" This is a better version than what comes directly out of OPAM (it does not
+" destroy undo/redo).
+NeoBundle "https://github.com/def-lkb/ocp-indent-vim"
+" ==============================================================================
 
 
+
+" ======================= Toggle quickfix/location ============================
+" See .keysVimRc
+NeoBundle "https://github.com/milkypostman/vim-togglelist"
+" =============================================================================
+
+" ======================= Easy Grep ===========================================
+NeoBundle "https://github.com/yegappan/grep"
+let Grep_Skip_Files = '*.byte *.depends *.cmi *.cmx *.orig *.back *.cmo *.o *~'
+" =============================================================================
 
 " ======================= A lighterweight Powerline ============================
 NeoBundle "https://github.com/bling/vim-airline"
@@ -252,6 +255,8 @@ NeoBundle "https://github.com/scrooloose/syntastic"
 " TODO: Disable signs in merlin/syntastic, and only use the VimHint strategy of
 " underlining *just* the region of error.
 let g:syntastic_enable_signs=0
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_loc_list_height=15
 " let g:syntastic_warning_symbol=""
 " let g:syntastic_error_symbol=""
 " highlight link SyntasticErrorLine Spellbad
@@ -345,6 +350,8 @@ source ~/.vim/pluginRc/ctrlPVimRc
 " ============================= ACP Forked =========================
 " Check out snippets in ~/.vim/personalSnippets/
 NeoBundle "https://github.com/jordwalke/AutoComplPop"
+let g:acp_ignorecaseOption = 1
+
 " ==============================================================================
 
 " ============================= UltiSnips ======================================

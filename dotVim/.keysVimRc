@@ -90,6 +90,13 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+" Toggle between most recently viewed tab
+map <D-l> :LastTab<CR>
+imap <D-l> <Esc>:LastTab<CR>
+
+" Quick global shortcuts for toggling the location list or quickfix list
+nmap <script> <silent> <D-L> :call ToggleLocationList()<CR>
+nmap <script> <silent> <D-C> :call ToggleQuickfixList()<CR>
 
 " Clear search highlight when escape is pressed.
 " Is really horrible on terminals.
@@ -152,6 +159,8 @@ function! Preserve(command)
 endfunction
 nmap <D-M> :call Preserve("normal gg=G")<CR>
 
+" Rename complete word in file
+nnoremap <expr> <c-s> ':%s/\<'.expand('<cword>').'\>/'.expand('<cword>').'/g<Left><Left>'
 
 
 " auto change directory of file. (really nice, but not always wanted)
