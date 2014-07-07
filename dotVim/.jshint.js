@@ -24,7 +24,7 @@
   trailing: false,
   asi:      false,
   debug:    true,
-  es5:      false,
+  es5:      true,
   esnext:   false,
   evil:     false,
   expr:     true,
