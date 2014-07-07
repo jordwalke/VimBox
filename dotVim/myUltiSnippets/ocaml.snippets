@@ -1,0 +1,34 @@
+snippet t "toplevel;;" !
+$0;;
+endsnippet
+
+snippet l "let x = y" !
+let ${1:name} = ${2:expression} in$0
+endsnippet
+
+snippet mod "module Name =" !
+module ${1:Name} = struct
+	${0:type}
+end
+endsnippet
+
+snippet sig "module type Name =" !
+module type ${1:Name} = sig
+	${0:type}
+end
+endsnippet
+
+snippet m "match pattern with" !
+match ${1:pattern} with
+	| ${2:destructure} -> ${0:expression}
+endsnippet
+
+snippet c "match case" !
+| ${2:destructure} -> ${0:expression}
+endsnippet
+
+snippet com "comment " !
+(* $0 *)
+endsnippet
+
+# vim:ft=snippets:
