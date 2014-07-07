@@ -107,7 +107,7 @@ set diffopt=filler,context:9999
 set spelllang=en
 set spellfile=$HOME/vim_spell/en.utf-8.add
 " UndoDir:
-s:homeFolder = $HOME
+let s:homeFolder = $HOME
 let s:undoDir = s:homeFolder . '/vimUndo'
 set undofile
 " " Create undo dir if needed - not in your dotVim folder! It should be local to
