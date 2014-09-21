@@ -204,7 +204,7 @@ source ~/.vim/pluginRc/nerdTreeTabsVimRc
 " Hacked ACP to support this and haxe.
 if !empty(system('which opam'))
   " =================================== Merlin ================================
-  let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','') . "/ocamlmerlin"
+  let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','') . "/merlin"
   execute "set rtp+=".s:ocamlmerlin."/vim"
   execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
   let g:syntastic_ocaml_checkers=['merlin']
