@@ -231,6 +231,8 @@ NeoBundle "https://github.com/def-lkb/ocp-indent-vim"
 " ======================= Toggle quickfix/location ============================
 " See .keysVimRc
 NeoBundle "https://github.com/milkypostman/vim-togglelist"
+let g:toggle_list_copen_command="bo copen 30"
+let g:toggle_list_lopen_command="bo copen 30"
 " =============================================================================
 
 " ======================= Easy Grep ===========================================
@@ -397,11 +399,6 @@ function! RefreshTheSimulator()
   endif
 endfunction
 :command! RefreshSimulator :call RefreshTheSimulator()
-
-map <silent><D-r> :w<CR>:RefreshSimulator<CR>
-imap <silent><D-r> <Esc>:w<CR>:RefreshSimulator<CR>
-vmap <silent><D-r> <Esc>:w<CR>:RefreshSimulator<CR>
-map <silent><D-R> :w<CR>:OpenDebugger<CR>
 
 " ==============================================================================
 
