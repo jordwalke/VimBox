@@ -90,9 +90,15 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-" Toggle between most recently viewed tab
-map <D-L> :LastTab<CR>
-imap <D-L> <Esc>:LastTab<CR>
+" Quick global shortcuts for toggling the location list or quickfix list
+nmap <script> <silent> <D-l> :call ToggleLocationList()<CR>
+nmap <script> <silent> <D-r> :call ToggleQuickfixList()<CR>
+
+" Clear search highlight when escape is pressed.
+" Is really horrible on terminals.
+if has("gui_running")
+  nnoremap <esc> :noh<return><esc>
+endif
 
 " Quick global shortcuts for toggling the location list or quickfix list
 nmap <script> <silent> <D-L> :call ToggleLocationList()<CR>
