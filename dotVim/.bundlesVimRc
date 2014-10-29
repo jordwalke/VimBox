@@ -5,9 +5,8 @@
 
 set runtimepath+=~/.vim/bundle/vimbed
 
-" ================================= Jordow Colors ==============================
-set runtimepath+=~/.vim/localBundle/vim-colors-jordow/
-" ==============================================================================
+
+NeoBundle "jordwalke/VimCleanColors"
 
 
 " =========================== Bootstrap for Vim ================================
