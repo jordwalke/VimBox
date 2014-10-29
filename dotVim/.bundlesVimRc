@@ -3,6 +3,8 @@
 " ==================================================
 
 
+set runtimepath+=~/.vim/bundle/vimbed
+
 " ================================= Jordow Colors ==============================
 set runtimepath+=~/.vim/localBundle/vim-colors-jordow/
 " ==============================================================================
@@ -68,17 +70,17 @@ NeoBundle "git://github.com/tpope/vim-surround.git"
 
 
 " " ========================== Unite.vim uses ====================================
-" NeoBundle 'Shougo/vimproc', {
-"       \ 'build' : {
-"       \     'windows' : 'make -f make_mingw32.mak',
-"       \     'cygwin' : 'make -f make_cygwin.mak',
-"       \     'mac' : 'make -f make_mac.mak',
-"       \     'unix' : 'make -f make_unix.mak',
-"       \    },
-"       \ }
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
 "
-" NeoBundle "git://github.com/Shougo/unite.vim.git"
-" source ~/.vim/pluginRc/uniteVimRc
+NeoBundle "git://github.com/Shougo/unite.vim.git"
+source ~/.vim/pluginRc/uniteVimRc
 
 " =============================== Thumbnail ====================================
 " NeoBundle "https://github.com/itchyny/thumbnail.vim.git"
@@ -91,14 +93,15 @@ NeoBundle "https://github.com/tpope/vim-markdown.git"
 " =============================== Session = ====================================
 NeoBundle "https://github.com/xolox/vim-misc.git"
 NeoBundle "https://github.com/xolox/vim-session.git"
-let g:session_autosave_periodic = 0  "Every three minutes + on close seems fine.
+" let g:session_autosave_periodic = 0  "Every three minutes + on close seems fine.
 " But saving resets window dims!
 let g:session_autosave = 'yes'       "Auto-save on close
 let g:session_autoload = 'no'
 
 " Make sure to save sessions outside of your dotfiles in case you publish your
 " dotfiles to github etc.
-let g:session_directory="~/vim_sessions/"
+" The Session Directory
+let g:session_directory="~/vim_sessions"
 " ==============================================================================
 
 " My custom session management GUI tools (in menu bar) Based on one of the
@@ -238,6 +241,7 @@ let g:toggle_list_lopen_command="bo copen 30"
 " ======================= Easy Grep ===========================================
 NeoBundle "https://github.com/yegappan/grep"
 let Grep_Skip_Files = '*.byte *.depends *.cmi *.cmx *.orig *.back *.cmo *.o *~'
+let Grep_Skip_Dirs = 'RCS CVS SCCS _build .git'
 " =============================================================================
 
 " ======================= A lighterweight Powerline ============================
@@ -399,7 +403,6 @@ function! RefreshTheSimulator()
   endif
 endfunction
 :command! RefreshSimulator :call RefreshTheSimulator()
-
 " ==============================================================================
 
 
