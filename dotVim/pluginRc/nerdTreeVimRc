@@ -15,8 +15,3 @@ hi def link NERDTreeCWD Normal
 
 " Not so much color
 let g:NERDChristmasTree = 0
-" View in nerd tree!
-map <D-V> :NERDTreeFind<Cr>
-imap <D-V> <Esc>:NERDTreeFind<Cr>
-vmap <D-V> :NERDTreeFind<Cr>
-nmap <D-V> :NERDTreeFind<Cr>
