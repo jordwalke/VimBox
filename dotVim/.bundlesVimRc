@@ -155,6 +155,9 @@ source ~/.vim/pluginRc/pairToolsVimRc
 " ==============================================================================
 
 
+NeoBundle "https://github.com/AndrewRadev/splitjoin.vim"
+
+
 " =================================== LastTab  =================================
 " See .keysVimRc
 NeoBundle "http://github.com/jordwalke/VimLastTab"
