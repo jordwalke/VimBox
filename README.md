@@ -230,7 +230,7 @@ Resolving merge conflicts is simple with `MacVim`. Just put this in your `~/.git
           prompt = false
           # See bashrc for exporting the editor across all apps, not just git.
         [mergetool "mvimdiff"]
-          cmd="mvim -f '+windo set diff scrollbind scrollopt+=hor nowrap' -c 'Gdiff' $MERGED -c 'au VimLeave * !open -a iTerm'"
+          cmd="/Applications/MacVim.app/Contents/MacOS/Vim -g -f '+windo set diff scrollbind scrollopt+=hor nowrap' -c 'Gdiff' $MERGED -c 'au VimLeave * !open -a iTerm'"
           # cmd="mvim -c 'Gdiff' $MERGED"     # use fugitive.vim for 3-way merge
           keepbackup=false
 
