@@ -6,17 +6,30 @@ snippet l "let x = y" !
 let ${1:name} = ${2:expression} in$0
 endsnippet
 
-snippet mod "module Name =" !
+snippet mod "module Name =" !w
 module ${1:Name} = struct
 	${0:type}
 end
 endsnippet
 
-snippet sig "module type Name =" !
+snippet modtype "module type Name =" !w
 module type ${1:Name} = sig
 	${0:type}
 end
 endsnippet
+
+snippet struct "module structure" !w
+struct
+	${0:type}
+end
+endsnippet
+
+snippet sig "module type Name =" !w
+sig
+	${0:type}
+end
+endsnippet
+
 
 snippet m "match pattern with" !
 match ${1:pattern} with
