@@ -1,15 +1,28 @@
-snippet t "toplevel;;" !
-$0;;
-endsnippet
-
 snippet l "let x = y" !
 let ${1:name} = ${2:expression} in$0
+endsnippet
+
+snippet log "print_string" !w
+let _ = print_string (${0:expr}) in
+let _ = print_newline () in
+endsnippet
+
+snippet logs "print_string" !w
+let _ = print_string ("${0}") in
+let _ = print_newline () in
 endsnippet
 
 snippet mod "module Name =" !w
 module ${1:Name} = struct
 	${0:type}
 end
+endsnippet
+
+snippet if "if then else" !w
+if ${1:expr} then
+	${2:thenExpr}
+else
+	${0:elseExpr}
 endsnippet
 
 snippet modtype "module type Name =" !w
@@ -36,15 +49,15 @@ match ${1:pattern} with
 	| ${2:destructure} -> ${0:expression}
 endsnippet
 
-snippet c "match case" !
+snippet c "match case" !w
 | ${2:destructure} -> ${0:expression}
 endsnippet
 
-snippet sc "special comment " !
+snippet sc "special comment " !w
 (** $0 *)
 endsnippet
 
-snippet com "comment " !
+snippet com "comment " !w
 (* $0 *)
 endsnippet
 
