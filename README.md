@@ -153,6 +153,7 @@ Included plugins are configured so that opening a file will always focus the win
 | Key          | Action        |
 | ------------ |-------------|
 | `⌘+e`       | Toggle side bar file explorer |
+| `⌘+E`       | Reveal current file in side bar file explorer |
 | `j`/`k`      | While explorer focused, move up and down |
 | `enter`      | While explorer focused, opens a file in new tab or jump to existing window if already open |
 | `s`          | While explorer focused, opens a file in a vertical split or jump to existing window if already open |
