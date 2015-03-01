@@ -216,13 +216,6 @@ if !empty(system('which opam'))
 else
   " TODO: figure out opam for windows
 endif
-
-" ==============================================================================
-
-" =================================== OCP-indent ================================
-" This is a better version than what comes directly out of OPAM (it does not
-" destroy undo/redo).
-NeoBundle "https://github.com/def-lkb/ocp-indent-vim"
 " ==============================================================================
 
 " =================================== OCP-indent ================================
