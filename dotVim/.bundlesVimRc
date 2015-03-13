@@ -117,21 +117,6 @@ else
 endif
 " ==============================================================================
 
-" ================================= VimJSXHint =================================
-NeoBundle 'jordwalke/VimJSXhint'
-" Custom JSX enabled JSHint. Has been known to not work well on terminals, but
-" works with MacVim perfectly! IMPORTANT: JsLint causes a delay when
-" pressing 'd' in visual mode. So, I ommented out the following lines in
-" jslint.
-" noremap <buffer><silent> dd dd:JSLintUpdate<CR>
-" noremap <buffer><silent> dw dw:JSLintUpdate<CR>
-if has('win32unix')
-  let g:jsCommand='~/cyg-wrapper.sh node'
-else
-  let g:jsCommand='node'
-endif
-" ==============================================================================
-
 
 " ==================== Best Pair Tool Ever =====================================
 NeoBundle "git://github.com/MartinLafreniere/vim-PairTools.git"
