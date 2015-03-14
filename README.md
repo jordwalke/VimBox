@@ -95,6 +95,8 @@ Features:
 | `⌘+shift+p`               | Toggle spell-check                              |
 | `⌘+/`                     | Toggle comments - selected range - or line      |
 | `⌘+shift+m`               | format/indent entire file then restore cursor   |
+| `⌘+l`                     | Toggle error list (only shows if it has errors) |
+| `⌘+r`                     | Toggle quickfix list                            |
 
 
 #####Mega Escape
@@ -123,6 +125,7 @@ Vim had a flat design Before It Was Cool. `VimBox` includes `vim-airline` and `f
 - Like Sublime, `VimBox` accepts highlighted entries via `tab` or `enter`.
 - `tab` also triggers a snippet when applicable, and `tab` will allow "tabbing" through the snippet placeholders.
 - Place custom snippets in `~/.vim/myUltiSnippets/`
+- If the completion window is open and you want to insert a newline instead of inserting the completion, press `shift+s` or `control+s`.
 
 
 #####Distraction Free UI Tabs
@@ -135,9 +138,13 @@ Vim had a flat design Before It Was Cool. `VimBox` includes `vim-airline` and `f
 
 Included plugins are configured so that opening a file will always focus the window/tab/split where that file is already open. This is how most modern editors work.
 
+#####Many Plugins, One Interaction Language
+
+Multiple plugins (`ctrl-p` and `NERDTree`) have been configured so that they have consistent keyboard mappings. For example, `s` represents the notion of a "vertical split", and `h` represents horizontal in both plugins (though one plugin might require a `ctrl` modifier in some cases.)
+
 #####Command-P Search Window
 
-`VimBox` includes the `ctrl-p` plugin and has been configured with keymappings that are consistent with its `NERDTree` keymappings.
+The `ctrl-p` plugin has been configured to "do the right thing", which means searching for some combination of recently used files and/or the contents under the current working directory. It caches the results, but if you open it from your home directory, it could take a while to scan your entire directory.
 
 | Key          | Action        |
 | ------------ |-------------|
@@ -145,6 +152,8 @@ Included plugins are configured so that opening a file will always focus the win
 | `enter`      | While searching, opens the top hit in new tab or jump to existing window if already open |
 | `c-s`        | While searching, opens the top hit in a vertical split or jump to existing window if already open |
 | `c-h`        | While searching, opens the top hit in horizontal split or jump to existing window if already open |
+| `⌘+shift+c`  | While searching, refreshes the search results if files have changed on disk|
+| `ctrl+c`     | Kills a slow search |
 
 #####NERDTree
 
@@ -178,6 +187,8 @@ Included plugins are configured so that opening a file will always focus the win
 
 #####JavaScript Linting
 - Excellent JavaScript indenting and inline linting with support for `JSX`.
+- Syntax error highlighting via Syntastic.
+- Type error highlighting via `flow`. Just have `flow` installed on your path, and type/syntax errors will be underlined in red. As always, hit `⌘+l` to toggle the summary of the file's errors.
 
 <img src="dotVim/images/VimJSXHint.png" />
 
