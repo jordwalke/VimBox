@@ -94,6 +94,7 @@ set visualbell
 
 " Mac Support bootstrap
 set wildignore+=*.DS_Store
+set wildignore+=*/_build**
 
 " Remove ugly folds
 set nofoldenable
