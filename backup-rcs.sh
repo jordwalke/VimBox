@@ -1,23 +1,23 @@
 #!/usr/bin/env bash
 
 # No trailing slashes to preserve symlinks!
-if [ -d "~/.vim" ]; then
+if [ -d "$HOME/.vim" && ! -L "$HOME/.vim" ]; then
   echo -e "moving ~/.vim to ~/.vim_backup"
   mv ~/.vim ~/.vim_backup
 else
-  echo "~/.vim has already been moved or does not exist"
+  echo "$HOME/.vim has already been moved, is a symlink, or does not exist"
 fi
 
-if [ -d "~/.vimrc" ]; then
+if [ -f "$HOME/.vimrc" && ! -L "$HOME/.vimrc" ]; then
   echo -e "moving ~/.vimrc to ~/.vimrc_backup"
   mv ~/.vimrc ~/.vimrc_backup
 else
-  echo "~/.vimrc has already been moved or does not exist"
+  echo "$HOME/.vimrc has already been moved, is a symlink, or does not exist"
 fi
 
-if [ -d "~/.gvimrc" ]; then
+if [ -f "$HOME/.gvimrc" && ! -L "$HOME/.gvimrc" ]; then
   echo -e "moving ~/.gvimrc to ~/.gvimrc_backup"
   mv ~/.gvimrc ~/.gvimrc_backup
 else
-  echo "~/.gvimrc has already been moved or does not exist"
+  echo "$HOME/.gvimrc has already been moved, is a symlink, or does not exist"
 fi
