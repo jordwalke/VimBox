@@ -70,6 +70,11 @@ Installation:
 
 6. Install up-to-date node.js if you want JS linting (http://nodejs.org/)
 
+7. Make your MacVim use the flat VimBox icon (optional). Open
+   `images/ApplicationIcon.icns` in preview. `⌘+a` to select all, then `⌘+c` to
+   copy it. Then find your `MacVim.app` in `/Applications/`, select it and hit
+   `⌘+i`. Click on its icon, then paste with `⌘p`. Restart MacVim.
+
 
 Features:
 ----------
