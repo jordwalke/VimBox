@@ -270,14 +270,16 @@ Plugin System:
 `VimBox` achieves its features through configuration of several plugins, but those should be considered implementation details of the `VimBox` distribution. `VimBox` uses modern editors as a "spec" for features and will configure several plugins in order to conform to that spec.
 
 - You can add any plugin you like using the `NeoBundle` command.
-- Edit `~/.vim/vimrc.custom.before` and `~/.vim/vimrc.custom.after`.
-- `~/.vim/vimrc.custom.before` is executed before the stock plugins are configured.
-- `~/.vim/vimrc.custom.after` is executed after the stock plugins are configured.
+- Add custom plugins using the `NeoBundle` command inside
+  `~/.vim/.bundlesVimRc.custom`.
+- Customize `~/.vim/vimrc.custom.before` to configure Vim before any of the
+  bundles are loaded, and customize `~/.vim/vimrc.custom.after` to configure
+  Vim after plugins are loaded.
 
 
 Customizing:
 ---------
-In `~/.vim/vimrc.custom.before`/`~/.vim/vimrc.custom.after` you may set any options you like. (See "Plugin System" section below).
+In `~/.vim/vimrc.custom.before`/`~/.vim/vimrc.custom.after` you may set any options you like. (See "Plugin System" section above).
 
 `VimBox` will look to see if you have defined the following variables defined in your `~/.vim/vimrc.custom.before`:
 

@@ -5,7 +5,7 @@
 "*mapmode-ic* *mapmode-i* *mapmode-c* *mapmode-l*
 ""Some commands work both in Insert mode and Command-line mode, some not:
 "commands:				      modes: ~
-                                        "Insert  Command-line	Lang-Arg ~
+"Insert  Command-line	Lang-Arg ~
 "":map!  :noremap!  :unmap!  :mapclear!	    yes	       yes	   -
 ":imap  :inoremap  :iunmap  :imapclear	    yes		-	   -
 "":cmap  :cnoremap  :cunmap  :cmapclear	     -	       yes	   -
@@ -93,9 +93,9 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Clear search highlight when escape is pressed.
 " Is really horrible on terminals.
-if has("gui_running")
-  nnoremap <esc> :noh<return><esc>
-endif
+" if has("gui_running")
+"   nnoremap <esc> :noh<return><esc>
+" endif
 " Toggle between most recently viewed tab
 map <D-L> :LastTab<CR>
 imap <D-L> <Esc>:LastTab<CR>
@@ -104,11 +104,26 @@ imap <D-L> <Esc>:LastTab<CR>
 nmap <script> <silent> <D-l> :call ToggleLocationList()<CR>
 nmap <script> <silent> <D-r> :call ToggleQuickfixList()<CR>
 
-" Clear search highlight when escape is pressed.
-" Is really horrible on terminals.
-if has("gui_running")
-  nnoremap <esc> :noh<return><esc>
-endif
+" Clear all forms of highlight when escape is pressed in normal mode.
+" Accounts for strange terminal behavior.
+"
+" http://stackoverflow.com/questions/11940801/mapping-esc-in-vimrc-causes-bizzare-arrow-behaviour
+function! UnhighlightMerlinIfDefined()
+  if exists(":MerlinClearEnclosing")
+    execute "MerlinClearEnclosing"
+  endif
+endfunction
+
+
+command -nargs=* DoUnhighlightEverything :call UnhighlightMerlinIfDefined(<f-args>)
+if has('gui_running')
+  nnoremap <silent> <esc>  :nohlsearch<return>:DoUnhighlightEverything<return><esc>
+else
+  " code from above
+  augroup no_highlight
+    autocmd TermResponse * nnoremap <silent> <esc> :nohlsearch<return>:DoUnhighlightEverything<return><esc>
+  augroup END
+end
 
 
 " Alphabetize on F5
@@ -151,8 +166,13 @@ noremap! <c-n> <Down>
 noremap! <c-p> <Up>
 inoremap <c-g> <c-p>
 
-" Command line
+" Command line (Need to map these once more for inc-search to work).
 cmap <c-a> <Home>
+cmap <c-e> <End>
+cmap <c-f> <Right>
+cmap <c-b> <Left>
+cmap <c-d> <Delete>
+
 
 function! Preserve(command)
   " Preparation: save last search, and cursor position.

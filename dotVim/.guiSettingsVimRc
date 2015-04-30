@@ -47,13 +47,15 @@ if has("gui_running") " all this for gui use
     set guifont=Monaco:h10
     set columns=285
     set nolazyredraw
+    " Change to `1` if your font is patched with webdev icons.
+    let g:webdevicons_enable = 0
     autocmd VimEnter * exec ":set columns=85"
     autocmd VimEnter * exec ":set guifont=Inconsolata-dz\\ for\\ Powerline:h14"
-
     set linespace=-4
+
   endif
 endif
 
 syntax enable
 set background=dark
-colorscheme flatlandia
+colorscheme spacegray

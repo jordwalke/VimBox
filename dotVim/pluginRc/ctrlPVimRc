@@ -71,6 +71,7 @@ if has("gui_win32")
           \ 'AcceptSelection("v")': ['<c-s>'],
           \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
           \ 'PrtClearCache()':      ['<M-C>'],
+          \ 'PrtDeleteEnt()':       ['<F7>'],
           \ 'PrtExit()':            ['<c-l>', '<esc>', '<c-c>', '<c-g>'],
           \ }
 else
@@ -86,6 +87,7 @@ else
           \ 'AcceptSelection("v")': ['<c-s>'],
           \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
           \ 'PrtClearCache()':      ['<D-C>'],
+          \ 'PrtDeleteEnt()':       ['<F7>'],
           \ 'PrtExit()':            ['<c-l>', '<esc>', '<c-c>', '<c-g>'],
           \ }
 
