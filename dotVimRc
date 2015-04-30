@@ -155,9 +155,9 @@ endif
 
 set t_Co=256
 
-source ~/.vim/.bundlesVimRc
-if filereadable(expand("~/.vim/.bundlesVimRc.custom"))
-  source ~/.vim/.bundlesVimRc.custom
+source ~/.vim/bundlesVimRc
+if filereadable(expand("~/.vim/bundlesVimRc.custom"))
+  source ~/.vim/bundlesVimRc.custom
 endif
 NeoBundleCheck
 
@@ -167,9 +167,9 @@ autocmd VimEnter * exec ":set columns=85"
 " </temporary until neobundle stops asking to hit enter for more>
 
 
-source ~/.vim/.guiSettingsVimRc   " Must come after .bundlesVimRc
-source ~/.vim/.keysVimRc
-source ~/.vim/.customFunctions.vim
+source ~/.vim/guiSettingsVimRc   " Must come after .bundlesVimRc
+source ~/.vim/keysVimRc
+source ~/.vim/customFunctions.vim
 
 " sensible.vim disturbs this - reset it.
 set listchars = "eol:$"
