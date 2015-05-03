@@ -48,19 +48,11 @@ else
   echo -e "$HOME/.gvimrc was already moved, or already exists"
 fi
 
-# $HOME/Library/Fonts/Inconsolata-dz for Powerline.otf
-# read -n 1 -r -s -p "Click \"Install\" when prompted. Press any key to continue.."
-
-# open "$PWD/dotVim/Fonts/InconsolataDz/Inconsolata-dz for Powerline.otf"
-
 FONT_SOURCE="$PWD/dotVim/Fonts/InconsolataDz/Inconsolata-dz for Powerline.otf"
 FONT_DEST="$HOME/Library/Fonts/Inconsolata-dz for Powerline.otf"
 
-echo $FONT_SOURCE
-echo $FONT_DEST
-
 if [[ ! -f "$FONT_DEST" ]]; then
-  echo -e "Installing font"
+  echo -e "Installing font $FONT_SOURCE into $FONT_DEST"
   cp "$FONT_SOURCE" "$FONT_DEST"
 else
   echo -e "The font was already installed"
