@@ -15,7 +15,7 @@
   <li><h5>Familiar autocomplete behavior</h5></li>
   <li><h5>JavaScript indentation and lint support</h5></li>
   <li><h5>Snippets (with JavaScript examples)</h5></li>
-  <li><h5><a href="https://github.com/jordwalke/flatlandia/">Flatlandia</a> theme</h5></li>
+  <li><h5>Spacegray theme with matching app icon.</h5></li>
 </ul>
 </td>
 </tr>
@@ -24,10 +24,11 @@
 
 
 
-Screen Shot:
+VimBox with matching Spacegray application icon.
 -------------
 <img src="dotVim/images/flatlandia_completion.png" />
 
+<img src="dotVim/images/iconScreenshot.png" />
 
 
 Installation:
@@ -70,10 +71,10 @@ Installation:
 
 6. Install up-to-date node.js if you want JS linting (http://nodejs.org/)
 
-7. Make your MacVim use the flat VimBox icon (optional). Open
-   `images/ApplicationIcon.icns` in preview. `⌘+a` to select all, then `⌘+c` to
-   copy it. Then find your `MacVim.app` in `/Applications/`, select it and hit
-   `⌘+i`. Click on its icon, then paste with `⌘p`. Restart MacVim.
+7. Make your MacVim use the VimBox icon (optional).
+   Find `/Applicatin/MavVim.app`. Select it and press `⌘+i` and an information
+   window about MacVim should open. Drag `images/ApplicationIcon.icns` onto the
+   little icon in that information window. Restart MacVim.
 
 
 Features:
@@ -114,9 +115,9 @@ Features:
 | ------------ |-------------|
 | `^+l`        | Mega Escape |
 
-#####Airline/Flatlandia
+#####Airline/Spacegray
 
-Vim had a flat design Before It Was Cool. `VimBox` includes `vim-airline` and `flatlandia`.
+`VimBox` includes `vim-airline` and `Spacegray` color scheme.
 
 #####Braces and Pairs
 
@@ -299,4 +300,11 @@ License:
 
 See the license file included. Any dependencies that are included in `VimBox`
 may have their own license. In the event any dependency is include in `VimBox`,
-an attempt has been made to also include its corresponding license.
+an attempt has been made to also include its corresponding license in the
+directory containing that licensed work.
+
+Each of the fonts carry their own license, which you should consult.
+
+The VimBox application icon was derived from Jannik Siebert's excellent Sublime
+icon. See the icon's `README` for more information and links to the original
+works as well as the license that applies to that icon.
