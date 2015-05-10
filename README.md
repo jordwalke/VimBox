@@ -24,11 +24,11 @@
 
 
 
-VimBox with matching Spacegray application icon.
--------------
 <img src="dotVim/images/flatlandia_completion.png" />
+> VimBox with Spacegray colorscheme
 
 <img src="dotVim/images/iconScreenshot.png" />
+> VimBox with Spacegray colorscheme
 
 
 Installation:
@@ -308,3 +308,6 @@ Each of the fonts carry their own license, which you should consult.
 The VimBox application icon was derived from Jannik Siebert's excellent Sublime
 icon. See the icon's `README` for more information and links to the original
 works as well as the license that applies to that icon.
+
+The SketchApp sources to the icon are also included in the
+`dotVim/images/iconSources` folder.
