@@ -24,11 +24,11 @@
 
 
 
+> VimBox with Spacegray colorscheme
 <img src="dotVim/images/flatlandia_completion.png" />
-> VimBox with Spacegray colorscheme
 
+> VimBox's matching application icon
 <img src="dotVim/images/iconScreenshot.png" />
-> VimBox with Spacegray colorscheme
 
 
 Installation:
