@@ -75,7 +75,7 @@ Installation:
 6. Install up-to-date node.js if you want JS linting (http://nodejs.org/)
 
 7. Make your MacVim use the VimBox icon (optional).
-   Find `/Applicatin/MavVim.app`. Select it and press `⌘+i` and an information
+   Find `/Applicatin/MacVim.app`. Select it and press `⌘+i` and an information
    window about MacVim should open. Drag `images/ApplicationIcon.icns` onto the
    little icon in that information window. Restart MacVim.
 
