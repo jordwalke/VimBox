@@ -280,7 +280,7 @@ Plugin System:
 
 - You can add any plugin you like using the `NeoBundle` command.
 - Add custom plugins using the `NeoBundle` command inside
-  `~/.vim/.bundlesVimRc.custom`.
+  `~/.vim/bundlesVimRc.custom`.
 - Customize `~/.vim/vimrc.custom.before` to configure Vim before any of the
   bundles are loaded, and customize `~/.vim/vimrc.custom.after` to configure
   Vim after plugins are loaded.
