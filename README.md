@@ -308,8 +308,8 @@ directory containing that licensed work.
 
 Each of the fonts carry their own license, which you should consult.
 
-The VimBox application icon was derived from Jannik Siebert's excellent Sublime
-icon. See the icon's `README` for more information and links to the original
+The VimBox application icon was derived from [Jannik Siebert](https://dribbble.com/janniks)'s excellent [Sublime
+icon](https://dribbble.com/shots/1827862-Yosemite-Sublime-Text-Icon). See the icon's `README` for more information and links to the original
 works as well as the license that applies to that icon.
 
 The SketchApp sources to the icon are also included in the
