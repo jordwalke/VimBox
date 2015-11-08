@@ -298,6 +298,13 @@ In `~/.vim/vimrc.custom.before`/`~/.vim/vimrc.custom.after` you may set any opti
 | `let g:tabSize = 2`      | Set tab width           |
 
 
+Using VimBox's configuration from NeoVim
+---------
+
+    # TODO: Add build script to backup old `.nvim/.nvimrc`
+    ln -s ~/.vimrc ~/.nvimrc
+    ln -s ~/.vim ~/.nvim
+
 License:
 -------
 

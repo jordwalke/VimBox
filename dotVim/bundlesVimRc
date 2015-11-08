@@ -9,7 +9,6 @@ NeoBundle "jordwalke/VimCleanColors"
 NeoBundle "tpope/vim-sensible"
 " ==============================================================================
 
-
 " ====================== Way better incremental search =========================
 " Unforunately, this plugin adds latency while typing in the search box!
 " NeoBundle "https://github.com/haya14busa/incsearch.vim"
@@ -44,16 +43,8 @@ let g:Gitv_WipeAllOnClose = 1
 let g:Gitv_DoNotMapCtrlKey = 1
 " ==============================================================================
 
-
-" ========== Use arrow keys in block mode to move things around ================
-NeoBundle "git://github.com/gavinbeatty/dragvisuals.vim.git"
-vmap  <expr>  <LEFT>   DVB_Drag('left')
-vmap  <expr>  <RIGHT>  DVB_Drag('right')
-vmap  <expr>  <DOWN>   DVB_Drag('down')
-vmap  <expr>  <UP>     DVB_Drag('up')
-" vmap  <expr>  D        DVB_Duplicate() (Causes hanving on linewise visual mode)
-" Remove any introduced trailing whitespace after moving..
-let g:DVB_TrimWS = 1
+" ==============================================================================
+NeoBundle "https://github.com/jreybert/vimagit"
 " ==============================================================================
 
 " Windows:
@@ -76,17 +67,19 @@ NeoBundle "git://github.com/tpope/vim-surround.git"
 
 
 " " ========================== Unite.vim uses ====================================
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
+" Disabling Unite for now since it's unclear how to configure it to work with
+" VimBox's paradigm.
+" NeoBundle 'Shougo/vimproc', {
+"       \ 'build' : {
+"       \     'windows' : 'make -f make_mingw32.mak',
+"       \     'cygwin' : 'make -f make_cygwin.mak',
+"       \     'mac' : 'make -f make_mac.mak',
+"       \     'unix' : 'make -f make_unix.mak',
+"       \    },
+"       \ }
 "
-NeoBundle "git://github.com/Shougo/unite.vim.git"
-source ~/.vim/pluginRc/uniteVimRc
+" NeoBundle "git://github.com/Shougo/unite.vim.git"
+" source ~/.vim/pluginRc/uniteVimRc
 
 " =============================== Thumbnail ====================================
 " NeoBundle "https://github.com/itchyny/thumbnail.vim.git"
@@ -437,8 +430,8 @@ map <D-T> <Esc>:Undoquit<CR>
 
 
 " =======================GUI File Browser like CMD+T ===========================
-" NeoBundle "https://github.com/twe4ked/vim-peepopen"
-" if has("gui_macvim")
-"   map <D-t> <Plug>PeepOpen
-" end
+NeoBundle "https://github.com/twe4ked/vim-peepopen"
+if has("gui_macvim")
+  map <D-t> <Plug>PeepOpen
+end
 " ==============================================================================

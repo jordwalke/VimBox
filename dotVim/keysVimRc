@@ -120,9 +120,11 @@ if has('gui_running')
   nnoremap <silent> <esc>  :nohlsearch<return>:DoUnhighlightEverything<return><esc>
 else
   " code from above
-  augroup no_highlight
-    autocmd TermResponse * nnoremap <silent> <esc> :nohlsearch<return>:DoUnhighlightEverything<return><esc>
-  augroup END
+  " Still leaves strange characters in terminal when hitting arrow keys in
+  " normal mode!
+  " augroup no_highlight
+  "   autocmd TermResponse * nnoremap <silent> <esc> :nohlsearch<return>:DoUnhighlightEverything<return><esc>
+  " augroup END
 end
 
 
@@ -256,3 +258,6 @@ if has("gui_running") " all this for gui use
         " imap <D-r> <Esc>:w<Cr>:RRB<Cr>
     endif
 endif
+
+
+
