@@ -76,11 +76,13 @@ Installation:
 
 7. Make your MacVim use the VimBox icon (optional):
 
-   open /Applications/
-   # Find the MacVim app icon and press `⌘+i` to open the information window
-   open ./dotVim/images
-   # drag the ApplicationIcon.icns onto the little icon in the information window
-   # and restart MacVim.
+```lang=bash
+open /Applications/
+# Find the MacVim app icon and press `⌘+i` to open the information window
+open ./dotVim/images
+# drag the ApplicationIcon.icns onto the little icon in the information window
+# and restart MacVim.
+```
   
   
 Features:
