@@ -1,3 +1,4 @@
+"let g:python_host_prog="/usr/local/bin/python"
 " ================================================
 "         .__           ___.
 "  ___  __|__|  _____   \_ |__    ____  ___  ___
@@ -153,6 +154,21 @@ if has("gui_macvim")
 endif
 " </temporary until neobundle stops asking to hit enter for more>
 
+" iTerm requires the following commented code to be placed in your .bashrc in
+" order for Vim to show full 256 colors.
+" export CLICOLOR=1
+" export TERM='xterm-256color'
+" if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+"   export TERM='xterm-256color'
+" else
+"   #export TERM='xterm-color'
+"   export TERM=xterm-256color
+" fi
+" If your terminal does *not* support 256 color, if if you want better than
+" 256, and are willing to limit to base16 colorschemes you enable this:
+" (You probably also need the base16 colorscheme shell script to exist
+" somewhere in your path) - See the base16 docs.
+" let base16colorspace="256"
 set t_Co=256
 
 source ~/.vim/bundlesVimRc
