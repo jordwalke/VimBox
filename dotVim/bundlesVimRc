@@ -11,22 +11,43 @@ NeoBundle "tpope/vim-sensible"
 
 " ====================== Way better incremental search =========================
 " Unforunately, this plugin adds latency while typing in the search box!
+" (When typing the quote character). Also, I noticed an error when pasting
+" into it (even in most recent - it ends up modifying your buffer - yikes).
 " NeoBundle "https://github.com/haya14busa/incsearch.vim"
-" Question mark searches but keeps cursor in same position
+" " Question mark searches but keeps cursor in same position
 " map /  <Plug>(incsearch-forward)
 " map ? <Plug>(incsearch-stay)
-" " IncSearchNoreMap "+gP <C-r>+
+" "IncSearchNoreMap "+gP <C-r>+
 " autocmd VimEnter * exec ":IncSearchNoreMap \"+gP <C-r>+"
-" ==============================================================================
+"
+" let g:incsearch#emacs_like_keymap = 1
+" " From the example:
+" augroup incsearch-keymap
+"     autocmd!
+"     autocmd VimEnter * call s:incsearch_keymap()
+" augroup END
+" function! s:incsearch_keymap()
+"     IncSearchNoreMap <c-l> <Esc>
+"     IncSearchNoreMap <c-l> <C-c>
+" endfunction
 
+" ==============================================================================
 
 " ======================= AutoMakeDirectory if needed ==========================
 NeoBundle "jordwalke/VimAutoMakeDirectory"
 " ==============================================================================
 
 
-" ======================= Custom Resizing for SplitBalancer ====================
-NeoBundle "git://github.com/jordwalke/VimSplitBalancer.git"
+" ======================= Great Auto Window Resizer ============================
+NeoBundle "https://github.com/zhaocai/GoldenView.Vim.git"
+let g:goldenview__enable_default_mapping = 0
+" ==============================================================================
+
+" =================== Impressive window switching plugin =======================
+" NeoBundle "https://github.com/t9md/vim-choosewin"
+" nmap  <D-t>  <Plug>(choosewin)
+" imap  <D-t>  <Esc>:ChooseWin<Cr>
+" let g:choosewin_overlay_enable = 1
 " ==============================================================================
 
 
@@ -108,7 +129,6 @@ let g:session_directory="~/vim_sessions"
 set runtimepath+=~/.vim/localBundle/sessions
 set runtimepath+=~/.vim/localBundle/wowcamldebug
 
-
 " ================================ VimJSDocSnippets ============================
 NeoBundle 'jordwalke/VimJSDocSnippets'
 if has('gui_win32')
@@ -122,17 +142,6 @@ endif
 " ==================== Best Pair Tool Ever =====================================
 NeoBundle "git://github.com/MartinLafreniere/vim-PairTools.git"
 source ~/.vim/pluginRc/pairToolsVimRc
-" ==============================================================================
-
-
-" ==================== Vaxe ====================================================
-" set runtimepath+=~/.vim/localBundle/vaxe/
-" autocmd FileType haxe set autowrite
-
-" preview adds odd preview window at the top
-" Cannot upgrade to Vim 7.4 due to the following autocomplete bug listed in the
-" TODOs.
-" https://vim.googlecode.com/hg/runtime/doc/todo.txt
 " ==============================================================================
 
 
@@ -155,6 +164,9 @@ NeoBundle "http://github.com/jordwalke/VimLastTab"
 NeoBundle "jordwalke/VimCloser"
 " ==============================================================================
 
+
+" TODO: Look into the following
+" https://github.com/xolox/vim-colorscheme-switcher
 
 " =============================== SmartGUITabs =================================
 NeoBundle "jordwalke/MacVimSmartGUITabs"
@@ -203,6 +215,7 @@ else
   " TODO: figure out opam for windows
 endif
 
+
 " ==============================================================================
 
 " =================================== OCP-indent ================================
@@ -243,6 +256,9 @@ let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
 
 " ======================= A lighterweight Powerline ============================
 NeoBundle "https://github.com/jordwalke/vim-airline"
+if has("gui_macvim") || has("gui_vimr")
+  autocmd VimEnter * set guioptions+=e
+endif
 let g:airline_powerline_fonts = 1
 set laststatus=2
 " Disable truncation
@@ -335,10 +351,10 @@ let g:solarized_visibility="high"
 
 " ================================= Ctrl-p =====================================
 " See ~/.gvimrc as well
-NeoBundle "git://github.com/kien/ctrlp.vim.git"
+" Using the new official ctrlp (switched project maintainers)
+NeoBundle "git://github.com/ctrlpvim/ctrlp.vim.git"
 source ~/.vim/pluginRc/ctrlPVimRc
 " ==============================================================================
-
 
 " ================================== Headlights ================================
 " Shows all plugin options as menu items like textmate bundles!
@@ -426,12 +442,4 @@ let g:gundo_close_on_revert=1
 " ========================== Undo Quit of a window =============================
 NeoBundle "https://github.com/AndrewRadev/undoquit.vim"
 map <D-T> <Esc>:Undoquit<CR>
-" ==============================================================================
-
-
-" =======================GUI File Browser like CMD+T ===========================
-NeoBundle "https://github.com/twe4ked/vim-peepopen"
-if has("gui_macvim")
-  map <D-t> <Plug>PeepOpen
-end
 " ==============================================================================
