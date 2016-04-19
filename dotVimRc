@@ -161,12 +161,6 @@ if filereadable(expand("~/.vim/bundlesVimRc.custom"))
 endif
 NeoBundleCheck
 
-" <temporary until neobundle stops asking to hit enter for more>
-set linespace=0
-autocmd VimEnter * exec ":set columns=85"
-" </temporary until neobundle stops asking to hit enter for more>
-
-
 source ~/.vim/guiSettingsVimRc   " Must come after .bundlesVimRc
 source ~/.vim/keysVimRc
 source ~/.vim/customFunctions.vim
