@@ -65,7 +65,7 @@ let g:Gitv_DoNotMapCtrlKey = 1
 " ==============================================================================
 
 " ==============================================================================
-NeoBundle "https://github.com/jreybert/vimagit"
+" NeoBundle "https://github.com/jreybert/vimagit"
 " ==============================================================================
 
 " Windows:
@@ -166,7 +166,7 @@ NeoBundle "jordwalke/VimCloser"
 
 
 " TODO: Look into the following
-" https://github.com/xolox/vim-colorscheme-switcher
+" NeoBundle "https://github.com/xolox/vim-colorscheme-switcher"
 
 " =============================== SmartGUITabs =================================
 NeoBundle "jordwalke/MacVimSmartGUITabs"
@@ -207,6 +207,8 @@ source ~/.vim/pluginRc/nerdTreeTabsVimRc
 " Hacked ACP to support this and haxe.
 if !empty(system('which opam'))
   " =================================== Merlin ================================
+  " Set the log file and restart:
+  " let $MERLIN_LOG = '/Users/you/merlinlogfile'
   let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','') . "/merlin"
   execute "set rtp+=".s:ocamlmerlin."/vim"
   execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
@@ -214,7 +216,6 @@ if !empty(system('which opam'))
 else
   " TODO: figure out opam for windows
 endif
-
 
 " ==============================================================================
 
@@ -368,6 +369,7 @@ source ~/.vim/pluginRc/ctrlPVimRc
 " Check out snippets in ~/.vim/personalSnippets/
 NeoBundle "https://github.com/jordwalke/AutoComplPop"
 let g:acp_ignorecaseOption = 1
+
 " ==============================================================================
 
 " ============================= UltiSnips ======================================
