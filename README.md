@@ -109,7 +109,7 @@ Features:
 | `⌘+shift+p`               | Toggle spell-check                              |
 | `⌘+/`                     | Toggle comments - selected range - or line      |
 | `⌘+shift+m`               | format/indent entire file then restore cursor   |
-| `⌘+l`                     | Toggle error list (only shows if it has errors) |
+| `⌘+shift+r`               | Toggle error list (only shows if it has errors) |
 | `⌘+r`                     | Toggle quickfix list                            |
 
 

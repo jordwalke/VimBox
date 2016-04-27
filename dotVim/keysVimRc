@@ -22,6 +22,7 @@ nmap <D-J> ]c
 
 " Always gets out of autocomplete's and just lets you enter the newline!
 imap <C-Cr> <Left><Right><Cr>
+
 " ==== My favorite way of avoiding the escape key - feel free to delete all this
 " == c-l escapes and saves, avoid the pinky stretch
 vmap <C-l> <Esc><Cr>
@@ -31,6 +32,8 @@ map <c-l> <Esc>
 smap <C-l> <Esc>
 " While commanding
 cmap <C-l> <C-c>
+
+
 
 
 
@@ -101,8 +104,9 @@ map <D-L> :LastTab<CR>
 imap <D-L> <Esc>:LastTab<CR>
 
 " Quick global shortcuts for toggling the location list or quickfix list
-nmap <script> <silent> <D-l> :call ToggleLocationList()<CR>
-nmap <script> <silent> <D-r> :call ToggleQuickfixList()<CR>
+" TODO: Use overlay for this as well.
+nmap <script> <silent> <D-r> :call ToggleLocationList()<CR>
+nmap <script> <silent> <D-R> :call ToggleQuickfixList()<CR>
 
 " Clear all forms of highlight when escape is pressed in normal mode.
 " Accounts for strange terminal behavior.
@@ -113,6 +117,7 @@ function! UnhighlightMerlinIfDefined()
     execute "MerlinClearEnclosing"
   endif
 endfunction
+
 
 
 command -nargs=* DoUnhighlightEverything :call UnhighlightMerlinIfDefined(<f-args>)
