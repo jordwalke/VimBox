@@ -38,21 +38,15 @@ if has("gui_running") " all this for gui use
     " Don't remove tabs on MacVim because VimGUITabs plugin makes them get out
     " of the way when we want them to get out of the way (in full screen mode).
     " set guioptions-=e
-    " set guifont=Menlo:h12.00
     " like A CSS Reset:
     let macvim_skip_colorscheme = 1
     set transparency=0
     set fuoptions=maxvert,maxhorz
-    set lines=45
-    set guifont=Monaco:h10
-    set columns=285
+    set guifont=Menlo:h14
     set nolazyredraw
     " Change to `1` if your font is patched with webdev icons.
     let g:webdevicons_enable = 0
-    autocmd VimEnter * exec ":set columns=85"
-    autocmd VimEnter * exec ":set guifont=Inconsolata-dz\\ for\\ Powerline:h14"
-    set linespace=-4
-
+    set linespace=0
   endif
 endif
 

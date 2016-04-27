@@ -91,7 +91,14 @@ set wildignore+=*/node_modules/**
 set sm!  " show matching brace/paren
 set visualbell
 " Should avoid "Hit Enter" annoyingness (Does *not* work)
-" set shortmess+=filmnrxoOtT
+" The final c gets rid of annoying autocomplete messages.
+set shortmess+=filmnrxoOtTc
+" Disable Vim's startup screen
+set shortmess+=I
+" Customize:
+" http://vi.stackexchange.com/questions/627/how-can-i-change-vims-start-or-intro-screen
+
+
 
 " Mac Support bootstrap
 set wildignore+=*.DS_Store
@@ -147,13 +154,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" <temporary until neobundle stops asking to hit enter for more>
-if has("gui_macvim")
-  set guifont=Monaco:h10
-  set columns=195
-endif
-" </temporary until neobundle stops asking to hit enter for more>
-
 " iTerm requires the following commented code to be placed in your .bashrc in
 " order for Vim to show full 256 colors.
 " export CLICOLOR=1
@@ -175,13 +175,10 @@ source ~/.vim/bundlesVimRc
 if filereadable(expand("~/.vim/bundlesVimRc.custom"))
   source ~/.vim/bundlesVimRc.custom
 endif
+" This is to prevent NeoBundle from having the user "Hit Enter To Continue"
+set cmdheight=20
 NeoBundleCheck
-
-" <temporary until neobundle stops asking to hit enter for more>
-set linespace=0
-autocmd VimEnter * exec ":set columns=85"
-" </temporary until neobundle stops asking to hit enter for more>
-
+autocmd VimEnter * exec ":set cmdheight=1"
 
 source ~/.vim/guiSettingsVimRc   " Must come after .bundlesVimRc
 source ~/.vim/keysVimRc
