@@ -139,7 +139,7 @@ Features:
 - Like Sublime, `VimBox` accepts highlighted entries via `tab` or `enter`.
 - `tab` also triggers a snippet when applicable, and `tab` will allow "tabbing" through the snippet placeholders.
 - Place custom snippets in `~/.vim/myUltiSnippets/`
-- If the completion window is open and you want to insert a newline instead of inserting the completion, press `shift+s` or `control+s`.
+- If the completion window is open and you want to insert a newline instead of inserting the completion, press `shift+enter` or `control+enter`.
 
 
 #####Distraction Free UI Tabs
