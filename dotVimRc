@@ -89,7 +89,12 @@ set wildignore+=*/node_modules/**
 " Including this messes up fugitive in git mergetool:
 " set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 set sm!  " show matching brace/paren
+
+" Disable visualbell by default
+" http://unix.stackexchange.com/a/5313
 set visualbell
+set t_vb=
+
 " Should avoid "Hit Enter" annoyingness (Does *not* work)
 " The final c gets rid of annoying autocomplete messages.
 set shortmess+=filmnrxoOtTc
