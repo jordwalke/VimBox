@@ -1,0 +1,256 @@
+
+" Implementation of a "HUD" style overlay that does not disrupt your
+" coding windows when toggling the quickfix/location lists!
+"
+" ----------  Hud Framework ----------
+
+let g:doesCursorNeedRestoring = 0
+" Buffer number-occurence of that original window.
+" We'll want to restore it later at a time when new windows might have
+" disrupted the window ordering
+let g:playWellWithGoldenView = 1
+let g:origScrolloff = 0
+" Windows are the things you really want to keep track of,
+" But the window numbers get all jumbled up when control-p window is open or
+" when new windows are opened by ctrl-p.
+" But we can't just keep track of buffer numbers, because two windows can
+" share a buffer. Therefore we keep track of something else that doesn't tend
+" to be disrupted - the tuple (bufferNumber, occurrence of bufferNumber) where
+" occurrence is in order of "windo" which basically just cycles through
+" windows in a predictable (enough) order.
+"
+" Just for the duration while cycling
+let g:numTimesSeenBuff = {}
+" By buffer number, occurrence
+let g:origByBufOcc = {}
+function MoveOneCursorOutOfTheWay(docksToTop)
+  let theWinnr = winnr()
+  let theBuffnr = bufnr("")
+  let occurrenceNum = has_key(g:numTimesSeenBuff, theBuffnr) ? g:numTimesSeenBuff[theBuffnr] + 1 : 0
+  let g:numTimesSeenBuff[theBuffnr] = occurrenceNum
+  let key = theBuffnr . '-' . occurrenceNum
+  let theCursorLine = getwinvar(theWinnr, '&cursorline')
+  let theLayout = winsaveview()
+  let g:origByBufOcc[key] = {
+        \ 'layout': theLayout,
+        \ 'cursorline': theCursorLine
+        \}
+  " For some fortunate reason, placing the cursor on the opposite end of the
+  " buffer (from where the ctrlp window enters) protects any scrolling of
+  " buffers.
+  let protectLine = a:docksToTop ? line("w$") : line("w0")
+  let withCursorMoved = {
+    \ 'lnum': protectLine,
+    \ 'leftcol': theLayout['leftcol'],
+    \ 'col': theLayout['col'],
+    \ 'topfill': theLayout['topfill'],
+    \ 'topline': theLayout['topline'],
+    \ 'coladd': theLayout['coladd'],
+    \ 'skipcol': theLayout['skipcol'],
+    \ 'curswant': theLayout['curswant'],
+    \}
+  call winrestview(withCursorMoved)
+  " Always make sure the cursorline is hidden so we give no visual
+  " evidence that we're playing with line positions. Uncomment the set
+  " nocursorline below to see the error. This only seems to happen when
+  " cyclying from top. (Possibly because the window number of ctrlp is
+  " lower than the rest?)
+  exec "set nocursorline"
+endfunction
+function PlaceOneCursorBack()
+  let theWinnr = winnr()
+  let theBuffnr = bufnr("")
+  let occurrenceNum = has_key(g:numTimesSeenBuff, theBuffnr) ? g:numTimesSeenBuff[theBuffnr] + 1 : 0
+  let g:numTimesSeenBuff[theBuffnr] = occurrenceNum
+  let key = theBuffnr . '-' . occurrenceNum
+  if has_key(g:origByBufOcc, key)
+    let orig = g:origByBufOcc[key]
+    let theCursorLine = orig['cursorline']
+    let origLayout = orig['layout']
+    let withCursorMovedBack = origLayout
+    call winrestview(withCursorMovedBack)
+    call setwinvar(theWinnr, '&cursorline', theCursorLine)
+  endif
+endfunction
+
+command -nargs=* DoMoveOneCursorOutOfTheWay :call MoveOneCursorOutOfTheWay(<f-args>)
+command -nargs=* DoPlaceOneCursorBack :call PlaceOneCursorBack(<f-args>)
+
+let g:origInitWindow = winnr()
+function PreOpenOverlayForHUD(docksToTop)
+  let g:numTimesSeenBuff = {}
+  " By buffer number, occurrence
+  let g:origByBufOcc = {}
+  let g:doesCursorNeedRestoring = 1
+  let g:origInitWindow = winnr()
+  let playWellWithGoldenView = exists(":DisableGoldenViewAutoResize")
+  if playWellWithGoldenView
+    exec "DisableGoldenViewAutoResize"
+  endif
+  let g:origScrolloff = &scrolloff
+  " let g:origScrolloff = getbufvar(0, '&scrolloff')
+  call setbufvar(0, '&scrolloff', 0)
+  " Bug: windo doesn't cycle through newly opened splits until running
+  " OpenOverlay a second time.
+  exec "windo DoMoveOneCursorOutOfTheWay " . a:docksToTop
+  " Now go back to the original window
+  exec g:origInitWindow . "wincmd w"
+endfunction
+
+
+" It's important that these utilities only be used for "HUD" style
+" overlays. Nothing should be opening windows between the time the HUD
+" is opened, and the time the HUD is closed.
+function PlaceCursorBackForHUD()
+  let g:numTimesSeenBuff = {}
+  if g:doesCursorNeedRestoring
+    let playWellWithGoldenView = exists(":DisableGoldenViewAutoResize")
+    exec "windo DoPlaceOneCursorBack"
+    " Now go back to the original window
+    exec g:origInitWindow . "wincmd w"
+    " The zero param was wrong in this call.
+    " call setbufvar(0, '&scrolloff', g:origScrolloff)
+    let &scrolloff = g:origScrolloff
+    " Reenable GoldenView (probably need to do this later)
+    if playWellWithGoldenView
+      exec "EnableGoldenViewAutoResize"
+    endif
+  endif
+  let g:doesCursorNeedRestoring = 0
+endfunction
+
+" --------- / Hud Framework ----------
+
+
+
+"" TOGGLE QUICKFIX:
+" toggle list plugin
+"
+" Donald Ephraim Curtis (2011)
+"
+" boom
+"
+" This plugin allows you to use \l and \q to toggle the location list and
+" quickfix list (respectively).
+"
+"
+
+if exists("g:loaded_toggle_list")
+  finish
+endif
+
+function! s:GetBufferList()
+  redir =>buflist
+  silent! ls
+  redir END
+  return buflist
+endfunction
+
+
+" When we know the plugin is the one that is closing a panel,
+" we can do a much better job of restoring the cursor by
+" doing it after closing the panel. If not plugin driven,
+" it's hard to do a good job - we can't run the restoration
+" *after* the panel is closed, only before.
+let g:pluginDrivenBlur = 0
+function! s:before_quickfix_or_loc_list_lost_focus()
+  " Remove listeners for quickfix windows
+  augroup ListenForQuickFixLeave
+    autocmd!
+  augroup END
+  if g:pluginDrivenBlur
+  else
+    call PlaceCursorBackForHUD()
+  endif
+endfunction
+
+function! ToggleLocationList()
+  let curbufnr = winbufnr(0)
+  for bufnum in map(filter(split(s:GetBufferList(), '\n'), 'v:val =~ "Location List"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if curbufnr == bufnum
+      let g:pluginDrivenBlur=1
+      lclose
+      let g:pluginDrivenBlur=0
+      call PlaceCursorBackForHUD()
+      return
+    endif
+  endfor
+
+  let winnr = winnr()
+  let prevwinnr = winnr("#")
+
+  call PreOpenOverlayForHUD(0)
+  let nextbufnr = winbufnr(winnr + 1)
+  try
+    if exists("g:toggle_list_lopen_command")
+      exec(g:toggle_list_lopen_command)
+    else
+      exec ("bo lopen 5")
+    endif
+  catch /E776/
+      " Problem: these aren't printed without the redraw
+      " Strangely, try to print it a second time and it works.
+      call PlaceCursorBackForHUD()
+      redrawstatus
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      echohl None
+      return 0
+  endtry
+  " If successful, listen for when focus leaves it
+  augroup ListenForQuickFixLeave
+    autocmd!
+    autocmd WinLeave <buffer> nested call <SID>before_quickfix_or_loc_list_lost_focus()
+  augroup END
+  if winbufnr(0) == nextbufnr
+    lclose
+    if prevwinnr > winnr
+      let prevwinnr-=1
+    endif
+  else
+    if prevwinnr > winnr
+      let prevwinnr+=1
+    endif
+  endif
+  " restore previous window
+  " exec prevwinnr."wincmd w"
+  " exec winnr."wincmd w"
+  return 1
+endfunction
+
+
+function! ToggleQuickfixList()
+  for bufnum in map(filter(split(s:GetBufferList(), '\n'), 'v:val =~ "Quickfix List"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      let g:pluginDrivenBlur=1
+      cclose
+      let g:pluginDrivenBlur=0
+      call PlaceCursorBackForHUD()
+      return
+    endif
+  endfo
+  call PreOpenOverlayForHUD(0)
+  let winnr = winnr()
+  if exists("g:toggle_list_copen_command")
+    exec(g:toggle_list_copen_command)
+  else
+    exec ("bo copen 20")
+  endif
+  augroup ListenForQuickFixLeave
+    autocmd!
+    autocmd WinLeave <buffer> nested call <SID>before_quickfix_or_loc_list_lost_focus()
+  augroup END
+  " if winnr() != winnr
+  "   wincmd p
+  " endif
+endfunction
+
+"/ TOGGLE QUICKFIX
+
+
+
+" Now, we just need hooks into the location/quickfix leaving
+" operation to clean up anything if they clicked on a file
+" directly
+nmap <script> <silent> <D-r> :call ToggleLocationList()<CR>
+nmap <script> <silent> <D-R> :call ToggleQuickfixList()<CR>

@@ -243,6 +243,7 @@ NeoBundle "https://github.com/def-lkb/ocp-indent-vim"
 "NeoBundle "https://github.com/milkypostman/vim-togglelist"
 let g:toggle_list_copen_command="bo copen 15"
 let g:toggle_list_lopen_command="lopen 10"
+source ~/.vim/pluginRc/togglelistVimRc
 " =============================================================================
 
 " ======================= Easy Grep ===========================================
