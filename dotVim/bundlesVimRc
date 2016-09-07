@@ -215,6 +215,7 @@ if executable('refmt')
   let s:reason=substitute(system('which refmt'),'refmt\n$','','') . "../share/reason/editorSupport/VimReason"
   execute "set rtp+=".s:reason
   let g:syntastic_reason_checkers=['merlin']
+  source ~/.vim/pluginRc/vimReasonVimRc
 endif
 
 let g:merlin_split_method = "vertical"

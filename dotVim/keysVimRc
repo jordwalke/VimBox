@@ -167,6 +167,10 @@ if executable('ocamlmerlin')
   imap <D-l> <Esc>l:MerlinLocate<CR>
 endif
 
+" Command Shift C triggers reformatting, like Nuclide.
+autocmd FileType reason map <buffer> <D-M> :ReasonPrettyPrint<Cr>
+
+
 
 command -nargs=* DoUnhighlightEverything :call UnhighlightMerlinIfDefined(<f-args>)
 if has('gui_running')
