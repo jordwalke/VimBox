@@ -50,6 +50,13 @@ if has("gui_running") " all this for gui use
   endif
 endif
 
+" Make it so the ugly "NonText" characters are hidden at the end of a file
+" (the ~)
+augroup vimrc
+  autocmd!
+  autocmd ColorScheme * highlight NonText ctermfg=bg guifg=bg
+augroup END
+
 syntax enable
 set background=dark
 colorscheme spacegray

@@ -35,14 +35,12 @@ cmap <C-l> <C-c>
 
 
 
-
-
-" TComment
-"Toggle comment
-"mapping to `gc` doesn't toggle one visually selected line - only multiples.
-vmap <D-/> <c-_><c-_>
-vmap <D-s-/> <c-_>b
-nmap <D-/> gc$
+" NerdComment
+" These two don't work - they trigger tab switching on space.
+" vmap <D-/> <Leader>c<Space>
+" nmap <D-/> <Leader>c<Space>
+vmap <D-/> <Plug>NERDCommenterToggle
+nmap <D-/> <Plug>NERDCommenterToggle
 
 
 " == c-h always does the same as c-l but also saves.
@@ -94,6 +92,52 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 
+" NERDTree
+" =========
+" Regular NERDTree bindings (not the NERDTreeTabs bindings)
+" if has("gui_running")
+"   if has("gui_macvim")
+"     map <D-e> :NERDTreeToggle<Cr><c-w><c-p>
+"     imap <D-e> <Esc>:NERDTreeToggle<Cr><c-w><c-p>
+"     vmap <D-e> <Esc>:NERDTreeToggle<Cr><c-w><c-p>
+"     nmap <D-e> <Esc>:NERDTreeToggle<Cr><c-w><c-p>
+
+"     map <D-E> :NERDTreeFind<Cr><c-w><c-p>
+"     imap <D-E> <Esc>:NERDTreeFind<Cr><c-w><c-p>
+"     vmap <D-E> <Esc>:NERDTreeFind<Cr><c-w><c-p>
+"     nmap <D-E> <Esc>:NERDTreeFind<Cr><c-w><c-p>
+"   endif
+"   if has("gui_win32")
+"     map <F11> :NERDTreeToggle<Cr><c-w><c-p>
+"     imap <F11> <Esc>:NERDTreeToggle<Cr><c-w><c-p>
+"     vmap <F11> <Esc>:NERDTreeToggle<Cr><c-w><c-p>
+"     nmap <F11> <Esc>:NERDTreeToggle<Cr><c-w><c-p>
+"   endif
+" endif
+
+" NERDTreeTabs bindings:
+if has("gui_running")
+  if has("gui_macvim")
+    map <D-e> :NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    imap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    vmap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    nmap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+
+    map <D-E> :NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
+    imap <D-E> <Esc>:NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
+    vmap <D-E> <Esc>:NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
+    nmap <D-E> <Esc>:NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
+  endif
+  if has("gui_win32")
+    map <F11> :NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    imap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    vmap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    nmap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+  endif
+endif
+
+
+
 " Clear search highlight when escape is pressed.
 " Is really horrible on terminals.
 " if has("gui_running")
@@ -118,6 +162,10 @@ function! UnhighlightMerlinIfDefined()
   endif
 endfunction
 
+if executable('ocamlmerlin')
+  map <D-l> :MerlinLocate<CR>
+  imap <D-l> <Esc>l:MerlinLocate<CR>
+endif
 
 
 command -nargs=* DoUnhighlightEverything :call UnhighlightMerlinIfDefined(<f-args>)
@@ -251,16 +299,6 @@ if has("gui_running") " all this for gui use
         " Toggle Spell Check Easily:
         imap <D-P> <Esc>l:set spell!<Cr>
         nmap <D-P> :set spell!<Cr>
-
-        " Building:
-        " map <D-b> :w<Cr>:!./build.sh<Cr>
-        " imap <D-b> <Esc>:w<Cr>:!./build.sh<Cr>
-
-        " CmdRB to save current file and build silently - then refresh browser.
-        " macmenu &Tools.Make key=<nop>
-        " Interferes with ctrlp mappings.
-        " map <D-r> :w<Cr>:RRB<Cr>
-        " imap <D-r> <Esc>:w<Cr>:RRB<Cr>
     endif
 endif
 
