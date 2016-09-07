@@ -303,4 +303,14 @@ if has("gui_running") " all this for gui use
 endif
 
 
-
+" vim-surround config
+" Simply select visual ranges, then press any of the surround characters to
+" automatically surround them.
+vmap ( S(
+vmap ) S)
+vmap [ S[
+vmap ] S]
+vmap ' S'
+" vmap " S"
+" vmap * S*
+vmap ` S`
