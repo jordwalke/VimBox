@@ -229,7 +229,7 @@ The following key mapping generates docblock comments. `<tab>` will select the p
 
 | Key          | Action        |
 | ------------ |-------------|
-| `⌘+shift+c` | Generate JS Docblock  - when currsor is above a function|
+| `⌘+shift+c` | Generate JS Docblock  - when cursor is above a function|
 
 
 Git Integration:
