@@ -83,6 +83,7 @@ function PreOpenOverlayForHUD(docksToTop)
   let g:origByBufOcc = {}
   let g:doesCursorNeedRestoring = 1
   let g:origInitWindow = winnr()
+  let g:VimSplitBalancerSupress = 1
   let playWellWithGoldenView = exists(":DisableGoldenViewAutoResize")
   if playWellWithGoldenView
     exec "DisableGoldenViewAutoResize"
@@ -115,6 +116,7 @@ function PlaceCursorBackForHUD()
     if playWellWithGoldenView
       exec "EnableGoldenViewAutoResize"
     endif
+    let g:VimSplitBalancerSupress = 0
   endif
   let g:doesCursorNeedRestoring = 0
 endfunction
