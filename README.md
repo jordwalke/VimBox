@@ -306,9 +306,9 @@ In `~/.vim/vimrc.custom.before`/`~/.vim/vimrc.custom.after` you may set any opti
 Using VimBox's configuration from NeoVim
 ---------
 
-    # TODO: Add build script to backup old `.nvim/.nvimrc`
-    ln -s ~/.vimrc ~/.nvimrc
-    ln -s ~/.vim ~/.nvim
+    mkdir ~/.config
+    ln -s ~/.vim ~/.config/nvim
+    ln -s ~/.vimrc ~/.config/nvim/init.vim
 
 License:
 -------
