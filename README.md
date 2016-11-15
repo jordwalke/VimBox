@@ -45,13 +45,7 @@ Installation:
         mv ~/.gvimrc ~/.gvimrc_backup
 
 
-2. You *Must* Install a Recent Version of MacVim: (Snapshot 72 or above) (with python support)
-
-        Lion/Mountain Lion: Snapshot 72:
-        https://github.com/eee19/macvim/releases
-
-        Mavericks: Snapshot 72 here:
-        https://github.com/b4winckler/macvim/releases
+2. You *Must* Install a [Recent Version of MacVim](http://macvim-dev.github.io/macvim/): (with python support)
 
         # Alternatively, if you'd rather install via `brew`
         brew install macvim --with-cscope --python --HEAD
