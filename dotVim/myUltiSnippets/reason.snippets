@@ -1,0 +1,112 @@
+
+snippet l "let x ...;" !
+let ${1:binding} = $0;
+endsnippet
+
+snippet lf "let f x ...;" !
+let ${1:binding} ${2:arg} => $0;
+endsnippet
+
+snippet lam "let f x ...;" !
+fun ${1:arg} => $0
+endsnippet
+
+snippet lam; "let f x ...;" !
+fun ${1:arg} => $0;
+endsnippet
+
+snippet lam, "let f x ...;" !
+fun ${1:arg} => $0,
+endsnippet
+
+snippet t "type ...;" !
+type ${1:binding} =$0;
+endsnippet
+
+snippet lm "let module Name = {};" !w
+let module ${1:ModuleName} = {
+	$0
+};
+endsnippet
+
+snippet mt "module type ModuleType = {};" !w
+module type ${1:ModuleName} = {
+	$0
+};
+endsnippet
+
+
+snippet time "Sys.time() wraper" !w
+let startSeconds = Sys.time ();
+${VISUAL}
+$0
+let endSeconds = Sys.time ();
+Printf.printf "\nTotal ms (${1:Title}): %d\n" (int_of_float ((endSeconds -. startSeconds) *. 1000.0));
+endsnippet
+
+
+
+
+snippet log "print_string" !w
+print_string (${0:expr});
+print_newline ();
+endsnippet
+
+snippet if "if then else" !w
+if ${1:expr} then ${2:thenExpr} else ${0:elseExpr}
+endsnippet
+
+snippet if; "if then else;" !w
+if ${1:expr} then ${2:thenExpr} else ${0:elseExpr};
+endsnippet
+
+# Tabs before each bar, notice how 4 actually contains 7. It's ugly because it
+# had to be placed on one line.
+#
+# | ${2:caseOne} => ${3:exprOne}`!p snip.rv = '\n' if t[4] else ''`
+# ${4:	| ${5:caseTwo} => ${6:exprTwo}`!p snip.rv = '\n' if t[7] else ''`
+# ${7:	| ${8:caseThree} => ${9:exprThree}}}
+# snippet sw "switch pattern {}" !w
+# switch ${1:`!p snip.rv = snip.v.text.strip() if snip.v else 'expr'`} {
+# 	| ${2:caseOne} => ${3:exprOne}${4:
+# 	| ${5:caseTwo} => ${6:exprTwo}${7:
+# 	| ${8:caseThree} => ${9:exprThree}}}
+# }
+# endsnippet
+
+# Cursor is placed on the next line, right where another tab will trigger
+# expansion of another case.
+snippet "\|"  "one more switch case" rwb
+| ${1:destructure} => ${2:expression}
+endsnippet
+
+snippet sw "switch pattern {}" !w
+switch ${1:`!p snip.rv = snip.v.text.strip() if snip.v else 'expr'`} {
+	| ${2:caseOne} => ${3:exprOne}
+}
+endsnippet
+
+snippet sw; "switch pattern {};" !w
+switch ${1:`!p snip.rv = snip.v.text.strip() if snip.v else 'expr'`} {
+	| ${2:caseOne} => ${3:exprOne}
+};
+endsnippet
+
+snippet sc "special comment " !w
+(**
+ * $0
+ *)
+endsnippet
+
+snippet com "(* Inline Comment *)" !w
+(*
+ * $0
+ *)
+endsnippet
+
+snippet ic "(* Inline Comment *)" !w
+(* $0 *)
+endsnippet
+
+# vim:ft=snippets:
+
