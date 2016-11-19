@@ -13,5 +13,16 @@ else
     VIMPATH='vimdiff'
 fi
 
-$VIMPATH '+windo set diff scrollbind scrollopt+=hor nowrap' -c 'au VimLeave * !open -a iTerm' $@
+if [ "$TERM_PROGRAM" = "Apple_Terminal" ];
+then
+  $VIMPATH '+windo set diff scrollbind scrollopt+=hor nowrap' -c 'au VimLeave * !open -a Terminal' $@
+elif [ "$TERM_PROGRAM" = "iTerm.app" ];
+then
+  $VIMPATH '+windo set diff scrollbind scrollopt+=hor nowrap' -c 'au VimLeave * !open -a iTerm' $@
+elif [ "$TERM_PROGRAM" = "Hyper" ];
+then
+  $VIMPATH '+windo set diff scrollbind scrollopt+=hor nowrap' -c 'au VimLeave * !open -a Hyper' $@
+else
+  $VIMPATH '+windo set diff scrollbind scrollopt+=hor nowrap' $@
+fi
 
