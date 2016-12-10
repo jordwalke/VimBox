@@ -1,4 +1,20 @@
 
+
+# Labelled Argument
+snippet la "aa::aa" !
+${1:name}::$1 $0
+endsnippet
+# Labelled Argument Typed
+snippet lat "aa::(aa:foo)" !
+${1:name}::($1:${2:type}) $0
+endsnippet
+
+snippet obj; "{};" !
+{
+	$0
+};
+endsnippet
+
 snippet l "let x ...;" !
 let ${1:binding} = $0;
 endsnippet
@@ -23,8 +39,8 @@ snippet t "type ...;" !
 type ${1:binding} =$0;
 endsnippet
 
-snippet lm "let module Name = {};" !w
-let module ${1:ModuleName} = {
+snippet m "module Name = {};" !w
+module ${1:ModuleName} = {
 	$0
 };
 endsnippet
@@ -52,13 +68,32 @@ print_string (${0:expr});
 print_newline ();
 endsnippet
 
-snippet if "if then else" !w
-if ${1:expr} then ${2:thenExpr} else ${0:elseExpr}
+# Cleverly evaporates the semicolon if you continue with an else
+snippet while "while exrp {}" !w
+while`!p snip.rv = ' (' if ' ' in t[1] else ' '`${1:expr}`!p snip.rv = ')' if ' ' in t[1] else ''` {
+	$0;
+};
 endsnippet
 
-snippet if; "if then else;" !w
-if ${1:expr} then ${2:thenExpr} else ${0:elseExpr};
+snippet for "for i in x to y {}" !w
+for ${1:i} in ${2:first} to ${3:last} {
+	$0;
+};
 endsnippet
+
+# Cleverly evaporates the semicolon if you continue with an else
+snippet if "if else" !w
+if`!p snip.rv = ' (' if ' ' in t[1] else ' '`${1:expr}`!p snip.rv = ')' if ' ' in t[1] else ''` {
+	${2:thenExpr};
+}${3: else}`!p snip.rv = '' if t[3] else ';'`$0
+endsnippet
+
+snippet else "if else" !w
+else {
+	${1:thenExpr};
+};$0
+endsnippet
+
 
 # Tabs before each bar, notice how 4 actually contains 7. It's ugly because it
 # had to be placed on one line.
@@ -93,20 +128,29 @@ switch ${1:`!p snip.rv = snip.v.text.strip() if snip.v else 'expr'`} {
 endsnippet
 
 snippet sc "special comment " !w
-(**
+/**
  * $0
- *)
+ */
 endsnippet
 
 snippet com "(* Inline Comment *)" !w
-(*
+/*
  * $0
- *)
+ */
 endsnippet
 
 snippet ic "(* Inline Comment *)" !w
-(* $0 *)
+/* $0 */
+endsnippet
+
+
+# Give priority to else if, over if.
+priority 100
+
+snippet "else if" "if else" !w
+else if`!p snip.rv = ' (' if ' ' in t[1] else ' '`${1:expr}`!p snip.rv = ')' if ' ' in t[1] else ''` {
+	${2:thenExpr};
+}${3: else}`!p snip.rv = '' if t[3] else ';'`$0
 endsnippet
 
 # vim:ft=snippets:
-
