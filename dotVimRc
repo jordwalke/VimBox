@@ -113,6 +113,10 @@ set shortmess+=I
 " Mac Support bootstrap
 set wildignore+=*.DS_Store
 set wildignore+=*/_build**
+set wildignore+=*/.ssh
+set wildignore+=*/.yarn
+set wildignore+=*/.npm
+set wildignore+=*/.jenga
 
 " Remove ugly folds
 set nofoldenable
@@ -146,7 +150,8 @@ endif
 " ================================================================
 
 " http://stackoverflow.com/questions/6852763/vim-quickfix-list-launch-files-in-new-tab
-set switchbuf+=usetab,newtab
+" This is respected by bnext/bprev/bfirst commands!
+set switchbuf+=useopen,usetab,vsplit
 
 " A better diff link for macvim
 " alias mvimdiff="mvim -O  \"+windo set diff scrollbind scrollopt+=hor nowrap\""
@@ -185,9 +190,15 @@ if (empty($TMUX))
   " This doesn't actually work with vim-airline yet in the most recent
   " versions of Vim/NeoVim (except with MacVim strangely). See ~/.vim/neoVimRc
   " ======================================================================
-  " if (has("termguicolors"))
-  "   set termguicolors
-  " endif
+  if (has("termguicolors"))
+    " old airline doesn't render correctly without these two obscure settings.
+    " New airline should work without them.
+    " https://github.com/vim/vim/issues/993
+    " set Vim-specific sequences for RGB colors
+    " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+  endif
 endif
 
 if (has("nvim"))
