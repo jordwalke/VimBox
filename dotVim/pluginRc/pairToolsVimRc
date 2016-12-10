@@ -69,3 +69,30 @@ autocmd FileType objcpp let g:pairtools_objcpp_tagwrenchhook = 'tagwrench#Builti
 autocmd FileType objcpp let g:pairtools_objcpp_twexpander = 0
 autocmd FileType objcpp let g:pairtools_objcpp_tweraser   = 0
 autocmd FileType objcpp let g:pairtools_objcpp_apostrophe = 0
+
+
+
+
+" Define these pairtools for help files, even though help files are read only
+" - just to work around a bug in pairtools where the help window causes an
+"   error the *second* time you open it.
+autocmd FileType help let g:pairtools_help_pairclamp = 1
+autocmd FileType help let g:pairtools_help_tagwrench = 0
+autocmd FileType help let g:pairtools_help_jigsaw    = 1
+autocmd FileType help let g:pairtools_help_autoclose  = 1
+autocmd FileType help let g:pairtools_help_forcepairs = 0
+autocmd FileType help let g:pairtools_help_closepairs = "(:),[:],{:},':'" . ',":"'
+autocmd FileType help let g:pairtools_help_smartclose = 1
+autocmd FileType help let g:pairtools_help_smartcloserules = '\w,(,&,\*'
+autocmd FileType help let g:pairtools_help_antimagic  = 1
+autocmd FileType help let g:pairtools_help_antimagicfield  = "Comment,String,Special"
+autocmd FileType help let g:pairtools_help_pcexpander = 1
+autocmd FileType help let g:pairtools_help_pceraser   = 1
+autocmd FileType help let g:pairtools_help_tagwrenchhook = 'tagwrench#BuiltinNoHook'
+autocmd FileType help let g:pairtools_help_twexpander = 0
+autocmd FileType help let g:pairtools_help_tweraser   = 0
+autocmd FileType help let g:pairtools_help_apostrophe = 0
+
+
+
+
