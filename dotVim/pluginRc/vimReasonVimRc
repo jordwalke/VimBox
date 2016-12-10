@@ -5,7 +5,6 @@ let g:vimreason_extra_args_expr_reason = '"-print-width 110"'
 " let g:vimreason_extra_args_expr_reason = '"-print-width " . ' .  "min([320, winwidth('.')])"
 " autocmd VimResized * ReasonPrettyPrint
 autocmd FileType reason let g:pairtools_reason_pairclamp = 1
-autocmd FileType reason let g:pairtools_reason_tagwrench = 0
 autocmd FileType reason let g:pairtools_reason_jigsaw    = 1
 autocmd FileType reason let g:pairtools_reason_autoclose  = 1
 autocmd FileType reason let g:pairtools_reason_forcepairs = 0
@@ -16,8 +15,12 @@ autocmd FileType reason let g:pairtools_reason_antimagic  = 1
 autocmd FileType reason let g:pairtools_reason_antimagicfield  = "Comment,String,Special"
 autocmd FileType reason let g:pairtools_reason_pcexpander = 1
 autocmd FileType reason let g:pairtools_reason_pceraser   = 1
-autocmd FileType reason let g:pairtools_reason_tagwrenchhook = 'tagwrench#BuiltinNoHook'
-autocmd FileType reason let g:pairtools_reason_twexpander = 0
-autocmd FileType reason let g:pairtools_reason_tweraser   = 0
 autocmd FileType reason let g:pairtools_reason_apostrophe = 0
+
+autocmd FileType reason let g:pairtools_reason_tagwrenchhook = 'tagwrench#BuiltinHTML5Hook'
+autocmd FileType reason let g:pairtools_reason_twexpander = 1
+autocmd FileType reason let g:pairtools_reason_tweraser   = 0
+autocmd FileType reason let g:pairtools_reason_tagwrench = 1
+autocmd FileType reason let g:pairtools_reason_jigsaw    = 1
+
 " =============================================================================
