@@ -11,6 +11,21 @@
 "":cmap  :cnoremap  :cunmap  :cmapclear	     -	       yes	   -
 ":lmap  :lnoremap  :lunmap  :lmapclear	    yes*       yes*	  yes*
 
+
+" Attempt to configure PairUtils so that c-w deletes the pair.  Doesn't work!
+" ===========================================================================
+" function! s:insertMapping(from, functionToCallName, cmd, ...)
+"   let args = []
+"   for arg in a:000
+"     call add(args, '"' . escape(arg, '"|') . '"')
+"   endfor
+"   exe 'inoremap <silent> <buffer> ' . a:from .  ' <C-R>=' . a:functionToCallName . '(' . join(args, ',') . ')<CR>' . a:cmd
+" endfunction
+
+" " We want c-w to have the same benefits as backspace when it makes sense.
+" call s:insertMapping('<C-w>', 'jigsaw#Backspace', '')
+
+
 "totally annoying default mapping for cap k
 nmap K <nop>
 
@@ -33,6 +48,13 @@ smap <C-l> <Esc>
 " While commanding
 cmap <C-l> <C-c>
 
+let g:playWellWithFuzzyFinder = 0
+
+if g:playWellWithFuzzyFinder
+  " For fuzzyfinder, c-c won't fire insert leave. yet we can't just map to
+  " escape because c-c is more than just that - it also kills any jobs etc.
+  imap <c-c> <esc>
+endif
 
 
 " NerdComment
@@ -53,7 +75,13 @@ cmap <C-h> <C-c>:w<Cr>
 
 imap <C-k> <space><Esc>Da
 imap <C-j> <esc>Ji
-imap <C-o> <Esc>O
+" Unfortunately cannot distinguish ctrl-o and ctrl-O Neovim adds it though! In
+" that case we would have the following bindings.
+" imap <C-O> <Esc> O
+" imap <C-o> <Esc> o
+
+" Until NeoVim comes, we'll have these
+imap <C-o> <Esc> O
 imap <S-Enter> <End><Cr>
 
 
@@ -215,8 +243,28 @@ if has('gui_win32')
   vmap <F16> <Esc>:w<Cr>
 endif
 
+" Unfortunately the default `<c-c>` won't cause fuf to exit or cancel a search.
+if g:playWellWithFuzzyFinder
+  " For fuzzyfinder, c-c won't fire insert leave. yet we can't just map to
+  " escape because c-c is more than just that - it also kills any jobs etc.
+  imap <c-c> <esc>
+endif
+
 "Emacs keybindings while inserting.
-imap <C-a> <Esc>I
+" =================================
+
+"We can't map `<c-a>` to `<Esc>I` because that causes leaving of insert mode
+"and that screws up plugins. Instead we use c-o which allows one normal
+"movement without ever leaving insert mode! We should probably use that
+"everywhere. Unfortunately, that doesn't work with fuzzy finder, so we have to
+"use a *worse* behavior (home, as opposed to first non-whitespace char.)
+if g:playWellWithFuzzyFinder
+  imap <C-a> <home>
+else
+  " Uses noremap because we already have c-o mapped.
+  inoremap <C-a> <c-o>^
+endif
+
 map! <c-e> <End>
 map! <c-f> <Right>
 map! <c-b> <Left>
@@ -233,6 +281,7 @@ cmap <c-b> <Left>
 cmap <c-d> <Delete>
 
 
+" TODO: Put this in customFunctions.vim
 function! Preserve(command)
   " Preparation: save last search, and cursor position.
   let _s=@/
