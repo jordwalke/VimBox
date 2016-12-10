@@ -13,6 +13,8 @@ let g:one_allow_italics = 1 " I love italic for comments
 
 " ==============================================================================
 
+" Interesting but buggy
+" NeoBundle "https://github.com/kana/vim-ku"
 
 " =========================== Bootstrap for Vim ================================
 NeoBundle "tpope/vim-sensible"
@@ -267,15 +269,31 @@ NeoBundle "git://github.com/jordwalke/VimSplitBalancer.git"
 " let g:WebDevIconsUnicodeDecorateFolderNodeDefaultSymbol = ' '
 " =============================================================================
 
+" ======================= View Key Mappings ====================================
+" Needs some bug fixes
+" NeoBundle "https://github.com/robcsi/viewmaps.vim"
+
 " ======================= A lighterweight Powerline ============================
-NeoBundle "https://github.com/jordwalke/vim-airline"
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
 if has("gui_macvim") || has("gui_vimr")
   autocmd VimEnter * set guioptions+=e
 endif
+
 let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#show_splits = 1
+" let g:airline#extensions#tabline#show_close_button=1
+" let g:airline#extensions#tabline#close_symbol = '×'
+let g:airline_skip_empty_sections = 1
+" Git status can be expensive.
+let g:airline#extensions#branch#enabled = 1
+
+
+
 set laststatus=2
 " Disable truncation
-let g:airline#extensions#default#section_truncate_width = {}
+" let g:airline#extensions#default#section_truncate_width = {}
 " ==============================================================================
 
 
