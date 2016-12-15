@@ -7,6 +7,10 @@
 NeoBundle "jordwalke/VimCleanColors"
 " ==============================================================================
 
+" ======================  Find And Replace =========================
+NeoBundle "https://github.com/brooth/far.vim"
+" ==============================================================================
+
 " ========================== Jordwalke's fork of One ===========================
 NeoBundle "https://github.com/jordwalke/vim-one.git"
 let g:one_allow_italics = 1 " I love italic for comments
@@ -207,21 +211,11 @@ source ~/.vim/pluginRc/nerdTreeTabsVimRc
 " Hacked ACP to support Reason and OCaml.
 " TODO: Can someone support YCM and other popular completion engines?
 
-if executable('ocamlmerlin')
-  " To set the log file and restart:
-  let s:ocamlmerlin=substitute(system('which ocamlmerlin'),'ocamlmerlin\n$','','') . "../share/merlin/vim/"
-  execute "set rtp+=".s:ocamlmerlin
-  let g:syntastic_ocaml_checkers=['merlin']
-endif
-if executable('refmt')
-  let s:reason=substitute(system('which refmt'),'refmt\n$','','') . "../share/reason/editorSupport/VimReason"
-  execute "set rtp+=".s:reason
-  let g:syntastic_reason_checkers=['merlin']
-  source ~/.vim/pluginRc/vimReasonVimRc
-endif
-
+" ============================= NERDTreeSideBar ================================
+NeoBundle "reasonml/vim-reason-loader"
+source ~/.vim/pluginRc/vimReasonVimRc
+" ============================= NERDTreeSideBar ================================
 let g:merlin_split_method = "vertical"
-
 
 
 " ==============================================================================
