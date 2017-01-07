@@ -59,7 +59,7 @@ Installation:
         ln -s `pwd`/VimBox/dotVimRc ~/.vimrc
         ln -s `pwd`/VimBox/dotGVimRc ~/.gvimrc
 
-4. Start `MacVim` that you just installed. Confirm that you want to install bundles. If it asks you to hit any key to continue, just keep hitting enter. Restart `MacVim` when it's finished.
+4. Start `MacVim` that you just installed. Run `:PlugInstall` once it opens. Then Restart.
 
 5. `[Recommended]` Install the included vim-airline font so `VimBox` looks like
    the screenshot with the `vim-airline` bar. From the command line:
@@ -275,10 +275,13 @@ Make sure to tell your shell that `MacVim` is the way that you'd like to edit co
 Plugin System:
 ---------
 
-`VimBox` achieves its features through configuration of several plugins, but those should be considered implementation details of the `VimBox` distribution. `VimBox` uses modern editors as a "spec" for features and will configure several plugins in order to conform to that spec.
+`VimBox` achieves its features through configuration of several plugins, but
+those should be considered implementation details of the `VimBox` distribution.
+`VimBox` uses modern editors as a "spec" for features and will configure
+several plugins in order to conform to that spec.
 
-- You can add any plugin you like using the `NeoBundle` command.
-- Add custom plugins using the `NeoBundle` command inside
+- You can add any plugin you like using the `Plug` command.
+- Add custom plugins using the `Plug` command inside
   `~/.vim/bundlesVimRc.custom`.
 - Customize `~/.vim/vimrc.custom.before` to configure Vim before any of the
   bundles are loaded, and customize `~/.vim/vimrc.custom.after` to configure

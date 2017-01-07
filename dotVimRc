@@ -30,27 +30,26 @@
 " to the Mac OSX experience.
 "
 " Bundle System:
-" Uses the NeoBundle system. Add bundles to ~/.vim/bundlesVimRc with:
-" NeoBundle "git://github.com/youruser/something.git"
-" Open New Vim Windows and it will ask you to install.
+" Uses the VimPlug system. Add bundles to ~/.vim/bundlesVimRc with:
+" Plug "githubUser/repo"
+" Open a new window and then run `:PlugInstall`
 " Close and then reopen the vim window.
 
 
 " Performance Profiling:
 " http://stackoverflow.com/questions/12213597/how-to-see-which-plugins-are-making-vim-slow
 
-filetype plugin on " Required for NeoBundle and also good.
-filetype indent on " Required for NeoBundle and also good.
-if has('vim_starting')
-  set nocompatible               " Be iMproved
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-
-
 if has('gui_win32')
   set rtp+=~/.vim
 endif
 
+if has('vim_starting')
+   if &compatible
+     set nocompatible               " Be iMproved
+   endif
+endif
+
+call plug#begin('~/.vim/bundle')
 
 
 if filereadable(expand("~/.vim/vimrc.custom.before"))
@@ -162,11 +161,6 @@ au BufNewFile,BufRead *.cpp set filetype=objcpp
 au BufNewFile,BufRead *.h set filetype=objcpp
 au BufNewFile,BufRead *.m set filetype=objcpp
 
-call neobundle#rc(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
 
 " iTerm requires the following commented code to be placed in your .bashrc in
 " order for Vim to show full 256 colors.
@@ -209,25 +203,24 @@ if exists('g:nyaovim_version')
   source ~/.vim/nyaoVimRc
 endif
 
+" Load all the bundles
 source ~/.vim/bundlesVimRc
 if filereadable(expand("~/.vim/bundlesVimRc.custom"))
   source ~/.vim/bundlesVimRc.custom
 endif
-" This is to prevent NeoBundle from having the user "Hit Enter To Continue"
-set cmdheight=20
-NeoBundleCheck
-" When restoring a Vim Session, this VimEnter doesn't restore this back to 1 -
-" it stays at 20. Instead, just set cmdheight to 1 immediately after NeoBundle
-" does its thing.
-" autocmd VimEnter * exec ":set cmdheight=1"
-set cmdheight=1
+
+
+call plug#end()
+
+
+" First time you startup, run
+" PlugInstall
 
 source ~/.vim/guiSettingsVimRc   " Must come after .bundlesVimRc
 source ~/.vim/keysVimRc
 source ~/.vim/customFunctions.vim
-
-" sensible.vim disturbs this - reset it.
 set listchars = "eol:$"
 if filereadable(expand("~/.vim/vimrc.custom.after"))
   source ~/.vim/vimrc.custom.after
 endif
+

@@ -4,30 +4,31 @@
 
 
 " ========================== Some colors ===========================
-NeoBundle "jordwalke/VimCleanColors"
+Plug 'jordwalke/VimCleanColors'
 " ==============================================================================
 
 " ======================  Find And Replace =========================
-NeoBundle "https://github.com/brooth/far.vim"
-" ==============================================================================
-
-" ========================== Jordwalke's fork of One ===========================
-NeoBundle "https://github.com/jordwalke/vim-one.git"
-let g:one_allow_italics = 1 " I love italic for comments
-
+Plug 'brooth/far.vim'
 " ==============================================================================
 
 " Interesting but buggy
-" NeoBundle "https://github.com/kana/vim-ku"
+" Plug 'kana/vim-ku'
 
 " =========================== Bootstrap for Vim ================================
-NeoBundle "tpope/vim-sensible"
+Plug 'tpope/vim-sensible'
 " ==============================================================================
 
 " ====================== Way better incremental search =========================
 " Unforunately, this plugin adds latency while typing in the search box!
 " (When typing the quote character).
-NeoBundle "https://github.com/haya14busa/incsearch.vim"
+Plug 'haya14busa/incsearch.vim'
+
+" Inc Search:
+" This has to come after the NeoBundleCheck otherwise we get a bunch
+" of errors on the first run of Vim.
+" TODO: This should go in its own `Rc` file, and then all
+" the "plugin rc files" should be sourced *after* the NeoBundleCheck.
+
 " " Question mark searches but keeps cursor in same position
 map /  <Plug>(incsearch-forward)
 map ? <Plug>(incsearch-stay)
@@ -41,19 +42,23 @@ augroup incsearch-keymap
     autocmd VimEnter * call s:incsearch_keymap()
 augroup END
 function! s:incsearch_keymap()
+  if exists('g:loaded_incsearch')
     IncSearchNoreMap <c-l> <Esc>
     IncSearchNoreMap <c-l> <C-c>
+  endif
 endfunction
+
+
 
 " ==============================================================================
 
 " ======================= AutoMakeDirectory if needed ==========================
-NeoBundle "jordwalke/VimAutoMakeDirectory"
+Plug 'jordwalke/VimAutoMakeDirectory'
 " ==============================================================================
 
 
 " =================== Impressive window switching plugin =======================
-" NeoBundle "https://github.com/t9md/vim-choosewin"
+" Plug 't9md/vim-choosewin'
 " nmap  <D-t>  <Plug>(choosewin)
 " imap  <D-t>  <Esc>:ChooseWin<Cr>
 " let g:choosewin_overlay_enable = 1
@@ -61,37 +66,37 @@ NeoBundle "jordwalke/VimAutoMakeDirectory"
 
 
 " ================== Allow plugins to tap into repeating =======================
-NeoBundle "git://github.com/tpope/vim-repeat.git"
+Plug 'tpope/vim-repeat'
 " ==============================================================================
 
 " ==============================================================================
-NeoBundle "git://github.com/tpope/vim-fugitive.git"
-NeoBundle "git://github.com/gregsexton/gitv.git"
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
 "Neither of these two commands seem to do what I want
-let g:Gitv_OpenHorizontal = 1
+let g:Gitv_OpenHorizontal = 0
 let g:Gitv_WipeAllOnClose = 1
 let g:Gitv_DoNotMapCtrlKey = 1
 " ==============================================================================
 
 " ==============================================================================
-" NeoBundle "https://github.com/jreybert/vimagit"
+" Plug 'jreybert/vimagit'
 " ==============================================================================
 
 " Windows:
 " Need dependent package to be installed.
 " You must copy the dlls to the gvim directory usually C:\Program Files (x86)\vim\vim73
 "
-" Bundle "https://github.com/xolox/vim-misc"
-" Bundle "https://github.com/xolox/vim-shell"
+" Bundle "xolox/vim-misc"
+" Bundle "xolox/vim-shell"
 " Trouble: can_use_dll is returning false :/ Version number !== .5
 
 " ====================== Vim Surround ==========================================
-NeoBundle "git://github.com/tpope/vim-surround.git"
+Plug 'tpope/vim-surround'
 " ==============================================================================
 
 
 " =================== TODO, Check Out:==========================================
-" https://github.com/bootleq/vim-gitdiffall
+" bootleq/vim-gitdiffall
 " ==============================================================================
 
 
@@ -99,7 +104,7 @@ NeoBundle "git://github.com/tpope/vim-surround.git"
 " " ========================== Unite.vim uses ====================================
 " Disabling Unite for now since it's unclear how to configure it to work with
 " VimBox's paradigm.
-" NeoBundle 'Shougo/vimproc', {
+" Plug 'Shougo/vimproc', {
 "       \ 'build' : {
 "       \     'windows' : 'make -f make_mingw32.mak',
 "       \     'cygwin' : 'make -f make_cygwin.mak',
@@ -108,20 +113,20 @@ NeoBundle "git://github.com/tpope/vim-surround.git"
 "       \    },
 "       \ }
 "
-" NeoBundle "git://github.com/Shougo/unite.vim.git"
+" Plug 'Shougo/unite.vim'
 " source ~/.vim/pluginRc/uniteVimRc
 
 " =============================== Thumbnail ====================================
-" NeoBundle "https://github.com/itchyny/thumbnail.vim.git"
+" Plug 'itchyny/thumbnail.vim'
 " ==============================================================================
 
 " =============================== Better Markdown ==============================
-NeoBundle "https://github.com/tpope/vim-markdown.git"
+Plug 'tpope/vim-markdown'
 " ==============================================================================
 
 " =============================== Session = ====================================
-NeoBundle "https://github.com/xolox/vim-misc.git"
-NeoBundle "https://github.com/xolox/vim-session.git"
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 " let g:session_autosave_periodic = 0  "Every three minutes + on close seems fine.
 " But saving resets window dims!
 let g:session_autosave = 'yes'       "Auto-save on close
@@ -141,7 +146,7 @@ set runtimepath+=~/.vim/localBundle/sessions
 set runtimepath+=~/.vim/localBundle/wowcamldebug
 
 " ================================ VimJSDocSnippets ============================
-NeoBundle 'jordwalke/VimJSDocSnippets'
+Plug 'jordwalke/VimJSDocSnippets'
 if has('gui_win32')
   let g:JSDocSnippetsMapping='<S-M-c>'
 else
@@ -151,36 +156,36 @@ endif
 
 
 " ==================== Best Pair Tool Ever =====================================
-NeoBundle "git://github.com/MartinLafreniere/vim-PairTools.git"
+Plug 'MartinLafreniere/vim-PairTools'
 source ~/.vim/pluginRc/pairToolsVimRc
 " ==============================================================================
 
 
 " ========================== Cocoa Vim =========================================
-" NeoBundle "http://github.com/msanders/cocoa.vim"
+" Plug 'msanders/cocoa.vim'
 " ==============================================================================
 
 
-NeoBundle "https://github.com/AndrewRadev/splitjoin.vim"
+Plug 'AndrewRadev/splitjoin.vim'
 
 
 " =================================== LastTab  =================================
 " See .keysVimRc
-NeoBundle "http://github.com/jordwalke/VimLastTab"
+Plug 'jordwalke/VimLastTab'
 " ==============================================================================
 
 
 " =================================== Closer  ==================================
 " Go to Left when closing like everything else in the world
-NeoBundle "jordwalke/VimCloser"
+Plug 'jordwalke/VimCloser'
 " ==============================================================================
 
 
 " TODO: Look into the following
-" NeoBundle "https://github.com/xolox/vim-colorscheme-switcher"
+" Plug 'xolox/vim-colorscheme-switcher'
 
 " =============================== SmartGUITabs =================================
-NeoBundle "jordwalke/MacVimSmartGUITabs"
+Plug 'jordwalke/MacVimSmartGUITabs'
 " Make sure to have `set guioptions+=e` in your `.gvimrc`.
 map <D-Cr> :SmartGUITabsToggleFullScreen<CR>
 imap <D-Cr> <Esc>:SmartGUITabsToggleFullScreen<CR>
@@ -191,7 +196,7 @@ nmap <D-Cr> <Esc>:SmartGUITabsToggleFullScreen<CR>
 " =================================== NERDTree =================================
 " Q : How can I open a NERDTree automatically when vim starts up if no files
 " were specified?  A : NerdTreeTabs handles this
-NeoBundle "https://github.com/scrooloose/nerdtree"
+Plug 'scrooloose/nerdtree'
 source ~/.vim/pluginRc/nerdTreeVimRc
 " Also see ~/.vim/nerdtree_plugin/myMappings.vim (NERDTree requires mappings
 " exist there)
@@ -199,7 +204,7 @@ source ~/.vim/pluginRc/nerdTreeVimRc
 
 
 " ============================= NERDTreeSideBar ================================
-NeoBundle "https://github.com/jistr/vim-nerdtree-tabs"
+Plug 'jistr/vim-nerdtree-tabs'
 source ~/.vim/pluginRc/nerdTreeTabsVimRc
 " ==============================================================================
 
@@ -212,7 +217,7 @@ source ~/.vim/pluginRc/nerdTreeTabsVimRc
 " TODO: Can someone support YCM and other popular completion engines?
 
 " ============================= NERDTreeSideBar ================================
-NeoBundle "reasonml/vim-reason-loader"
+Plug 'reasonml/vim-reason-loader'
 source ~/.vim/pluginRc/vimReasonVimRc
 " ============================= NERDTreeSideBar ================================
 let g:merlin_split_method = "vertical"
@@ -223,27 +228,21 @@ let g:merlin_split_method = "vertical"
 " =================================== OCP-indent ================================
 " This is a better version than what comes directly out of OPAM (it does not
 " destroy undo/redo).
-NeoBundle "https://github.com/def-lkb/ocp-indent-vim"
-" ==============================================================================
-
-" =================================== OCP-indent ================================
-" This is a better version than what comes directly out of OPAM (it does not
-" destroy undo/redo).
-NeoBundle "https://github.com/def-lkb/ocp-indent-vim"
+Plug 'def-lkb/ocp-indent-vim'
 " ==============================================================================
 
 
 
 " ======================= Toggle quickfix/location ============================
 " See .keysVimRc
-"NeoBundle "https://github.com/milkypostman/vim-togglelist"
+"Plug 'milkypostman/vim-togglelist'
 let g:toggle_list_copen_command="bo copen 15"
 let g:toggle_list_lopen_command="lopen 10"
 source ~/.vim/pluginRc/togglelistVimRc
 " =============================================================================
 
 " ======================= Easy Grep ===========================================
-NeoBundle "https://github.com/yegappan/grep"
+Plug 'yegappan/grep'
 let Grep_Skip_Files = '*.byte *.depends *.cmi *.cmx *.orig *.back *.cmo *.o *~'
 let Grep_Skip_Dirs = 'RCS CVS SCCS _build .git'
 " =============================================================================
@@ -251,11 +250,11 @@ let Grep_Skip_Dirs = 'RCS CVS SCCS _build .git'
 
 " ======================= Custom Resizing for SplitBalancer ===================
 " GoldenRatio has some issues with session restore and prevents opening of many windows.
-NeoBundle "git://github.com/jordwalke/VimSplitBalancer.git"
+Plug 'jordwalke/VimSplitBalancer'
 " =============================================================================
 
 " =================== Web Dev Icons ===========================================
-" NeoBundle "https://github.com/ryanoasis/vim-webdevicons"
+" Plug 'ryanoasis/vim-webdevicons'
 " let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 " let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
@@ -265,34 +264,28 @@ NeoBundle "git://github.com/jordwalke/VimSplitBalancer.git"
 
 " ======================= View Key Mappings ====================================
 " Needs some bug fixes
-" NeoBundle "https://github.com/robcsi/viewmaps.vim"
+" Plug 'robcsi/viewmaps.vim'
 
 " ======================= A lighterweight Powerline ============================
-NeoBundle 'vim-airline/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_powerline_fonts = 1
+let g:airline_skip_empty_sections = 1
+" Git status can be expensive.
+let g:airline#extensions#branch#enabled = 0
+set laststatus=2
+" Disable truncation
+" let g:airline#extensions#default#section_truncate_width = {}
+
 if has("gui_macvim") || has("gui_vimr")
   autocmd VimEnter * set guioptions+=e
 endif
 
-let g:airline_powerline_fonts = 1
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#show_splits = 1
-" let g:airline#extensions#tabline#show_close_button=1
-" let g:airline#extensions#tabline#close_symbol = '×'
-let g:airline_skip_empty_sections = 1
-" Git status can be expensive.
-let g:airline#extensions#branch#enabled = 1
-
-
-
-set laststatus=2
-" Disable truncation
-" let g:airline#extensions#default#section_truncate_width = {}
 " ==============================================================================
 
 
 " ==================================== Syntastic ================================
-NeoBundle "https://github.com/scrooloose/syntastic"
+Plug 'scrooloose/syntastic'
 " TODO: Disable signs in merlin/syntastic, and only use the VimHint strategy of
 " underlining *just* the region of error.
 let g:syntastic_enable_signs=0
@@ -314,13 +307,13 @@ let g:syntastic_javascript_checkers=['flow']
 
 
 " ==================================== TaskList ================================
-" NeoBundle "git://github.com/vim-scripts/TaskList.vim.git"
+" Plug 'vim-scripts/TaskList.vim'
 " ==============================================================================
 
 
 
 " ================================== Expand-Region =================================
-NeoBundle "git://github.com/terryma/vim-expand-region.git"
+Plug 'terryma/vim-expand-region'
 
 " Override the default expand region to avoid paragraphs and lines, and also add
 " "around" braces/brackets/parens/quotes. Remove "W" word - it extends beyond
@@ -344,7 +337,7 @@ let g:expand_region_text_objects = {
 
 
 " ================================== Smooth-Scroll =================================
-NeoBundle "git://github.com/terryma/vim-smooth-scroll.git"
+Plug 'terryma/vim-smooth-scroll'
 "Normal mode
 noremap <silent> <c-u> :call smooth_scroll#up(40, 20, 6)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(40, 20, 6)<CR>
@@ -357,12 +350,12 @@ vnoremap <silent> <c-d> <c-d>
 
 
 " ================================= Flatlandia ==================================
-NeoBundle "git://github.com/jordwalke/flatlandia"
+Plug 'jordwalke/flatlandia'
 " ==============================================================================
 
 
 " ================================= Solarized ==================================
-NeoBundle "git://github.com/altercation/vim-colors-solarized"
+Plug 'altercation/vim-colors-solarized'
 "default value is 1
 let g:solarized_underline=0
 "default value is 16
@@ -377,13 +370,13 @@ let g:solarized_visibility="high"
 " ================================= Ctrl-p =====================================
 " See ~/.gvimrc as well
 " Using the new official ctrlp (switched project maintainers)
-NeoBundle "git://github.com/ctrlpvim/ctrlp.vim.git"
+Plug 'ctrlpvim/ctrlp.vim'
 source ~/.vim/pluginRc/ctrlPVimRc
 " ==============================================================================
 
 " ================================== Headlights ================================
-" Shows all plugin options as menu items like textmate bundles!
-" NeoBundle 'mbadran/headlights'
+" Shows all plugin options as menu items like textmate bundles
+" Plug 'mbadran/headlights'
 "let g:headlights_use_plugin_menu = 1;
 " let g:headlights_smart_menus = 1
 " ==============================================================================
@@ -391,14 +384,14 @@ source ~/.vim/pluginRc/ctrlPVimRc
 
 " ============================= ACP Forked =========================
 " Check out snippets in ~/.vim/personalSnippets/
-NeoBundle "https://github.com/jordwalke/AutoComplPop"
+Plug 'jordwalke/AutoComplPop'
 let g:acp_ignorecaseOption = 1
 
 " ==============================================================================
 
 " ============================= UltiSnips ======================================
 "See corresponding entries in `.keysVimRc`.
-NeoBundle "git://github.com/SirVer/ultisnips.git"
+Plug 'SirVer/ultisnips'
 if has('gui_win32')
   let g:UltiSnipsSnippetsDir=$HOME
   let g:UltiSnipsSnippetDirectories=["myUltiSnippets"]
@@ -411,11 +404,11 @@ endif
 " ==============================================================================
 
 " ======== Combine Previous Plugins For Modern Completion Experience ===========
-NeoBundle "jordwalke/VimCompleteLikeAModernEditor"
+Plug 'jordwalke/VimCompleteLikeAModernEditor'
 " ==============================================================================
 
 " ============================= Commenter ======================================
-NeoBundle "https://github.com/scrooloose/nerdcommenter"
+Plug 'scrooloose/nerdcommenter'
 let g:NERDCompactSexyComs = 0
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
@@ -430,14 +423,14 @@ let g:NERDCustomDelimiters = { 'reason': { 'left': '/*','right': '*/', 'nested':
 " =============================Javascript-Indent================================
 " I suspect this is doing nothing since JavaScript-Indent overwrites the
 " indentation hooks, but I cannot prove it.
-NeoBundle "https://github.com/pangloss/vim-javascript"
+Plug 'pangloss/vim-javascript'
 " ==============================================================================
 
 " =============================Javascript-Indent================================
-NeoBundle "git://github.com/vim-scripts/JavaScript-Indent.git"
+Plug 'vim-scripts/JavaScript-Indent'
 " ==============================================================================
 
-NeoBundle "https://github.com/mxw/vim-jsx"
+Plug 'mxw/vim-jsx'
 
 
 
@@ -455,25 +448,32 @@ endfunction
 
 
 " ================================= Less========================================
-" NeoBundle "git://github.com/groenewege/vim-less.git"
+" Plug 'groenewege/vim-less'
 " ==============================================================================
 
 
 
 " ======================= Parameter Text Objects ===============================
 " ciP  (change in paramater  - changes the single argument under cursor!
-NeoBundle "git://github.com/vim-scripts/Parameter-Text-Objects.git"
+Plug 'vim-scripts/Parameter-Text-Objects'
 " ==============================================================================
 
 
 " ============================ GUndo ============================================
 " Visualize a tree of your document history
-NeoBundle "http://github.com/sjl/gundo.vim.git"
+Plug 'sjl/gundo.vim'
 nnoremap <D-U> :GundoToggle<CR>
 let g:gundo_close_on_revert=1
 " ==============================================================================
 
 " ========================== Undo Quit of a window =============================
-NeoBundle "https://github.com/AndrewRadev/undoquit.vim"
+Plug 'AndrewRadev/undoquit.vim'
 map <D-T> <Esc>:Undoquit<CR>
 " ==============================================================================
+
+
+" ========================== Jordwalke's fork of One ===========================
+Plug 'jordwalke/vim-one'
+let g:one_allow_italics = 1 " I love italic for comments
+" ==============================================================================
+
