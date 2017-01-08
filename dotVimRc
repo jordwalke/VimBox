@@ -209,18 +209,40 @@ if filereadable(expand("~/.vim/bundlesVimRc.custom"))
   source ~/.vim/bundlesVimRc.custom
 endif
 
-
 call plug#end()
 
-
-" First time you startup, run
-" PlugInstall
-
-source ~/.vim/guiSettingsVimRc   " Must come after .bundlesVimRc
-source ~/.vim/keysVimRc
-source ~/.vim/customFunctions.vim
-set listchars = "eol:$"
-if filereadable(expand("~/.vim/vimrc.custom.after"))
+" MacVim Quick Start is pretty strange. It's as if it always opens the *next*
+" MacVim window whenever you open the currently visible one.
+" So this prompt applies to the *next* window you'll open typically - in that
+" case.
+" Notice the ! not
+if !len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  " Everything's already installed. Configure the plugins
+  source ~/.vim/guiSettingsVimRc
+  source ~/.vim/keysVimRc
+  source ~/.vim/customFunctions.vim
+  " Some vim reset plugin screws up listchars
+  set listchars = "eol:$"
   source ~/.vim/vimrc.custom.after
+else
+  if has('gui') && has('mac')
+    set background=dark
+    " The backticks and echo make it work better in terminal env
+    autocmd VimEnter *
+      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)')) && 1==confirm("Download and Install Plugins?", "&Yes\n&No", 1)
+      \|   PlugInstall --sync | echomsg "Open a new window to enjoy the plugins!" | let xx=confirm("Open a New Window For Plugins to Take Effect.")
+      \| endif
+    " TODO: Make it so the next key you hit closes the window and opens a
+    " new one. That way, we don't actually have to block on PlugInstall
+    " here.
+  else
+    echomsg "Attempting to install plugins. Be patient. Vim is working in the background. It will start eventually."
+    PlugInstall --sync
+    source ~/.vim/guiSettingsVimRc
+    source ~/.vim/keysVimRc
+    source ~/.vim/customFunctions.vim
+    " Some vim reset plugin screws up listchars
+    set listchars = "eol:$"
+    source ~/.vim/vimrc.custom.after
+  endif
 endif
-
