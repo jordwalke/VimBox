@@ -23,21 +23,52 @@
 "  bold: This should fix it:
 "   defaults -currentHost write -globalDomain AppleFontSmoothing -int 1
 "  4. Speed up full screen transition:
-"  defaults write org.vim.MacVim MMFullScreenFadeTime 0.1
+"  defaults write org.vim.MacVim MMFullScreenFadeTime 0.05
 "
 " Cygwin:
 " Tested and should work. AutoHotkey exist that provide an identical experience
 " to the Mac OSX experience.
 "
 " Bundle System:
+" =================================================================
 " Uses the VimPlug system. Add bundles to ~/.vim/bundlesVimRc with:
 " Plug "githubUser/repo"
 " Open a new window and then run `:PlugInstall`
 " Close and then reopen the vim window.
 
-
 " Performance Profiling:
+" ========================
 " http://stackoverflow.com/questions/12213597/how-to-see-which-plugins-are-making-vim-slow
+"
+" Find Slow Plugins During Actions:
+" =================================
+"
+"   :profile start profile.log
+"   :profile func *
+"   :profile file *
+"   " At this point do slow actions
+"   :profile pause
+"   :noautocmd qall!
+"
+" Profile Startup Time:
+" ============================================================
+"   mvim --startuptime ~/.vim/timeCost.txt ~/.vim/timeCost.txt
+"
+" Debugging VimSript Errors:
+" ==================================================================
+" Ever have this happen to you?
+"
+"    Error <SNR>49_Destroy[10]...Line 3
+"
+" This is Vim's idea of a good error message (when one of your plugin throws
+" an error). See that weird <SNR>49? That's the script number which is
+" assigned to the VimScript file behind the scenes (invisibly to you) - Here's
+" how you find out which script that is. Execute :scriptnames and find the
+" corresponding number in that list.  So <SNR>49 means script number 49, and
+" Destroy, UnsetIMap are the last two functions in the stack trace (so the
+" problem is ultimately in UnsetIMap in my case).  And that "line 3"?  That's
+" not the line number in the file like any reasonable error message would
+" display that's the line number within the deepest function.
 
 if has('gui_win32')
   set rtp+=~/.vim
