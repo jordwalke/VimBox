@@ -26,6 +26,22 @@
 " call s:insertMapping('<C-w>', 'jigsaw#Backspace', '')
 
 
+" Command + Shift + h/j/k/l
+" =========================
+"
+" - Cmd-Shift-h/l always move to left/right windows.
+" - Cmd-Shift-J/K move to the up/down windows,
+"   - Except in diff mode, where they move to the next change in diff
+"     because in vertical diff mode you don't need to move up down.
+"
+" https://vi.stackexchange.com/questions/2705/create-mappings-that-only-apply-to-diff-mode
+nnoremap <expr> <D-J> &diff ? ']c' : '<C-W>j'
+nnoremap <expr> <D-K> &diff ? '[c' : '<C-W>k'
+nmap <D-H> <c-w><c-h>
+nmap <D-L> <c-w><c-l>
+
+
+
 "totally annoying default mapping for cap k
 nmap K <nop>
 
@@ -171,9 +187,7 @@ endif
 " if has("gui_running")
 "   nnoremap <esc> :noh<return><esc>
 " endif
-" Toggle between most recently viewed tab
-map <D-L> :LastTab<CR>
-imap <D-L> <Esc>:LastTab<CR>
+
 
 " Quick global shortcuts for toggling the location list or quickfix list
 " TODO: Use overlay for this as well.
@@ -350,8 +364,13 @@ if has("gui_running") " all this for gui use
         imap <D-A> <End>;
 
         " Toggle Spell Check Easily:
-        imap <D-P> <Esc>l:set spell!<Cr>
-        nmap <D-P> :set spell!<Cr>
+        " Need to find a better replacement:
+        " imap <D-P> <Esc>l:set spell!<Cr>
+        " nmap <D-P> :set spell!<Cr>
+
+        " Toggle between (Previously Viewed) tab.
+        map <D-P> :LastTab<CR>
+        imap <D-P> <Esc>:LastTab<CR>
     endif
 endif
 

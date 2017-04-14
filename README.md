@@ -102,7 +102,6 @@ Features:
 | `^+tab` / `^+shift+tab`   | Go to previous/next tab (in normal Vim mode)    |
 | `⌘+1 `                    |                 Go to tab `1`                   |
 | `F5`                      | Sort lines (like Textmate)                      |
-| `⌘+shift+p`               | Toggle spell-check                              |
 | `⌘+/`                     | Toggle comments - selected range - or line      |
 | `⌘+shift+m`               | format/indent entire file then restore cursor   |
 | `⌘+shift+r`               | Toggle error list (only shows if it has errors) |
@@ -189,8 +188,12 @@ The `ctrl-p` plugin has been configured to "do the right thing", which means sea
 
 | Key          | Action        |
 | ------------ |-------------|
-| `Space`/`shift+Space`       | While in Vim's normal mode - go to next/preious tab |
-| `tab`/`shift+tab`      | While in Vim's normal mode - go to next/previous split |
+| `⌘+shift+h`, `⌘+shift+l` | While in Vim's normal mode - focus split to the left or right |
+| `⌘+shift+j`, `⌘+shift+k` | While in Vim's normal mode - focus split to the top or bottom (not in diff mode) |
+| `⌘+shift+j`, `⌘+shift+k` | While in Vim's normal mode - *and* diff mode, go to next / previous changes |
+| `⌘+shift+p`              | While in Vim's normal mode - focus *previously* focused tab |
+| `Space`/`shift+Space`    | While in Vim's normal mode - go to next/preious tab |
+| `tab`/`shift+tab`        | While in Vim's normal mode - go to next/previous split |
 
 
 ####JavaScript Development
