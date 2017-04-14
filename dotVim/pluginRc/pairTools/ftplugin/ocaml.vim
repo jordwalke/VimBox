@@ -1,0 +1,16 @@
+let g:pairtools_ocaml_pairclamp = 1
+let g:pairtools_ocaml_tagwrench = 0
+let g:pairtools_ocaml_jigsaw    = 1
+let g:pairtools_ocaml_autoclose  = 1
+let g:pairtools_ocaml_forcepairs = 0
+let g:pairtools_ocaml_closepairs = "(:),[:],{:},':'" . ',":"'
+let g:pairtools_ocaml_smartclose = 1
+let g:pairtools_ocaml_smartcloserules = '\w,(,&,\*'
+let g:pairtools_ocaml_antimagic  = 1
+let g:pairtools_ocaml_antimagicfield  = "Comment,String,Special"
+let g:pairtools_ocaml_pcexpander = 1
+let g:pairtools_ocaml_pceraser   = 1
+let g:pairtools_ocaml_tagwrenchhook = 'tagwrench#BuiltinNoHook'
+let g:pairtools_ocaml_twexpander = 0
+let g:pairtools_ocaml_tweraser   = 0
+let g:pairtools_ocaml_apostrophe = 1

@@ -157,7 +157,7 @@ endif
 
 " ==================== Best Pair Tool Ever =====================================
 Plug 'MartinLafreniere/vim-PairTools'
-source ~/.vim/pluginRc/pairToolsVimRc
+set runtimepath+=~/.vim/pluginRc/pairTools
 " ==============================================================================
 
 
