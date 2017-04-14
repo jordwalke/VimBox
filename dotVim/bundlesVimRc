@@ -235,10 +235,9 @@ Plug 'def-lkb/ocp-indent-vim'
 
 " ======================= Toggle quickfix/location ============================
 " See .keysVimRc
-"Plug 'milkypostman/vim-togglelist'
-let g:toggle_list_copen_command="bo copen 15"
-let g:toggle_list_lopen_command="lopen 10"
-source ~/.vim/pluginRc/togglelistVimRc
+let g:toggly_copen_command="bo copen 15"
+let g:toggly_lopen_command="lopen 10"
+source ~/.vim/pluginRc/toggly/togglyVimRc
 " =============================================================================
 
 " ======================= Easy Grep ===========================================

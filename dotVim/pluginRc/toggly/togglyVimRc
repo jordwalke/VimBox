@@ -1,0 +1,80 @@
+" Implementation of a "HUD" style overlay that does not disrupt your
+" coding windows when toggling the quickfix/location lists!
+
+if exists("g:loaded_toggly")
+  finish
+endif
+
+
+" includes window position code coppied from
+" [asyncrun](https://github.com/skywind3000/asyncrun.vim)
+" See LICENSE in this file's directory.
+function! Toggly(locationList)
+  function! s:WindowCheck(mode)
+    if getbufvar('%', '&buftype') == 'quickfix'
+      let s:quickfix_open = 1
+      return
+    endif
+    if a:mode == 0
+      let w:quickfix_save = winsaveview()
+    else
+      call winrestview(w:quickfix_save)
+    endif
+  endfunc
+  let s:quickfix_open = 0
+  let l:winnr = winnr()
+  windo call s:WindowCheck(0)
+  try
+    " Move to the window you were in before windo
+    silent exec ''.l:winnr.'wincmd w'
+  catch /.*/
+  endtry
+  if s:quickfix_open == 0
+    try
+      if a:locationList
+        if exists("g:toggly_lopen_command")
+          exec(g:toggly_lopen_command)
+        else
+          exec ("bo lopen 5")
+        endif
+      else
+        if exists("g:toggly_copen_command")
+          exec(g:toggly_copen_command)
+        else
+          exec ("bo copen 5")
+        endif
+      endif
+      " Moves cursor to the top
+      wincmd k
+    catch /E776/
+        " Problem: these aren't printed without the redraw
+        " Strangely, try to print it a second time and it works.
+        call PlaceCursorBackForHUD()
+        redrawstatus
+        echohl ErrorMsg
+        echo "Location List is Empty."
+        echohl None
+        return 0
+    endtry
+  else
+    if a:locationList
+      lclose
+    else
+      cclose
+    endif
+  endif
+  windo call s:WindowCheck(1)
+  try
+    " Move to the window you were in before windo
+    silent exec ''.l:winnr.'wincmd w'
+  catch /.*/
+  endtry
+endfunction
+
+" TODO: Back up old winwidth/minwidthwidth/winheigh/minwidthheight before
+" doing the commands above because window sizes will reset.
+
+
+" See dotVim/keysVimRc
+" nmap <script> <silent> <D-r> :call Toggly(1)<CR>
+" nmap <script> <silent> <D-R> :call Toggly(0)<CR>

@@ -191,8 +191,8 @@ endif
 
 " Quick global shortcuts for toggling the location list or quickfix list
 " TODO: Use overlay for this as well.
-nmap <script> <silent> <D-r> :call ToggleLocationList()<CR>
-nmap <script> <silent> <D-R> :call ToggleQuickfixList()<CR>
+nmap <script> <silent> <D-r> :call Toggly(1)<CR>
+nmap <script> <silent> <D-R> :call Toggly(0)<CR>
 
 " Clear all forms of highlight when escape is pressed in normal mode.
 " Accounts for strange terminal behavior.

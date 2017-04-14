@@ -31,3 +31,7 @@
 
 - Include this font for free by default since it works well with powerline and
   resembles PragmataPro: https://be5invis.github.io/Iosevka/
+
+- Make Toggly an actual plugin and then configure its keys in standard
+  keys file.
+  - Togglist should toggle location list *per* window.
