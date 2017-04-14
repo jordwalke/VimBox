@@ -48,6 +48,19 @@ if has("gui_running") " all this for gui use
     let g:webdevicons_enable = 0
     set linespace=0
   endif
+  " Set your own custom symbols in your ~/.vim/vimrc.custom.after
+  " Symbols to use: Some look better without italics! Check compatibility with
+  " your font.
+  " Some fonts require setting ambiwidth=double
+  " ☻  ⬢  ⬡ ⍟⨷  ⮾  ⮿  ⏣  ⬣  ⌾ ★  ☆ ✩ ✪  ⭑⭑⭑ ☒  ☑  ⮽  ✖✖ ✖✖✖ ✖    ⛆
+  " ⛆ ☁ ⛈ ⛆
+  let g:vimBoxLinterErrorSymbol="⮾ "
+  let g:vimBoxLinterWarningSymbol="⬡ "
+  let g:vimBoxLinterOkSymbol="☻ "
+else
+  let g:vimBoxLinterErrorSymbol="⮾ "
+  let g:vimBoxLinterWarningSymbol="⬡ "
+  let g:vimBoxLinterOkSymbol="☻ "
 endif
 
 " Make it so the ugly "NonText" characters are hidden at the end of a file
