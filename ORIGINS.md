@@ -16,3 +16,8 @@ works as well as the license that applies to that icon.
 
 The SketchApp sources to the icon are also included in the
 `dotVim/images/iconSources` folder.
+
+
+The colorscheme in dotVim/colors/vimboxColorsDurintLoad.vim
+was coppied from https://github.com/rakr/vim-one
+and vendored just to show something nice while plugins load.

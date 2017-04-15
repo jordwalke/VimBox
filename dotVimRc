@@ -258,6 +258,8 @@ if !len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 else
   if has('gui') && has('mac')
     set background=dark
+    colorscheme vimBoxColorsDuringLoad
+    set guioptions-=r
     " The backticks and echo make it work better in terminal env
     autocmd VimEnter *
       \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)')) && 1==confirm("Download and Install Plugins?", "&Yes\n&No", 1)
