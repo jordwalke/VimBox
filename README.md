@@ -84,7 +84,7 @@ open ./dotVim/images
 Features:
 ----------
 
-#####Familiar Mac Key Commands
+#### Familiar Mac Key Commands
 
 | Key                       | Action                                          |
 | ------------------------- |-------------------------------------------------|
@@ -108,7 +108,7 @@ Features:
 | `⌘+r`                     | Toggle quickfix list                            |
 
 
-#####Mega Escape
+#### Mega Escape
 > - `VimBox` has mapped `^+l` to exit out of any modal window/prompt/mode/command to bring you back to normal Vim navigation mode.
 > - It's like the home button on the iPhone.
 > - Unlike regular `<Esc>`, mega-escape doesn't move your cursor when escaping.
@@ -118,17 +118,17 @@ Features:
 | ------------ |-------------|
 | `^+l`        | Mega Escape |
 
-#####Airline/Spacegray
+#### Airline/Spacegray
 
 `VimBox` includes `vim-airline` and `Spacegray` color scheme.
 
-#####Braces and Pairs
+#### Braces and Pairs
 
 - Inserting `{`, `[`, `'`, or `"` automatically inserts the closing character.
 - When hitting enter with the cursor between two braces `{|}` the newline is formatted with an extra indentation.
 - The behavior is identical to Sublime/Textmate.
 
-#####AutoComplete/Snippets
+#### AutoComplete/Snippets
 
 - Completions pop up automatically.
 - Like Sublime, `VimBox` accepts highlighted entries via `tab` or `enter`.
@@ -137,21 +137,21 @@ Features:
 - If the completion window is open and you want to insert a newline instead of inserting the completion, press `shift+enter` or `control+enter`.
 
 
-#####Distraction Free UI Tabs
+#### Distraction Free UI Tabs
 
 - When not in full screen mode, Mac style metalic tabs are used.
 - When in full-screen mode, those tabs become flat and blend into the background so you can focus on the code.
 
 
-#####One File, One Location
+#### One File, One Location
 
 Included plugins are configured so that opening a file will always focus the window/tab/split where that file is already open. This is how most modern editors work.
 
-#####Many Plugins, One Interaction Language
+#### Many Plugins, One Interaction Language
 
 Multiple plugins (`ctrl-p` and `NERDTree`) have been configured so that they have consistent keyboard mappings. For example, `s` represents the notion of a "vertical split", and `h` represents horizontal in both plugins (though one plugin might require a `ctrl` modifier in some cases.)
 
-#####Command-P Search Window
+#### Command-P Search Window
 
 The `ctrl-p` plugin has been configured to "do the right thing", which means searching for some combination of recently used files and/or the contents under the current working directory. It caches the results, but if you open it from your home directory, it could take a while to scan your entire directory.
 
@@ -164,7 +164,7 @@ The `ctrl-p` plugin has been configured to "do the right thing", which means sea
 | `⌘+shift+c`  | While searching, refreshes the search results if files have changed on disk|
 | `ctrl+c`     | Kills a slow search |
 
-#####NERDTree
+#### NERDTree
 
 `NERDTree` is included and is configured to act as a left-nav bar (toggle it via `⌘+e`). Its keymappings have been configured to be consistent with the `ctrl-p` plugin.
 
@@ -183,7 +183,7 @@ The `ctrl-p` plugin has been configured to "do the right thing", which means sea
 | `m`         | While explorer focused, show complete menu of possible commands to execute |
 
 
-#####Tabs And Splits Navigation
+#### Tabs And Splits Navigation
 > Jump around quickly to the next tab or split with a single key press. Go back the other direction by pressing shift.
 
 | Key          | Action        |
@@ -198,14 +198,14 @@ The `ctrl-p` plugin has been configured to "do the right thing", which means sea
 
 ####JavaScript Development
 
-#####JavaScript Linting
+#### JavaScript Linting
 - Excellent JavaScript indenting and inline linting with support for `JSX`.
 - Syntax error highlighting via Syntastic.
 - Type error highlighting via `flow`. Just have `flow` installed on your path, and type/syntax errors will be underlined in red. As always, hit `⌘+l` to toggle the summary of the file's errors.
 
 <img src="dotVim/images/VimJSXHint.png" />
 
-#####JavaScript Snippets
+#### JavaScript Snippets
 - JavaScript snippets are include, but you can add your own for any language you like
 
 | Key          | Action        |
@@ -222,7 +222,7 @@ The `ctrl-p` plugin has been configured to "do the right thing", which means sea
 | `logo` `tab`| Many more including <a href="https://github.com/facebook/react">ReactJS</a> helpers |
 
 
-#####JavaScript DocBlock Generator
+#### JavaScript DocBlock Generator
 
 The following key mapping generates docblock comments. `<tab>` will select the parameters in the generated docblock so you can edit the descriptions/types. Works with `ES6` functions.
 
@@ -234,7 +234,7 @@ The following key mapping generates docblock comments. `<tab>` will select the p
 Git Integration:
 ---------
 
-#####Setup DiffTool:
+#### Setup DiffTool:
 
 Any result of a `git diff` command can be viewed in a side-by-side diff view inside of `MacVim`. All of your familiar `vim` key commands work while browsing your diff. Place this in your `~/.gitconfig`:
 
@@ -247,7 +247,7 @@ Now you can use the `git difftool` command exactly like you use `git diff`, but 
 
 <img src="dotVim/images/VimBoxGitDiffTool.png" />
 
-#####Setup MergeTool:
+#### Setup MergeTool:
 
 Resolving merge conflicts is simple with `MacVim`. Just put this in your `~/.gitconfig`.
 
@@ -266,7 +266,7 @@ Resolving merge conflicts is simple with `MacVim`. Just put this in your `~/.git
 Now, `git mergetool` will resolve rebase and merge conflicts directly inside of `MacVim`.
 
 
-#####Setup Commit Message Editor:
+#### Setup Commit Message Editor:
 
 Make sure to tell your shell that `MacVim` is the way that you'd like to edit commit messages. This special command will ensure that when you close your `MacVim` window, you will return back to the command line `iTerm`. Replace with your shell rc file and terminal app name.
 
