@@ -132,7 +132,12 @@ set t_vb=
 
 " Should avoid "Hit Enter" annoyingness (Does *not* work)
 " The final c gets rid of annoying autocomplete messages.
-set shortmess+=filmnrxoOtTc
+try
+  set shortmess+=filmnrxoOtTc
+catch /E539: Illegal character/
+  " Some versions do not like c
+  set shortmess+=filmnrxoOtT
+endtry
 " Disable Vim's startup screen
 set shortmess+=I
 " Customize:
@@ -181,7 +186,11 @@ endif
 
 " http://stackoverflow.com/questions/6852763/vim-quickfix-list-launch-files-in-new-tab
 " This is respected by bnext/bprev/bfirst commands!
-set switchbuf+=useopen,usetab,vsplit
+try
+  set switchbuf+=useopen,usetab,vsplit
+catch /E474: Invalid argument/
+  set switchbuf+=useopen,usetab
+endtry
 
 " A better diff link for macvim
 " alias mvimdiff="mvim -O  \"+windo set diff scrollbind scrollopt+=hor nowrap\""
