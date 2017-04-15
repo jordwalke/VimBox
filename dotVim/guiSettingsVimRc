@@ -35,6 +35,8 @@ if has("gui_running") " all this for gui use
   " Pro Tips:
   " Make sure to turn off anti-aliasing in general preferences panel.
   if has("gui_macvim") || has("gui_vimr")
+    set fillchars=vert:\▕
+
     " Don't remove tabs on MacVim because VimGUITabs plugin makes them get out
     " of the way when we want them to get out of the way (in full screen mode).
     " set guioptions-=e
