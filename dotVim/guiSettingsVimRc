@@ -42,11 +42,12 @@ if has("gui_running") " all this for gui use
     let macvim_skip_colorscheme = 1
     set transparency=0
     set fuoptions=maxvert,maxhorz
-    set guifont=Menlo:h14
+    set guifont=iosevka:h12
+    " For iosevka to render perfectly in macvim, linespace -1
+    set linespace=-1
     set nolazyredraw
     " Change to `1` if your font is patched with webdev icons.
     let g:webdevicons_enable = 0
-    set linespace=0
   endif
   " Set your own custom symbols in your ~/.vim/vimrc.custom.after
   " Symbols to use: Some look better without italics! Check compatibility with
