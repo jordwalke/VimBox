@@ -25,9 +25,9 @@
 
 <br>
 
-> VimBox with Spacegray colorscheme
+> VimBox with Atom inspired one-dark theme.
 
-<img src="dotVim/images/flatlandia_completion.png" />
+<img width="744px" height="642px" src="dotVim/images/VimBoxScreen_1488x1284.png" />
 
 > VimBox's matching application icon
 
@@ -203,8 +203,6 @@ The `ctrl-p` plugin has been configured to "do the right thing", which means sea
 - Syntax error highlighting via Syntastic.
 - Type error highlighting via `flow`. Just have `flow` installed on your path, and type/syntax errors will be underlined in red. As always, hit `⌘+l` to toggle the summary of the file's errors.
 
-<img src="dotVim/images/VimJSXHint.png" />
-
 #### JavaScript Snippets
 - JavaScript snippets are include, but you can add your own for any language you like
 
@@ -245,7 +243,7 @@ Any result of a `git diff` command can be viewed in a side-by-side diff view ins
 
 Now you can use the `git difftool` command exactly like you use `git diff`, but a MacVim window will appear:
 
-<img src="dotVim/images/VimBoxGitDiffTool.png" />
+<img width="744px" height="642px" src="dotVim/images/VimDiff_1488x1284.png" />
 
 #### Setup MergeTool:
 
