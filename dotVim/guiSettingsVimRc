@@ -72,4 +72,4 @@ augroup END
 
 syntax enable
 set background=dark
-colorscheme spacegray
+colorscheme one
