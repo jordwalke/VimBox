@@ -13,8 +13,8 @@ if exists('g:colors_name')
 endif
 let g:colors_name = 'vimBoxColorsDuringLoad'
 
-if !exists('g:one_allow_italics')
-  let g:one_allow_italics = 0
+if !exists('g:vimBoxColorsDuringLoad_allow_italics')
+  let g:vimBoxColorsDuringLoad_allow_italics = 0
 endif
 
 let g:hasGuiRunning = has('gui_running')
@@ -223,7 +223,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256
     let l:fgArg = a:2
     let l:bgArg = a:3
     let l:attrArg = a:4
-    if g:one_allow_italics == 0 && l:attrArg ==? 'italic'
+    if g:vimBoxColorsDuringLoad_allow_italics == 0 && l:attrArg ==? 'italic'
         let l:attrArg= 'none'
     endif
 
