@@ -472,7 +472,10 @@ map <D-T> <Esc>:Undoquit<CR>
 
 
 " ========================== Jordwalke's fork of One ===========================
+if !exists('g:one_allow_italics')
+  " Italics don't typically render well in terminals
+  let g:one_allow_italics = has('gui_running')
+endif
 Plug 'jordwalke/vim-one'
-let g:one_allow_italics = 1 " I love italic for comments
 " ==============================================================================
 
