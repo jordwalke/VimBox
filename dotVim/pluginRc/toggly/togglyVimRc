@@ -49,7 +49,6 @@ function! Toggly(locationList)
     catch /E776/
         " Problem: these aren't printed without the redraw
         " Strangely, try to print it a second time and it works.
-        call PlaceCursorBackForHUD()
         redrawstatus
         echohl ErrorMsg
         echo "Location List is Empty."
