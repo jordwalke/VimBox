@@ -51,7 +51,7 @@
 "   :noautocmd qall!
 "
 " Profile Startup Time:
-" ============================================================
+" ==================================================================
 "   mvim --startuptime ~/.vim/timeCost.txt ~/.vim/timeCost.txt
 "
 " Debugging VimSript Errors:
@@ -69,6 +69,20 @@
 " problem is ultimately in UnsetIMap in my case).  And that "line 3"?  That's
 " not the line number in the file like any reasonable error message would
 " display that's the line number within the deepest function.
+
+" Seeing Who Is Setting A Setting:
+" =================================================================
+" :verbose set settingName?
+
+" Using In Terminal
+" ================
+" Using VimBox in your terminal is semi-supported. It should work, but it is
+" not tested often. If you see something off, please report but a PR is
+" the best way to move VimBox forward with terminal support.
+"
+" Note: If you use iTerm, and you want airline symbols to show up correctly
+" you must change the font in *two* places in iTerm. The normal font, and the
+" non-ascii font!
 
 if has('gui_win32')
   set rtp+=~/.vim
@@ -229,8 +243,8 @@ if (empty($TMUX))
     " New airline should work without them.
     " https://github.com/vim/vim/issues/993
     " set Vim-specific sequences for RGB colors
-    " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
   endif
 endif
@@ -265,7 +279,8 @@ if !len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   set listchars = "eol:$"
   source ~/.vim/vimrc.custom.after
 else
-  if has('gui') && has('mac')
+  " Don't show statusline when airline might not be loaded or configured.
+  if has('gui') && has('mac') && has('gui_running')
     set background=dark
     colorscheme vimBoxColorsDuringLoad
     set guioptions-=r
@@ -275,12 +290,14 @@ else
     " The backticks and echo make it work better in terminal env
     autocmd VimEnter *
       \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)')) && 1==confirm("Download and Install Plugins?", "&Yes\n&No", 1)
+      \|   set laststatus=0
       \|   PlugInstall --sync | echomsg "Open a new window to enjoy the plugins!" | let xx=confirm("Open a New Window For Plugins to Take Effect.")
       \| endif
     " TODO: Make it so the next key you hit closes the window and opens a
     " new one. That way, we don't actually have to block on PlugInstall
     " here.
   else
+    set laststatus=0
     echomsg "Attempting to install plugins. Be patient. Vim is working in the background. It will start eventually."
     PlugInstall --sync
     source ~/.vim/guiSettingsVimRc
