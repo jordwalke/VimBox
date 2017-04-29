@@ -86,26 +86,27 @@ Features:
 
 #### Familiar Mac Key Commands
 
-| Key                       | Action                                          |
-| ------------------------- |-------------------------------------------------|
-| `⌘+p`                     | Open Anything (`ctrl-p`)                        |
-| `⌘+n`                     | New Tab                                         |
-| `⌘+shift+n`               | New Window                                      |
-| `⌘+shift+t`               | Reopen Last Closed Tab                          |
+| Key                       | Action                                           |
+| ------------------------- |--------------------------------------------------|
+| `⌘+p`                     | Open Anything (`ctrl-p`)                         |
+| `⌘+n`                     | New Tab                                          |
+| `⌘+shift+n`               | New Window                                       |
+| `⌘+shift+t`               | Reopen Last Closed Tab                           |
 | `⌘+w`                     | Close tab/split: Opens to the left (like Sublime) not right (like vim)  |
-| `⌘+s`                     | Save file                                       |
-| `⌘+z`                     | Undo                                            |
-| `⌘+shift+z`               | Redo                                            |
-| `⌘+enter`                 | Special Distraction-Free FullScreen Mode        |
-| `⌘+e`                     | Toggle File Explorer (Docked `NERDTree`)        |
-| `⌘+shift+[` / `⌘+shift+]` | Go to previous/next tab                         |
-| `^+tab` / `^+shift+tab`   | Go to previous/next tab (in normal Vim mode)    |
-| `⌘+1 `                    |                 Go to tab `1`                   |
-| `F5`                      | Sort lines (like Textmate)                      |
-| `⌘+/`                     | Toggle comments - selected range - or line      |
-| `⌘+shift+m`               | format/indent entire file then restore cursor   |
-| `⌘+shift+r`               | Toggle error list (only shows if it has errors) |
-| `⌘+r`                     | Toggle quickfix list                            |
+| `⌘+s`                     | Save file                                        |
+| `⌘+z`                     | Undo                                             |
+| `⌘+shift+z`               | Redo                                             |
+| `⌘+enter`                 | Special Distraction-Free FullScreen Mode         |
+| `⌘+e`                     | Toggle File Explorer (Docked `NERDTree`)         |
+| `⌘+shift+[` / `⌘+shift+]` | Go to previous/next tab                          |
+| `^+tab` / `^+shift+tab`   | Go to previous/next tab (in normal Vim mode)     |
+| `⌘+1 `                    |                 Go to tab `1`                    |
+| `F5`                      | Sort lines (like Textmate)                       |
+| `⌘+/`                     | Toggle comments - selected range - or line       |
+| `⌘+shift+m`               | format/indent entire file then restore cursor    |
+| `⌘+d`                     | Toggle Diagnostics (errors in location list)     |
+| `⌘+D`                     | Toggle QuickFix list                             |
+| `⌘+r`                     | "Run" - invokes pwd/runFromEditor.sh             |
 
 
 #### Mega Escape

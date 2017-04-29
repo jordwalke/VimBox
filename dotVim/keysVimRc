@@ -46,11 +46,6 @@ nmap <D-L> <c-w><c-l>
 nmap K <nop>
 
 
-" When in diff mode - Command-Shift-J/K move to next change in diff.
-nmap <D-K> [c
-nmap <D-J> ]c
-
-
 " Always gets out of autocomplete's and just lets you enter the newline!
 imap <C-Cr> <Left><Right><Cr>
 
@@ -189,10 +184,39 @@ endif
 " endif
 
 
+" Diagnostics.
 " Quick global shortcuts for toggling the location list or quickfix list
-" TODO: Use overlay for this as well.
-nmap <script> <silent> <D-r> :call Toggly(1)<CR>
-nmap <script> <silent> <D-R> :call Toggly(0)<CR>
+nmap <script> <silent> <D-d> :call Toggly(1)<CR>
+nmap <script> <silent> <D-D> :call Toggly(0)<CR>
+
+" http://vim.wikia.com/wiki/Get_shortened_messages_from_using_echomsg
+function! s:ShortEcho(msg)
+  let saved=&shortmess
+  set shortmess+=T
+  exe "norm :echomsg a:msg\n"
+  let &shortmess=saved
+endfunction
+function! s:ShortError(msg)
+  echohl Error
+  let saved=&shortmess
+  set shortmess+=T
+  exe "norm :echomsg a:msg\n"
+  let &shortmess=saved
+  echohl none
+endfunction
+
+" From answer here: https://vi.stackexchange.com/questions/1942/how-to-execute-shell-commands-silently
+fun! s:RunCmdOrShowErrorNicely(cmd)
+    silent let f = systemlist(a:cmd)
+    if v:shell_error
+      call s:ShortError("[ERROR]" . join(f, '   '))
+      return
+    endif
+endfun
+
+command! -nargs=+ RunCmdOrShowErrorNicelyCmd call s:RunCmdOrShowErrorNicely(<q-args>)
+nmap <script> <silent> <D-r> :RunCmdOrShowErrorNicelyCmd ./runFromEditor.sh<CR>
+" nmap <script> <silent> <D-R> :RunCmdOrShowErrorNicelyCmd ./runFromEditor.sh
 
 " Clear all forms of highlight when escape is pressed in normal mode.
 " Accounts for strange terminal behavior.
