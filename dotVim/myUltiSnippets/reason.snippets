@@ -11,8 +11,14 @@ endsnippet
 
 snippet obj; "{};" !
 {
-	$0
+	${VISUAL}$0
 };
+endsnippet
+
+snippet obj "{}" !
+{
+	${VISUAL}$0
+}
 endsnippet
 
 snippet l "let x ...;" !
@@ -152,5 +158,128 @@ else if`!p snip.rv = ' (' if ' ' in t[1] else ' '`${1:expr}`!p snip.rv = ')' if 
 	${2:thenExpr};
 }${3: else}`!p snip.rv = '' if t[3] else ';'`$0
 endsnippet
+
+
+snippet component "React UI component module" !
+let component = ReasonReact.createComponent debugName::"${1:`!p snip.rv = snip.basename`}" ();
+
+let create ${1:::${2:propName}=${3:default}} children => component.create {
+	init: fun ::state=${4:initialState} _self => state,
+	render: fun ::state self => {
+		<${5:tag}`!p snip.rv = ' ' if t[6] else ''`${6:className=${7:cssClass}}>`!p snip.rv = '' if t[6].endswith('/') else  '\n			'`${VISUAL}$0`!p snip.rv = '' if t[6].endswith('/') else '\n		</' + (t[5].split()[0] if t[5].split() else '') + '>'`
+	}
+};
+endsnippet
+
+# Add more props to the creation function!
+snippet :: "XHTML ::propName=defaultVal"
+::${1:propName}=${0:value}
+endsnippet
+
+
+# The following fails when doing var x = lam<tab><type_anything>
+# var ${1:varName}`!p snip.rv = ' = ' if not (len(t[2]) == 0) else ''`${2:boundValue};
+snippet v "var" !
+var ${1:varName} = ${VISUAL}$0;
+endsnippet
+
+
+# The others are just copied from this.
+snippet tag "XHTML <tag>"
+<${1:tag}`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</' + (t[1].split()[0] if t[1].split() else '') + '>'`
+endsnippet
+
+# The others are just copied from this.
+snippet tagret "XHTML return <tag>" !
+return (
+	<${1:tag}`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+	`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+	`!p snip.rv = '' if t[2].endswith('/') else '</' + (t[1].split()[0] if t[1].split() else '') + '>'`
+);
+endsnippet
+
+snippet tago "XHTML <tagopen>"
+<${1:tag}
+	${2:className={${3:cssClass}}}
+/>
+endsnippet
+snippet span "XHTML <span>"
+<span`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</span>'`
+endsnippet
+
+snippet div "XHTML <div>"
+<div`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</div>'`
+endsnippet
+
+snippet img "XHTML <img>"
+<img`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</img>'`
+endsnippet
+
+snippet button "XHTML <button>"
+<button`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</button>'`
+endsnippet
+
+snippet h1 "XHTML <h1>"
+<h1`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</h1>'`
+endsnippet
+
+snippet h1 "XHTML <h1>"
+<h1`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</h1>'`
+endsnippet
+
+snippet h2 "XHTML <h2>"
+<h2`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</h2>'`
+endsnippet
+
+snippet h3 "XHTML <h3>"
+<h3`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</h3>'`
+endsnippet
+
+snippet h4 "XHTML <h4>"
+<h4`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</h4>'`
+endsnippet
+
+snippet h5 "XHTML <h5>"
+<h5`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</h5>'`
+endsnippet
+
+snippet ul "XHTML <ul>"
+<ul`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</ul>'`
+endsnippet
+
+snippet li "XHTML <li>"
+<li`!p snip.rv = ' ' if not (t[2].startswith(' ') or len(t[2]) == 0) else ''`${2:className={${3:cssClass}}}>
+`!p snip.rv = '' if t[2].endswith('/') else  '  '`${VISUAL}$0
+`!p snip.rv = '' if t[2].endswith('/') else '</li>'`
+endsnippet
+
+snippet at "XHTML attr={}"
+${1:attr}={${0:value}}
+endsnippet
+
 
 # vim:ft=snippets:
