@@ -221,11 +221,13 @@ source ~/.vim/pluginRc/nerdTreeTabsVimRc
 " Hacked ACP to support Reason and OCaml.
 " TODO: Can someone support YCM and other popular completion engines?
 
-" ============================= NERDTreeSideBar ================================
-Plug 'reasonml/vim-reason-loader'
+" ============================= VimReson =======================================
+" Plug 'reasonml/vim-reason-loader'
+Plug 'chenglou/vim-reason'
 source ~/.vim/pluginRc/vimReasonVimRc
-" ============================= NERDTreeSideBar ================================
 let g:merlin_split_method = "vertical"
+let g:merlin_completion_dwim=0
+" ==============================================================================
 
 
 " ==============================================================================
@@ -258,12 +260,16 @@ Plug 'jordwalke/VimSplitBalancer'
 " =============================================================================
 
 " =================== Web Dev Icons ===========================================
-" Plug 'ryanoasis/vim-webdevicons'
+" Plug 'ryanoasis/vim-devicons'
 " let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 " let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-" Doesn't work
-" let g:WebDevIconsUnicodeDecorateFolderNodeDefaultSymbol = ' '
+" let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+" let g:DevIconsDefaultFolderOpenSymbol = ''
+" let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
+" Use the nerdtree arrows instead
+" let g:NERDTreeDirArrowExpandable = ' '
+" let g:NERDTreeDirArrowCollapsible = ' '
 " =============================================================================
 
 " ======================= View Key Mappings ====================================
@@ -277,6 +283,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
 " Git status can be expensive.
 let g:airline#extensions#branch#enabled = 0
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 set laststatus=2
 " Disable truncation
 " let g:airline#extensions#default#section_truncate_width = {}
@@ -295,7 +302,13 @@ Plug 'scrooloose/syntastic'
 let g:syntastic_enable_signs=0
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_loc_list_height=15
-let g:syntastic_javascript_checkers=['flow']
+" This doesn't work:'
+let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
+let g:airline#extensions#quickfix#location_text = 'Diagnostics'
+
+" Flow checking is too slow. Makes Vim lock up (did I not configure this
+" correctly?)
+" let g:syntastic_javascript_checkers=['flow']
 " let g:syntastic_warning_symbol=""
 " let g:syntastic_error_symbol=""
 " highlight link SyntasticErrorLine Spellbad
@@ -388,8 +401,11 @@ source ~/.vim/pluginRc/ctrlPVimRc
 
 " ============================= ACP Forked =========================
 " Check out snippets in ~/.vim/personalSnippets/
-Plug 'jordwalke/AutoComplPop'
+" Plug 'jordwalke/AutoComplPop'
 let g:acp_ignorecaseOption = 1
+
+Plug 'lifepillar/vim-mucomplete'
+source ~/.vim/pluginRc/mucompleteRc
 
 " ==============================================================================
 
@@ -405,10 +421,6 @@ else
 endif
 
 
-" ==============================================================================
-
-" ======== Combine Previous Plugins For Modern Completion Experience ===========
-Plug 'jordwalke/VimCompleteLikeAModernEditor'
 " ==============================================================================
 
 " ============================= Commenter ======================================
@@ -431,11 +443,12 @@ Plug 'pangloss/vim-javascript'
 " ==============================================================================
 
 " =============================Javascript-Indent================================
-Plug 'vim-scripts/JavaScript-Indent'
+" nemtsov's fork which does *not* echo annoyingly for *every* HTML file you
+" open.
+Plug 'nemtsov/JavaScript-Indent', { 'commit': 'f3e168e70a540678bae4929edf0b21c84c3ed3aa' }
 " ==============================================================================
 
 Plug 'mxw/vim-jsx'
-
 
 
 " ========================= Simulator Refresh ==================================
