@@ -1,3 +1,6 @@
+
+
+
 " ================================================
 "         .__           ___.
 "  ___  __|__|  _____   \_ |__    ____  ___  ___
@@ -83,6 +86,10 @@
 " Note: If you use iTerm, and you want airline symbols to show up correctly
 " you must change the font in *two* places in iTerm. The normal font, and the
 " non-ascii font!
+
+if v:version < 799
+  echomsg "VimBox works best with Vim8 or newer. Please upgrade your Vim/MacVim"
+endif
 
 if has('gui_win32')
   set rtp+=~/.vim
