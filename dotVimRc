@@ -180,7 +180,11 @@ set spelllang=en
 set spellfile=$HOME/vim_spell/en.utf-8.add
 " UndoDir:
 let s:homeFolder = $HOME
-let s:undoDir = s:homeFolder . '/vimUndo'
+if (exists('g:vimBoxUndoDir'))
+  let s:undoDir = g:vimBoxUndoDir
+else
+  let s:undoDir = s:homeFolder . '/vimUndo'
+endif
 set undofile
 " " Create undo dir if needed - not in your dotVim folder! It should be local to
 " " your computer.
