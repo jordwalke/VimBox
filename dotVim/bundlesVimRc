@@ -2,6 +2,23 @@
 " Pretty much plug and play with MacVim
 " ==================================================
 
+" ========================== Mario.vim =============================
+" Plug 'rbtnn/game_engine.vim'
+" Plug 'rbtnn/mario.vim'
+" ==================================================================
+
+let s:homeFolder = $HOME
+let s:vimConfigDir = s:homeFolder . '/.vim'
+let s:vimPluginConfigDir = s:vimConfigDir . '/pluginRc'
+
+" ========================== Jordwalke's fork of One ===========================
+Plug 'jordwalke/vim-one'
+if !exists('g:one_allow_italics')
+  " Italics don't typically render well in terminals
+  let g:one_allow_italics = has('gui_running')
+endif
+" ==============================================================================
+
 
 " ========================== Some colors ===========================
 Plug 'jordwalke/VimCleanColors'
@@ -279,15 +296,7 @@ Plug 'jordwalke/VimSplitBalancer'
 " ======================= A lighterweight Powerline ============================
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_powerline_fonts = 1
-let g:airline_skip_empty_sections = 1
-" Git status can be expensive.
-let g:airline#extensions#branch#enabled = 0
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-set laststatus=2
-" Disable truncation
-" let g:airline#extensions#default#section_truncate_width = {}
-
+execute 'source '. s:vimPluginConfigDir . '/vimAirlineVimRc'
 if has("gui_macvim") || has("gui_vimr")
   autocmd VimEnter * set guioptions+=e
 endif
@@ -320,6 +329,8 @@ let g:airline#extensions#quickfix#location_text = 'Diagnostics'
 " autocmd FileType ocaml sign define dummy
 " autocmd FileType ocaml execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
 " ==============================================================================
+let g:airline#extensions#whitespace#trailing_format = ' '
+
 
 
 
@@ -405,12 +416,14 @@ source ~/.vim/pluginRc/ctrlPVimRc
 let g:acp_ignorecaseOption = 1
 
 Plug 'lifepillar/vim-mucomplete'
-source ~/.vim/pluginRc/mucompleteRc
+source ~/.vim/pluginRc/mucompleteVimRc
 
 " ==============================================================================
 
 " ============================= UltiSnips ======================================
 "See corresponding entries in `.keysVimRc`.
+" This branch fixes performance of UltiSnips_Manager.snippets_in_current_scope but it won't install with vim-plug!
+" Plug 'SirVer/ultisnips', { 'commit': '6b076183aa4bb8e3e1e7b07b8bee3d899560b445', 'branch': 'optimize-snippets-in-current-scope' }
 Plug 'SirVer/ultisnips'
 if has('gui_win32')
   let g:UltiSnipsSnippetsDir=$HOME
@@ -487,13 +500,3 @@ let g:gundo_close_on_revert=1
 Plug 'AndrewRadev/undoquit.vim'
 map <D-T> <Esc>:Undoquit<CR>
 " ==============================================================================
-
-
-" ========================== Jordwalke's fork of One ===========================
-if !exists('g:one_allow_italics')
-  " Italics don't typically render well in terminals
-  let g:one_allow_italics = has('gui_running')
-endif
-Plug 'jordwalke/vim-one'
-" ==============================================================================
-

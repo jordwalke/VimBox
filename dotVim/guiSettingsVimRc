@@ -1,3 +1,5 @@
+set noshowmode " Get rid of extra --INSERT-- rendered below.
+
 if has("gui_running") " all this for gui use
   " ugly MacVim Cruft
   set guioptions-=r "remove scrollbars
@@ -35,7 +37,8 @@ if has("gui_running") " all this for gui use
   " Pro Tips:
   " Make sure to turn off anti-aliasing in general preferences panel.
   if has("gui_macvim") || has("gui_vimr")
-    set fillchars=vert:\▕
+    " Set to empty string - no ugly NonText ~ etc.
+    set fillchars=vert:\ ,diff:\ 
 
     " Don't remove tabs on MacVim because VimGUITabs plugin makes them get out
     " of the way when we want them to get out of the way (in full screen mode).
@@ -57,13 +60,13 @@ if has("gui_running") " all this for gui use
   " Some fonts require setting ambiwidth=double
   " ☻  ⬢  ⬡ ⍟⨷  ⮾  ⮿  ⏣  ⬣  ⌾ ★  ☆ ✩ ✪  ⭑⭑⭑ ☒  ☑  ⮽  ✖✖ ✖✖✖ ✖    ⛆
   " ⛆ ☁ ⛈ ⛆
-  let g:vimBoxLinterErrorSymbol="⮾ "
-  let g:vimBoxLinterWarningSymbol="⬡ "
-  let g:vimBoxLinterOkSymbol="☻ "
+  let g:vimBoxLinterErrorSymbol="⮿"
+  let g:vimBoxLinterWarningSymbol="⮿"
+  let g:vimBoxLinterOkSymbol="☻"
 else
-  let g:vimBoxLinterErrorSymbol="⮾ "
-  let g:vimBoxLinterWarningSymbol="⬡ "
-  let g:vimBoxLinterOkSymbol="☻ "
+  let g:vimBoxLinterErrorSymbol="⮿"
+  let g:vimBoxLinterWarningSymbol="⮿"
+  let g:vimBoxLinterOkSymbol="☻"
 endif
 
 " Make it so the ugly "NonText" characters are hidden at the end of a file
