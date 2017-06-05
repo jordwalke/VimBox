@@ -137,7 +137,12 @@ let g:session_autoload = 'no'
 " Make sure to save sessions outside of your dotfiles in case you publish your
 " dotfiles to github etc.
 " The Session Directory
-let g:session_directory="~/vim_sessions"
+let s:homeFolder = $HOME
+if (exists('g:vimBoxSessionDir'))
+  let g:session_directory=g:vimBoxSessionDir
+else
+  let g:session_directory=s:homeFolder . '/vim_sessions'
+endif
 " ==============================================================================
 
 " My custom session management GUI tools (in menu bar) Based on one of the
