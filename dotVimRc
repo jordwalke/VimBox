@@ -303,9 +303,15 @@ else
       \|   set laststatus=0
       \|   PlugInstall --sync | echomsg "Open a new window to enjoy the plugins!" | let xx=confirm("Open a New Window For Plugins to Take Effect.")
       \| endif
-    " TODO: Make it so the next key you hit closes the window and opens a
-    " new one. That way, we don't actually have to block on PlugInstall
-    " here.
+    " Source the settings just in case they respond with "No, don't update plugins"
+    source ~/.vim/guiSettingsVimRc
+    source ~/.vim/keysVimRc
+    source ~/.vim/customFunctions.vim
+    " Some vim reset plugin screws up listchars
+    set listchars = "eol:$"
+    " VimBox plugin configuration that has to be performed after loading
+    " plugins.
+    source ~/.vim/vimrc.custom.after
   else
     set laststatus=0
     echomsg "Attempting to install plugins. Be patient. Vim is working in the background. It will start eventually."
@@ -315,6 +321,8 @@ else
     source ~/.vim/customFunctions.vim
     " Some vim reset plugin screws up listchars
     set listchars = "eol:$"
+    " VimBox plugin configuration that has to be performed after loading
+    " plugins.
     source ~/.vim/vimrc.custom.after
   endif
 endif
