@@ -97,7 +97,7 @@ let s:plug_tab = get(s:, 'plug_tab', -1)
 let s:plug_buf = get(s:, 'plug_buf', -1)
 let s:mac_gui = has('gui_macvim') && has('gui_running')
 let s:is_win = has('win32') || has('win64')
-let s:nvim = has('nvim') && exists('*jobwait') && !s:is_win
+let s:nvim = has('nvim-0.2') || (has('nvim') && exists('*jobwait') && !s:is_win)
 let s:vim8 = has('patch-8.0.0039') && exists('*job_start')
 let s:me = resolve(expand('<sfile>:p'))
 let s:base_spec = { 'branch': 'master', 'frozen': 0 }
@@ -426,7 +426,10 @@ function! s:dobufread(names)
     let path = s:rtp(g:plugs[name]).'/**'
     for dir in ['ftdetect', 'ftplugin']
       if len(finddir(dir, path))
-        return s:doautocmd('BufRead')
+        if exists('#BufRead')
+          doautocmd BufRead
+        endif
+        return
       endif
     endfor
   endfor
@@ -444,11 +447,15 @@ function! plug#load(...)
     let s = len(unknowns) > 1 ? 's' : ''
     return s:err(printf('Unknown plugin%s: %s', s, join(unknowns, ', ')))
   end
-  for name in a:000
-    call s:lod([name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
-  endfor
-  call s:dobufread(a:000)
-  return 1
+  let unloaded = filter(copy(a:000), '!get(s:loaded, v:val, 0)')
+  if !empty(unloaded)
+    for name in unloaded
+      call s:lod([name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
+    endfor
+    call s:dobufread(unloaded)
+    return 1
+  end
+  return 0
 endfunction
 
 function! s:remove_triggers(name)
@@ -572,7 +579,7 @@ function! s:infer_properties(name, repo)
       let uri = repo
     else
       if repo !~ '/'
-        let repo = 'vim-scripts/'. repo
+        throw printf('Invalid argument: %s (implicit `vim-scripts'' expansion is deprecated)', repo)
       endif
       let fmt = get(g:, 'plug_url_format', 'https://git::@github.com/%s.git')
       let uri = printf(fmt, repo)
@@ -618,10 +625,10 @@ function! s:syntax()
   syn match plugTag /(tag: [^)]\+)/
   syn match plugInstall /\(^+ \)\@<=[^:]*/
   syn match plugUpdate /\(^* \)\@<=[^:]*/
-  syn match plugCommit /^  \X*[0-9a-f]\{7} .*/ contains=plugRelDate,plugEdge,plugTag
+  syn match plugCommit /^  \X*[0-9a-f]\{7,9} .*/ contains=plugRelDate,plugEdge,plugTag
   syn match plugEdge /^  \X\+$/
   syn match plugEdge /^  \X*/ contained nextgroup=plugSha
-  syn match plugSha /[0-9a-f]\{7}/ contained
+  syn match plugSha /[0-9a-f]\{7,9}/ contained
   syn match plugRelDate /([^)]*)$/ contained
   syn match plugNotLoaded /(not loaded)$/
   syn match plugError /^x.*/
@@ -817,6 +824,10 @@ function! s:do(pull, force, todo)
       let type = type(spec.do)
       if type == s:TYPE.string
         if spec.do[0] == ':'
+          if !get(s:loaded, name, 0)
+            let s:loaded[name] = 1
+            call s:reorg_rtp()
+          endif
           call s:load_plugin(spec)
           try
             execute spec.do[1:]
@@ -861,7 +872,7 @@ function! s:checkout(spec)
   let output = s:system('git rev-parse HEAD', a:spec.dir)
   if !v:shell_error && !s:hash_match(sha, s:lines(output)[0])
     let output = s:system(
-          \ 'git fetch --depth 999999 && git checkout '.s:esc(sha), a:spec.dir)
+          \ 'git fetch --depth 999999 && git checkout '.s:esc(sha).' --', a:spec.dir)
   endif
   return output
 endfunction
@@ -979,6 +990,10 @@ function! s:update_impl(pull, force, args) abort
   let s:clone_opt = get(g:, 'plug_shallow', 1) ?
         \ '--depth 1' . (s:git_version_requirement(1, 7, 10) ? ' --no-single-branch' : '') : ''
 
+  if has('win32unix')
+    let s:clone_opt .= ' -c core.eol=lf -c core.autocrlf=input'
+  endif
+
   " Python version requirement (>= 2.7)
   if python && !has('python3') && !ruby && !use_job && s:update.threads > 1
     redir => pyv
@@ -1052,7 +1067,7 @@ function! s:update_finish()
       elseif has_key(spec, 'tag')
         let tag = spec.tag
         if tag =~ '\*'
-          let tags = s:lines(s:system('git tag --list '.string(tag).' --sort -version:refname 2>&1', spec.dir))
+          let tags = s:lines(s:system('git tag --list '.s:shellesc(tag).' --sort -version:refname 2>&1', spec.dir))
           if !v:shell_error && !empty(tags)
             let tag = tags[0]
             call s:log4(name, printf('Latest tag for %s -> %s', spec.tag, tag))
@@ -1060,11 +1075,11 @@ function! s:update_finish()
           endif
         endif
         call s:log4(name, 'Checking out '.tag)
-        let out = s:system('git checkout -q '.s:esc(tag).' 2>&1', spec.dir)
+        let out = s:system('git checkout -q '.s:esc(tag).' -- 2>&1', spec.dir)
       else
         let branch = s:esc(get(spec, 'branch', 'master'))
         call s:log4(name, 'Merging origin/'.branch)
-        let out = s:system('git checkout -q '.branch.' 2>&1'
+        let out = s:system('git checkout -q '.branch.' -- 2>&1'
               \. (has_key(s:update.new, name) ? '' : ('&& git merge --ff-only origin/'.branch.' 2>&1')), spec.dir)
       endif
       if !v:shell_error && filereadable(spec.dir.'/.gitmodules') &&
@@ -1182,7 +1197,7 @@ function! s:spawn(name, cmd, opts)
             \ 'Invalid arguments (or job table is full)']
     endif
   elseif s:vim8
-    let jid = job_start(argv, {
+    let jid = job_start(s:is_win ? join(argv, ' ') : argv, {
     \ 'out_cb':   function('s:job_cb', ['s:job_out_cb',  job]),
     \ 'exit_cb':  function('s:job_cb', ['s:job_exit_cb', job]),
     \ 'out_mode': 'raw'
@@ -1765,6 +1780,7 @@ function! s:update_ruby()
   tries = VIM::evaluate('get(g:, "plug_retries", 2)') + 1
   nthr  = VIM::evaluate('s:update.threads').to_i
   maxy  = VIM::evaluate('winheight(".")').to_i
+  vim7  = VIM::evaluate('v:version').to_i <= 703 && RUBY_PLATFORM =~ /darwin/
   cd    = iswin ? 'cd /d' : 'cd'
   tot   = VIM::evaluate('len(s:update.todo)') || 0
   bar   = ''
@@ -1854,11 +1870,17 @@ function! s:update_ruby()
   main = Thread.current
   threads = []
   watcher = Thread.new {
-    require 'io/console' # >= Ruby 1.9
-    nil until IO.console.getch == 3.chr
+    if vim7
+      while VIM::evaluate('getchar(1)')
+        sleep 0.1
+      end
+    else
+      require 'io/console' # >= Ruby 1.9
+      nil until IO.console.getch == 3.chr
+    end
     mtx.synchronize do
       running = false
-      threads.each { |t| t.raise Interrupt }
+      threads.each { |t| t.raise Interrupt } unless vim7
     end
     threads.each { |t| t.join rescue nil }
     main.kill
@@ -2004,7 +2026,7 @@ function! s:git_validate(spec, check_branch)
       " Check tag
       if has_key(a:spec, 'tag')
         let tag = s:system_chomp('git describe --exact-match --tags HEAD 2>&1', a:spec.dir)
-        if a:spec.tag !=# tag
+        if a:spec.tag !=# tag && a:spec.tag !~ '\*'
           let err = printf('Invalid tag: %s (expected: %s). Try PlugUpdate.',
                 \ (empty(tag) ? 'N/A' : tag), a:spec.tag)
         endif
@@ -2271,7 +2293,7 @@ function! s:preview_commit()
     let b:plug_preview = !s:is_preview_window_open()
   endif
 
-  let sha = matchstr(getline('.'), '^  \X*\zs[0-9a-f]\{7}')
+  let sha = matchstr(getline('.'), '^  \X*\zs[0-9a-f]\{7,9}')
   if empty(sha)
     return
   endif
@@ -2376,7 +2398,7 @@ function! s:revert()
     return
   endif
 
-  call s:system('git reset --hard HEAD@{1} && git checkout '.s:esc(g:plugs[name].branch), g:plugs[name].dir)
+  call s:system('git reset --hard HEAD@{1} && git checkout '.s:esc(g:plugs[name].branch).' --', g:plugs[name].dir)
   setlocal modifiable
   normal! "_dap
   setlocal nomodifiable
