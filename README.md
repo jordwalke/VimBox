@@ -86,28 +86,36 @@ Features:
 
 #### Familiar Mac Key Commands
 
-| Key                       | Action                                           |
-| ------------------------- |--------------------------------------------------|
-| `⌘+p`                     | Open Anything (`ctrl-p`)                         |
-| `⌘+n`                     | New Tab                                          |
-| `⌘+shift+n`               | New Window                                       |
-| `⌘+shift+t`               | Reopen Last Closed Tab                           |
+| Key                       | Action                                                   |
+| ------------------------- |----------------------------------------------------------|
+| `⌘+p`                     | Open Anything (`ctrl-p`)                                 |
+| `⌘+n`                     | New Tab                                                  |
+| `⌘+shift+n`               | New Window                                               |
+| `⌘+shift+t`               | Reopen Last Closed Tab                                   |
 | `⌘+w`                     | Close tab/split: Opens to the left (like Sublime) not right (like vim)  |
-| `⌘+s`                     | Save file                                        |
-| `⌘+z`                     | Undo                                             |
-| `⌘+shift+z`               | Redo                                             |
-| `⌘+enter`                 | Special Distraction-Free FullScreen Mode         |
-| `⌘+e`                     | Toggle File Explorer (Docked `NERDTree`)         |
-| `⌘+shift+[` / `⌘+shift+]` | Go to previous/next tab                          |
-| `^+tab` / `^+shift+tab`   | Go to previous/next tab (in normal Vim mode)     |
-| `⌘+1 `                    |                 Go to tab `1`                    |
-| `F5`                      | Sort lines (like Textmate)                       |
-| `⌘+/`                     | Toggle comments - selected range - or line       |
-| `⌘+shift+m`               | format/indent entire file then restore cursor    |
-| `⌘+d`                     | Toggle Diagnostics (errors in location list)     |
-| `⌘+D`                     | Toggle QuickFix list                             |
-| `⌘+r`                     | "Run" - invokes pwd/runFromEditor.sh             |
+| `⌘+s`                     | Save file                                                |
+| `⌘+z`                     | Undo                                                     |
+| `⌘+shift+z`               | Redo                                                     |
+| `⌘+enter`                 | Special Distraction-Free FullScreen Mode                 |
+| `⌘+\`                     | Toggle File Explorer (Docked `NERDTree`)                 |
+| `⌘+shift+\`               | Find current file in file explorer                       |
+| `^+\`                     | Toggle focus between file explorer                       |
+| `⌘+shift+[` / `⌘+shift+]` | Go to previous/next tab                                  |
+| `^+tab` / `^+shift+tab`   | Go to previous/next tab (in normal Vim mode)             |
+| `⌘+1 `                    |                 Go to tab `1`                            |
+| `F5`                      | Sort lines (like Textmate)                               |
+| `⌘+/`                     | Toggle comments - selected range - or line               |
+| `⌘+shift+m`               | format/indent entire file then restore cursor            |
+| `⌘+d`                     | Toggle Diagnostics (errors in location list)             |
+| `⌘+D`                     | Toggle QuickFix list                                     |
+| `⌘+r`                     | "Run" - invokes pwd/runFromEditor.sh                     |
 
+
+The file browser shortcuts are carefully setup so that when you use the
+shortcuts for opening/closing/toggling-focus, the window positions will not be
+resized. Make sure to use `^+\` if you want to jump back and forth between the
+file tree and your editor - it will remember the editor you were last in, and
+not disturb window positions (just like Atom or other modern editors).
 
 #### Mega Escape
 > - `VimBox` has mapped `^+l` to exit out of any modal window/prompt/mode/command to bring you back to normal Vim navigation mode.
