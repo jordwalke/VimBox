@@ -86,6 +86,18 @@
 " Note: If you use iTerm, and you want airline symbols to show up correctly
 " you must change the font in *two* places in iTerm. The normal font, and the
 " non-ascii font!
+"
+" Remote Editing:
+"
+" - Speed up performance at the network layer:
+"   http://thomer.com/howtos/netrw_ssh.html
+" - Help netrw-passwd
+"
+" - Also good suggestions here: https://stackoverflow.com/questions/28795721/how-to-save-in-vim-a-remote-file-asynchronously
+"   - As always disable airline/lightline vcs integration.
+" - https://github.com/eshion/vim-sync/
+" - https://github.com/grantm/bcvi
+" - https://github.com/seletskiy/vim-refugi
 
 if v:version < 799
   echomsg "VimBox works best with Vim8 or newer. Please upgrade your Vim/MacVim"
