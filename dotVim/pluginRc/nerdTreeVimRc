@@ -13,5 +13,7 @@ hi def link NERDTreeDirSlash Directory
 hi def link NERDTreeCurrentNode Search
 hi def link NERDTreeCWD Normal
 
+let g:NERDTreeWinSize=40
+
 " Not so much color
 let g:NERDChristmasTree = 0
