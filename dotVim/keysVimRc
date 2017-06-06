@@ -141,50 +141,89 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-
 " NERDTree
 " =========
 " Regular NERDTree bindings (not the NERDTreeTabs bindings)
-" if has("gui_running")
-"   if has("gui_macvim")
-"     map <D-e> :NERDTreeToggle<Cr><c-w><c-p>
-"     imap <D-e> <Esc>:NERDTreeToggle<Cr><c-w><c-p>
-"     vmap <D-e> <Esc>:NERDTreeToggle<Cr><c-w><c-p>
-"     nmap <D-e> <Esc>:NERDTreeToggle<Cr><c-w><c-p>
-
-"     map <D-E> :NERDTreeFind<Cr><c-w><c-p>
-"     imap <D-E> <Esc>:NERDTreeFind<Cr><c-w><c-p>
-"     vmap <D-E> <Esc>:NERDTreeFind<Cr><c-w><c-p>
-"     nmap <D-E> <Esc>:NERDTreeFind<Cr><c-w><c-p>
-"   endif
-"   if has("gui_win32")
-"     map <F11> :NERDTreeToggle<Cr><c-w><c-p>
-"     imap <F11> <Esc>:NERDTreeToggle<Cr><c-w><c-p>
-"     vmap <F11> <Esc>:NERDTreeToggle<Cr><c-w><c-p>
-"     nmap <F11> <Esc>:NERDTreeToggle<Cr><c-w><c-p>
-"   endif
-" endif
-
-" NERDTreeTabs bindings:
+" https://stackoverflow.com/questions/23891006/how-to-set-the-cursor-focus-after-toggling-the-nerdtree-in-vim
 if has("gui_running")
   if has("gui_macvim")
-    map <D-e> :NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-    imap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-    vmap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-    nmap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    " Toggle File Tree:
+    " ------------------
+    " Insert, Command-line, Lang-Arg
+    lnoremap <silent> <special> <D-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    " Normal
+    nnoremap <silent> <special> <D-\> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    " Visual and Select
+    vnoremap <silent> <special> <D-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    " Operator pending
+    onoremap <silent> <special> <D-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
 
-    map <D-E> :NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
-    imap <D-E> <Esc>:NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
-    vmap <D-E> <Esc>:NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
-    nmap <D-E> <Esc>:NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
+    " Find In File Tree:
+    " ------------------
+    " Insert, Command-line, Lang-Arg
+    lnoremap <silent> <special> <D-Bar> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeFind <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    " Normal
+    nnoremap <silent> <special> <D-Bar> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeFind <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    " Visual and Select
+    vnoremap <silent> <special> <D-Bar> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeFind <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    " Operator pending
+    onoremap <silent> <special> <D-Bar> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeFind <Bar> let g:VimSplitBalancerSupress=0 <CR>
+
+    " Toggle Focus Between File Tree:
+    " ------------------
+    " Insert, Command-line, Lang-Arg
+    lnoremap <silent> <special> <C-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> if &filetype ==# 'nerdtree' <Bar> wincmd p <Bar> else <Bar> NERDTreeFocus <Bar> endif <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    " Normal
+    nnoremap <silent> <special> <C-\> : let g:VimSplitBalancerSupress=1 <Bar> if &filetype ==# 'nerdtree' <Bar> wincmd p <Bar> else <Bar> NERDTreeFocus <Bar> endif <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    " Visual and Select
+    vnoremap <silent> <special> <C-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> if &filetype ==# 'nerdtree' <Bar> wincmd p <Bar> else <Bar> NERDTreeFocus <Bar> endif <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    " Operator pending
+    onoremap <silent> <special> <C-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> if &filetype ==# 'nerdtree' <Bar> wincmd p <Bar> else <Bar> NERDTreeFocus <Bar> endif <Bar> let g:VimSplitBalancerSupress=0 <CR>
+
   endif
   if has("gui_win32")
-    map <F11> :NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-    imap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-    vmap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-    nmap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+    " Toggle File Tree:
+    " ------------------
+    " Insert, Command-line, Lang-Arg
+    lnoremap <silent> <special> <F11> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    " Normal
+    nnoremap <silent> <special> <F11> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    " Visual and Select
+    vnoremap <silent> <special> <F11> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    " Operator pending
+    onoremap <silent> <special> <F11> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
+
+    " TODO: The rest
+
   endif
 endif
+
+" NERDTreeTabs bindings:
+" if has("gui_running")
+"   if has("gui_macvim")
+"     map <D-e> :NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+"     imap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+"     vmap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+"     nmap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+"
+"     map <c-0> :NERDTreeToggle<Cr>
+"     imap <c-0> <Esc>:NERDTreeFocus<Cr>
+"     vmap <c-0> <Esc>:NERDTreeToggle<Cr>
+"     nmap <c-0> <Esc>:NERDTreeToggle<Cr>
+"
+"
+"     map <D-E> :NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
+"     imap <D-E> <Esc>:NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
+"     vmap <D-E> <Esc>:NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
+"     nmap <D-E> <Esc>:NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
+"   endif
+"   if has("gui_win32")
+"     map <F11> :NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+"     imap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+"     vmap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+"     nmap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
+"   endif
+" endif
 
 
 

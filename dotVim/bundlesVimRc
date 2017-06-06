@@ -226,8 +226,8 @@ source ~/.vim/pluginRc/nerdTreeVimRc
 
 
 " ============================= NERDTreeSideBar ================================
-Plug 'jistr/vim-nerdtree-tabs'
-source ~/.vim/pluginRc/nerdTreeTabsVimRc
+" Plug 'jistr/vim-nerdtree-tabs'
+" source ~/.vim/pluginRc/nerdTreeTabsVimRc
 " ==============================================================================
 
 
@@ -275,6 +275,8 @@ let Grep_Skip_Dirs = 'RCS CVS SCCS _build .git'
 " GoldenRatio has some issues with session restore and prevents opening of many windows.
 Plug 'jordwalke/VimSplitBalancer'
 " =============================================================================
+" VimSplitBalancer takes care of it.
+set noequalalways
 
 " =================== Web Dev Icons ===========================================
 " Plug 'ryanoasis/vim-devicons'
