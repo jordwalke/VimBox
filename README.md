@@ -59,7 +59,7 @@ Installation:
         ln -s `pwd`/VimBox/dotVimRc ~/.vimrc
         ln -s `pwd`/VimBox/dotGVimRc ~/.gvimrc
 
-4. Start `MacVim` that you just installed. It will prompt you to download the
+4. Start `MacVim` that you just installed in /Applications or by running `mvim` in terminal. It will prompt you to download the
    plugins in the background. If you opt to do so, it may take a while to
    startup but be patient.
 
