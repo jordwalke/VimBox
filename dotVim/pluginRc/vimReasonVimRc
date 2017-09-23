@@ -1,6 +1,6 @@
 " ======================= VimReason ===========================================
 " Example of expanding to window width
-let g:vimreason_extra_args_expr_reason = '"--print-width 110"'
+let g:vimreason_extra_args_expr_reason = '"--print-width 100"'
 " Cool demo
 " let g:vimreason_extra_args_expr_reason = '"--print-width " . ' .  "min([320, winwidth('.')])"
 " autocmd VimResized * ReasonPrettyPrint

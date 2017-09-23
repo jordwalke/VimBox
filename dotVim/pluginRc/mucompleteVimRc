@@ -1,0 +1,40 @@
+set completeopt+=menuone
+set completeopt-=preview
+
+set completeopt+=noinsert
+" inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
+" inoremap <expr> <tab> mucomplete#popup_exit("\<c-y>")
+inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#no_mappings = 1
+
+
+
+if v:version > 799
+  let g:mucomplete#can_complete = {}
+  " TODO:
+  " The Reason syntax highlighter also defines regions called
+  " "rustCommentCode" which are nested `blah` inside of comments. We can
+  " restrict omnicomplete to within those.
+  " join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')) !~? 'comment\|string' || join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')) =~? 'commentCode'
+  " Matches (ignore case) =~?
+  " Does not match (ignore case) !~?
+  " \k means keyword character, \K means keyword character excluding digits.
+  " \u means uppercase letter, \l means lowercase letter.
+  " By default, let's configure omnicomplete to pop up:
+  " 1. immediately after a dot.
+  " 2. After one uppercase letter.
+  " 3. After two lowercase letters.
+  " 4. Except inside of comments or strings, we require that
+  let g:mucomplete#can_complete.default = {'omni': {t -> strlen(&l:omnifunc) > 0  && t =~# '\%(\l\l\|\u\|\.\)$' && (join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')) !~? 'comment\|string' || join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')) =~? 'commentCode')}}
+  let g:mucomplete#chains = {
+    \ 'default' : ['path', 'omni', 'incl', 'keyn', 'dict', 'uspl', 'ulti'],
+    \ 'vim'     : ['path', 'cmd', 'ulti', 'keyn']
+    \ }
+
+endif
+
+" Have to disable merlin mappings.
+let g:merlin_disable_default_keybindings=1
+exec "xnoremap <silent> . <s-tab> :call UltiSnips#SaveLastVisualSelection()<cr>gvs"
+

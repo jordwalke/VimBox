@@ -2,6 +2,23 @@
 " Pretty much plug and play with MacVim
 " ==================================================
 
+" ========================== Mario.vim =============================
+" Plug 'rbtnn/game_engine.vim'
+" Plug 'rbtnn/mario.vim'
+" ==================================================================
+
+let s:homeFolder = $HOME
+let s:vimConfigDir = s:homeFolder . '/.vim'
+let s:vimPluginConfigDir = s:vimConfigDir . '/pluginRc'
+
+" ========================== Jordwalke's fork of One ===========================
+Plug 'jordwalke/vim-one'
+if !exists('g:one_allow_italics')
+  " Italics don't typically render well in terminals
+  let g:one_allow_italics = has('gui_running')
+endif
+" ==============================================================================
+
 
 " ========================== Some colors ===========================
 Plug 'jordwalke/VimCleanColors'
@@ -209,8 +226,8 @@ source ~/.vim/pluginRc/nerdTreeVimRc
 
 
 " ============================= NERDTreeSideBar ================================
-Plug 'jistr/vim-nerdtree-tabs'
-source ~/.vim/pluginRc/nerdTreeTabsVimRc
+" Plug 'jistr/vim-nerdtree-tabs'
+" source ~/.vim/pluginRc/nerdTreeTabsVimRc
 " ==============================================================================
 
 
@@ -221,11 +238,13 @@ source ~/.vim/pluginRc/nerdTreeTabsVimRc
 " Hacked ACP to support Reason and OCaml.
 " TODO: Can someone support YCM and other popular completion engines?
 
-" ============================= NERDTreeSideBar ================================
-Plug 'reasonml/vim-reason-loader'
+" ============================= VimReson =======================================
+" Plug 'reasonml/vim-reason-loader'
+Plug 'chenglou/vim-reason'
 source ~/.vim/pluginRc/vimReasonVimRc
-" ============================= NERDTreeSideBar ================================
 let g:merlin_split_method = "vertical"
+let g:merlin_completion_dwim=0
+" ==============================================================================
 
 
 " ==============================================================================
@@ -256,14 +275,20 @@ let Grep_Skip_Dirs = 'RCS CVS SCCS _build .git'
 " GoldenRatio has some issues with session restore and prevents opening of many windows.
 Plug 'jordwalke/VimSplitBalancer'
 " =============================================================================
+" VimSplitBalancer takes care of it.
+set noequalalways
 
 " =================== Web Dev Icons ===========================================
-" Plug 'ryanoasis/vim-webdevicons'
+" Plug 'ryanoasis/vim-devicons'
 " let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 " let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-" Doesn't work
-" let g:WebDevIconsUnicodeDecorateFolderNodeDefaultSymbol = ' '
+" let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+" let g:DevIconsDefaultFolderOpenSymbol = ''
+" let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
+" Use the nerdtree arrows instead
+" let g:NERDTreeDirArrowExpandable = ' '
+" let g:NERDTreeDirArrowCollapsible = ' '
 " =============================================================================
 
 " ======================= View Key Mappings ====================================
@@ -273,14 +298,7 @@ Plug 'jordwalke/VimSplitBalancer'
 " ======================= A lighterweight Powerline ============================
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_powerline_fonts = 1
-let g:airline_skip_empty_sections = 1
-" Git status can be expensive.
-let g:airline#extensions#branch#enabled = 0
-set laststatus=2
-" Disable truncation
-" let g:airline#extensions#default#section_truncate_width = {}
-
+execute 'source '. s:vimPluginConfigDir . '/vimAirlineVimRc'
 if has("gui_macvim") || has("gui_vimr")
   autocmd VimEnter * set guioptions+=e
 endif
@@ -295,7 +313,13 @@ Plug 'scrooloose/syntastic'
 let g:syntastic_enable_signs=0
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_loc_list_height=15
-let g:syntastic_javascript_checkers=['flow']
+" This doesn't work:'
+let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
+let g:airline#extensions#quickfix#location_text = 'Diagnostics'
+
+" Flow checking is too slow. Makes Vim lock up (did I not configure this
+" correctly?)
+" let g:syntastic_javascript_checkers=['flow']
 " let g:syntastic_warning_symbol=""
 " let g:syntastic_error_symbol=""
 " highlight link SyntasticErrorLine Spellbad
@@ -307,6 +331,8 @@ let g:syntastic_javascript_checkers=['flow']
 " autocmd FileType ocaml sign define dummy
 " autocmd FileType ocaml execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
 " ==============================================================================
+let g:airline#extensions#whitespace#trailing_format = ' '
+
 
 
 
@@ -388,13 +414,18 @@ source ~/.vim/pluginRc/ctrlPVimRc
 
 " ============================= ACP Forked =========================
 " Check out snippets in ~/.vim/personalSnippets/
-Plug 'jordwalke/AutoComplPop'
+" Plug 'jordwalke/AutoComplPop'
 let g:acp_ignorecaseOption = 1
+
+Plug 'lifepillar/vim-mucomplete'
+source ~/.vim/pluginRc/mucompleteVimRc
 
 " ==============================================================================
 
 " ============================= UltiSnips ======================================
 "See corresponding entries in `.keysVimRc`.
+" This branch fixes performance of UltiSnips_Manager.snippets_in_current_scope but it won't install with vim-plug!
+" Plug 'SirVer/ultisnips', { 'commit': '6b076183aa4bb8e3e1e7b07b8bee3d899560b445', 'branch': 'optimize-snippets-in-current-scope' }
 Plug 'SirVer/ultisnips'
 if has('gui_win32')
   let g:UltiSnipsSnippetsDir=$HOME
@@ -405,10 +436,6 @@ else
 endif
 
 
-" ==============================================================================
-
-" ======== Combine Previous Plugins For Modern Completion Experience ===========
-Plug 'jordwalke/VimCompleteLikeAModernEditor'
 " ==============================================================================
 
 " ============================= Commenter ======================================
@@ -431,11 +458,12 @@ Plug 'pangloss/vim-javascript'
 " ==============================================================================
 
 " =============================Javascript-Indent================================
-Plug 'vim-scripts/JavaScript-Indent'
+" nemtsov's fork which does *not* echo annoyingly for *every* HTML file you
+" open.
+Plug 'nemtsov/JavaScript-Indent', { 'commit': 'f3e168e70a540678bae4929edf0b21c84c3ed3aa' }
 " ==============================================================================
 
 Plug 'mxw/vim-jsx'
-
 
 
 " ========================= Simulator Refresh ==================================
@@ -474,13 +502,3 @@ let g:gundo_close_on_revert=1
 Plug 'AndrewRadev/undoquit.vim'
 map <D-T> <Esc>:Undoquit<CR>
 " ==============================================================================
-
-
-" ========================== Jordwalke's fork of One ===========================
-if !exists('g:one_allow_italics')
-  " Italics don't typically render well in terminals
-  let g:one_allow_italics = has('gui_running')
-endif
-Plug 'jordwalke/vim-one'
-" ==============================================================================
-
