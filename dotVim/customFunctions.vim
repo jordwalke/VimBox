@@ -93,6 +93,6 @@ command! -complete=file -nargs=+ Find call s:RunShellCommandInTab('find . -irege
 
 "========== Windows ===================================
 if has("gui_win32")
-  source ~/.vim/.windowsCustomFunctions.vim
+  source ~/.vim/windowsCustomFunctions.vim
 endif
 
