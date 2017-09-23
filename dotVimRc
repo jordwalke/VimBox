@@ -113,8 +113,7 @@ if has('vim_starting')
    endif
 endif
 
-call plug#begin('~/.vim/bundle')
-
+silent! call plug#begin('~/.vim/bundle')
 
 if filereadable(expand("~/.vim/vimrc.custom.before"))
   source ~/.vim/vimrc.custom.before
