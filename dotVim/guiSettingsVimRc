@@ -20,10 +20,10 @@ if has("gui_running") " all this for gui use
     " remove tabs on Gvim - for different reasons than removing them on MacVim -
     " They do not play well with the fullscreen plugin for vim
     " https://github.com/derekmcloughlin/gvimfullscreen_win32
-    set guioptions-=e
+    " set guioptions-=e
     set novisualbell     "Visual Bell Looks really ghetto on Windows GVim.
     set guioptions-=m
-    set guifont=Lucida\ Console:h10.00
+    set guifont=PragmataPro:h14,PragmataPro\ Mono:h14,Essential_PragmataPro:h14,iosevka:h14,Lucida_Console:h14.00
     " Needed to NOT break symlinks on windows! Will write to new file instead of
     " original symlinked file if you do not inclue the following line:
     " Doesn't seem to fix the issue - always go to the source when editing files!

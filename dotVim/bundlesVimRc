@@ -174,6 +174,7 @@ if has('gui_win32')
 else
   let g:JSDocSnippetsMapping='<D-C>'
 endif
+
 " ==============================================================================
 
 
@@ -427,13 +428,8 @@ source ~/.vim/pluginRc/mucompleteVimRc
 " This branch fixes performance of UltiSnips_Manager.snippets_in_current_scope but it won't install with vim-plug!
 " Plug 'SirVer/ultisnips', { 'commit': '6b076183aa4bb8e3e1e7b07b8bee3d899560b445', 'branch': 'optimize-snippets-in-current-scope' }
 Plug 'SirVer/ultisnips'
-if has('gui_win32')
-  let g:UltiSnipsSnippetsDir=$HOME
-  let g:UltiSnipsSnippetDirectories=["myUltiSnippets"]
-else
-  let g:UltiSnipsSnippetsDir="~/.vim"
-  let g:UltiSnipsSnippetDirectories=["myUltiSnippets"]
-endif
+let g:UltiSnipsSnippetsDir="~/.vim"
+let g:UltiSnipsSnippetDirectories=["myUltiSnippets"]
 
 
 " ==============================================================================
@@ -501,4 +497,5 @@ let g:gundo_close_on_revert=1
 " ========================== Undo Quit of a window =============================
 Plug 'AndrewRadev/undoquit.vim'
 map <D-T> <Esc>:Undoquit<CR>
+
 " ==============================================================================
