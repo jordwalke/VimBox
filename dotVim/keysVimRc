@@ -310,27 +310,6 @@ map <Space> gt
 " shift-space backwards - doesn't work on terminal, I believe
 map <s-Space> gT
 
-if has('gui_win32')
-  " space through your tabs!
-  map <M-}> gt
-  " shift-space backwards - doesn't work on terminal, I believe
-  map <M-{> gT
-  imap <M-}> <Esc>gt
-  " shift-space backwards - doesn't work on terminal, I believe
-  imap <M-{> <Esc>gT
-
-  nmap <F13> :q<Cr>
-  imap <F13> <Esc>:q<Cr>
-  nmap <F14> :qall<Cr>
-  imap <F14> <Esc>:qall<Cr>
-  nmap <F17> :tabnew<Cr>
-  imap <F17> <Esc> :tabnew<Cr>
-  vmap <F17> <Esc> :tabnew<Cr>
-  nmap <F16> :w<Cr>
-  imap <F16> <Esc>:w<Cr>l
-  vmap <F16> <Esc>:w<Cr>
-endif
-
 " Unfortunately the default `<c-c>` won't cause fuf to exit or cancel a search.
 if g:playWellWithFuzzyFinder
   " For fuzzyfinder, c-c won't fire insert leave. yet we can't just map to
@@ -446,6 +425,32 @@ if has("gui_running") " all this for gui use
         " Toggle between (Previously Viewed) tab.
         map <D-P> :LastTab<CR>
         imap <D-P> <Esc>:LastTab<CR>
+
+        " Look at other deeply integrated mappings in the ~/.gvimrc file.
+        map <D-T> <Esc>:Undoquit<CR>
+
+    endif
+    if has('gui_win32')
+      " space through your tabs!
+      map <M-}> gt
+      " shift-space backwards - doesn't work on terminal, I believe
+      map <M-{> gT
+      imap <M-}> <Esc>gt
+      " shift-space backwards - doesn't work on terminal, I believe
+      imap <M-{> <Esc>gT
+
+      nmap <F13> :q<Cr>
+      imap <F13> <Esc>:q<Cr>
+      nmap <F14> :qall<Cr>
+      imap <F14> <Esc>:qall<Cr>
+      nmap <F17> :tabnew<Cr>
+      imap <F17> <Esc> :tabnew<Cr>
+      vmap <F17> <Esc> :tabnew<Cr>
+      nmap <F16> :w<Cr>
+      imap <F16> <Esc>:w<Cr>l
+      vmap <F16> <Esc>:w<Cr>
+      " Look at other deeply integrated mappings in the ~/.gvimrc file.
+      map <F18> <Esc>:Undoquit<CR>
     endif
 endif
 
