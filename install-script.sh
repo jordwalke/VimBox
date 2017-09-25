@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 PWD=$(pwd)
+# Make sure that if we happen to be running in cygwin the symlinks will get setup correctly.
+# Make sure to enable develoepr more before installing
+export CYGWIN="$CYGWIN winsymlinks:nativestrict"
 
 if [[ -f "$PWD/dotVimRc" && ! -L "$PWD/dotVimRc" ]]; then
   # first, backup any existing scripts if they are not symlinks
