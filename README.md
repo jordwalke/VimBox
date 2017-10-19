@@ -105,7 +105,7 @@ Features:
 | `⌘+1 `                    |                 Go to tab `1`                            |
 | `F5`                      | Sort lines (like Textmate)                               |
 | `⌘+/`                     | Toggle comments - selected range - or line               |
-| `⌘+shift+m`               | format/indent entire file then restore cursor            |
+| `⌘+shift+c`               | format/indent entire file then restore cursor            |
 | `⌘+d`                     | Toggle Diagnostics (errors in location list)             |
 | `⌘+D`                     | Toggle QuickFix list                                     |
 | `⌘+r`                     | "Run" - invokes pwd/runFromEditor.sh                     |
@@ -235,7 +235,7 @@ The following key mapping generates docblock comments. `<tab>` will select the p
 
 | Key          | Action        |
 | ------------ |-------------|
-| `⌘+shift+c` | Generate JS Docblock  - when cursor is above a function|
+| `⌘+shift+i` | Generate JS Docblock  - when cursor is above a function|
 
 
 Git Integration:

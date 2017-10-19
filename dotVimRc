@@ -24,7 +24,10 @@
 "  org.vim.MacVim MMVerticalSplit YES
 "  3. If when changing monitors, your fonts go from nice and thin to ugly and
 "  bold: This should fix it:
-"   defaults -currentHost write -globalDomain AppleFontSmoothing -int 1
+"   Textmate disables font smoothing only for dark backgrounds, but MacVim
+"   only has a global setting. If you use dark backgrounds consider disabling.
+"   https://stackoverflow.com/questions/24598390/macvim-thicker-font-rendering-compared-to-textmate
+"   defaults write org.vim.MacVim AppleFontSmoothing -int 0  
 "  4. Speed up full screen transition:
 "  defaults write org.vim.MacVim MMFullScreenFadeTime 0.05
 "

@@ -170,9 +170,10 @@ set runtimepath+=~/.vim/localBundle/wowcamldebug
 " ================================ VimJSDocSnippets ============================
 Plug 'jordwalke/VimJSDocSnippets'
 if has('gui_win32')
-  let g:JSDocSnippetsMapping='<S-M-c>'
+  let g:JSDocSnippetsMapping='<S-M-i>'
 else
-  let g:JSDocSnippetsMapping='<D-C>'
+  " "Insert" snippet.
+  let g:JSDocSnippetsMapping='<D-I>'
 endif
 
 " ==============================================================================

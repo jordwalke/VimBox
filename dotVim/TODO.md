@@ -35,3 +35,12 @@
 - Make Toggly an actual plugin and then configure its keys in standard
   keys file.
   - Togglist should toggle location list *per* window.
+
+- Use a configuration for keyboard mappings instead of having them be spread
+  everywhere.
+  - Get a JSON parser in pure Vim somewhere.
+
+- Go through every D-X/Y/Z mapping and reset them to noop. Right now, Vim
+  inserts <D-C> (or ^Z for control+z) into the buffer for unmapped keys. What
+  kind of madness is this. Imagine how confusing that is for a noob.
+
