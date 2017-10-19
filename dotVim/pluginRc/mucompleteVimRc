@@ -1,7 +1,9 @@
 set completeopt+=menuone
 set completeopt-=preview
 
-set completeopt+=noinsert
+if has('patch-7.4.784')
+  set completeopt+=noinsert
+endif
 " inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
 " inoremap <expr> <tab> mucomplete#popup_exit("\<c-y>")
 inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
@@ -26,9 +28,9 @@ if v:version > 799
   " 2. After one uppercase letter.
   " 3. After two lowercase letters.
   " 4. Except inside of comments or strings, we require that
-  let g:mucomplete#can_complete.default = {'omni': {t -> strlen(&l:omnifunc) > 0  && t =~# '\%(\l\l\|\u\|\.\)$' && (join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')) !~? 'comment\|string' || join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')) =~? 'commentCode')}}
+  " let g:mucomplete#can_complete.default = {'omni': {t -> strlen(&l:omnifunc) > 0  && t =~# '\%(\l\l\|\u\|\.\)$' && (join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')) !~? 'comment\|string' || join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')) =~? 'commentCode')}}
   let g:mucomplete#chains = {
-    \ 'default' : ['path', 'omni', 'incl', 'keyn', 'dict', 'uspl', 'ulti'],
+    \ 'default' : ['path', 'omni'],
     \ 'vim'     : ['path', 'cmd', 'ulti', 'keyn']
     \ }
 
