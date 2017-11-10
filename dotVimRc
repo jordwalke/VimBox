@@ -234,12 +234,6 @@ endtry
 " A better diff link for macvim
 " alias mvimdiff="mvim -O  \"+windo set diff scrollbind scrollopt+=hor nowrap\""
 
-" All ObjC/C++ files are ObjCPP.
-" All snipets for ObjC are in ~/.vim/myUltiSnippets/objcpp.snippets
-au BufNewFile,BufRead *.cpp set filetype=objcpp
-au BufNewFile,BufRead *.h set filetype=objcpp
-au BufNewFile,BufRead *.m set filetype=objcpp
-
 
 " iTerm requires the following commented code to be placed in your .bashrc in
 " order for Vim to show full 256 colors.
