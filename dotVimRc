@@ -102,9 +102,9 @@
 " - https://github.com/grantm/bcvi
 " - https://github.com/seletskiy/vim-refugi
 
-if v:version < 799
-  echomsg "VimBox works best with Vim8 or newer. Please upgrade your Vim/MacVim"
-endif
+" if v:version < 799
+  " echomsg "VimBox works best with Vim8 or newer. Please upgrade your Vim/MacVim"
+" endif
 
 if has('gui_win32')
   set rtp+=~/.vim
