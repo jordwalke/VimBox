@@ -299,7 +299,7 @@ if !len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   source ~/.vim/vimrc.custom.after
 else
   " Don't show statusline when airline might not be loaded or configured.
-  if has('gui') && has('mac') && has('gui_running')
+  if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
     set background=dark
     colorscheme vimBoxColorsDuringLoad
     set guioptions-=r
