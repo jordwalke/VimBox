@@ -33,12 +33,13 @@ if has("gui_running") " all this for gui use
     set fileformats=unix
   endif
 
+  " Set to empty string - no ugly NonText ~ etc.
+  set fillchars=vert:\ ,diff:\ 
+
   "========== Mac OS X ==================================
   " Pro Tips:
   " Make sure to turn off anti-aliasing in general preferences panel.
   if has("gui_macvim") || has("gui_vimr")
-    " Set to empty string - no ugly NonText ~ etc.
-    set fillchars=vert:\ ,diff:\ 
 
     " Don't remove tabs on MacVim because VimGUITabs plugin makes them get out
     " of the way when we want them to get out of the way (in full screen mode).
