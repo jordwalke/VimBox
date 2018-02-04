@@ -24,15 +24,30 @@ if has('gui')
     "  Show Errors: unmapped
     macmenu &File.New\ Window key=<nop>
     macmenu &File.New\ Tab key=<nop>
-    macmenu &File.New\ Tab key=<D-n>
-    macmenu &File.New\ Window key=<D-N>
     macmenu &Tools.List\ Errors key=<nop>
-
     " Clear this up for something like CMD+t
     macmenu &File.Open\ Tab\.\.\. key=<nop>
+    macmenu &Tools.Make key=<nop>
+
+    " Clear these up - if you want them back you can remap them
+    " in Vim.
+    macmenu &Edit.Find.Find\.\.\. key=<nop>
+    macmenu &Edit.Find.Find\ Next key=<nop>
+    macmenu &Edit.Find.Find\ Previous key=<nop>
+    macmenu &Edit.Find.Use\ Selection\ for\ Find key=<nop>
 
     macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-c-f>
-    macmenu &Tools.Make key=<nop>
+
+
+    macmenu &File.New\ Window key=<D-N>
+    if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+      " Let the vim keybindings handle it.
+      macmenu &File.Close key=<nop>
+      macmenu  Window.Select\ Next\ Tab	key=<nop>
+      macmenu  Window.Select\ Previous\ Tab	key=<nop>
+    else
+      macmenu &File.New\ Tab key=<D-n>
+    endif
 
 
     " From subvim:

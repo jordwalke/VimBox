@@ -74,6 +74,12 @@ Plug 'jordwalke/VimAutoMakeDirectory'
 " ==============================================================================
 
 
+" ======================= Wintabs.vim ==========================================
+Plug 'zefei/vim-wintabs'
+" ==============================================================================
+source ~/.vim/pluginRc/wintabsVimRc
+
+
 " =================== Impressive window switching plugin =======================
 " Plug 't9md/vim-choosewin'
 " nmap  <D-t>  <Plug>(choosewin)
@@ -298,12 +304,12 @@ set noequalalways
 " Plug 'robcsi/viewmaps.vim'
 
 " ======================= A lighterweight Powerline ============================
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-execute 'source '. s:vimPluginConfigDir . '/vimAirlineVimRc'
-if has("gui_macvim") || has("gui_vimr")
-  autocmd VimEnter * set guioptions+=e
-endif
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" execute 'source '. s:vimPluginConfigDir . '/vimAirlineVimRc'
+" if has("gui_macvim") || has("gui_vimr")
+"   autocmd VimEnter * set guioptions+=e
+" endif
 
 " ==============================================================================
 

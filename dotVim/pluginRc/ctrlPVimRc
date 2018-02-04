@@ -75,6 +75,24 @@ if has("gui_win32")
           \ 'PrtExit()':            ['<c-l>', '<esc>', '<c-c>', '<c-g>'],
           \ }
 else
+  if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+  " See https://github.com/kien/ctrlp.vim/issues/389
+    let g:ctrlp_prompt_mappings = {
+          \ 'CreateNewFile()':      [''],
+          \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
+          \ 'ToggleType(-1)':       ['<c-y>', '<c-down>'],
+          \ 'PrtCurLeft()':         ['<c-b>', '<left>', '<c-^>'],
+          \ 'PrtCurRight()':        ['<c-f>', '<right>'],
+          \ 'AcceptSelection("t")': ['<c-t>'],
+          \ 'AcceptSelection("h")': ['<c-v>'],
+          \ 'AcceptSelection("v")': ['<c-s>'],
+          \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+          \ 'PrtClearCache()':      ['<D-C>'],
+          \ 'PrtDeleteEnt()':       ['<F7>'],
+          \ 'PrtExit()':            ['<c-l>', '<esc>', '<c-c>', '<c-g>'],
+          \ }
+
+  else
   " See https://github.com/kien/ctrlp.vim/issues/389
     let g:ctrlp_prompt_mappings = {
           \ 'CreateNewFile()':      [''],
@@ -91,6 +109,7 @@ else
           \ 'PrtExit()':            ['<c-l>', '<esc>', '<c-c>', '<c-g>'],
           \ }
 
+  endif
 endif
 
 " TODO: add javascript and some other languages who doesn't have ctags support

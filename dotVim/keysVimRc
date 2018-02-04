@@ -46,11 +46,16 @@
 "     because in vertical diff mode you don't need to move up down.
 "
 " https://vi.stackexchange.com/questions/2705/create-mappings-that-only-apply-to-diff-mode
+
+
+" TODO: Use <c-o> mappings for everything instead of <Esc> for insert
+" mappings.
+" http://vim.wikia.com/wiki/Use_Ctrl-O_instead_of_Esc_in_insert_mode_mappings
+
 nnoremap <expr> <D-J> &diff ? ']c' : '<C-W>j'
 nnoremap <expr> <D-K> &diff ? '[c' : '<C-W>k'
 nmap <D-H> <c-w><c-h>
 nmap <D-L> <c-w><c-l>
-
 
 
 "totally annoying default mapping for cap k
@@ -70,6 +75,7 @@ smap <C-l> <Esc>
 " While commanding
 cmap <C-l> <C-c>
 
+" Also applies to other modal overlays constructed.
 let g:playWellWithFuzzyFinder = 0
 
 if g:playWellWithFuzzyFinder
@@ -126,10 +132,98 @@ nmap <Tab> <c-w><c-w>
 nmap <s-Tab> <c-w><s-w>
 
 
-imap <c-Tab> <Esc>:tabnext<Cr>
-imap <c-S-Tab> <Esc>:tabprev<Cr>
-nmap <c-Tab> :tabnext<Cr>
-nmap <c-S-Tab> :tabprev<Cr>
+if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+  imap <silent>  <c-Tab> <Esc>:WintabsNext<Cr>
+  imap <silent> <c-S-Tab> <Esc>:WintabsPrevious<Cr>
+  nmap <silent> <c-Tab> :WintabsNext<Cr>
+  nmap <silent> <c-S-Tab> :WintabsPrevious<Cr>
+
+  map <silent> <c-Tab> <Esc>:WintabsNext<Cr>
+  imap <silent> <c-S-Tab> <Esc>:WintabsPrevious<Cr>
+  nmap <silent> <c-Tab> :WintabsNext<Cr>
+  nmap <silent> <c-S-Tab> :WintabsPrevious<Cr>
+  " By default the GUI will map these if not using wintabs.
+  imap <silent> <D-}> <Esc> :WintabsNext<Cr>
+  imap <silent> <D-{> <Esc> :WintabsPrevious<Cr>
+  map <silent> <D-}> :WintabsNext<Cr>
+  map <silent> <D-{> :WintabsPrevious<Cr>
+
+  map  <silent> <D-1> :WintabsGo 1<Cr>
+  imap <silent> <D-1> <Esc>:WintabsGo 1<Cr>
+  map  <silent> <D-2> :WintabsGo 2<Cr>
+  imap <silent> <D-2> <Esc>:WintabsGo 2<Cr>
+  map  <silent> <D-3> :WintabsGo 3<Cr>
+  imap <silent> <D-3> <Esc>:WintabsGo 3<Cr>
+  map  <silent> <D-4> :WintabsGo 4<Cr>
+  imap <silent> <D-4> <Esc>:WintabsGo 4<Cr>
+  map  <silent> <D-5> :WintabsGo 5<Cr>
+  imap <silent> <D-5> <Esc>:WintabsGo 5<Cr>
+  map  <silent> <D-6> :WintabsGo 6<Cr>
+  imap <silent> <D-6> <Esc>:WintabsGo 6<Cr>
+  map  <silent> <D-7> :WintabsGo 7<Cr>
+  imap <silent> <D-7> <Esc>:WintabsGo 7<Cr>
+  map  <silent> <D-8> :WintabsGo 8<Cr>
+  imap <silent> <D-8> <Esc>:WintabsGo 8<Cr>
+  map  <silent> <D-9> :WintabsGo 9<Cr>
+  imap <silent> <D-9> <Esc>:WintabsGo 9<Cr>
+else
+  imap <c-Tab> <Esc>:tabnext<Cr>
+  imap <c-S-Tab> <Esc>:tabprev<Cr>
+  nmap <c-Tab> :tabnext<Cr>
+  nmap <c-S-Tab> :tabprev<Cr>
+  map  <D-1> 1gt
+  imap <D-1> <Esc>1gt
+  map  <D-2> 2gt
+  imap <D-2> <Esc>2gt
+  map  <D-3> 3gt
+  imap <D-3> <Esc>3gt
+  map  <D-4> 4gt
+  imap <D-4> <Esc>4gt
+  map  <D-5> 5gt
+  imap <D-5> <Esc>5gt
+  map  <D-6> 6gt
+  imap <D-6> <Esc>6gt
+  map  <D-7> 7gt
+  imap <D-7> <Esc>7gt
+  map  <D-8> 8gt
+  imap <D-8> <Esc>8gt
+  map  <D-9> 9gt
+  imap <D-9> <Esc>9gt
+endif
+
+" .gvimrc would have properly unmapped D-w from File menu.
+if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+  imap <silent> <D-w> <Esc>:WintabsClose<Cr>
+  map <silent> <D-w> :WintabsClose<Cr>
+  imap <silent> <D-n> <Esc>:enew<Cr>
+  map <D-n> :enew<Cr>
+else
+endif
+
+if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+else
+endif
+
+if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+else
+endif
+
+if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+else
+endif
+
+if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+  " space through your tabs!
+  map <Space> :WintabsNext<Cr>
+  " shift-space backwards - doesn't work on terminal, I believe
+  map <s-Space> :WintabsPrevious<Cr>
+else
+  " space through your tabs!
+  map <Space> gt
+  " shift-space backwards - doesn't work on terminal, I believe
+  map <s-Space> gT
+endif
+
 
 imap <D->> <Esc>:vertical resize +10<CR>
 imap <D->> <Esc>:vertical resize +10<CR>
@@ -141,6 +235,67 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+" If it's open then just close it else, open it then jump back to prev window.
+" NERDTree's default toggle behavior doesn't work like this.  This should also
+" work if the explorer was opened with NERDTreeFind
+" Toggle doesn't change the working directory of the nerd tree.
+function ToggleExplorer()
+  if exists(":NERDTree")
+    let g:VimSplitBalancerSupress=1
+    " Need finally to restore split balancer.
+    try
+      " If open
+      if exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+        execute "NERDTreeToggle"
+      else
+        execute "NERDTreeToggle"
+        wincmd p
+      endif
+    finally
+      let g:VimSplitBalancerSupress=0
+    endtry
+  endif
+endfunction
+
+command -nargs=* DoToggleExplorer :call ToggleExplorer(<f-args>)
+
+" If it's open then just close it else, open it then jump back to prev window.
+" NERDTree's default toggle behavior doesn't work like this.  This should also
+" work if the explorer was opened with NERDTreeFind
+function FindInExplorer()
+  if exists(":NERDTree")
+    let g:VimSplitBalancerSupress=1
+    " Need finally to restore split balancer.
+    try
+      execute "NERDTreeFind"
+    finally
+      let g:VimSplitBalancerSupress=0
+    endtry
+  endif
+endfunction
+
+command -nargs=* DoFindInExplorer :call FindInExplorer(<f-args>)
+
+function ToggleExplorerFocus()
+    lnoremap <silent> <special> <C-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> if &filetype ==# 'nerdtree' <Bar> wincmd p <Bar> else <Bar> NERDTreeFocus <Bar> endif <Bar> let g:VimSplitBalancerSupress=0 <CR>
+  if exists(":NERDTree")
+    let g:VimSplitBalancerSupress=1
+    " Need finally to restore split balancer.
+    try
+      if &filetype ==# 'nerdtree'
+        wincmd p
+      else
+        execute "NERDTreeFocus"
+      endif
+    finally
+      let g:VimSplitBalancerSupress=0
+    endtry
+  endif
+endfunction
+
+command -nargs=* DoToggleExplorerFocus :call ToggleExplorerFocus(<f-args>)
+
+
 " NERDTree
 " =========
 " Regular NERDTree bindings (not the NERDTreeTabs bindings)
@@ -150,88 +305,38 @@ if has("gui_running")
     " Toggle File Tree:
     " ------------------
     " Insert, Command-line, Lang-Arg
-    lnoremap <silent> <special> <D-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    lnoremap <silent> <special> <D-\> <Esc> :DoToggleExplorer <CR>
     " Normal
-    nnoremap <silent> <special> <D-\> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    nnoremap <silent> <special> <D-\> :DoToggleExplorer <CR>
     " Visual and Select
-    vnoremap <silent> <special> <D-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    vnoremap <silent> <special> <D-\> <Esc> :DoToggleExplorer <CR>
     " Operator pending
-    onoremap <silent> <special> <D-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    onoremap <silent> <special> <D-\> <Esc> :DoToggleExplorer <CR>
 
     " Find In File Tree:
     " ------------------
     " Insert, Command-line, Lang-Arg
-    lnoremap <silent> <special> <D-Bar> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeFind <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    lnoremap <silent> <special> <D-Bar> <Esc> :DoFindInExplorer <CR>
     " Normal
-    nnoremap <silent> <special> <D-Bar> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeFind <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    nnoremap <silent> <special> <D-Bar> : DoFindInExplorer <CR>
     " Visual and Select
-    vnoremap <silent> <special> <D-Bar> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeFind <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    vnoremap <silent> <special> <D-Bar> <Esc> : DoFindInExplorer <CR>
     " Operator pending
-    onoremap <silent> <special> <D-Bar> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeFind <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    onoremap <silent> <special> <D-Bar> <Esc> : DoFindInExplorer <CR>
 
     " Toggle Focus Between File Tree:
     " ------------------
     " Insert, Command-line, Lang-Arg
-    lnoremap <silent> <special> <C-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> if &filetype ==# 'nerdtree' <Bar> wincmd p <Bar> else <Bar> NERDTreeFocus <Bar> endif <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    lnoremap <silent> <special> <C-\> <Esc> :DoToggleExplorerFocus <CR>
     " Normal
-    nnoremap <silent> <special> <C-\> : let g:VimSplitBalancerSupress=1 <Bar> if &filetype ==# 'nerdtree' <Bar> wincmd p <Bar> else <Bar> NERDTreeFocus <Bar> endif <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    nnoremap <silent> <special> <C-\> : DoToggleExplorerFocus <CR>
     " Visual and Select
-    vnoremap <silent> <special> <C-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> if &filetype ==# 'nerdtree' <Bar> wincmd p <Bar> else <Bar> NERDTreeFocus <Bar> endif <Bar> let g:VimSplitBalancerSupress=0 <CR>
+    vnoremap <silent> <special> <C-\> <Esc> : DoToggleExplorerFocus <CR>
     " Operator pending
-    onoremap <silent> <special> <C-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> if &filetype ==# 'nerdtree' <Bar> wincmd p <Bar> else <Bar> NERDTreeFocus <Bar> endif <Bar> let g:VimSplitBalancerSupress=0 <CR>
-
-  endif
-  if has("gui_win32")
-    " Toggle File Tree:
-    " ------------------
-    " Insert, Command-line, Lang-Arg
-    lnoremap <silent> <special> <F11> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
-    " Normal
-    nnoremap <silent> <special> <F11> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
-    " Visual and Select
-    vnoremap <silent> <special> <F11> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
-    " Operator pending
-    onoremap <silent> <special> <F11> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> NERDTreeToggle <Bar> wincmd p <Bar> let g:VimSplitBalancerSupress=0 <CR>
-
-    " TODO: The rest
+    onoremap <silent> <special> <C-\> <Esc> : DoToggleExplorerFocus <CR>
 
   endif
 endif
-
-" NERDTreeTabs bindings:
-" if has("gui_running")
-"   if has("gui_macvim")
-"     map <D-e> :NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-"     imap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-"     vmap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-"     nmap <D-e> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-"
-"     map <c-0> :NERDTreeToggle<Cr>
-"     imap <c-0> <Esc>:NERDTreeFocus<Cr>
-"     vmap <c-0> <Esc>:NERDTreeToggle<Cr>
-"     nmap <c-0> <Esc>:NERDTreeToggle<Cr>
-"
-"
-"     map <D-E> :NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
-"     imap <D-E> <Esc>:NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
-"     vmap <D-E> <Esc>:NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
-"     nmap <D-E> <Esc>:NERDTreeTabsOpen<Cr>:NERDTreeTabsFind<Cr><c-w><c-w><c-w><c-p>
-"   endif
-"   if has("gui_win32")
-"     map <F11> :NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-"     imap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-"     vmap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-"     nmap <F11> <Esc>:NERDTreeTabsToggle<Cr><c-w><c-w><c-w><c-p>
-"   endif
-" endif
-
-
-
-" Clear search highlight when escape is pressed.
-" Is really horrible on terminals.
-" if has("gui_running")
-"   nnoremap <esc> :noh<return><esc>
-" endif
 
 
 " Diagnostics.
@@ -304,11 +409,6 @@ end
 " Alphabetize on F5
 vmap <F5> :sort ui<Cr>
 
-
-" space through your tabs!
-map <Space> gt
-" shift-space backwards - doesn't work on terminal, I believe
-map <s-Space> gT
 
 " Unfortunately the default `<c-c>` won't cause fuf to exit or cancel a search.
 if g:playWellWithFuzzyFinder
@@ -390,28 +490,6 @@ if has("gui_running") " all this for gui use
         vmap <D-]> >gv
         vmap <D-[> <gv
         " Map Command-# to switch tabs
-        map  <D-0> 0gt
-        imap <D-0> <Esc>0gt
-        map  <D-1> 1gt
-        imap <D-1> <Esc>1gt
-        map  <D-2> 2gt
-        imap <D-2> <Esc>2gt
-        map  <D-3> 3gt
-        imap <D-3> <Esc>3gt
-        map  <D-4> 4gt
-        imap <D-4> <Esc>4gt
-        map  <D-5> 5gt
-        imap <D-5> <Esc>5gt
-        map  <D-6> 6gt
-        imap <D-6> <Esc>6gt
-        map  <D-7> 7gt
-        imap <D-7> <Esc>7gt
-        map  <D-8> 8gt
-        imap <D-8> <Esc>8gt
-        map  <D-9> 9gt
-        imap <D-9> <Esc>9gt
-
-
 
         " Some Textmatey Shortcuts:
         imap <D-S-Enter> <End>;<Cr>

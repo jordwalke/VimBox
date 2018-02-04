@@ -1,0 +1,33 @@
+" This must be set in the gvimrc (also doing it here)
+let g:wintabs_display='statusline'
+set hidden
+let g:wintabs_autoclose=2
+let g:wintabs_autoclose_vim=1
+let g:wintabs_autoclose_vimtab=1
+let g:wintabs_switchbuf='useopen,usetab'
+let g:wintabs_ui_active_higroup = 'TabLineSel'
+
+
+
+" If doing some custom rendered GUI use a not-actually space.
+" let intertabSpace= ' '
+let intertabSpace= ' '
+let activeWinTabChar = '|'
+" This must be different to distinguish.
+let activeVimTabChar = '|'
+let activeWinTabChar = '▎'
+" This must be different to distinguish.
+let activeVimTabChar = '▍'
+let g:wintabs_ui_sep_leftmost=intertabSpace
+let g:wintabs_ui_sep_inbetween=intertabSpace
+let g:wintabs_ui_active_right=intertabSpace
+let g:wintabs_ui_active_left=activeVimTabChar 
+let g:wintabs_ui_sep_rightmost=intertabSpace
+let g:wintabs_ui_modified=' ◎'
+let g:wintabs_ignored_filetypes=[]
+" Annotating the active vimtab makes it always available for detection
+let g:wintabs_ui_active_vimtab_left=activeVimTabChar
+let g:wintabs_ui_active_vimtab_right=intertabSpace
+
+let g:wintabs_ui_arrow_left='«'
+let g:wintabs_ui_arrow_right='»'

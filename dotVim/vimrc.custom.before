@@ -1,3 +1,4 @@
 " Overwrite this file with whatever you want. This will be executed before
 " loading any of the stock bundles/settings.
 " - You can load bundles using `NeoBundle` commands here.
+let g:tabSystem = 'wintabs'
