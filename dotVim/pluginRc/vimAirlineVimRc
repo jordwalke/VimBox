@@ -1,8 +1,15 @@
+if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+  let g:airline_statusline_ontop=1
+endif
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
 " Git status can be expensive.
 let g:airline#extensions#branch#enabled = 0
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+
+" Be warned, Airline whitespace causes CursorHold event which messes up cursor
+" after six blinks.
+let g:airline#extensions#whitespace#enabled = 1
 set laststatus=2
 " Disable truncation
 " let g:airline#extensions#default#section_truncate_width = {}
@@ -96,8 +103,14 @@ function! AirlineInit()
   " create doesn't add in between separators - unlike create_right'
   let g:airline_section_z=airline#section#create(['%3p%%'. g:airline_symbols.space, 'linenr',  ':%3v', 'syntasticOk'])
 endfunction
-autocmd User AirlineAfterInit call AirlineInit()
+augroup VimBoxAirline
+  autocmd!
+  autocmd User AirlineAfterInit call AirlineInit()
+augroup END
 
-if has("gui_macvim") || has("gui_vimr")
-  autocmd VimEnter * set guioptions+=e
+if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+else
+  if has("gui_macvim") || has("gui_vimr")
+    autocmd VimEnter * set guioptions+=e
+  endif
 endif

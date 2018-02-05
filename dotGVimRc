@@ -36,7 +36,6 @@ if has('gui')
     macmenu &Edit.Find.Find\ Previous key=<nop>
     macmenu &Edit.Find.Use\ Selection\ for\ Find key=<nop>
 
-    macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-c-f>
 
 
     macmenu &File.New\ Window key=<D-N>
@@ -45,8 +44,10 @@ if has('gui')
       macmenu &File.Close key=<nop>
       macmenu  Window.Select\ Next\ Tab	key=<nop>
       macmenu  Window.Select\ Previous\ Tab	key=<nop>
+      macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-CR>
     else
       macmenu &File.New\ Tab key=<D-n>
+      macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-c-f>
     endif
 
 

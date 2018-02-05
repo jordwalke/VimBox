@@ -20,6 +20,10 @@ endif
 " ==============================================================================
 
 
+" ========================== Bracketed Paste ===================================
+Plug 'ConradIrwin/vim-bracketed-paste'
+" ==============================================================================
+
 " ========================== Some colors ===========================
 Plug 'jordwalke/VimCleanColors'
 " ==============================================================================
@@ -150,7 +154,7 @@ Plug 'tpope/vim-markdown'
 " =============================== Session = ====================================
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
-" let g:session_autosave_periodic = 0  "Every three minutes + on close seems fine.
+let g:session_autosave_periodic = 0  "Every three minutes + on close seems fine.
 " But saving resets window dims!
 let g:session_autosave = 'yes'       "Auto-save on close
 let g:session_autoload = 'no'
@@ -171,7 +175,7 @@ endif
 " My custom session management GUI tools (in menu bar) Based on one of the
 " other session managers.
 set runtimepath+=~/.vim/localBundle/sessions
-set runtimepath+=~/.vim/localBundle/wowcamldebug
+" set runtimepath+=~/.vim/localBundle/wowcamldebug
 
 " ================================ VimJSDocSnippets ============================
 Plug 'jordwalke/VimJSDocSnippets'
@@ -215,11 +219,15 @@ Plug 'jordwalke/VimCloser'
 " Plug 'xolox/vim-colorscheme-switcher'
 
 " =============================== SmartGUITabs =================================
-Plug 'jordwalke/MacVimSmartGUITabs'
-" Make sure to have `set guioptions+=e` in your `.gvimrc`.
-map <D-Cr> :SmartGUITabsToggleFullScreen<CR>
-imap <D-Cr> <Esc>:SmartGUITabsToggleFullScreen<CR>
-nmap <D-Cr> <Esc>:SmartGUITabsToggleFullScreen<CR>
+" Plug 'jordwalke/MacVimSmartGUITabs'
+if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+  " " Make sure to have `set guioptions+=e` in your `.gvimrc`.
+  set showtabline=2
+else
+  map <D-Cr> :SmartGUITabsToggleFullScreen<CR>
+  imap <D-Cr> <Esc>:SmartGUITabsToggleFullScreen<CR>
+  nmap <D-Cr> <Esc>:SmartGUITabsToggleFullScreen<CR>
+endif
 " ==============================================================================
 
 
@@ -304,9 +312,15 @@ set noequalalways
 " Plug 'robcsi/viewmaps.vim'
 
 " ======================= A lighterweight Powerline ============================
+
+if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+  let g:airline_statusline_ontop=1
+endif
 " Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" execute 'source '. s:vimPluginConfigDir . '/vimAirlineVimRc'
+" Plug '~/github/vim-airline'
+Plug 'jordwalke/vim-airline', { 'branch': 'AirlineOnTop' }
+Plug 'vim-airline/vim-airline-themes'
+execute 'source '. s:vimPluginConfigDir . '/vimAirlineVimRc'
 " if has("gui_macvim") || has("gui_vimr")
 "   autocmd VimEnter * set guioptions+=e
 " endif
@@ -423,7 +437,7 @@ source ~/.vim/pluginRc/ctrlPVimRc
 " ============================= ACP Forked =========================
 " Check out snippets in ~/.vim/personalSnippets/
 " Plug 'jordwalke/AutoComplPop'
-let g:acp_ignorecaseOption = 1
+" let g:acp_ignorecaseOption = 1
 
 Plug 'lifepillar/vim-mucomplete'
 source ~/.vim/pluginRc/mucompleteVimRc

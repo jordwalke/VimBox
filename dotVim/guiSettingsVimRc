@@ -1,5 +1,9 @@
 set noshowmode " Get rid of extra --INSERT-- rendered below.
 
+
+" Set to empty string - no ugly NonText ~ etc.
+set fillchars=vert:\ ,diff:\ 
+
 if has("gui_running") " all this for gui use
   " ugly MacVim Cruft
   set guioptions-=r "remove scrollbars
@@ -7,6 +11,10 @@ if has("gui_running") " all this for gui use
   set guioptions-=l "remove scrollbars
   set guioptions-=L "remove scrollbars
   set guioptions-=T " Remove toolbars
+  if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+    set guioptions-=e
+  else
+  endif
 
   "========== Windows ===================================
 " Shouldn't this check apply to windows in general, not just gui (want to
@@ -32,10 +40,6 @@ if has("gui_running") " all this for gui use
     " Not has(gui_win32)
     set fileformats=unix
   endif
-
-  " Set to empty string - no ugly NonText ~ etc.
-  set fillchars=vert:\ ,diff:\ 
-
   "========== Mac OS X ==================================
   " Pro Tips:
   " Make sure to turn off anti-aliasing in general preferences panel.
@@ -55,20 +59,16 @@ if has("gui_running") " all this for gui use
     " Change to `1` if your font is patched with webdev icons.
     let g:webdevicons_enable = 0
   endif
-  " Set your own custom symbols in your ~/.vim/vimrc.custom.after
-  " Symbols to use: Some look better without italics! Check compatibility with
-  " your font.
-  " Some fonts require setting ambiwidth=double
-  " ☻  ⬢  ⬡ ⍟⨷  ⮾  ⮿  ⏣  ⬣  ⌾ ★  ☆ ✩ ✪  ⭑⭑⭑ ☒  ☑  ⮽  ✖✖ ✖✖✖ ✖    ⛆
-  " ⛆ ☁ ⛈ ⛆
-  let g:vimBoxLinterErrorSymbol="⮿"
-  let g:vimBoxLinterWarningSymbol="⮿"
-  let g:vimBoxLinterOkSymbol="☻"
-else
-  let g:vimBoxLinterErrorSymbol="⮿"
-  let g:vimBoxLinterWarningSymbol="⮿"
-  let g:vimBoxLinterOkSymbol="☻"
 endif
+" Set your own custom symbols in your ~/.vim/vimrc.custom.after
+" Symbols to use: Some look better without italics! Check compatibility with
+" your font.
+" Some fonts require setting ambiwidth=double
+" ☻  ⬢  ⬡ ⍟⨷  ⮾  ⮿  ⏣  ⬣  ⌾ ★  ☆ ✩ ✪  ⭑⭑⭑ ☒  ☑  ⮽  ✖✖ ✖✖✖ ✖    ⛆
+" ⛆ ☁ ⛈ ⛆
+let g:vimBoxLinterErrorSymbol="⮿"
+let g:vimBoxLinterWarningSymbol="⮿"
+let g:vimBoxLinterOkSymbol="☻"
 
 " Make it so the ugly "NonText" characters are hidden at the end of a file
 " (the ~)

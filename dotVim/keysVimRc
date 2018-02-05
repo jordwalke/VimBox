@@ -131,6 +131,22 @@ set winwidth=1
 nmap <Tab> <c-w><c-w>
 nmap <s-Tab> <c-w><s-w>
 
+" Terminal and windows mappings should perform the following:
+" Read vim help manual from: vt100-function-keys* *xterm-function-keys*
+" Do `:set termcap?` to see wha tyou need to configure iTerm with.
+" For example, if termcap says ^[[23;*~ is F11, have iTerm map a key
+" combination like Shift+Space to "Send Escape Sequence" [23;*~
+"
+" (Deprecated): Shift+Space <F11>
+" Command+w <F6>
+" Command+shift+w <F7>
+" Command+n <F8>
+" Command+s <F9>
+" Command+Shift+t <F11>
+" Command+\ <F3>
+" Command+Shift+\ <F5>
+"
+
 
 if exists('g:tabSystem') && g:tabSystem == 'wintabs'
   imap <silent>  <c-Tab> <Esc>:WintabsNext<Cr>
@@ -142,62 +158,189 @@ if exists('g:tabSystem') && g:tabSystem == 'wintabs'
   imap <silent> <c-S-Tab> <Esc>:WintabsPrevious<Cr>
   nmap <silent> <c-Tab> :WintabsNext<Cr>
   nmap <silent> <c-S-Tab> :WintabsPrevious<Cr>
-  " By default the GUI will map these if not using wintabs.
-  imap <silent> <D-}> <Esc> :WintabsNext<Cr>
-  imap <silent> <D-{> <Esc> :WintabsPrevious<Cr>
-  map <silent> <D-}> :WintabsNext<Cr>
-  map <silent> <D-{> :WintabsPrevious<Cr>
+  if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
+    imap <silent>  <c-Tab> <Esc>:WintabsNext<Cr>
+    imap <silent> <c-S-Tab> <Esc>:WintabsPrevious<Cr>
+    nmap <silent> <c-Tab> :WintabsNext<Cr>
+    nmap <silent> <c-S-Tab> :WintabsPrevious<Cr>
 
-  map  <silent> <D-1> :WintabsGo 1<Cr>
-  imap <silent> <D-1> <Esc>:WintabsGo 1<Cr>
-  map  <silent> <D-2> :WintabsGo 2<Cr>
-  imap <silent> <D-2> <Esc>:WintabsGo 2<Cr>
-  map  <silent> <D-3> :WintabsGo 3<Cr>
-  imap <silent> <D-3> <Esc>:WintabsGo 3<Cr>
-  map  <silent> <D-4> :WintabsGo 4<Cr>
-  imap <silent> <D-4> <Esc>:WintabsGo 4<Cr>
-  map  <silent> <D-5> :WintabsGo 5<Cr>
-  imap <silent> <D-5> <Esc>:WintabsGo 5<Cr>
-  map  <silent> <D-6> :WintabsGo 6<Cr>
-  imap <silent> <D-6> <Esc>:WintabsGo 6<Cr>
-  map  <silent> <D-7> :WintabsGo 7<Cr>
-  imap <silent> <D-7> <Esc>:WintabsGo 7<Cr>
-  map  <silent> <D-8> :WintabsGo 8<Cr>
-  imap <silent> <D-8> <Esc>:WintabsGo 8<Cr>
-  map  <silent> <D-9> :WintabsGo 9<Cr>
-  imap <silent> <D-9> <Esc>:WintabsGo 9<Cr>
+    map <silent> <c-Tab> <Esc>:WintabsNext<Cr>
+    imap <silent> <c-S-Tab> <Esc>:WintabsPrevious<Cr>
+    nmap <silent> <c-Tab> :WintabsNext<Cr>
+    nmap <silent> <c-S-Tab> :WintabsPrevious<Cr>
+    " By default the GUI will map these if not using wintabs.
+    imap <silent> <D-}> <Esc> :WintabsNext<Cr>
+    imap <silent> <D-{> <Esc> :WintabsPrevious<Cr>
+    map <silent> <D-}> :WintabsNext<Cr>
+    map <silent> <D-{> :WintabsPrevious<Cr>
+
+    map  <silent> <D-1> :WintabsGo 1<Cr>
+    imap <silent> <D-1> <Esc>:WintabsGo 1<Cr>
+    map  <silent> <D-2> :WintabsGo 2<Cr>
+    imap <silent> <D-2> <Esc>:WintabsGo 2<Cr>
+    map  <silent> <D-3> :WintabsGo 3<Cr>
+    imap <silent> <D-3> <Esc>:WintabsGo 3<Cr>
+    map  <silent> <D-4> :WintabsGo 4<Cr>
+    imap <silent> <D-4> <Esc>:WintabsGo 4<Cr>
+    map  <silent> <D-5> :WintabsGo 5<Cr>
+    imap <silent> <D-5> <Esc>:WintabsGo 5<Cr>
+    map  <silent> <D-6> :WintabsGo 6<Cr>
+    imap <silent> <D-6> <Esc>:WintabsGo 6<Cr>
+    map  <silent> <D-7> :WintabsGo 7<Cr>
+    imap <silent> <D-7> <Esc>:WintabsGo 7<Cr>
+    map  <silent> <D-8> :WintabsGo 8<Cr>
+    imap <silent> <D-8> <Esc>:WintabsGo 8<Cr>
+    map  <silent> <D-9> :WintabsGo 9<Cr>
+    imap <silent> <D-9> <Esc>:WintabsGo 9<Cr>
+
+    " .gvimrc would have properly unmapped D-w from File menu.
+    imap <silent> <D-w> <Esc>:WintabsClose<Cr>
+    map <silent> <D-w> :WintabsClose<Cr>
+    cmap <silent> <D-w> <Esc>:WintabsClose<Cr>
+    smap <silent> <D-w> <Esc>:WintabsClose<Cr>
+    imap <silent> <D-n> <Esc>:enew<Cr>
+    map <D-n> :enew<Cr>
+
+
+    " Toggle File Tree:
+    " ------------------
+    " Insert, Command-line, Lang-Arg
+    lnoremap <silent> <special> <D-\> <Esc> :DoToggleExplorer <CR>
+    " Normal
+    nnoremap <silent> <special> <D-\> :DoToggleExplorer <CR>
+    " Visual and Select
+    vnoremap <silent> <special> <D-\> <Esc> :DoToggleExplorer <CR>
+    " Operator pending
+    onoremap <silent> <special> <D-\> <Esc> :DoToggleExplorer <CR>
+
+    " Find In File Tree:
+    " ------------------
+    " Insert, Command-line, Lang-Arg
+    lnoremap <silent> <special> <D-Bar> <Esc> :DoFindInExplorer <CR>
+    " Normal
+    nnoremap <silent> <special> <D-Bar> : DoFindInExplorer <CR>
+    " Visual and Select
+    vnoremap <silent> <special> <D-Bar> <Esc> : DoFindInExplorer <CR>
+    " Operator pending
+    onoremap <silent> <special> <D-Bar> <Esc> : DoFindInExplorer <CR>
+
+    " Toggle Focus Between File Tree:
+    " ------------------
+    " Insert, Command-line, Lang-Arg
+    lnoremap <silent> <special> <C-\> <Esc> :DoToggleExplorerFocus <CR>
+    " Normal
+    nnoremap <silent> <special> <C-\> : DoToggleExplorerFocus <CR>
+    " Visual and Select
+    vnoremap <silent> <special> <C-\> <Esc> : DoToggleExplorerFocus <CR>
+    " Operator pending
+    onoremap <silent> <special> <C-\> <Esc> : DoToggleExplorerFocus <CR>
+
+  else
+    " Can't get these mapped in terminals.
+    " imap <silent> <M-}> <Esc> :WintabsNext<Cr>
+    " imap <silent> <M-{> <Esc> :WintabsPrevious<Cr>
+    " map <silent> <M-}> :WintabsNext<Cr>
+    " map <silent> <M-{> :WintabsPrevious<Cr>
+
+    " These control characters really slow down vim / terminal rendering.
+    " map  <silent> w1 :WintabsGo 1<Cr>
+    " imap <silent> w1 <Esc>:WintabsGo 1<Cr>
+    " map  <silent> w2 :WintabsGo 2<Cr>
+    " imap <silent> w2 <Esc>:WintabsGo 2<Cr>
+    " map  <silent> w3 :WintabsGo 3<Cr>
+    " imap <silent> w3 <Esc>:WintabsGo 3<Cr>
+    " map  <silent> w4 :WintabsGo 4<Cr>
+    " imap <silent> w4 <Esc>:WintabsGo 4<Cr>
+    " map  <silent> w5 :WintabsGo 5<Cr>
+    " imap <silent> w5 <Esc>:WintabsGo 5<Cr>
+    " map  <silent> w6 :WintabsGo 6<Cr>
+    " imap <silent> w6 <Esc>:WintabsGo 6<Cr>
+    " map  <silent> w7 :WintabsGo 7<Cr>
+    " imap <silent> w7 <Esc>:WintabsGo 7<Cr>
+    " map  <silent> w8 :WintabsGo 8<Cr>
+    " imap <silent> w8 <Esc>:WintabsGo 8<Cr>
+    " map  <silent> w9 :WintabsGo 9<Cr>
+    " imap <silent> w9 <Esc>:WintabsGo 9<Cr>
+
+    " If you use iterm to map command+w to "Send Vim Keys" \<M-w> this is what
+    " you get.
+    imap <silent> <F6> <Esc>:WintabsClose<Cr>
+    map <silent>  <F6> :WintabsClose<Cr>
+    cmap <silent> <F6> <Esc>:WintabsClose<Cr>
+    smap <silent> <F6> <Esc>:WintabsClose<Cr>
+
+    imap <silent> <F7> <Esc>:qall<Cr>
+    map <silent>  <F7> :qall<Cr>
+    cmap <silent> <F7> <Esc>:qall<Cr>
+    smap <silent> <F7> <Esc>:qall<Cr>
+
+    imap <silent> <F8> <Esc>:enew<Cr>
+    map <F8> :enew<Cr>
+    imap <silent> <F9> <Esc>:w<Cr>
+    map <F9> :w<Cr>
+
+    " Toggle File Tree:
+    " ------------------
+    " Insert, Command-line, Lang-Arg
+    lnoremap <silent> <special> <F3> <Esc> :DoToggleExplorer <CR>
+    " Normal
+    nnoremap <silent> <special> <F3> :DoToggleExplorer <CR>
+    " Visual and Select
+    vnoremap <silent> <special> <F3> <Esc> :DoToggleExplorer <CR>
+    " Operator pending
+    onoremap <silent> <special> <F3> <Esc> :DoToggleExplorer <CR>
+
+    " Find In File Tree:
+    " ------------------
+    " Insert, Command-line, Lang-Arg
+    lnoremap <silent> <special> <F5> <Esc> :DoFindInExplorer <CR>
+    " Normal
+    nnoremap <silent> <special> <F5> : DoFindInExplorer <CR>
+    " Visual and Select
+    vnoremap <silent> <special> <F5> <Esc> : DoFindInExplorer <CR>
+    " Operator pending
+    onoremap <silent> <special> <F5> <Esc> : DoFindInExplorer <CR>
+
+    " Toggle Focus Between File Tree:
+    " ------------------
+    " Insert, Command-line, Lang-Arg
+    lnoremap <silent> <special> <C-\> <Esc> :DoToggleExplorerFocus <CR>
+    " Normal
+    nnoremap <silent> <special> <C-\> : DoToggleExplorerFocus <CR>
+    " Visual and Select
+    vnoremap <silent> <special> <C-\> <Esc> : DoToggleExplorerFocus <CR>
+    " Operator pending
+    onoremap <silent> <special> <C-\> <Esc> : DoToggleExplorerFocus <CR>
+
+  endif
 else
   imap <c-Tab> <Esc>:tabnext<Cr>
   imap <c-S-Tab> <Esc>:tabprev<Cr>
   nmap <c-Tab> :tabnext<Cr>
   nmap <c-S-Tab> :tabprev<Cr>
-  map  <D-1> 1gt
-  imap <D-1> <Esc>1gt
-  map  <D-2> 2gt
-  imap <D-2> <Esc>2gt
-  map  <D-3> 3gt
-  imap <D-3> <Esc>3gt
-  map  <D-4> 4gt
-  imap <D-4> <Esc>4gt
-  map  <D-5> 5gt
-  imap <D-5> <Esc>5gt
-  map  <D-6> 6gt
-  imap <D-6> <Esc>6gt
-  map  <D-7> 7gt
-  imap <D-7> <Esc>7gt
-  map  <D-8> 8gt
-  imap <D-8> <Esc>8gt
-  map  <D-9> 9gt
-  imap <D-9> <Esc>9gt
-endif
-
-" .gvimrc would have properly unmapped D-w from File menu.
-if exists('g:tabSystem') && g:tabSystem == 'wintabs'
-  imap <silent> <D-w> <Esc>:WintabsClose<Cr>
-  map <silent> <D-w> :WintabsClose<Cr>
-  imap <silent> <D-n> <Esc>:enew<Cr>
-  map <D-n> :enew<Cr>
-else
+  if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
+    map  <D-1> 1gt
+    imap <D-1> <Esc>1gt
+    map  <D-2> 2gt
+    imap <D-2> <Esc>2gt
+    map  <D-3> 3gt
+    imap <D-3> <Esc>3gt
+    map  <D-4> 4gt
+    imap <D-4> <Esc>4gt
+    map  <D-5> 5gt
+    imap <D-5> <Esc>5gt
+    map  <D-6> 6gt
+    imap <D-6> <Esc>6gt
+    map  <D-7> 7gt
+    imap <D-7> <Esc>7gt
+    map  <D-8> 8gt
+    imap <D-8> <Esc>8gt
+    map  <D-9> 9gt
+    imap <D-9> <Esc>9gt
+  else
+    imap <silent> <F9> <Esc>:w<Cr>
+    map <F9> :w<Cr>
+  endif
 endif
 
 if exists('g:tabSystem') && g:tabSystem == 'wintabs'
@@ -214,9 +357,15 @@ endif
 
 if exists('g:tabSystem') && g:tabSystem == 'wintabs'
   " space through your tabs!
-  map <Space> :WintabsNext<Cr>
-  " shift-space backwards - doesn't work on terminal, I believe
-  map <s-Space> :WintabsPrevious<Cr>
+  map <silent> <Space> :WintabsNext<Cr>
+  if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
+    " shift-space backwards - doesn't work on terminal, I believe
+    map <silent> <s-Space> :WintabsPrevious<Cr>
+  else
+    " Ends up being a bad idea in this one case because we actually use
+    " shift-space to enter regular spaces when sloppy typing.
+    " map <silent> <F11> :WintabsPrevious<Cr>
+  endif
 else
   " space through your tabs!
   map <Space> gt
@@ -302,39 +451,6 @@ command -nargs=* DoToggleExplorerFocus :call ToggleExplorerFocus(<f-args>)
 " https://stackoverflow.com/questions/23891006/how-to-set-the-cursor-focus-after-toggling-the-nerdtree-in-vim
 if has("gui_running")
   if has("gui_macvim")
-    " Toggle File Tree:
-    " ------------------
-    " Insert, Command-line, Lang-Arg
-    lnoremap <silent> <special> <D-\> <Esc> :DoToggleExplorer <CR>
-    " Normal
-    nnoremap <silent> <special> <D-\> :DoToggleExplorer <CR>
-    " Visual and Select
-    vnoremap <silent> <special> <D-\> <Esc> :DoToggleExplorer <CR>
-    " Operator pending
-    onoremap <silent> <special> <D-\> <Esc> :DoToggleExplorer <CR>
-
-    " Find In File Tree:
-    " ------------------
-    " Insert, Command-line, Lang-Arg
-    lnoremap <silent> <special> <D-Bar> <Esc> :DoFindInExplorer <CR>
-    " Normal
-    nnoremap <silent> <special> <D-Bar> : DoFindInExplorer <CR>
-    " Visual and Select
-    vnoremap <silent> <special> <D-Bar> <Esc> : DoFindInExplorer <CR>
-    " Operator pending
-    onoremap <silent> <special> <D-Bar> <Esc> : DoFindInExplorer <CR>
-
-    " Toggle Focus Between File Tree:
-    " ------------------
-    " Insert, Command-line, Lang-Arg
-    lnoremap <silent> <special> <C-\> <Esc> :DoToggleExplorerFocus <CR>
-    " Normal
-    nnoremap <silent> <special> <C-\> : DoToggleExplorerFocus <CR>
-    " Visual and Select
-    vnoremap <silent> <special> <C-\> <Esc> : DoToggleExplorerFocus <CR>
-    " Operator pending
-    onoremap <silent> <special> <C-\> <Esc> : DoToggleExplorerFocus <CR>
-
   endif
 endif
 
@@ -530,6 +646,7 @@ if has("gui_running") " all this for gui use
       " Look at other deeply integrated mappings in the ~/.gvimrc file.
       map <F18> <Esc>:Undoquit<CR>
     endif
+else
 endif
 
 
