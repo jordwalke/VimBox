@@ -133,18 +133,34 @@ nmap <s-Tab> <c-w><s-w>
 
 " Terminal and windows mappings should perform the following:
 " Read vim help manual from: vt100-function-keys* *xterm-function-keys*
-" Do `:set termcap?` to see wha tyou need to configure iTerm with.
-" For example, if termcap says ^[[23;*~ is F11, have iTerm map a key
-" combination like Shift+Space to "Send Escape Sequence" [23;*~
-"
-" (Deprecated): Shift+Space <F11>
+" Do `:set termcap` from within a terminal vim to see what you need to
+" configure iTerm with.  For example, if termcap says ^[[23;*~ is F11, have
+" iTerm map a key combination like Shift+Space to "Send Escape Sequence" [23;*~
+" Here's what iTerm reports as termcap from within Vim:
+
+
+" t_#2 <S-Home>    ^[[1;2H     t_FJ <F29>       ^[[201~     t_PS <PasteStart> ^[[200~    t_k; <F10>       ^[[21;*~    t_kr <Right>     ^[O*C          <xHome>     ^[O*H
+" t_#4 <S-Left>    ^[[1;2D     t_K1 <kHome>     ^[[1;*~     t_k1 <F1>        ^[[11;*~    t_kB <S-Tab>     ^[[Z        t_ku <Up>        ^[O*A          <zHome>     ^[[7;*~
+" t_%1 <Help>      ^[[28;*~    t_K4 <kEnd>      ^[[4;*~     t_k2 <F2>        ^[[12;*~    t_kD <Del>       ^[[3~            <SgrMouse>  ^[[<*M         <xUp>       ^[[1;*A
+" t_%i <S-Right>   ^[[1;2C     t_K6 <kPlus>     ^[O*k       t_k3 <F3>        ^[[13;*~    t_kI <Insert>    ^[[2;*~          <Mouse>     ^[[M           <xDown>     ^[[1;*B
+" t_&8 <Undo>      ^[[26;*~    t_K7 <kMinus>    ^[O*m       t_k4 <F4>        ^[[14;*~    t_kN <PageDown>  ^[[6;*~          <xF1>       ^[O*P          <xLeft>     ^[[1;*D
+" t_*7 <S-End>     ^[[1;2F     t_K8 <kDivide>   ^[O*o       t_k5 <F5>        ^[[15;*~    t_kP <PageUp>    ^[[5;*~          <xF2>       ^[O*Q          <xRight>    ^[[1;*C
+" t_@7 <End>       ^[[1;*F     t_K9 <kMultiply> ^[O*j       t_k6 <F6>        ^[[17;*~    t_kb <BS>        ^?               <xF3>       ^[O*R          <kDel>      ^[[3;*~
+" t_F1 <F11>       ^[[23;*~    t_KA <kEnter>    ^[O*M       t_k7 <F7>        ^[[18;*~    t_kd <Down>      ^[O*B            <xF4>       ^[O*S
+" t_F2 <F12>       ^[[24;*~    t_KB <kPoint>    ^[O*n       t_k8 <F8>        ^[[19;*~    t_kh <Home>      ^[[1;*H          <xEnd>      ^[O*F
+" t_FI <F28>       ^[[200~     t_PE <PasteEnd>  ^[[201~     t_k9 <F9>        ^[[20;*~    t_kl <Left>      ^[O*D            <zEnd>      ^[[8;*~
+
+
+" Shift+Space <F11>
 " Command+w <F6>
 " Command+shift+w <F7>
 " Command+n <F8>
 " Command+s <F9>
-" Command+Shift+t <F11>
+" Command+Shift+t <SOME_other_F_key?>
 " Command+\ <F3>
 " Command+Shift+\ <F5>
+" Command+Shift+c <F10>
+" Command+Shift+u <Undo>
 "
 
 
@@ -243,24 +259,24 @@ if exists('g:tabSystem') && g:tabSystem == 'wintabs'
     " map <silent> <M-{> :WintabsPrevious<Cr>
 
     " These control characters really slow down vim / terminal rendering.
-    " map  <silent> w1 :WintabsGo 1<Cr>
-    " imap <silent> w1 <Esc>:WintabsGo 1<Cr>
-    " map  <silent> w2 :WintabsGo 2<Cr>
-    " imap <silent> w2 <Esc>:WintabsGo 2<Cr>
-    " map  <silent> w3 :WintabsGo 3<Cr>
-    " imap <silent> w3 <Esc>:WintabsGo 3<Cr>
-    " map  <silent> w4 :WintabsGo 4<Cr>
-    " imap <silent> w4 <Esc>:WintabsGo 4<Cr>
-    " map  <silent> w5 :WintabsGo 5<Cr>
-    " imap <silent> w5 <Esc>:WintabsGo 5<Cr>
-    " map  <silent> w6 :WintabsGo 6<Cr>
-    " imap <silent> w6 <Esc>:WintabsGo 6<Cr>
-    " map  <silent> w7 :WintabsGo 7<Cr>
-    " imap <silent> w7 <Esc>:WintabsGo 7<Cr>
-    " map  <silent> w8 :WintabsGo 8<Cr>
-    " imap <silent> w8 <Esc>:WintabsGo 8<Cr>
-    " map  <silent> w9 :WintabsGo 9<Cr>
-    " imap <silent> w9 <Esc>:WintabsGo 9<Cr>
+    " map  <silent> ? :WintabsGo 1<Cr>
+    " imap <silent> ? <Esc>:WintabsGo 1<Cr>
+    " map  <silent> ? :WintabsGo 2<Cr>
+    " imap <silent> ? <Esc>:WintabsGo 2<Cr>
+    " map  <silent> ? :WintabsGo 3<Cr>
+    " imap <silent> ? <Esc>:WintabsGo 3<Cr>
+    " map  <silent> ? :WintabsGo 4<Cr>
+    " imap <silent> ? <Esc>:WintabsGo 4<Cr>
+    " map  <silent> ? :WintabsGo 5<Cr>
+    " imap <silent> ? <Esc>:WintabsGo 5<Cr>
+    " map  <silent> ? :WintabsGo 6<Cr>
+    " imap <silent> ? <Esc>:WintabsGo 6<Cr>
+    " map  <silent> ? :WintabsGo 7<Cr>
+    " imap <silent> ? <Esc>:WintabsGo 7<Cr>
+    " map  <silent> ? :WintabsGo 8<Cr>
+    " imap <silent> ? <Esc>:WintabsGo 8<Cr>
+    " map  <silent> ? :WintabsGo 9<Cr>
+    " imap <silent> ? <Esc>:WintabsGo 9<Cr>
 
     " If you use iterm to map command+w to "Send Vim Keys" \<M-w> this is what
     " you get.
@@ -355,22 +371,36 @@ if exists('g:tabSystem') && g:tabSystem == 'wintabs'
 else
 endif
 
+if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
+  nnoremap <D-U> :GundoToggle<CR>
+else
+  nnoremap <Undo> :GundoToggle<CR>
+endif
+
 if exists('g:tabSystem') && g:tabSystem == 'wintabs'
   " space through your tabs!
   map <silent> <Space> :WintabsNext<Cr>
   if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
-    " shift-space backwards - doesn't work on terminal, I believe
     map <silent> <s-Space> :WintabsPrevious<Cr>
   else
-    " Ends up being a bad idea in this one case because we actually use
-    " shift-space to enter regular spaces when sloppy typing.
+    " shift-space backwards - doesn't work on terminal. Use terminal config to
+    " map to <F11>.
+    " You'd be surprised how often you type shift+space in insert mode only
+    " intending to insert a space. We can fix it for Vim, but then what about
+    " when not in vim?
     " map <silent> <F11> :WintabsPrevious<Cr>
+    " imap <silent> <F11> <Space>
+    " cmap <silent> <F11> <Space>
   endif
 else
   " space through your tabs!
   map <Space> gt
-  " shift-space backwards - doesn't work on terminal, I believe
-  map <s-Space> gT
+  if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
+    " shift-space backwards - doesn't work on terminal, I believe
+    map <s-Space> gT
+  else
+    " See note about F11
+  endif
 endif
 
 
@@ -505,7 +535,11 @@ if executable('ocamlmerlin')
 endif
 
 " Command Shift C triggers reformatting, like Nuclide.
-autocmd FileType reason map <buffer> <D-C> :ReasonPrettyPrint<Cr>
+if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
+  autocmd FileType reason map <buffer> <D-C> :ReasonPrettyPrint<Cr>
+else
+  autocmd FileType reason map <buffer> <F10> :ReasonPrettyPrint<Cr>
+endif
 
 
 

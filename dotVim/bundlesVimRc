@@ -21,7 +21,8 @@ endif
 
 
 " ========================== Bracketed Paste ===================================
-Plug 'ConradIrwin/vim-bracketed-paste'
+" Something not working with this. Maybe the open PRs fix it.
+" Plug 'ConradIrwin/vim-bracketed-paste'
 " ==============================================================================
 
 " ========================== Some colors ===========================
@@ -511,7 +512,6 @@ Plug 'vim-scripts/Parameter-Text-Objects'
 " ============================ GUndo ============================================
 " Visualize a tree of your document history
 Plug 'sjl/gundo.vim'
-nnoremap <D-U> :GundoToggle<CR>
 let g:gundo_close_on_revert=1
 " ==============================================================================
 
