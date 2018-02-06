@@ -313,10 +313,10 @@ if exists('g:tabSystem') && g:tabSystem == 'wintabs'
     " If you use iterm to map command+w to "Send Vim Keys" \<M-w> this is what
     " you get.
     " Don't want a <silent> mapping though - need to know about errors
-    inoremap <F6> <Esc> :WintabsClose <Cr>
-    noremap <F6> :WintabsClose! <Cr>
-    cmap <F6> <Esc>:WintabsClose <Cr>
-    smap <F6> <Esc>:WintabsClose <Cr>
+    inoremap <silent> <F6> <Esc> :DoMaybeCloseWinTab <Cr>
+    noremap <silent> <F6> :DoMaybeCloseWinTab <Cr>
+    cmap <silent> <F6> <Esc>:DoMaybeCloseWinTab <Cr>
+    smap <silent> <F6> <Esc>:DoMaybeCloseWinTab <Cr>
 
     imap <S-F6> <Esc>:qall<Cr>
     map <S-F6> :qall<Cr>
@@ -483,7 +483,6 @@ endfunction
 command -nargs=* DoFindInExplorer :call FindInExplorer(<f-args>)
 
 function ToggleExplorerFocus()
-    lnoremap <silent> <special> <C-\> <Esc> : let g:VimSplitBalancerSupress=1 <Bar> if &filetype ==# 'nerdtree' <Bar> wincmd p <Bar> else <Bar> NERDTreeFocus <Bar> endif <Bar> let g:VimSplitBalancerSupress=0 <CR>
   if exists(":NERDTree")
     let g:VimSplitBalancerSupress=1
     " Need finally to restore split balancer.
@@ -501,6 +500,27 @@ endfunction
 
 command -nargs=* DoToggleExplorerFocus :call ToggleExplorerFocus(<f-args>)
 
+" Since WinTabs' :WintabsClose is buggy on terminal, implement our own
+" confirmation.
+function MaybeCloseWinTab()
+  if &modified
+    let choice = confirm("File has unsaved changes!", "&Save\n&Cancel\n&Don't Save", 2)
+    if choice == 3
+      " Don't save: Reset the file then call WintabsClose
+      execute "edit!"
+      call wintabs#close()
+    elseif choice == 2 || choice == 0
+      " Cancel
+    elseif choice == 1
+      execute ":w"
+      call wintabs#close()
+    endif
+  else
+    call wintabs#close()
+  endif
+endfunction
+
+command -nargs=* DoMaybeCloseWinTab :call MaybeCloseWinTab(<f-args>)
 
 " http://vim.wikia.com/wiki/Get_shortened_messages_from_using_echomsg
 function! s:ShortEcho(msg)
