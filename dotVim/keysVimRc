@@ -68,7 +68,12 @@ imap <C-Cr> <Left><Right><Cr>
 " ==== My favorite way of avoiding the escape key - feel free to delete all this
 " == c-l escapes and saves, avoid the pinky stretch
 vmap <C-l> <Esc><Cr>
-imap <C-l> <Esc>l
+" This binding would normally be better - and wouldn't move the cursor etc,
+" but c-o is used natively by popup menus so it doesn't work when popups are
+" open.
+" Noremap to not get tripped up by C-O being remapped.
+" inoremap <silent> <C-l> <c-o>:stopinsert<CR>
+imap <c-l> <Esc>l
 map <c-l> <Esc>
 "while selecting (for use in snippets c-l cancels out)
 smap <C-l> <Esc>
@@ -89,8 +94,15 @@ endif
 " These two don't work - they trigger tab switching on space.
 " vmap <D-/> <Leader>c<Space>
 " nmap <D-/> <Leader>c<Space>
-vmap <D-/> <Plug>NERDCommenterToggle
-nmap <D-/> <Plug>NERDCommenterToggle
+if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
+  vmap <D-/> <Esc><Plug>NERDCommenterToggle
+  vmap <D-/> <Plug>NERDCommenterToggle
+  nmap <D-/> <Plug>NERDCommenterToggle
+else
+  imap <F10> <Esc><Plug>NERDCommenterToggle
+  vmap <F10> <Plug>NERDCommenterToggle
+  nmap <F10> <Plug>NERDCommenterToggle
+endif
 
 
 " == c-h always does the same as c-l but also saves.
@@ -150,19 +162,38 @@ nmap <s-Tab> <c-w><s-w>
 " t_F2 <F12>       ^[[24;*~    t_KB <kPoint>    ^[O*n       t_k8 <F8>        ^[[19;*~    t_kh <Home>      ^[[1;*H          <xEnd>      ^[O*F
 " t_FI <F28>       ^[[200~     t_PE <PasteEnd>  ^[[201~     t_k9 <F9>        ^[[20;*~    t_kl <Left>      ^[O*D            <zEnd>      ^[[8;*~
 
+" FROM VIM HELP: xterm-modifier-keys
+" Newer versions of xterm support Alt and Ctrl for most function keys.  To
+" avoid having to add all combinations of Alt, Ctrl and Shift for every key a
+" special sequence is recognized at the end of a termcap entry: ";*X".  The
+" "X" can be any character, often '~' is used.  The ";*" stands for an
+" optional modifier argument.  ";2" is Shift, ";3" is Alt, ";5" is Ctrl and
+" ";9" is Meta (when it's different from Alt).  They can be combined.
+" Examples: > :set <F8>=^[[19;*~
+"   :set <Home>=^[[1;*H
+" Another speciality about these codes is that they are not overwritten by
+" another code.  That is to avoid that the codes obtained from xterm directly
+" |t_RV| overwrite them.
 
-" Shift+Space <F11>
-" Command+w <F6>
-" Command+shift+w <F7>
-" Command+n <F8>
-" Command+s <F9>
-" Command+Shift+t <SOME_other_F_key?>
-" Command+\ <F3>
-" Command+Shift+\ <F5>
-" Command+Shift+c <F10>
-" Command+Shift+u <Undo>
+
+" [deprecated] Shift+Space <F11>
+" Command+w <F6>                       ^[[17;*~
+" Command+shift+w <S-F6>               ^[[17;2~  (the 2 means shift - see above)
+" Command+n <F8>                       ^[[19;*~
+" Command+s <F9>                       ^[[20;*~
+" Command+\ <F3>                       ^[[13;*~
+" Command+Shift+\ <S-F3>               ^[[13;2~
+" Command+c <F5>                       ^[[15;*~
+" Command+Shift+c <S-F5>               ^[[15;2~
+" Command+Shift+u <Undo>               ^[[26;*~
+" Command+d <F2>                       ^[[12;*~
+" Command+shift+d <S-F2>               ^[[12;2~
+" Command+p <F7>                       ^[[18;*~
+" Command+shift+p <S-F7>               ^[[18;2~
+" Command+/ <F10>                      ^[[21;*~
 "
-
+" TODO:
+" Command+Shift+t
 
 if exists('g:tabSystem') && g:tabSystem == 'wintabs'
   imap <silent>  <c-Tab> <Esc>:WintabsNext<Cr>
@@ -210,11 +241,12 @@ if exists('g:tabSystem') && g:tabSystem == 'wintabs'
     imap <silent> <D-9> <Esc>:WintabsGo 9<Cr>
 
     " .gvimrc would have properly unmapped D-w from File menu.
-    imap <silent> <D-w> <Esc>:WintabsClose<Cr>
-    map <silent> <D-w> :WintabsClose<Cr>
-    cmap <silent> <D-w> <Esc>:WintabsClose<Cr>
-    smap <silent> <D-w> <Esc>:WintabsClose<Cr>
-    imap <silent> <D-n> <Esc>:enew<Cr>
+    " Don't want a <silent> mapping though - need to know about errors
+    imap <D-w> <Esc>:WintabsClose<Cr>
+    map  <D-w> :WintabsClose<Cr>
+    cmap <D-w> <Esc>:WintabsClose<Cr>
+    smap <D-w> <Esc>:WintabsClose<Cr>
+    imap <D-n> <Esc>:enew<Cr>
     map <D-n> :enew<Cr>
 
 
@@ -280,19 +312,20 @@ if exists('g:tabSystem') && g:tabSystem == 'wintabs'
 
     " If you use iterm to map command+w to "Send Vim Keys" \<M-w> this is what
     " you get.
-    imap <silent> <F6> <Esc>:WintabsClose<Cr>
-    map <silent>  <F6> :WintabsClose<Cr>
-    cmap <silent> <F6> <Esc>:WintabsClose<Cr>
-    smap <silent> <F6> <Esc>:WintabsClose<Cr>
+    " Don't want a <silent> mapping though - need to know about errors
+    inoremap <F6> <Esc> :WintabsClose <Cr>
+    noremap <F6> :WintabsClose! <Cr>
+    cmap <F6> <Esc>:WintabsClose <Cr>
+    smap <F6> <Esc>:WintabsClose <Cr>
 
-    imap <silent> <F7> <Esc>:qall<Cr>
-    map <silent>  <F7> :qall<Cr>
-    cmap <silent> <F7> <Esc>:qall<Cr>
-    smap <silent> <F7> <Esc>:qall<Cr>
+    imap <S-F6> <Esc>:qall<Cr>
+    map <S-F6> :qall<Cr>
+    cmap <S-F6> <Esc>:qall<Cr>
+    smap <S-F6> <Esc>:qall<Cr>
 
     imap <silent> <F8> <Esc>:enew<Cr>
     map <F8> :enew<Cr>
-    imap <silent> <F9> <Esc>:w<Cr>
+    imap <F9> <Esc>:w<Cr>l
     map <F9> :w<Cr>
 
     " Toggle File Tree:
@@ -309,13 +342,13 @@ if exists('g:tabSystem') && g:tabSystem == 'wintabs'
     " Find In File Tree:
     " ------------------
     " Insert, Command-line, Lang-Arg
-    lnoremap <silent> <special> <F5> <Esc> :DoFindInExplorer <CR>
+    lnoremap <silent> <special> <S-F3> <Esc> :DoFindInExplorer <CR>
     " Normal
-    nnoremap <silent> <special> <F5> : DoFindInExplorer <CR>
+    nnoremap <silent> <special> <S-F3> : DoFindInExplorer <CR>
     " Visual and Select
-    vnoremap <silent> <special> <F5> <Esc> : DoFindInExplorer <CR>
+    vnoremap <silent> <special> <S-F3> <Esc> : DoFindInExplorer <CR>
     " Operator pending
-    onoremap <silent> <special> <F5> <Esc> : DoFindInExplorer <CR>
+    onoremap <silent> <special> <S-F3> <Esc> : DoFindInExplorer <CR>
 
     " Toggle Focus Between File Tree:
     " ------------------
@@ -359,22 +392,16 @@ else
   endif
 endif
 
-if exists('g:tabSystem') && g:tabSystem == 'wintabs'
-else
-endif
-
-if exists('g:tabSystem') && g:tabSystem == 'wintabs'
-else
-endif
-
-if exists('g:tabSystem') && g:tabSystem == 'wintabs'
-else
-endif
-
 if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
   nnoremap <D-U> :GundoToggle<CR>
+  " Diagnostics.
+  " Quick global shortcuts for toggling the location list or quickfix list
+  nmap <script> <silent> <D-d> :call Toggly(1)<CR>
+  nmap <script> <silent> <D-D> :call Toggly(0)<CR>
 else
   nnoremap <Undo> :GundoToggle<CR>
+  nmap <script> <silent> <F2> :call Toggly(1)<CR>
+  nmap <script> <silent> <S-F2> :call Toggly(0)<CR>
 endif
 
 if exists('g:tabSystem') && g:tabSystem == 'wintabs'
@@ -475,21 +502,6 @@ endfunction
 command -nargs=* DoToggleExplorerFocus :call ToggleExplorerFocus(<f-args>)
 
 
-" NERDTree
-" =========
-" Regular NERDTree bindings (not the NERDTreeTabs bindings)
-" https://stackoverflow.com/questions/23891006/how-to-set-the-cursor-focus-after-toggling-the-nerdtree-in-vim
-if has("gui_running")
-  if has("gui_macvim")
-  endif
-endif
-
-
-" Diagnostics.
-" Quick global shortcuts for toggling the location list or quickfix list
-nmap <script> <silent> <D-d> :call Toggly(1)<CR>
-nmap <script> <silent> <D-D> :call Toggly(0)<CR>
-
 " http://vim.wikia.com/wiki/Get_shortened_messages_from_using_echomsg
 function! s:ShortEcho(msg)
   let saved=&shortmess
@@ -538,7 +550,7 @@ endif
 if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
   autocmd FileType reason map <buffer> <D-C> :ReasonPrettyPrint<Cr>
 else
-  autocmd FileType reason map <buffer> <F10> :ReasonPrettyPrint<Cr>
+  autocmd FileType reason map <buffer> <S-F5> :ReasonPrettyPrint<Cr>
 endif
 
 
@@ -557,7 +569,10 @@ end
 
 
 " Alphabetize on F5
-vmap <F5> :sort ui<Cr>
+if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
+  vmap <F5> :sort ui<Cr>
+else
+endif
 
 
 " Unfortunately the default `<c-c>` won't cause fuf to exit or cancel a search.
@@ -619,68 +634,43 @@ nnoremap <expr> <c-s> ':%s/\<'.expand('<cword>').'\>/'.expand('<cword>').'/g<Lef
 
 " auto change directory of file. (really nice, but not always wanted)
 " autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
-if has("gui_running") " all this for gui use
-    "set number
-    if has("gui_macvim")
-        " =====================================================================
-        " Macy key bindings.
-        " =====================================================================
-        " macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-CR>
-        " This is bound in ~/.vim/.bundlesVimRc
-        " http://lifehacker.com/5280456/hide-your-mac-menu-bar-and-dock-for-a-cleaner-desktop
+if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
+  " =====================================================================
+  " Macy key bindings.
+  " =====================================================================
+  " macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-CR>
+  " This is bound in ~/.vim/.bundlesVimRc
+  " http://lifehacker.com/5280456/hide-your-mac-menu-bar-and-dock-for-a-cleaner-desktop
 
-        " Since it makes sense to make c-d match the mac ox/emacs style forward
-        " delete, c-d can't be (shift left in insert mode). Given that, we can
-        " make a better mac os x combo for indenting and unindenting in insert
-        " mode. That frees up c-t
-        inoremap <D-]> <c-t>
-        inoremap <D-[> <c-d>
+  " Since it makes sense to make c-d match the mac ox/emacs style forward
+  " delete, c-d can't be (shift left in insert mode). Given that, we can
+  " make a better mac os x combo for indenting and unindenting in insert
+  " mode. That frees up c-t
+  inoremap <D-]> <c-t>
+  inoremap <D-[> <c-d>
 
-        " Awesome visual selection maintained when indenting.
-        vmap <D-]> >gv
-        vmap <D-[> <gv
-        " Map Command-# to switch tabs
+  " Awesome visual selection maintained when indenting.
+  vmap <D-]> >gv
+  vmap <D-[> <gv
+  " Map Command-# to switch tabs
 
-        " Some Textmatey Shortcuts:
-        imap <D-S-Enter> <End>;<Cr>
-        imap <D-A> <End>;
+  " Some Textmatey Shortcuts:
+  imap <D-S-Enter> <End>;<Cr>
+  imap <D-A> <End>;
 
-        " Toggle Spell Check Easily:
-        " Need to find a better replacement:
-        " imap <D-P> <Esc>l:set spell!<Cr>
-        " nmap <D-P> :set spell!<Cr>
+  " Toggle Spell Check Easily:
+  " Need to find a better replacement:
+  " imap <D-P> <Esc>l:set spell!<Cr>
+  " nmap <D-P> :set spell!<Cr>
 
-        " Toggle between (Previously Viewed) tab.
-        map <D-P> :LastTab<CR>
-        imap <D-P> <Esc>:LastTab<CR>
+  " Toggle between (Previously Viewed) tab.
+  map <D-P> :LastTab<CR>
+  imap <D-P> <Esc>:LastTab<CR>
 
-        " Look at other deeply integrated mappings in the ~/.gvimrc file.
-        map <D-T> <Esc>:Undoquit<CR>
-
-    endif
-    if has('gui_win32')
-      " space through your tabs!
-      map <M-}> gt
-      " shift-space backwards - doesn't work on terminal, I believe
-      map <M-{> gT
-      imap <M-}> <Esc>gt
-      " shift-space backwards - doesn't work on terminal, I believe
-      imap <M-{> <Esc>gT
-
-      nmap <F13> :q<Cr>
-      imap <F13> <Esc>:q<Cr>
-      nmap <F14> :qall<Cr>
-      imap <F14> <Esc>:qall<Cr>
-      nmap <F17> :tabnew<Cr>
-      imap <F17> <Esc> :tabnew<Cr>
-      vmap <F17> <Esc> :tabnew<Cr>
-      nmap <F16> :w<Cr>
-      imap <F16> <Esc>:w<Cr>l
-      vmap <F16> <Esc>:w<Cr>
-      " Look at other deeply integrated mappings in the ~/.gvimrc file.
-      map <F18> <Esc>:Undoquit<CR>
-    endif
+  " Look at other deeply integrated mappings in the ~/.gvimrc file.
+  map <D-T> <Esc>:Undoquit<CR>
 else
+  " TODO:
 endif
 
 

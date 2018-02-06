@@ -4,24 +4,8 @@ set splitright
 "jump to existing buffer on ANY open command (split/tab/etc).
 let g:ctrlp_switch_buffer="ETVH"
 
-" Assumes autohotkey mappings
-if has("gui_win32")
-  " Open ctrlp with cmd+p
-  let g:ctrlp_map = '<F12>'
-
-  " Open goto symbol on current buffer
-  nmap <F9> :MyCtrlPTag<cr>
-  imap <F9> <esc>:MyCtrlPTag<cr>
-
-  " Open goto symbol on all buffers
-  nmap <F10> :CtrlPBufTagAll<cr>
-  imap <F10> <esc>:CtrlPBufTagAll<cr>
-
-  " Open goto file
-  nmap <F8> :CtrlP<cr>
-  imap <F8> <esc>:CtrlP<cr>
-else
-  " Open ctrlp with cmd+p
+" Open ctrlp with cmd+p
+if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
   let g:ctrlp_map = '<D-p>'
   " Open goto symbol on current buffer
   " Not mapping D-r like sublime/etc so we can use it for refreshing an app.
@@ -33,6 +17,8 @@ else
   " Open goto file
   " nmap <D-t> :CtrlPBuffer<cr>
   " imap <D-t> <esc>:CtrlPBuffer<cr>
+else
+  let g:ctrlp_map = '<F7>'
 endif
 
 " search anything (in files, buffers and MRU files at the same time.)
@@ -57,59 +43,41 @@ let g:ctrlp_max_depth = 7
 let g:ctrlp_max_files = 30000
 
 
-" Exact same mappings as non-win32 but with D-c Replaced with AHK shift+F7
-if has("gui_win32")
-  " See https://github.com/kien/ctrlp.vim/issues/389
-    let g:ctrlp_prompt_mappings = {
-          \ 'CreateNewFile()':      [''],
-          \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
-          \ 'ToggleType(-1)':       ['<c-y>', '<c-down>'],
-          \ 'PrtCurLeft()':         ['<c-b>', '<left>', '<c-^>'],
-          \ 'PrtCurRight()':        ['<c-f>', '<right>'],
-          \ 'AcceptSelection("e")': ['<c-t>'],
-          \ 'AcceptSelection("h")': ['<c-v>'],
-          \ 'AcceptSelection("v")': ['<c-s>'],
-          \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-          \ 'PrtClearCache()':      ['<M-C>'],
-          \ 'PrtDeleteEnt()':       ['<F7>'],
-          \ 'PrtExit()':            ['<c-l>', '<esc>', '<c-c>', '<c-g>'],
-          \ }
+if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+" See https://github.com/kien/ctrlp.vim/issues/389
+  let g:ctrlp_prompt_mappings = {
+        \ 'CreateNewFile()':      [''],
+        \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
+        \ 'ToggleType(-1)':       ['<c-y>', '<c-down>'],
+        \ 'PrtCurLeft()':         ['<c-b>', '<left>', '<c-^>'],
+        \ 'PrtCurRight()':        ['<c-f>', '<right>'],
+        \ 'AcceptSelection("t")': ['<c-t>'],
+        \ 'AcceptSelection("h")': ['<c-v>'],
+        \ 'AcceptSelection("v")': ['<c-s>'],
+        \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+        \ 'PrtClearCache()':      ['<D-C>'],
+        \ 'PrtDeleteEnt()':       ['<F7>'],
+        \ 'PrtExit()':            ['<c-l>', '<esc>', '<c-c>', '<c-g>'],
+        \ }
+
 else
-  if exists('g:tabSystem') && g:tabSystem == 'wintabs'
   " See https://github.com/kien/ctrlp.vim/issues/389
-    let g:ctrlp_prompt_mappings = {
-          \ 'CreateNewFile()':      [''],
-          \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
-          \ 'ToggleType(-1)':       ['<c-y>', '<c-down>'],
-          \ 'PrtCurLeft()':         ['<c-b>', '<left>', '<c-^>'],
-          \ 'PrtCurRight()':        ['<c-f>', '<right>'],
-          \ 'AcceptSelection("t")': ['<c-t>'],
-          \ 'AcceptSelection("h")': ['<c-v>'],
-          \ 'AcceptSelection("v")': ['<c-s>'],
-          \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
-          \ 'PrtClearCache()':      ['<D-C>'],
-          \ 'PrtDeleteEnt()':       ['<F7>'],
-          \ 'PrtExit()':            ['<c-l>', '<esc>', '<c-c>', '<c-g>'],
-          \ }
+  " TODO: Clear cache when not in gui/macvim (when D- isn't available)
+  let g:ctrlp_prompt_mappings = {
+        \ 'CreateNewFile()':      [''],
+        \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
+        \ 'ToggleType(-1)':       ['<c-y>', '<c-down>'],
+        \ 'PrtCurLeft()':         ['<c-b>', '<left>', '<c-^>'],
+        \ 'PrtCurRight()':        ['<c-f>', '<right>'],
+        \ 'AcceptSelection("e")': ['<c-t>'],
+        \ 'AcceptSelection("h")': ['<c-v>'],
+        \ 'AcceptSelection("v")': ['<c-s>'],
+        \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+        \ 'PrtClearCache()':      ['<D-C>'],
+        \ 'PrtDeleteEnt()':       ['<F7>'],
+        \ 'PrtExit()':            ['<c-l>', '<esc>', '<c-c>', '<c-g>'],
+        \ }
 
-  else
-  " See https://github.com/kien/ctrlp.vim/issues/389
-    let g:ctrlp_prompt_mappings = {
-          \ 'CreateNewFile()':      [''],
-          \ 'ToggleType(1)':        ['<c-u>', '<c-up>'],
-          \ 'ToggleType(-1)':       ['<c-y>', '<c-down>'],
-          \ 'PrtCurLeft()':         ['<c-b>', '<left>', '<c-^>'],
-          \ 'PrtCurRight()':        ['<c-f>', '<right>'],
-          \ 'AcceptSelection("e")': ['<c-t>'],
-          \ 'AcceptSelection("h")': ['<c-v>'],
-          \ 'AcceptSelection("v")': ['<c-s>'],
-          \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-          \ 'PrtClearCache()':      ['<D-C>'],
-          \ 'PrtDeleteEnt()':       ['<F7>'],
-          \ 'PrtExit()':            ['<c-l>', '<esc>', '<c-c>', '<c-g>'],
-          \ }
-
-  endif
 endif
 
 " TODO: add javascript and some other languages who doesn't have ctags support

@@ -1,4 +1,6 @@
 set completeopt+=menuone
+
+
 set completeopt-=preview
 
 if has('patch-7.4.784')
