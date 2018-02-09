@@ -24,7 +24,7 @@ if has("gui_macvim") && has("gui_running")
   let activeVimTabChar = '▍'
   " let activeVimTabChar = '▍'
 else
-  let g:wintabs_ui_buffer_name_format=' %t '
+  let g:wintabs_ui_buffer_name_format='  %t '
   let activeVimTabChar = '▍'
   " let activeVimTabChar = '▍'
 endif
