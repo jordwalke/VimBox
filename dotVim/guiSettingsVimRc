@@ -58,6 +58,7 @@ if has("gui_running") " all this for gui use
     set nolazyredraw
     " Change to `1` if your font is patched with webdev icons.
     let g:webdevicons_enable = 0
+    " set ambiwidth=double
   endif
 endif
 " Set your own custom symbols in your ~/.vim/vimrc.custom.after
@@ -69,6 +70,11 @@ endif
 let g:vimBoxLinterErrorSymbol="⮿"
 let g:vimBoxLinterWarningSymbol="⮿"
 let g:vimBoxLinterOkSymbol="☻"
+
+" Some dev-icons that even look okay in MacVim with ambiwidth=single (MacVim
+" has a rendering bug)
+" You can do (if gui macvim render two of these side by side else one.)
+"            
 
 " Make it so the ugly "NonText" characters are hidden at the end of a file
 " (the ~)

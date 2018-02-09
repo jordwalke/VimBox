@@ -7,21 +7,32 @@ let g:wintabs_autoclose_vimtab=1
 let g:wintabs_switchbuf='useopen,usetab'
 let g:wintabs_ui_active_higroup = 'TabLineSel'
 
-
+" TODO: Enable toggling of "patched fonts" at startup.
 
 " If doing some custom rendered GUI use a not-actually space.
 " let intertabSpace= ' '
 let intertabSpace= ' '
 let activeWinTabChar = '|'
 " This must be different to distinguish.
-let activeVimTabChar = '|'
 let activeWinTabChar = '▎'
 " This must be different to distinguish.
-let activeVimTabChar = '▍'
+
+"            
+" MacVim has broken double wide glyphs.
+if has("gui_macvim") && has("gui_running")
+  let g:wintabs_ui_buffer_name_format=' %t '
+  let activeVimTabChar = '▍'
+  " let activeVimTabChar = '▍'
+else
+  let g:wintabs_ui_buffer_name_format=' %t '
+  let activeVimTabChar = '▍'
+  " let activeVimTabChar = '▍'
+endif
+
 let g:wintabs_ui_sep_leftmost=intertabSpace
 let g:wintabs_ui_sep_inbetween=intertabSpace
-let g:wintabs_ui_active_right=intertabSpace
 let g:wintabs_ui_active_left=activeVimTabChar 
+let g:wintabs_ui_active_right=intertabSpace
 let g:wintabs_ui_sep_rightmost=intertabSpace
 let g:wintabs_ui_modified=' ◎'
 let g:wintabs_ignored_filetypes=[]
