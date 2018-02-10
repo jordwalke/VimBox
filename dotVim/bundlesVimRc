@@ -80,7 +80,7 @@ Plug 'jordwalke/VimAutoMakeDirectory'
 
 
 " ======================= Wintabs.vim ==========================================
-Plug 'zefei/vim-wintabs'
+Plug 'jordwalke/vim-wintabs'
 " ==============================================================================
 source ~/.vim/pluginRc/wintabsVimRc
 
@@ -287,10 +287,12 @@ let Grep_Skip_Files = '*.byte *.depends *.cmi *.cmx *.orig *.back *.cmo *.o *~'
 let Grep_Skip_Dirs = 'RCS CVS SCCS _build .git'
 " =============================================================================
 
-
 " ======================= Custom Resizing for SplitBalancer ===================
 " GoldenRatio has some issues with session restore and prevents opening of many windows.
 Plug 'jordwalke/VimSplitBalancer'
+
+" Plug 'megaannum/self'
+" Plug 'megaannum/forms'
 " =============================================================================
 " VimSplitBalancer takes care of it.
 set noequalalways
