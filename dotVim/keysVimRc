@@ -507,7 +507,7 @@ function MaybeCloseWinTab()
     let choice = confirm("File has unsaved changes!", "&Save\n&Cancel\n&Don't Save", 2)
     if choice == 3
       " Don't save: Reset the file then call WintabsClose
-      execute "edit!"
+      execute "silent earlier 1f"
       call wintabs#close()
     elseif choice == 2 || choice == 0
       " Cancel
