@@ -52,3 +52,7 @@ imap <D-W> <nop>
 imap <D-X> <nop>
 imap <D-Y> <nop>
 imap <D-Z> <nop>
+
+" Consider resetting this:
+" It's too easy to hit accidentally when doing :q
+" https://www.reddit.com/r/vim/comments/83t9sp/vim_mystery_mode/
