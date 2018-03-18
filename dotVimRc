@@ -251,6 +251,8 @@ endtry
 " somewhere in your path) - See the base16 docs.
 " let base16colorspace="256"
 set t_Co=256
+" For kitty term
+let &t_ut=''
 
 if (empty($TMUX))
   " ======================================================================
