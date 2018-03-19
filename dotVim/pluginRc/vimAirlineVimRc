@@ -16,7 +16,7 @@ set laststatus=2
 
 function! AirlineInit()
   " This has to be configured after plugins are loaded.
-  call airline#parts#define_condition('ffenc', '&fileformat != "unix" || &fileencoding != "utf-8" && &fileencoding != ""')
+  call airline#parts#define_condition('ffenc', '&fileformat != "unix" || (&fileencoding != "utf-8" && &fileencoding != "")')
   function! GetSyntasticErrors()
     let spc = g:airline_symbols.space
     " Trick: Warning prints one space, error prints two.
@@ -90,6 +90,35 @@ function! AirlineInit()
     return ''
   endfunction
 
+  function! GetEsyProjectStatus()
+    if exists('g:esyProjectManagerPluginLoaded') && g:esyProjectManagerPluginLoaded==1
+      let l:esyLocatedProjectRoot= esy#FetchProjectRootCached()
+      if l:esyLocatedProjectRoot == []
+        return ''
+      else
+        let projectInfo = esy#FetchProjectInfoForProjectRootCached(l:esyLocatedProjectRoot)
+        if (projectInfo == [] || projectInfo[2] == 'no-esy-field')
+          return ''
+        else
+          let l:displayStatus = ""
+          if projectInfo[2] == "uninitialized"
+            let l:displayStatus = " [not installed]"
+          endif
+          if projectInfo[2] == "installed"
+            let l:displayStatus = " [not built]"
+          endif
+          if projectInfo[2] == "invalid"
+            let l:displayStatus = " [invalid project]"
+          endif
+          return esy#ProjectNameOfProjectInfo(l:projectInfo) . l:displayStatus . g:airline_symbols.space . g:airline_right_alt_sep . g:airline_symbols.space
+        endif
+      endif
+    else
+      " No esy plugin installed
+      return ''
+    endif
+  endfunction
+
   call airline#parts#define_function('syntasticErrors', 'GetSyntasticErrors')
   call airline#parts#define_function('syntasticWarnings', 'GetSyntasticWarnings')
   call airline#parts#define_function('syntasticOk', 'GetSyntasticOk')
@@ -97,11 +126,15 @@ function! AirlineInit()
   call airline#parts#define_minwidth('syntasticWarnings', 30)
   " Might need to define a condition here?
   call airline#parts#define_minwidth('syntasticOk', 30)
+
+  call airline#parts#define_function('projectStatus', 'GetEsyProjectStatus')
+  call airline#parts#define_condition('projectStatus', 'GetEsyProjectStatus() != ""')
+  call airline#parts#define_minwidth('projectStatus', 80)
   " let g:airline_section_warning=airline#section#create(['whitespace', 'syntasticWarnings'])
   let g:airline_section_warning=airline#section#create(['syntasticWarnings'])
   let g:airline_section_error=airline#section#create(['syntasticErrors'])
   " create doesn't add in between separators - unlike create_right'
-  let g:airline_section_z=airline#section#create(['%3p%%'. g:airline_symbols.space, 'linenr',  ':%3v', 'syntasticOk'])
+  let g:airline_section_z=airline#section#create(['projectStatus', '%3p%%'. g:airline_symbols.space, 'linenr',  ':%3v', 'syntasticOk'])
 endfunction
 augroup VimBoxAirline
   autocmd!
