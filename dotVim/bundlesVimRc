@@ -19,6 +19,12 @@ if !exists('g:one_allow_italics')
 endif
 " ==============================================================================
 
+" https://vi.stackexchange.com/questions/365/is-it-possible-to-use-two-different-color-backgrounds-in-a-single-vim-buffer
+" Plug 'chrisbra/DynamicSigns'
+
+" TODO: Fork this plugin to always highlight NERDTree buffers a different
+" background color.
+" Plug 'blueyed/vim-diminactive'
 
 " ========================== Bracketed Paste ===================================
 " Something not working with this. Maybe the open PRs fix it.
@@ -80,7 +86,11 @@ Plug 'jordwalke/VimAutoMakeDirectory'
 
 
 " ======================= Wintabs.vim ==========================================
-Plug 'jordwalke/vim-wintabs'
+" TODO: Don't even ask the option to save unsaved changes for unnamed buffers
+" if in console mode since there's no file browser. Just give options to not
+" save or cancel close.
+" Plug 'jordwalke/vim-wintabs'
+Plug 'jordwalke/vim-wintabs', { 'branch': 'PreFilter' }
 " ==============================================================================
 source ~/.vim/pluginRc/wintabsVimRc
 
@@ -257,7 +267,8 @@ source ~/.vim/pluginRc/nerdTreeVimRc
 
 " ============================= VimReson =======================================
 " Plug 'reasonml/vim-reason-loader'
-Plug 'chenglou/vim-reason'
+" Plug 'chenglou/vim-reason'
+Plug 'jordwalke/vim-reason'
 source ~/.vim/pluginRc/vimReasonVimRc
 let g:merlin_split_method = "vertical"
 let g:merlin_completion_dwim=0
