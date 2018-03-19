@@ -52,6 +52,11 @@
 " mappings.
 " http://vim.wikia.com/wiki/Use_Ctrl-O_instead_of_Esc_in_insert_mode_mappings
 
+
+" TODO: Map D-l keys for terminal.
+" TODO: Map D-f to /
+" TODO: Map D-F to :Far
+
 nnoremap <expr> <D-J> &diff ? ']c' : '<C-W>j'
 nnoremap <expr> <D-K> &diff ? '[c' : '<C-W>k'
 nmap <D-H> <c-w><c-h>
@@ -194,6 +199,8 @@ nmap <s-Tab> <c-w><s-w>
 "
 " TODO:
 " Command+Shift+t
+" Command+f
+" Command+shift+f
 
 if exists('g:tabSystem') && g:tabSystem == 'wintabs'
   imap <silent>  <c-Tab> <Esc>:WintabsNext<Cr>
@@ -242,10 +249,11 @@ if exists('g:tabSystem') && g:tabSystem == 'wintabs'
 
     " .gvimrc would have properly unmapped D-w from File menu.
     " Don't want a <silent> mapping though - need to know about errors
-    imap <D-w> <Esc>:WintabsClose<Cr>
-    map  <D-w> :WintabsClose<Cr>
+    imap <D-w> <esc>:WintabsClose<cr>
+    noremap  <D-w> :WintabsClose<Cr>
     cmap <D-w> <Esc>:WintabsClose<Cr>
     smap <D-w> <Esc>:WintabsClose<Cr>
+
     imap <D-n> <Esc>:enew<Cr>
     map <D-n> :enew<Cr>
 
@@ -313,20 +321,20 @@ if exists('g:tabSystem') && g:tabSystem == 'wintabs'
     " If you use iterm to map command+w to "Send Vim Keys" \<M-w> this is what
     " you get.
     " Don't want a <silent> mapping though - need to know about errors
-    inoremap <silent> <F6> <Esc> :DoMaybeCloseWinTab <Cr>
-    noremap <silent> <F6> :DoMaybeCloseWinTab <Cr>
-    cmap <silent> <F6> <Esc>:DoMaybeCloseWinTab <Cr>
-    smap <silent> <F6> <Esc>:DoMaybeCloseWinTab <Cr>
+    inoremap <silent> <F6> <Esc>:WintabsClose <Cr>
+    noremap <silent> <F6> :WintabsClose <Cr>
+    cmap <silent> <F6> <Esc>:WintabsClose <Cr>
+    smap <silent> <F6> <Esc>:WintabsClose <Cr>
+    imap <silent> <F8> <Esc>:enew<Cr>
+    map <F8> :enew<Cr>
+    imap <F9> <Esc>:w<Cr>l
+    map <F9> :w<Cr>
 
     imap <S-F6> <Esc>:qall<Cr>
     map <S-F6> :qall<Cr>
     cmap <S-F6> <Esc>:qall<Cr>
     smap <S-F6> <Esc>:qall<Cr>
 
-    imap <silent> <F8> <Esc>:enew<Cr>
-    map <F8> :enew<Cr>
-    imap <F9> <Esc>:w<Cr>l
-    map <F9> :w<Cr>
 
     " Toggle File Tree:
     " ------------------
@@ -568,7 +576,17 @@ endif
 
 " Command Shift C triggers reformatting, like Nuclide.
 if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
-  autocmd FileType reason map <buffer> <D-C> :ReasonPrettyPrint<Cr>
+  autocmd FileType reason noremap <buffer> <D-C> :ReasonPrettyPrint<Cr>
+  autocmd FileType reason inoremap <buffer> <D-C> <Esc>:ReasonPrettyPrint<Cr>
+else
+  autocmd FileType reason noremap <buffer> <S-F5> :ReasonPrettyPrint<Cr>
+  autocmd FileType reason inoremap <buffer> <S-F5> <Esc>:ReasonPrettyPrint<Cr>
+endif
+
+" Command F triggers find, like Nuclide.
+if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
+  imap <D-f> <Esc>/
+  noremap <D-f> <Esc>/
 else
   autocmd FileType reason map <buffer> <S-F5> :ReasonPrettyPrint<Cr>
 endif
