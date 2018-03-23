@@ -49,7 +49,6 @@ Installation:
 
         # Alternatively, if you'd rather install via `brew`
         brew install macvim --with-cscope --python --HEAD
-        brew linkapps    # Put the app in your /Applications directory
 
 3. Clone `VimBox` wherever you like to keep your github clones
 
