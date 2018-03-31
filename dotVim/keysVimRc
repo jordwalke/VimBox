@@ -202,7 +202,7 @@ nmap <s-Tab> <c-w><s-w>
 " Command+f
 " Command+shift+f
 
-if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+if g:vimBoxTabSystem == 'wintabs'
   imap <silent>  <c-Tab> <Esc>:WintabsNext<Cr>
   imap <silent> <c-S-Tab> <Esc>:WintabsPrevious<Cr>
   nmap <silent> <c-Tab> :WintabsNext<Cr>
@@ -412,7 +412,7 @@ else
   nmap <script> <silent> <S-F2> :call Toggly(0)<CR>
 endif
 
-if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+if g:vimBoxTabSystem == 'wintabs'
   " space through your tabs!
   map <silent> <Space> :WintabsNext<Cr>
   if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')

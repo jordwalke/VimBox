@@ -39,7 +39,7 @@ if has('gui')
 
 
     macmenu &File.New\ Window key=<D-N>
-    if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+    if g:vimBoxTabSystem == 'wintabs'
       " Let the vim keybindings handle it.
       macmenu &File.Close key=<nop>
       macmenu  Window.Select\ Next\ Tab	key=<nop>

@@ -122,6 +122,8 @@ if filereadable(expand("~/.vim/vimrc.custom.before"))
   source ~/.vim/vimrc.custom.before
 endif
 
+source ~/.vim/vimrc.defaults.before
+
 set noswapfile     " Don't make backups.
 set nowritebackup " Even if you did make a backup, don't keep it around.
 set nobackup

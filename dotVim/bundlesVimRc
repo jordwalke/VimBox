@@ -231,7 +231,7 @@ Plug 'jordwalke/VimCloser'
 
 " =============================== SmartGUITabs =================================
 " Plug 'jordwalke/MacVimSmartGUITabs'
-if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+if g:vimBoxTabSystem == 'wintabs'
   " " Make sure to have `set guioptions+=e` in your `.gvimrc`.
   set showtabline=2
 else
@@ -268,7 +268,8 @@ source ~/.vim/pluginRc/nerdTreeVimRc
 " ============================= VimReson =======================================
 " Plug 'reasonml/vim-reason-loader'
 " Plug 'chenglou/vim-reason'
-Plug 'jordwalke/vim-reason'
+" Plug 'jordwalke/vim-reason'
+Plug '/Users/jwalke/github/vim-reason'
 source ~/.vim/pluginRc/vimReasonVimRc
 let g:merlin_split_method = "vertical"
 let g:merlin_completion_dwim=0
@@ -309,13 +310,18 @@ Plug 'jordwalke/VimSplitBalancer'
 set noequalalways
 
 " =================== Web Dev Icons ===========================================
-" Plug 'ryanoasis/vim-devicons'
-" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-" let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
-" let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-" let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
-" let g:DevIconsDefaultFolderOpenSymbol = ''
-" let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
+Plug 'ryanoasis/vim-devicons'
+let g:webdevicons_enable_airline_statusline = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFolderPatternMatching = 0
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:DevIconsDefaultFolderOpenSymbol = ''
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
 " Use the nerdtree arrows instead
 " let g:NERDTreeDirArrowExpandable = ' '
 " let g:NERDTreeDirArrowCollapsible = ' '
@@ -327,7 +333,7 @@ set noequalalways
 
 " ======================= A lighterweight Powerline ============================
 
-if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+if g:vimBoxTabSystem == 'wintabs'
   let g:airline_statusline_ontop=1
 endif
 " Plug 'vim-airline/vim-airline'
@@ -367,7 +373,6 @@ let g:airline#extensions#quickfix#location_text = 'Diagnostics'
 " autocmd FileType ocaml sign define dummy
 " autocmd FileType ocaml execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
 " ==============================================================================
-let g:airline#extensions#whitespace#trailing_format = ' '
 
 
 

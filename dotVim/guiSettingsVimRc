@@ -11,7 +11,7 @@ if has("gui_running") " all this for gui use
   set guioptions-=l "remove scrollbars
   set guioptions-=L "remove scrollbars
   set guioptions-=T " Remove toolbars
-  if exists('g:tabSystem') && g:tabSystem == 'wintabs'
+  if exists('g:vimBoxTabSystem') && g:vimBoxTabSystem == 'wintabs'
     set guioptions-=e
   else
   endif
@@ -57,7 +57,11 @@ if has("gui_running") " all this for gui use
     " For iosevka to render perfectly in macvim, linespace -1
     set nolazyredraw
     " Change to `1` if your font is patched with webdev icons.
-    let g:webdevicons_enable = 0
+    if g:vimBoxUseDevIcons==1
+      let g:webdevicons_enable = 1
+    else
+      let g:webdevicons_enable = 0
+    endif
     " set ambiwidth=double
   endif
 endif
