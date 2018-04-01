@@ -1,0 +1,21 @@
+{
+  "gui.win32.*": {
+    "settings": {
+      "fileformats": "unix,dos"
+    }
+  },
+  "gui.macvim.*": {
+    "vim": {
+      "settings": {
+        "set": [
+          "nolazyredraw"
+        ],
+        "macvim_skip_colorscheme": 1,
+        "transparency": 0,
+        "fuoptions": "maxvert,maxhorz",
+        "NOTES": "The following is how you set a special linespace *per* font:",
+        "guifont": "PragmataPro:h12,Essential\ PragmataPro:h12,iosevka:h12"
+      }
+    }
+  }
+}

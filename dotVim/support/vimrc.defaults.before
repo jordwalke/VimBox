@@ -1,0 +1,10 @@
+let g:vimBox_useDevIcons = 0
+" Should be based on version of MacVim if macvim, else assume true for
+" terminals.
+if has("gui_macvim") && has("gui_running")
+  let g:vimBox_supportsDoubleWide = 0
+else
+  let g:vimBox_supportsDoubleWide = 1
+endif
+" You can configure this to 'wintab'
+let g:vimBox_tabSystem = 'platform'

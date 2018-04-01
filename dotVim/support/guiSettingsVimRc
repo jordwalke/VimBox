@@ -11,7 +11,7 @@ if has("gui_running") " all this for gui use
   set guioptions-=l "remove scrollbars
   set guioptions-=L "remove scrollbars
   set guioptions-=T " Remove toolbars
-  if exists('g:vimBoxTabSystem') && g:vimBoxTabSystem == 'wintabs'
+  if exists('g:vimBox_tabSystem') && g:vimBox_tabSystem == 'wintabs'
     set guioptions-=e
   else
   endif
@@ -57,7 +57,7 @@ if has("gui_running") " all this for gui use
     " For iosevka to render perfectly in macvim, linespace -1
     set nolazyredraw
     " Change to `1` if your font is patched with webdev icons.
-    if g:vimBoxUseDevIcons==1
+    if g:vimBox_useDevIcons==1
       let g:webdevicons_enable = 1
     else
       let g:webdevicons_enable = 0
@@ -71,9 +71,9 @@ endif
 " Some fonts require setting ambiwidth=double
 " ☻  ⬢  ⬡ ⍟⨷  ⮾  ⮿  ⏣  ⬣  ⌾ ★  ☆ ✩ ✪  ⭑⭑⭑ ☒  ☑  ⮽  ✖✖ ✖✖✖ ✖    ⛆
 " ⛆ ☁ ⛈ ⛆
-let g:vimBoxLinterErrorSymbol="⮿"
-let g:vimBoxLinterWarningSymbol="⮿"
-let g:vimBoxLinterOkSymbol="☻"
+let g:vimBox_linterErrorSymbol="⮿"
+let g:vimBox_linterWarningSymbol="⮿"
+let g:vimBox_linterOkSymbol="☻"
 
 " Some dev-icons that even look okay in MacVim with ambiwidth=single (MacVim
 " has a rendering bug)

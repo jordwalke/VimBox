@@ -1,4 +1,4 @@
-"
+:"
 "						*map-overview* *map-modes*
 "
 "   Overview of which map command works in which mode.  More details below.
@@ -72,18 +72,22 @@ imap <C-Cr> <Left><Right><Cr>
 
 " ==== My favorite way of avoiding the escape key - feel free to delete all this
 " == c-l escapes and saves, avoid the pinky stretch
-vmap <C-l> <Esc><Cr>
+" This isn't doing anything the 'map' isn't doing
+" vmap <C-l> <Esc><Cr>
 " This binding would normally be better - and wouldn't move the cursor etc,
 " but c-o is used natively by popup menus so it doesn't work when popups are
 " open.
 " Noremap to not get tripped up by C-O being remapped.
 " inoremap <silent> <C-l> <c-o>:stopinsert<CR>
+" inoremap <silent> <C-l> <c-\><c-o>:stopinsert<CR>
 imap <c-l> <Esc>l
 map <c-l> <Esc>
 "while selecting (for use in snippets c-l cancels out)
 smap <C-l> <Esc>
 " While commanding
 cmap <C-l> <C-c>
+
+
 
 " Also applies to other modal overlays constructed.
 let g:playWellWithFuzzyFinder = 0
@@ -202,7 +206,7 @@ nmap <s-Tab> <c-w><s-w>
 " Command+f
 " Command+shift+f
 
-if g:vimBoxTabSystem == 'wintabs'
+if g:vimBox_tabSystem == 'wintabs'
   imap <silent>  <c-Tab> <Esc>:WintabsNext<Cr>
   imap <silent> <c-S-Tab> <Esc>:WintabsPrevious<Cr>
   nmap <silent> <c-Tab> :WintabsNext<Cr>
@@ -290,7 +294,6 @@ if g:vimBoxTabSystem == 'wintabs'
     vnoremap <silent> <special> <C-\> <Esc> : DoToggleExplorerFocus <CR>
     " Operator pending
     onoremap <silent> <special> <C-\> <Esc> : DoToggleExplorerFocus <CR>
-
   else
     " Can't get these mapped in terminals.
     " imap <silent> <M-}> <Esc> :WintabsNext<Cr>
@@ -412,7 +415,7 @@ else
   nmap <script> <silent> <S-F2> :call Toggly(0)<CR>
 endif
 
-if g:vimBoxTabSystem == 'wintabs'
+if g:vimBox_tabSystem == 'wintabs'
   " space through your tabs!
   map <silent> <Space> :WintabsNext<Cr>
   if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
@@ -564,6 +567,7 @@ nmap <script> <silent> <D-r> :RunCmdOrShowErrorNicelyCmd ./runFromEditor.sh<CR>
 "
 " http://stackoverflow.com/questions/11940801/mapping-esc-in-vimrc-causes-bizzare-arrow-behaviour
 function! UnhighlightMerlinIfDefined()
+  echo ''
   if exists(":MerlinClearEnclosing")
     execute "MerlinClearEnclosing"
   endif
@@ -706,7 +710,10 @@ if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
   imap <D-P> <Esc>:LastTab<CR>
 
   " Look at other deeply integrated mappings in the ~/.gvimrc file.
-  map <D-T> <Esc>:Undoquit<CR>
+  nnoremap <D-T> <Esc>:WintabsUndo<CR>
+  vnoremap <D-T> <Esc>:WintabsUndo<CR>
+  inoremap <D-T> <Esc>:WintabsUndo<CR>
+  onoremap <D-T> <Esc>:WintabsUndo<CR>
 else
   " TODO:
 endif

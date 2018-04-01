@@ -25,20 +25,36 @@ snippet l "let x ...;" !
 let ${1:binding} = $0;
 endsnippet
 
-snippet lf "let f x ...;" !
-let ${1:binding} ${2:arg} => $0;
+# snippet lf "let f x ...;" !
+# let ${1:binding} = ${2:arg} => $0;
+# endsnippet
+
+
+snippet lf "let f = x => {...};" !
+let ${1:name} =`!p snip.rv = ' (' if '(' not in t[2] and (':' in t[2] or ' ' in t[2] or ',' in t[2] or '~' in t[2]) else ' '`${2:pat}`!p snip.rv = ') ' if '(' not in t[2] and (':' in t[2] or ' ' in t[2] or ',' in t[2] or '~' in t[2]) else ' '`=> {
+	${3:${VISUAL:();}}
+};
 endsnippet
 
-snippet lam "let f x ...;" !
-fun ${1:arg} => $0
+# snippet lam "let f x ...;" !
+# ${1:arg} => $0
+# endsnippet
+snippet lam "x => {...};" !w
+`!p snip.rv = ' (' if '(' not in t[1] and (':' in t[1] or ' ' in t[1] or ',' in t[1] or '~' in t[1]) else ' '`${1:pat}`!p snip.rv = ') ' if '(' not in t[1] and (':' in t[1] or ' ' in t[1] or ',' in t[1] or '~' in t[1]) else ' '`=> {
+	${2:${VISUAL:();}}
+}
 endsnippet
 
-snippet lam; "let f x ...;" !
-fun ${1:arg} => $0;
+snippet lam; "x => {...};" !w
+`!p snip.rv = ' (' if '(' not in t[1] and (':' in t[1] or ' ' in t[1] or ',' in t[1] or '~' in t[1]) else ' '`${1:pat}`!p snip.rv = ') ' if '(' not in t[1] and (':' in t[1] or ' ' in t[1] or ',' in t[1] or '~' in t[1]) else ' '`=> {
+	${2:${VISUAL:();}}
+};
 endsnippet
 
-snippet lam, "let f x ...;" !
-fun ${1:arg} => $0,
+snippet lam, "x => {...};" !w
+`!p snip.rv = ' (' if '(' not in t[1] and (':' in t[1] or ' ' in t[1] or ',' in t[1] or '~' in t[1]) else ' '`${1:pat}`!p snip.rv = ') ' if '(' not in t[1] and (':' in t[1] or ' ' in t[1] or ',' in t[1] or '~' in t[1]) else ' '`=> {
+	${2:${VISUAL:();}}
+},
 endsnippet
 
 snippet t "type ...;" !
@@ -47,7 +63,7 @@ endsnippet
 
 snippet m "module Name = {};" !w
 module ${1:ModuleName} = {
-	$0
+	${2:${VISUAL}}
 };
 endsnippet
 
@@ -59,11 +75,11 @@ endsnippet
 
 
 snippet time "Sys.time() wraper" !w
-let startSeconds = Sys.time ();
+let startSeconds = Sys.time();
 ${VISUAL}
 $0
-let endSeconds = Sys.time ();
-Printf.printf "\nTotal ms (${1:Title}): %d\n" (int_of_float ((endSeconds -. startSeconds) *. 1000.0));
+let endSeconds = Sys.time();
+Printf.printf("\nTotal ms (${1:Title}): %d\n",(int_of_float ((endSeconds -. startSeconds) *. 1000.0)));
 endsnippet
 
 
@@ -75,26 +91,34 @@ print_newline ();
 endsnippet
 
 # Cleverly evaporates the semicolon if you continue with an else
+# snippet while "while exrp {}" !w
+# while`!p snip.rv = ' (' if ' ' in t[1] else ' '`${1:expr}`!p snip.rv = ')' if ' ' in t[1] else ''` {
+#   $0;
+# };
+# endsnippet
+
 snippet while "while exrp {}" !w
-while`!p snip.rv = ' (' if ' ' in t[1] else ' '`${1:expr}`!p snip.rv = ')' if ' ' in t[1] else ''` {
-	$0;
+while`!p snip.rv = ' ('`${1:expr}`!p snip.rv = ')'` {
+	$0
 };
 endsnippet
 
+# To make it so the visual mode is not a stopping point.
+#	${VISUAL}`!p snip.rv = ';' if not snip.v.text else ''`
 snippet for "for i in x to y {}" !w
-for ${1:i} in ${2:first} to ${3:last} {
-	$0;
+for (${1:i} in ${2:first} to ${3:last}) {
+	${4:${VISUAL:();}}
 };
 endsnippet
 
 # Cleverly evaporates the semicolon if you continue with an else
 snippet if "if else" !w
-if`!p snip.rv = ' (' if ' ' in t[1] else ' '`${1:expr}`!p snip.rv = ')' if ' ' in t[1] else ''` {
-	${2:thenExpr};
-}${3: else}`!p snip.rv = '' if t[3] else ';'`$0
+if`!p snip.rv = ' ('`${1:expr}`!p snip.rv = ')'` {
+	${2:${VISUAL:();}}
+}${3: else {$0}};
 endsnippet
 
-snippet else "if else" !w
+snippet else "else" !w
 else {
 	${1:thenExpr};
 };$0
@@ -154,7 +178,7 @@ endsnippet
 priority 100
 
 snippet "else if" "if else" !w
-else if`!p snip.rv = ' (' if ' ' in t[1] else ' '`${1:expr}`!p snip.rv = ')' if ' ' in t[1] else ''` {
+else if(${1:expr}) {
 	${2:thenExpr};
 }${3: else}`!p snip.rv = '' if t[3] else ';'`$0
 endsnippet

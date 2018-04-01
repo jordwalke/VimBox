@@ -1,0 +1,100 @@
+{
+  "*": {
+    "installer": {
+      "config": {
+        "user": "file:$vimBoxUserPluginDir",
+        "toggly": "file:$vimBoxStockPluginsDir/toggly",
+        "taste": "file:$vimBoxStockPluginsDir/vim-taste",
+        "platformyKeys": "file:$vimBoxStockPluginsDir/vim-platformyKeys",
+        "megaEscape": "file:$vimBoxStockPluginsDir/vim-megaEscape",
+        "paneKeys": "file:$vimBoxStockPluginsDir/vim-paneKeys",
+        "runIt": "file:$vimBoxStockPluginsDir/vim-runIt",
+        "wintabsKeys": "file:$vimBoxStockPluginsDir/vim-wintabsKeys",
+        "resetKeys": "file:$vimBoxStockPluginsDir/vim-resetKeys",
+        "enhanceTerm": "file:$vimBoxStockPluginsDir/vim-enhanceTerm"
+      }
+    },
+    "vimBox": {
+      "actions": {
+        "reformat": "keys:gg=G",
+        "reformat:description": "Reformats the document"
+      },
+      "config": {
+
+        "useDevIcons": true,
+        "useDevIcons:description": "Use vim dev-icons in UI elements / airline etc.",
+        "useDevIcons:possibleValues": [{"value": true}, {"value": false}],
+
+        "supportsDoubleWide": true,
+        "supportsDoubleWide:description": "Whether or not this version of Vim supports double wide glyph rendering",
+        "supportsDoubleWide:possibleValues": [{"value": true}, {"value": false}],
+
+        "tabSystem": "wintabs",
+        "tabSystem:description": "Style of Window/Split/Tab management to use.",
+        "tabSystem:possibleValues": [
+          {
+            "value": "wintabs",
+            "description": "Places airline at the top of the screen, file navigation on left, and tags at the bottom of each split"
+          },
+          {
+            "value": "standard",
+            "description": "Regular platform tabs are used."
+          }
+        ]
+      },
+      "mappings": {
+        "insert:<C-Cr>": "keys:<Left><Right><Cr>"
+      }
+    },
+    "netrw": {
+      "config": {
+        "dirhistmax": 0
+      }
+    },
+    "vim": {
+      "config": {
+        "swapfile": false,
+        "writebackup": false,
+        "backup": false,
+        "tabstop": 2,
+        "number": false,
+        "mouse": "a",
+        "spell": false,
+        "ignorecase": true,
+        "smartcase": true,
+        "wrap": false,
+        "wrapmargin": 0,
+        "linebreak": false,
+        "hlsearch": true,
+        "formatoptions": "jcroql",
+        "tabstop": 2,
+        "softtabstop": 2,
+        "shiftwidth": 2,
+        "expandtab": true,
+        "infercase": true,
+        "wildmode": "full",
+        "showmatch": true,
+        "visualbell": true,
+        "foldenable": false,
+        "diffopt": "filler,context:9999",
+        "spelllang": "en",
+        "undofile": true,
+        "undodir": "eval:g:vimBoxUndoDir",
+        "fileformats": "unix",
+        "showmode": false,
+        "background": "dark",
+        "colorscheme": "one",
+        "fillchars": "vert: ,diff: "
+      }
+    },
+    "wintabs": {
+      "mappings": {
+        "insert @silent: <c-Tab>": "keys:<c-Tab> <Esc>:WintabsNext<Cr>",
+        "insert @silent: <c-S-Tab>": "keys:<Esc>:WintabsPrevious<Cr>",
+        "normal @silent: <c-S-Tab>": "keys:WintabsPrevious<Cr>",
+        "normal visual select operatorPending @silent:<c-Tab>": "command:WintabsNext",
+        "normal visual select operatorPending @silent:<c-s-Tab>": "command:WintabsPrevious"
+      }
+    }
+  }
+}

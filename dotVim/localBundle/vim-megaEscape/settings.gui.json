@@ -1,0 +1,11 @@
+{
+  "*": {
+    "megaEscape": {
+      "notes": "<c-l> is megaEscape: It's like the iPhone home button for vim.",
+      "notes": "remapping <esc> in terminal causes all kinds of issues",
+      "mappings": {
+        "normal @silent:<esc>": "keys::nohlsearch<return>:MegaEscapeUnhilightEverything<return><esc>"
+      }
+    }
+  }
+}

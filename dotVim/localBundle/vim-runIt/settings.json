@@ -1,0 +1,9 @@
+{
+  "*": {
+    "runIt": {
+      "mappings": {
+        "normal:<D-r>": "command:DoRunCmdOrShowErrorNicelyCmd ./runFromEditor.sh"
+      }
+    }
+  }
+}

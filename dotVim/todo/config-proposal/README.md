@@ -437,6 +437,58 @@ well.
 }
 ```
 
+## Lifecycle:
+One challenge is when the `vim-box` plugin wants to have a high level setting
+like `vimBox.settings.tabSystem`, which would control many other settings in
+other plugins. `vimAirline` already has a setting for
+`vimAirline.settings.statusOnTop`, and `vim-box` plugin overrides that, when
+`vimBox.settings.tabSystem`==`wintabs`(which is also its default).
+Also, the user can set an override for both `vimBox.settings.tabSystem` and
+`vimAirline.settings.statusOnTop`.
+
+When the use changes `vimBox.settings.tabSystem` , the `vim-box` plugin needs
+to have its notification method invoked (which by convention we will assumed to
+be named `vimBox#ConfigChanged()`).
+
+Also, plugins should get a chance to run a larger process while initializing,
+before their dependencies get to initialize. This would let them set default
+values using complicated processes. It's good to make this explicit from the
+config though.
+Like: `"valueEval": "vim-box#computeDefault()"`.
+Plugins can configure whatever they want using whatever complicated functions
+they want, but they need to be exposed to the .json so that config merges can
+happen.
+
+    "vim": {
+      "fillchars":"vert:\ ,diff:\ ",
+
+      "guioptions": {"valueEval": "vimBox#GetGuiOptions()"},
+      "set": [
+        "noshowmode"
+      ]
+    },
+
+
+And shouldn't that computation even be bypassed if some other config later
+overrides it? I believe so.
+
+Once all the config is determined, *then* each plugin should be notified of all
+the config at once. Perhaps a lifecycle event like
+`plugin-name#SetAllConfig()`.  Maybe that should be the *only* way that plugins
+receive any config change even if the user/scripts can set them individually.
+One set can cascade into many.
+
+
+Any plugin that wants to set another plugin's (or vim's) config in a special
+hook should go through the official setting API which will be batched, and
+resolve all config.
+If `my-plugin` has a hook `myPlugin#configChanged(key, val)`, which is called by
+vim-box and in that implementation it needs to set some *other* setting based
+on that config key (it acts as a high level config key), then it shouldn't just
+set the setting, it should call `Config("otherPlugin.settings.xyz", "value")`
+which will resolve that setting with any user overrides before notifying
+`otherPlugin`.
+
 ## How Do Plugins Get Loaded?
 
 ## Refering To Other Plugins Config From Within Config:

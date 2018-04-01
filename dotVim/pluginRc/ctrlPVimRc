@@ -43,7 +43,7 @@ let g:ctrlp_max_depth = 7
 let g:ctrlp_max_files = 30000
 
 
-if g:vimBoxTabSystem == 'wintabs'
+if g:vimBox_tabSystem == 'wintabs'
 " See https://github.com/kien/ctrlp.vim/issues/389
   let g:ctrlp_prompt_mappings = {
         \ 'CreateNewFile()':      [''],

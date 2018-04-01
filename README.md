@@ -15,7 +15,6 @@
   <li><h5>Familiar autocomplete behavior</h5></li>
   <li><h5>JavaScript indentation and lint support</h5></li>
   <li><h5>Snippets (with JavaScript examples)</h5></li>
-  <li><h5>Spacegray theme with matching app icon.</h5></li>
 </ul>
 </td>
 </tr>

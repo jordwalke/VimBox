@@ -1,0 +1,29 @@
+{
+  "*": {
+    "wintabs": {
+      "mappings": {
+        "insert @silent: <c-Tab>": "keys:<c-Tab> <Esc>:WintabsNext<Cr>",
+        "insert @silent: <c-S-Tab>": "keys:<Esc>:WintabsPrevious<Cr>",
+        "normal @silent: <c-S-Tab>": "keys:WintabsPrevious<Cr>",
+        "normal visual select operatorPending @silent:<c-Tab>": "command:WintabsNext",
+        "normal visual select operatorPending @silent:<c-s-Tab>": "command:WintabsPrevious",
+        "normal visual select operatorPending @silent:<space>": "command:WintabsNext",
+        "normal visual select operatorPending @silent:<s-space>": "command:WintabsPrevious",
+        "all:<D-}>":"command:WintabsNext",
+        "all:<D-{>":"command:WintabsPrevious",
+        "all:<D-1>":"command:WintabsGo 1",
+        "all:<D-2>":"command:WintabsGo 2",
+        "all:<D-3>":"command:WintabsGo 3",
+        "all:<D-4>":"command:WintabsGo 4",
+        "all:<D-5>":"command:WintabsGo 5",
+        "all:<D-6>":"command:WintabsGo 6",
+        "all:<D-7>":"command:WintabsGo 7",
+        "all:<D-8>":"command:WintabsGo 8",
+        "all:<D-9>":"command:WintabsGo 9",
+        "all:<D-w>":"command:WintabsClose",
+        "all:<D-n>":"command:enew"
+      }
+    }
+  }
+}
+

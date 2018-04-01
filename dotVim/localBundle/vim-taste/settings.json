@@ -1,0 +1,11 @@
+{
+  "*": {
+    "element": {
+      "config": {
+        "dark_brightness": 2,
+        "light_brightness": 2,
+        "allow_italics": true
+      }
+    }
+  }
+}

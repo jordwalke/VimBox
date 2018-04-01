@@ -1,6 +1,6 @@
 " Overwrite this file with whatever you want. This will be executed before
 " loading any of the stock bundles/settings.
 " - You can load bundles using `NeoBundle` commands here.
-let g:vimBoxUseDevIcons = 1
-let g:vimBoxSupportsDoubleWide = 1
-let g:vimBoxTabSystem = 'wintabs'
+let g:vimBox_useDevIcons = 1
+let g:vimBox_supportsDoubleWide = 1
+let g:vimBox_tabSystem = 'wintabs'

@@ -21,3 +21,10 @@ The SketchApp sources to the icon are also included in the
 The colorscheme in dotVim/colors/vimboxColorsDurintLoad.vim
 was coppied from https://github.com/rakr/vim-one
 and vendored just to show something nice while plugins load.
+
+`dotVim/localBundle/json-ponyfill` was included from
+[https://github.com/retorillo/json-ponyfill.vim.git](this project)(MIT).
+
+The color utilities in `dotVim/localBundle/color-tools/` were combined from
+[vim-one](https://github.com/rakr/vim-one) as well as
+[vim-airline](https://github.com/vim-airline/vim-airline).

@@ -1,8 +1,8 @@
-if g:vimBoxTabSystem=='wintabs'
+if g:vimBox_tabSystem=='wintabs'
   let g:airline_statusline_ontop=1
 endif
 
-if g:vimBoxUseDevIcons
+if g:vimBox_useDevIcons
   let g:airline_powerline_fonts = 1
 endif
 let g:airline_powerline_fonts = 1
@@ -13,6 +13,6 @@ let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 
 " Be warned, Airline whitespace causes CursorHold event which messes up cursor
 " after six blinks.
-let g:airline#extensions#whitespace#enabled = 1
+" let g:airline#extensions#whitespace#enabled = 1
 set laststatus=2
 " Disable truncation

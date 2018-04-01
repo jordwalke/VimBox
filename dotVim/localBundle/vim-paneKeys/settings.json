@@ -1,0 +1,18 @@
+{
+  "*": {
+    "paneKeys": {
+      "notes": "The cmap is required for incsearch to work",
+      "mappings": {
+        "normal:<Tab>": "keys:<c-w><c-w>",
+        "normal:<s-Tab>": "keys:<c-w><s-w>",
+        "@special all:<D-\\>": "command:DoToggleExplorer",
+        "@special all:<D-Bar>": "command:DoFindInExplorer",
+        "all:<C-\\>": "command:DoToggleExplorerFocus",
+        "insert:<D->>": "command:vertical resize +10",
+        "insert:<D-<>":"command:vertical resize -10",
+        "normal:<D->>":"command:vertical resize +10",
+        "normal:<D-<>":"command:vertical resize -10"
+      }
+    }
+  }
+}

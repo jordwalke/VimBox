@@ -1,0 +1,13 @@
+{
+  "*": {
+    "megaEscape": {
+      "notes": "<c-l> is megaEscape: It's like the iPhone home button for vim.",
+      "mappings": {
+        "insert @silent:<c-l>": "command:stopinsert",
+        "normalRemapped visualRemapped selectRemapped operatorPendingRemapped:<c-l>":"keys:<Esc>",
+        "selectRemapped:<C-l>": "keys:<Esc>",
+        "commandLine:<C-l>": "keys:<C-c>"
+      }
+    }
+  }
+}

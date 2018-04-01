@@ -1,0 +1,79 @@
+
+  "todo": { 
+    "linterErrorSymbol": {
+      "description": "Character (and degrading fallback) to use to signify errors",
+      "value": ["[ER]", "⮿", ""]
+    },
+    "linterWarningSymbol": {
+      "description": "Character (and degrading fallback) to use to signify warnings",
+      "value": ["[WA]", "⮿", ""]
+    },
+    "linterOkSymbol": {
+      "description": "Character (and degrading fallback) to use to signify success",
+      "value": ["[OK]", "☻", ""]
+    },
+    "info": {
+      "description": "Character (and degrading fallback) to use to signify information",
+      "value": ["[i]", "", ""]
+    },
+    "directoryClosed": {
+      "description": "Character (and degrading fallback) to use to signify closed directories",
+      "value": ["", "", ""]
+    },
+    "directoryOpen": {
+      "description": "Character (and degrading fallback) to use to signify open directories",
+      "value": ["", "", ""]
+    },
+    "directoryArrowClosed": {
+      "description": "Character (and degrading fallback) to use to signify closed directories",
+      "value": ["", "", ""]
+    },
+    "directoryArrowOpen": {
+      "description": "Character (and degrading fallback) to use to signify open directories",
+      "value": ["", "", ""]
+    },
+    "project": {
+      "description": "Character (and degrading fallback) to symbolize projects",
+      "value": ["[P]", "", " "]
+    },
+    "extensions": {
+      "description": "Character (and degrading fallback) to symbolize extensions.",
+      "value": ["", "", " "]
+    },
+    "settings": {
+      "description": "Character (and degrading fallback) to symbolize extensions.",
+      "value": ["", "", " "]
+    },
+    "keyboard": {
+      "description": "Character (and degrading fallback) to symbolize keyboard mappings.",
+      "value": ["", "", " "]
+    },
+    "search": {
+      "description": "Character (and degrading fallback) to symbolize searching for things.",
+      "value": ["", "", " "]
+    },
+    "new": {
+      "description": "Character (and degrading fallback) to symbolize creating a new thing.",
+      "value": ["", "", " "]
+    },
+    "delete": {
+      "description": "Character (and degrading fallback) to symbolize deleting a thing.",
+      "value": ["", "", " "]
+    },
+    "themes": {
+      "description": "Character (and degrading fallback) to symbolize color schemes.",
+      "value": ["", "", " "]
+    },
+    "file": {
+      "description": "Character (and degrading fallback) to symbolize an unchanged normal file.",
+      "value": ["", "", " "]
+    },
+    "modifiedFile": {
+      "description": "Character (and degrading fallback) to symbolize a modified file.",
+      "value": ["", "", " "]
+    },
+    "locked": {
+      "description": "Character (and degrading fallback) to symbolize inability to change something.",
+      "value": ["", "", " "]
+    }
+  }

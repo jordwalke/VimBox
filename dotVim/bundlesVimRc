@@ -17,6 +17,7 @@ if !exists('g:one_allow_italics')
   " Italics don't typically render well in terminals
   let g:one_allow_italics = has('gui_running')
 endif
+
 " ==============================================================================
 
 " https://vi.stackexchange.com/questions/365/is-it-possible-to-use-two-different-color-backgrounds-in-a-single-vim-buffer
@@ -44,6 +45,12 @@ Plug 'brooth/far.vim'
 
 " =========================== Bootstrap for Vim ================================
 Plug 'tpope/vim-sensible'
+" ==============================================================================
+
+" =============== Shows Commands With Terminal Highlighting ====================
+let g:no_drchip_menu="nope"
+let g:no_ansiesc_menu="nope"
+Plug 'powerman/vim-plugin-AnsiEsc'
 " ==============================================================================
 
 " ====================== Way better incremental search =========================
@@ -231,7 +238,7 @@ Plug 'jordwalke/VimCloser'
 
 " =============================== SmartGUITabs =================================
 " Plug 'jordwalke/MacVimSmartGUITabs'
-if g:vimBoxTabSystem == 'wintabs'
+if g:vimBox_tabSystem == 'wintabs'
   " " Make sure to have `set guioptions+=e` in your `.gvimrc`.
   set showtabline=2
 else
@@ -268,8 +275,8 @@ source ~/.vim/pluginRc/nerdTreeVimRc
 " ============================= VimReson =======================================
 " Plug 'reasonml/vim-reason-loader'
 " Plug 'chenglou/vim-reason'
-" Plug 'jordwalke/vim-reason'
-Plug '/Users/jwalke/github/vim-reason'
+Plug 'jordwalke/vim-reason'
+" Plug '/Users/jwalke/github/vim-reason'
 source ~/.vim/pluginRc/vimReasonVimRc
 let g:merlin_split_method = "vertical"
 let g:merlin_completion_dwim=0
@@ -290,7 +297,7 @@ Plug 'def-lkb/ocp-indent-vim'
 " See .keysVimRc
 let g:toggly_copen_command="bo copen 15"
 let g:toggly_lopen_command="lopen 10"
-source ~/.vim/pluginRc/toggly/togglyVimRc
+" source ~/.vim/pluginRc/toggly/togglyVimRc
 " =============================================================================
 
 " ======================= Easy Grep ===========================================
@@ -309,23 +316,6 @@ Plug 'jordwalke/VimSplitBalancer'
 " VimSplitBalancer takes care of it.
 set noequalalways
 
-" =================== Web Dev Icons ===========================================
-Plug 'ryanoasis/vim-devicons'
-let g:webdevicons_enable_airline_statusline = 1
-let g:webdevicons_enable_airline_tabline = 1
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFolderPatternMatching = 0
-let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
-let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
-let g:DevIconsEnableFoldersOpenClose = 1
-let g:DevIconsDefaultFolderOpenSymbol = ''
-let g:webdevicons_conceal_nerdtree_brackets = 1
-let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
-" Use the nerdtree arrows instead
-" let g:NERDTreeDirArrowExpandable = ' '
-" let g:NERDTreeDirArrowCollapsible = ' '
-" =============================================================================
 
 " ======================= View Key Mappings ====================================
 " Needs some bug fixes
@@ -333,7 +323,7 @@ let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
 
 " ======================= A lighterweight Powerline ============================
 
-if g:vimBoxTabSystem == 'wintabs'
+if g:vimBox_tabSystem == 'wintabs'
   let g:airline_statusline_ontop=1
 endif
 " Plug 'vim-airline/vim-airline'
@@ -347,6 +337,29 @@ execute 'source '. s:vimPluginConfigDir . '/vimAirlineVimRc'
 
 " ==============================================================================
 
+" =================== Web Dev Icons ===========================================
+let g:webdevicons_enable = 1
+" Explore options here: https://github.com/ryanoasis/nerd-fonts/issues/144
+Plug 'ryanoasis/vim-devicons'
+let g:webdevicons_enable_airline_statusline = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFolderPatternMatching = 0
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:DevIconsDefaultFolderOpenSymbol = ''
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
+" Avoid unnecessary system() calls by hard coding this.
+let g:WebDevIconsOS = 'Darwin'
+" Instead of NERDTree arrows, use these white space chars.
+" These are special white space chars that don't mess up the
+" rest of nerd-tree/devicons. They're not normal whitespace.
+let g:NERDTreeDirArrowExpandable = ' '
+let g:NERDTreeDirArrowCollapsible = ' '
+" =============================================================================
 
 " ==================================== Syntastic ================================
 Plug 'scrooloose/syntastic'
@@ -408,16 +421,25 @@ let g:expand_region_text_objects = {
 
 
 " ================================== Smooth-Scroll =================================
-Plug 'terryma/vim-smooth-scroll'
-"Normal mode
-noremap <silent> <c-u> :call smooth_scroll#up(40, 20, 6)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(40, 20, 6)<CR>
+" Plug 'terryma/vim-smooth-scroll'
+" "Normal mode
+" noremap <silent> <c-u> :call smooth_scroll#up(40, 20, 6)<CR>
+" noremap <silent> <c-d> :call smooth_scroll#down(40, 20, 6)<CR>
 
-" smooth_scroll is broken in visual mode currently - unmap
-vnoremap <silent> <c-u> <c-u>
-vnoremap <silent> <c-d> <c-d>
+" " smooth_scroll is broken in visual mode currently - unmap
+" vnoremap <silent> <c-u> <c-u>
+" vnoremap <silent> <c-d> <c-d>
+
+Plug 'yuttie/comfortable-motion.vim'
+let g:comfortable_motion_no_default_key_mappings = 1
+let g:comfortable_motion_friction = 1.0
+let g:comfortable_motion_air_drag = 10.0
+let g:comfortable_motion_impulse_multiplier = 3  " Feel free to increase/decrease this value.
+nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
+nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
+
+
 " ==============================================================================
-
 
 
 " ================================= Flatlandia ==================================
@@ -536,5 +558,7 @@ let g:gundo_close_on_revert=1
 " ========================== Undo Quit of a window =============================
 Plug 'AndrewRadev/undoquit.vim'
 map <D-T> <Esc>:Undoquit<CR>
+
+
 
 " ==============================================================================

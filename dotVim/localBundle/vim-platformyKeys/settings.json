@@ -1,0 +1,21 @@
+{
+  "*": {
+    "platformyKeys": {
+      "config": {
+        "foo": 0
+      },
+      "notes": "The cmap is required for incsearch to work",
+      "mappings": {
+        "insert:<C-a>": "keys:<c-o>^",
+        "commandLine insert:<C-a>": "keys:<c-o>^",
+        "commandLine insert:<c-e>": "keys:<End>",
+        "commandLine insert:<c-f>": "keys:<Right>",
+        "commandLine insert:<c-b>": "keys:<Left>",
+        "commandLine insert:<c-d>": "keys:<Delete>",
+        "commandLine insert:<c-n>": "keys:<Down>",
+        "commandLine insert:<c-p>": "keys:<Up>",
+        "commandLine:<C-a>": "keys:<Home>"
+      }
+    }
+  }
+}

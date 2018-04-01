@@ -19,7 +19,7 @@ let activeWinTabChar = '▎'
 
 "            
 " MacVim has broken double wide glyphs.
-if !g:vimBoxSupportsDoubleWide
+if !g:vimBox_supportsDoubleWide
   let g:wintabs_ui_buffer_name_format=' %t '
   let activeVimTabChar = '▍'
   " let activeVimTabChar = '▍'

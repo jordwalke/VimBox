@@ -1,6 +1,3 @@
-
-
-
 " ================================================
 "         .__           ___.
 "  ___  __|__|  _____   \_ |__    ____  ___  ___
@@ -27,7 +24,7 @@
 "   Textmate disables font smoothing only for dark backgrounds, but MacVim
 "   only has a global setting. If you use dark backgrounds consider disabling.
 "   https://stackoverflow.com/questions/24598390/macvim-thicker-font-rendering-compared-to-textmate
-"   defaults write org.vim.MacVim AppleFontSmoothing -int 0  
+"   defaults write org.vim.MacVim AppleFontSmoothing -int 0
 "  4. Speed up full screen transition:
 "  defaults write org.vim.MacVim MMFullScreenFadeTime 0.05
 "
@@ -106,6 +103,109 @@
   " echomsg "VimBox works best with Vim8 or newer. Please upgrade your Vim/MacVim"
 " endif
 
+" TODO: This entire file should/could be ejected into the generated Vimrc.
+
+let s:useSettingsSystem = 1
+
+let g:vimBoxIsLoading = 1
+
+let skipGeneration = 0
+
+" Find Location Of VimBox Installation:
+" =====================================
+" From: https://stackoverflow.com/questions/4976776/how-to-get-path-to-the-current-vimscript-being-executed
+" Symlink Resolved Location Of VimBox Installation: (Won't Always Be .vim!):
+let g:vimBoxInitialVimRcPath = resolve(expand('<sfile>:p'))
+let g:vimBoxInstallationRoot = fnamemodify(g:vimBoxInitialVimRcPath, ':h')
+
+" Source The Utilities That Help Us Bootstrap The Startup:
+" ========================================================
+" For some reason these have to be manually sourced even if we only used their contents after plug#end
+" Any functions used in the startup process, even if we've executed plug#end.
+" We first need to manually source this one file which defines all the path utilities.
+execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxUtils.vim"
+" Now go ensure there's a slash on the root using the utilities.
+let g:vimBoxInstallationRoot = EnsureSlash(fnamemodify(g:vimBoxInitialVimRcPath, ':h'))
+let g:vimBoxStockPluginsDir = PathJoinDir(PathJoinDir(g:vimBoxInstallationRoot, 'dotVim'), 'localBundle')
+" VimBox Comes With One Stock Plugin For VimBox: Called the vim-box plugin.
+" For some reason these have to be manually sourced even if we only used their contents after plug#end
+" Any functions used in the startup process, even if we've executed plug#end.
+" We first need to manually source this one file which defines all the path utilities.
+execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxUtils.vim"
+execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxMessage.vim"
+execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxConfig.vim"
+execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBox.vim"
+execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxGeneratedRc.vim"
+
+
+" We will follow the XDG Spec as NeoVim Does:
+" https://github.com/neovim/neovim/issues/78
+" https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+" Cache:
+"     ~/.cache/vim-box/
+" Data: Undo/backup files.
+"     ~/.local/share/vim-box/
+" User Config:
+"     ~/.config/vim-box/
+let g:vimBoxSettingsDefault = PathJoinFile(PathJoinDir(g:vimBoxStockPluginsDir, 'vim-box'), 'settings.json')
+
+" Location Of Home Directory:
+let g:vimBoxHomeDir = $HOME . _VimBoxSlashFor( $HOME )
+
+" Some XDG Defaults:
+let g:vimBoxDefaultCacheDir = PathJoinDir(g:vimBoxHomeDir, '.cache')
+let g:vimBoxDefaultDataDir = PathJoinDir(PathJoinDir(g:vimBoxHomeDir, '.local'), 'share')
+let g:vimBoxDefaultConfigDir = PathJoinDir(g:vimBoxHomeDir, '.config')
+
+" Where Cache Files Should Be Stored: (Default $HOME/.cache):
+let g:vimBoxXdgCacheDir = exists('$XDG_CACHE_HOME') ? PathJoinDir($XDG_CACHE_HOME, 'vim-box') : PathJoinDir(g:vimBoxDefaultCacheDir, 'vim-box')
+" Where User Specific Data Files Should Be Written: (undo/backup files) (Default $HOME/.local/share):
+let g:vimBoxXdgDataDir = exists('$XDG_DATA_HOME') ? PathJoinDir($XDG_DATA_HOME, 'vim-box') : PathJoinDir(g:vimBoxDefaultDataDir, 'vim-box')
+" Where User Specific Configuration Should Be Stored: (Default $HOME/.config)
+let g:vimBoxXdgConfigDir = exists('$XDG_CONFIG_HOME') ? PathJoinDir($XDG_CONFIG_HOME, 'vim-box') : PathJoinDir(g:vimBoxDefaultConfigDir, 'vim-box')
+
+" TODO: This should be sourced from the location of current vim script so that
+" you can use VimBox without having to install it over your old vim install.
+let g:vimBoxUndoDir = PathJoinDir(g:vimBoxXdgDataDir, 'undo')
+let g:vimBoxSessionDir = PathJoinDir(g:vimBoxXdgDataDir, 'vim_sessions')
+let g:vimBoxLogsDir = PathJoinDir(g:vimBoxXdgDataDir, 'logs')
+let g:vimBoxPluginInstallDir = PathJoinFile(g:vimBoxXdgDataDir, 'bundle')
+if !isdirectory(g:vimBoxUndoDir)
+  call mkdir(g:vimBoxUndoDir, "p")
+endif
+if !isdirectory(g:vimBoxSessionDir)
+  call mkdir(g:vimBoxSessionDir, "p")
+endif
+if !isdirectory(g:vimBoxLogsDir)
+  call mkdir(g:vimBoxLogsDir, "p")
+endif
+let g:vimBoxLogsCurrentSession = PathJoinFile(g:vimBoxLogsDir, strftime("%F"))
+" The automatically generated vimrc file based on config. Useful for reproing
+" and sharing.
+let g:vimBoxGeneratedRc = PathJoinFile(g:vimBoxXdgCacheDir, ".generated.vimrc")
+let g:vimBoxErrorsDuringLoad = 0
+
+" In Vim-box, the user customizes vim by making a "user" plugin which is in
+" the simplest form, just an settings.json file, but can include directories
+" like:
+" plugin/
+" autoload/
+" ftdetect/
+let g:vimBoxUserPluginDir = PathJoinDir(g:vimBoxXdgConfigDir, 'user')
+let g:vimBoxUserSettings = PathJoinFile(g:vimBoxUserPluginDir, 'settings.json')
+" Sourced after vimbox does all the deafult behavior.
+" Maybe the user init file should actualy be the one to source.
+let g:vimBoxUserInit = PathJoinFile(g:vimBoxUserPluginDir, 'vimBoxUserInit.vim')
+" See .gvimrc
+let g:vimBoxUserGVimInit = PathJoinFile(g:vimBoxUserPluginDir, 'vimBoxUserGVimInit.vim')
+
+if !isdirectory(g:vimBoxXdgConfigDir)
+  call mkdir(g:vimBoxXdgConfigDir, "p")
+endif
+if !isdirectory(g:vimBoxUserPluginDir)
+  call mkdir(g:vimBoxUserPluginDir, "p")
+endif
+
 if has('gui_win32')
   set rtp+=~/.vim
 endif
@@ -116,197 +216,81 @@ if has('vim_starting')
    endif
 endif
 
-silent! call plug#begin('~/.vim/bundle')
+" There's a huge circular dependency.  User config defines disabled plugins
+" and installed plugins.  We need those plugins to be loaded before knowing
+" the full runtime path to grab all config from. But we only have the ability
+" to load all config from the runtime path. So we first load all the config
+" when the runtime path only consists of user plugin. Then generate the plugin
+" loader code. Then source it (which puts them all in the runtime path). Then
+" we regenerate the config, and call the configure hook in that.
+" The User is none the wiser. It's a little slower though, so we should avoid
+" doing any computation unless config files changed.'
+call VimBoxLog('INIT', "Initializing New VimBox Session via home directory vimrc")
+" Load all the stock plugins that we use in the process of doing all the
+" other plugin/settings loading.
+let &runtimepath=&runtimepath . ',' .  PathJoinDir(g:vimBoxStockPluginsDir, 'vim-plug')
+let &runtimepath=&runtimepath . ',' .  PathJoinDir(g:vimBoxStockPluginsDir, 'json-ponyfill.vim')
+let &runtimepath=&runtimepath . ',' .  PathJoinDir(g:vimBoxStockPluginsDir, 'color-tools')
+let &runtimepath=&runtimepath . ',' .  PathJoinDir(g:vimBoxStockPluginsDir, 'vim-box')
 
-if filereadable(expand("~/.vim/vimrc.custom.before"))
-  source ~/.vim/vimrc.custom.before
+if !skipGeneration
+  call VimBoxInitConfigs()
+  " The generated VimRc defines one __VimBoxGeneratedPlugCalls() which calls
+  " Plug for all the configured plugins. We will
+  call VimBoxGenerateVimRc()
 endif
+execute "source " . g:vimBoxGeneratedRc
 
-source ~/.vim/vimrc.defaults.before
+silent! call plug#begin(g:vimBoxPluginInstallDir)
+" Add the special "user plugin" TODO: Allow for a user-before plugin as well
+if exists("*__VimBoxGeneratedConfigure_disabler_ForScope_")
+  call __VimBoxGeneratedConfigure_disabler_ForScope_()
+endif
+call __VimBoxGeneratedPlugCalls()
+call plug#end()
 
-set noswapfile     " Don't make backups.
-set nowritebackup " Even if you did make a backup, don't keep it around.
-set nobackup
-
-syntax on
-set virtualedit=block
-set tabstop=2
-set nonumber
-set noswapfile
-
-set mouse=a
-set nospell
-set ic
-set scs
-
-" TODO: Set up mappings to toggle between text mode and code mode.
-" Editing code
-set nowrap
-set wrapmargin=0
-" let &textwidth=exists('g:textColumns') && !empty(g:textColumns) ? g:textColumns : 80
-set nolinebreak
-
-set hlsearch
-set formatoptions+=or
-
-let &tabstop=exists('g:tabSize') ? g:tabSize : 2
-let &softtabstop=exists('g:tabSize') ? g:tabSize : 2
-let &shiftwidth=exists('g:tabSize') ? g:tabSize : 2
-set expandtab
-set ignorecase
-set infercase
-let g:omni_syntax_ignorecase=1
-set wildmode=full
-set wildignore+=*/node_modules/**
-" Including this messes up fugitive in git mergetool:
-" set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-set sm!  " show matching brace/paren
 
 " Disable visualbell by default
 " http://unix.stackexchange.com/a/5313
 set visualbell
+" This actually needs to be set in .gvimrc for gui forms
 set t_vb=
 
-" Should avoid "Hit Enter" annoyingness (Does *not* work)
-" The final c gets rid of annoying autocomplete messages.
 try
   set shortmess+=filmnrxoOtTc
 catch /E539: Illegal character/
   " Some versions do not like c
   set shortmess+=filmnrxoOtT
 endtry
-" Disable Vim's startup screen
-set shortmess+=I
-" Customize:
-" http://vi.stackexchange.com/questions/627/how-can-i-change-vims-start-or-intro-screen
-
-
-
-" Mac Support bootstrap
-set wildignore+=*.DS_Store
-set wildignore+=*/_build**
-set wildignore+=*/.ssh
-set wildignore+=*/.yarn
-set wildignore+=*/.npm
-set wildignore+=*/.jenga
-
-" Remove ugly folds
-set nofoldenable
-" nofoldenable doesn't work in diff mode so do something similar
-set diffopt=filler,context:9999
-
-" ============= Configure as Privacy Plugin =========================
-" All sensitive data is not stored in your ~/.vimrc folder
-" Configure the spelling language and file.
-" ================================================================
-set spelllang=en
-set spellfile=$HOME/vim_spell/en.utf-8.add
-" UndoDir:
-let s:homeFolder = $HOME
-if (exists('g:vimBoxUndoDir'))
-  let s:undoDir = g:vimBoxUndoDir
-else
-  let s:undoDir = s:homeFolder . '/vimUndo'
-endif
-set undofile
-" " Create undo dir if needed - not in your dotVim folder! It should be local to
-" " your computer.
-if !isdirectory(s:undoDir)
-  call mkdir(s:undoDir)
-endif
-execute "set undodir=".s:undoDir
-" Since your file/folder history may show up in a git commit!
-let g:netrw_dirhistmax=0
-" ================================================================
-
-" =========================== FIX SHELL ==========================
-if &shell =~# 'fish$'
-    set shell=sh
-endif
-" ================================================================
-
-" http://stackoverflow.com/questions/6852763/vim-quickfix-list-launch-files-in-new-tab
-" This is respected by bnext/bprev/bfirst commands!
 try
   set switchbuf+=useopen,usetab,vsplit
 catch /E474: Invalid argument/
   set switchbuf+=useopen,usetab
 endtry
-
-" A better diff link for macvim
-" alias mvimdiff="mvim -O  \"+windo set diff scrollbind scrollopt+=hor nowrap\""
-
-
-" iTerm requires the following commented code to be placed in your .bashrc in
-" order for Vim to show full 256 colors.
-" export CLICOLOR=1
-" export TERM='xterm-256color'
-" if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-"   export TERM='xterm-256color'
-" else
-"   #export TERM='xterm-color'
-"   export TERM=xterm-256color
-" fi
-" If your terminal does *not* support 256 color, if if you want better than
-" 256, and are willing to limit to base16 colorschemes you enable this:
-" (You probably also need the base16 colorscheme shell script to exist
-" somewhere in your path) - See the base16 docs.
-" let base16colorspace="256"
-set t_Co=256
-" For kitty term
-let &t_ut=''
-
-if (empty($TMUX))
-  " ======================================================================
-  " This doesn't actually work with vim-airline yet in the most recent
-  " versions of Vim/NeoVim (except with MacVim strangely). See ~/.vim/neoVimRc
-  " ======================================================================
-  if (has("termguicolors"))
-    " old airline doesn't render correctly without these two obscure settings.
-    " New airline should work without them.
-    " https://github.com/vim/vim/issues/993
-    " set Vim-specific sequences for RGB colors
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-  endif
-endif
-
-if (has("nvim"))
-  source ~/.vim/neoVimRc
-endif
-
-if exists('g:nyaovim_version')
-  source ~/.vim/nyaoVimRc
-endif
-
-" Load all the bundles
-source ~/.vim/bundlesVimRc
-if filereadable(expand("~/.vim/bundlesVimRc.custom"))
-  source ~/.vim/bundlesVimRc.custom
-endif
-
-call plug#end()
+" Disable Vim's startup screen
+set shortmess+=I
 
 " MacVim Quick Start is pretty strange. It's as if it always opens the *next*
 " MacVim window whenever you open the currently visible one.
 " So this prompt applies to the *next* window you'll open typically - in that
 " case.
 " Notice the ! not
-source ~/.vim/resetKeysVimRc
 if !len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  " Everything's already installed. Configure the plugins
-  source ~/.vim/guiSettingsVimRc
-  source ~/.vim/keysVimRc
-  source ~/.vim/customFunctions.vim
+  " Now reconfigure now that plugins are all in the runtimepath and we can
+  " actually see their included settings.json files.
+  if !skipGeneration
+    call VimBoxInitConfigs()
+    call VimBoxGenerateVimRc()
+  endif
+  execute "source " . g:vimBoxGeneratedRc
+  call __VimBoxGeneratedConfigureForScope_()
   " Some vim reset plugin screws up listchars
   set listchars = "eol:$"
-  source ~/.vim/vimrc.custom.after
 else
   " Don't show statusline when airline might not be loaded or configured.
   if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
     set background=dark
-    colorscheme vimBoxColorsDuringLoad
+    colorscheme taste
     set guioptions-=r
     set guioptions-=R
     set guioptions-=l
@@ -318,25 +302,34 @@ else
       \|   PlugInstall --sync | echomsg "Open a new window to enjoy the plugins!" | let xx=confirm("Open a New Window For Plugins to Take Effect.")
       \| endif
     " Source the settings just in case they respond with "No, don't update plugins"
-    source ~/.vim/guiSettingsVimRc
-    source ~/.vim/keysVimRc
-    source ~/.vim/customFunctions.vim
+    " Now reconfigure now that plugins are all in the runtimepath and we can
+    " actually see their included settings.json files.
+    if !skipGeneration
+      call VimBoxInitConfigs()
+      call VimBoxGenerateVimRc()
+    endif
+    execute "source " . g:vimBoxGeneratedRc
+    call __VimBoxGeneratedConfigureForScope_()
     " Some vim reset plugin screws up listchars
     set listchars = "eol:$"
-    " VimBox plugin configuration that has to be performed after loading
-    " plugins.
-    source ~/.vim/vimrc.custom.after
   else
     set laststatus=0
     echomsg "Attempting to install plugins. Be patient. Vim is working in the background. It will start eventually."
     PlugInstall --sync
-    source ~/.vim/guiSettingsVimRc
-    source ~/.vim/keysVimRc
-    source ~/.vim/customFunctions.vim
+    " Now reconfigure now that plugins are all in the runtimepath and we can
+    " actually see their included settings.json files.
+    if !skipGeneration
+      call VimBoxInitConfigs()
+      call VimBoxGenerateVimRc()
+    endif
+    execute "source " . g:vimBoxGeneratedRc
+    call __VimBoxGeneratedConfigureForScope_()
     " Some vim reset plugin screws up listchars
     set listchars = "eol:$"
-    " VimBox plugin configuration that has to be performed after loading
-    " plugins.
-    source ~/.vim/vimrc.custom.after
   endif
 endif
+
+if file_readable(g:vimBoxUserInit)
+  execute "source " . g:vimBoxUserInit
+endif
+let g:vimBoxIsLoading = 0

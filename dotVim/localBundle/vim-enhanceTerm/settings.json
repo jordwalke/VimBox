@@ -1,0 +1,29 @@
+{
+  "*": {
+    "enhanceterm": {
+      "notes": "Enhances supported terminals with intelligent undercurl.",
+      "config": {
+        "fixClear": true
+      },
+      "mappings": {
+      }
+    },
+    "vim": {
+      "notes": "t_Cs/Ce enable undercurl - this is hard coded to color 9 for now (typically red)",
+      "notes": "t_ZH/ZR enable italics",
+      "config": {
+        "termguicolors": "eval:has('termguicolors') && empty($TMUX)",
+        "t_Co": 256,
+        "t_ut": "",
+        "t_8f": "eval:\"\\<Esc>[38;2;%lu;%lu;%lum\"",
+        "t_8b": "eval:\"\\<Esc>[48;2;%lu;%lu;%lum\"",
+        "t_Cs": "eval:\"\\e[4:3m\\e[58;5;9m\"",
+        "t_Ce": "eval:\"\\e[4:0m\\e[59m\"",
+        "t_ZH": "eval:\"\\e[3m\"",
+        "t_ZR": "eval:\"\\e[23m\""
+      }
+    }
+  }
+}
+
+

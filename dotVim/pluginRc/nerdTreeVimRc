@@ -3,17 +3,20 @@
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")) | q | endif
 
 " nice arrow
-let g:NERDTreeDirArrows = 1
+let g:NERDTreeDirArrows = 0
 " not so much cruft
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeShowBookmarks = 1
 hi def link NERDTreeRO Normal
+hi def link NERDTreeDir Normal
 hi def link NERDTreePart StatusLine
-hi def link NERDTreeDirSlash Directory
+hi def link NERDTreeDirSlash NonText
+hi def link NERDTreeOpenable Normal
+hi def link NERDTreeClosable Normal
 hi def link NERDTreeCurrentNode Search
 hi def link NERDTreeCWD Normal
 
 let g:NERDTreeWinSize=40
 
 " Not so much color
-let g:NERDChristmasTree = 0
+" let g:NERDChristmasTree = 0

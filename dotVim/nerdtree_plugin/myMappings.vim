@@ -48,7 +48,7 @@ function! NERDTreeCustomNoOpenFile(node)
     " call a:node.activate({'where': 'p', 'reuse': g:NERDTreeCustomReuseWindows})
 endfunction
 
-if g:vimBoxTabSystem == 'wintabs'
+if g:vimBox_tabSystem == 'wintabs'
 else
   call NERDTreeAddKeyMap({
          \ 'key': '<ENTER>',
