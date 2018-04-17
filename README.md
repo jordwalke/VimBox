@@ -47,9 +47,6 @@ Installation:
 
 2. You *Must* Install a [Recent Version of MacVim](http://macvim-dev.github.io/macvim/): (with python support)
 
-        # Alternatively, if you'd rather install via `brew`
-        brew install macvim --with-cscope --python --HEAD
-
 3. Clone `VimBox` wherever you like to keep your github clones
 
         # cd ~/github/     # Or wherever you like to keep github clones
