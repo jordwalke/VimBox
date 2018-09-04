@@ -32,9 +32,17 @@ if v:version > 799
   " 4. Except inside of comments or strings, we require that
   " let g:mucomplete#can_complete.default = {'omni': {t -> strlen(&l:omnifunc) > 0  && t =~# '\%(\l\l\|\u\|\.\)$' && (join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')) !~? 'comment\|string' || join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')) =~? 'commentCode')}}
   let g:mucomplete#chains = {
-    \ 'default' : ['path', 'omni'],
-    \ 'vim'     : ['path', 'cmd', 'ulti', 'keyn']
-    \ }
+    \ 'default' : ['omni'],
+    \ 'vim'     : ['cmd', 'ulti', 'keyn'],
+    \}
+
+  " Was experiencing major issues with path completion for named args in
+  " Reason files.
+  " let g:mucomplete#chains = {
+  "   \ 'default' : ['path', 'omni'],
+  "   \ 'vim'     : ['path', 'cmd', 'ulti', 'keyn']
+  "   \ }
+  "   \ }
 
 endif
 
