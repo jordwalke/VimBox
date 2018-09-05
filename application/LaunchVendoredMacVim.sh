@@ -51,7 +51,7 @@ else
     # Allows cmd+, to be remapped and fixes some wording in the menu.
     # Also fixes cmd+shift+n to open window when none yet open.
     mv "${DIR}/VimBox.app/Contents/Resources/English.lproj/MainMenu.nib" "${DIR}/VimBox.app/Contents/Resources/English.lproj/MainMenu_backup.nib" || FAILMSG="Could not move main menu nib to backup"
-    cp -rp "${DIR}/application/MainMenu.nib" "${DIR}/VimBox.app/Contents/Resources/English.lproj/MainMenu.nib" || FAILMSG="Coudl not copy over main menu"
+    cp -rp "${DIR}/VimBoxCheckout/application/MainMenu.nib" "${DIR}/VimBox.app/Contents/Resources/English.lproj/MainMenu.nib" || FAILMSG="Could not copy over main menu"
     sed -i.bak 's;<string>MacVim</string>;<string>VimBox</string>;g' "${DIR}/VimBox.app/Contents/Info.plist" || FAILMSG="Failed running sed on plist."
     sed -i.bak 's;<string>org.vim.MacVim</string>;<string>org.vim.VimBox</string>;g' "${DIR}/VimBox.app/Contents/Info.plist" || FAILMSG="Failed running sed on plist 2."
     if [ "${FAILMSG}" == "" ]; then
