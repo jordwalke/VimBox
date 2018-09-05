@@ -90,7 +90,6 @@ if [ "$gui" ]; then
   # else
 	#   exec "$binary" -g $opts ${1:+"$@"}
   # fi
-  echo "$binary -g -u ${VIM_APP_DIR}/dotVimRc" -U "${VIM_APP_DIR}/dotGVimRc $opts ${1:+"$@"}"
   # export MYVIMRC="${VIM_APP_DIR}/dotVimRc"
   # MYGVIMRC IS NOT RESPECTED!
   # Have to use unix files https://stackoverflow.com/a/4618219
