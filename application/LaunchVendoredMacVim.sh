@@ -41,7 +41,7 @@ else
     cp -p "${DIR}/VimBox.app/Contents/MacOS/Vim" "${DIR}/VimBox.app/Contents/MacOS/VimOrig" || FAILMSG="Failed copying Vim to VimOrig"
     cp -p "${DIR}/VimBox.app/Contents/MacOS/MacVim" "${DIR}/VimBox.app/Contents/MacOS/VimBox" || FAILMSG="Failed copying MacVim to VimBox"
     # Will call out to the orig vim, but wrap to set the initial vimrc/gvimrc
-    cat "${DIR}/VimBoxInitWrapper.sh" > "${DIR}/VimBox.app/Contents/MacOS/Vim" || FAILMSG="Failed creating Vim wrapper script. Does ${DIR}/VimBoxInitWrapper.sh exist?"
+    cat "${DIR}/VimBoxCheckout/VimBoxInitWrapper.sh" > "${DIR}/VimBox.app/Contents/MacOS/Vim" || FAILMSG="Failed creating Vim wrapper script. Does ${DIR}/VimBoxInitWrapper.sh exist?"
     # File permissions of icons must be exactly right:
     # https://superuser.com/questions/618501/changing-an-applications-icon-from-the-terminal-osx
     # Since git doesn't handle ownership correctly reuse the existing file node, and cat to it.
