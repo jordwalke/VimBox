@@ -1,4 +1,16 @@
 
+## Customizing:
+If you cloned this repo and ran the install script, just edit the files in place.
+If you installed VimBox as a Mac app, then do the following:
+
+```sh
+
+cd /Applications/VimBox.app/Contents/Resources/
+git init
+git remote add origin git@github.com:jordwalke/VimBox.git
+git fetch --all
+```
+
 ## VimBox Commands:
 
 | Command                   | Action                                                   |
