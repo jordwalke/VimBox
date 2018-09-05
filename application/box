@@ -23,7 +23,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 
 if [ -z "$VIM_APP_DIR" ]
 then
-	for i in $DIR; do
+	for i in $DIR; "${DIR}/.." do
 		if [ -x "$i/VimBox.app" ]; then
 			VIM_APP_DIR="$i"
 			break
