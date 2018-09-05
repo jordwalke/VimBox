@@ -17,8 +17,9 @@ if [ -d "${DIR}/.git" ]; then
   true
 else
   osascript -e 'display notification "Cloning support from jordwalke/VimBox" with title "Initializing VimBox"'
-  pushd "${DIR}" || exit 1
   FAILMSG=""
+  mkdir -p "${DIR}/VimBoxCheckout"
+  pushd "${DIR}/VimBoxCheckout" || exit 1
   git init || FAILMSG="Could not initialize git repo. Do you not have git installed?"
   git remote add origin git@github.com:jordwalke/VimBox.git || FAILMSG="Could not find jordwalke/VimBox"
   git fetch --all || FAILMSG="Could not fetch jordwalke/VimBox"
@@ -29,7 +30,7 @@ else
     fail "$FAILMSG"
   fi
 fi
-
+pushd "${DIR}"
 if [ -e "${DIR}/VimBox.app" ]; then
   true
 else
@@ -46,7 +47,11 @@ else
     # Since git doesn't handle ownership correctly reuse the existing file node, and cat to it.
     cp -p "${DIR}/VimBox.app/Contents/Resources/MacVim.icns" "${DIR}/VimBox.app/Contents/Resources/VimBox.icns" || FAILMSG="Could not copy system MacVim.app into vendored MacVim"
     rm "${DIR}/VimBox.app/Contents/Resources/MacVim.icns"
-    cat "${DIR}/dotVim/images/ApplicationIcon.icns" > "${DIR}/VimBox.app/Contents/Resources/VimBox.icns" || FAILMSG="Failed setting the icon to the rad VimBox icon."
+    cat "${DIR}/VimBoxCheckout/dotVim/images/ApplicationIcon.icns" > "${DIR}/VimBox.app/Contents/Resources/VimBox.icns" || FAILMSG="Failed setting the icon to the rad VimBox icon."
+    # Allows cmd+, to be remapped and fixes some wording in the menu.
+    # Also fixes cmd+shift+n to open window when none yet open.
+    mv "${DIR}/VimBox.app/Contents/Resources/English.lproj/MainMenu.nib" "${DIR}/VimBox.app/Contents/Resources/English.lproj/MainMenu_backup.nib" || FAILMSG="Could not move main menu nib to backup"
+    cp -rp "${DIR}/application/MainMenu.nib" "${DIR}/VimBox.app/Contents/Resources/English.lproj/MainMenu.nib" || FAILMSG="Coudl not copy over main menu"
     sed -i.bak 's;<string>MacVim</string>;<string>VimBox</string>;g' "${DIR}/VimBox.app/Contents/Info.plist" || FAILMSG="Failed running sed on plist."
     sed -i.bak 's;<string>org.vim.MacVim</string>;<string>org.vim.VimBox</string>;g' "${DIR}/VimBox.app/Contents/Info.plist" || FAILMSG="Failed running sed on plist 2."
     if [ "${FAILMSG}" == "" ]; then

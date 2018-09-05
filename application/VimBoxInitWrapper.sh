@@ -27,4 +27,4 @@ binary="${DIR}/VimOrig"
 # Have to use unix files https://stackoverflow.com/a/4618219
 # export MYGVIMRC="${VIM_APP_DIR}/dotGVimRc"
 export VIMBOX_OVERRIDING_INIT=1
-exec "$binary" -u "${DIR}/../../../dotVimRc" -U "${DIR}/../../../dotGVimRc" "$@"
+exec "$binary" -u "${DIR}/../../../VimBoxCheckout/dotVimRc" -U "${DIR}/../../../VimBoxCheckout/dotGVimRc" "$@"
