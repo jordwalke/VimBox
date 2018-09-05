@@ -13,7 +13,7 @@ function fail {
   osascript -e "tell app \"System Events\" to display dialog \"Problem initializing VimBox. $1\""
   exit 1
 }
-if [ -d "${DIR}/.git" ]; then
+if [ -d "${DIR}/VimBoxCheckout" ]; then
   true
 else
   osascript -e 'display notification "Cloning support from jordwalke/VimBox" with title "Initializing VimBox"'

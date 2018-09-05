@@ -85,6 +85,7 @@ func! s:VimBoxShow()
   set cpo&vim
   exe 'an ' . g:bmenu_priority . ".2 &Settings.&UserSettings :execute 'e ' . g:vimBoxUserSettings<CR>"
   exe 'an ' . g:bmenu_priority . ".2 &Settings.&DefaultSettings :execute 'e ' . g:vimBoxSettingsDefault<CR>"
+  macmenu &Settings.UserSettings key=<D-,>
   let &cpo = cpo_save
   unmenu &Settings.Dummy
 endfunc
