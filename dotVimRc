@@ -105,6 +105,10 @@
 
 " TODO: This entire file should/could be ejected into the generated Vimrc.
 
+" This has to be before setting any settings like filetype/syntax on.
+" But before doing this, we need to reconstruct the menus.
+" set guioptions+=M
+
 let s:useSettingsSystem = 1
 
 let g:vimBoxIsLoading = 1
@@ -118,14 +122,18 @@ let skipGeneration = 0
 let g:vimBoxInitialVimRcPath = resolve(expand('<sfile>:p'))
 let g:vimBoxInstallationRoot = fnamemodify(g:vimBoxInitialVimRcPath, ':h')
 
+" When overriding init files, the standard ones don't get sourced.
+if ($VIMBOX_OVERRIDING_INIT)
+  exec "source " . g:vimBoxInstallationRoot . "/VimBox.app/Contents/Resources/vim/vimrc"
+endif
+
+
 " Source The Utilities That Help Us Bootstrap The Startup:
 " ========================================================
 " For some reason these have to be manually sourced even if we only used their contents after plug#end
 " Any functions used in the startup process, even if we've executed plug#end.
 " We first need to manually source this one file which defines all the path utilities.
 execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxUtils.vim"
-" Now go ensure there's a slash on the root using the utilities.
-let g:vimBoxInstallationRoot = EnsureSlash(fnamemodify(g:vimBoxInitialVimRcPath, ':h'))
 let g:vimBoxStockPluginsDir = PathJoinDir(PathJoinDir(g:vimBoxInstallationRoot, 'dotVim'), 'localBundle')
 " VimBox Comes With One Stock Plugin For VimBox: Called the vim-box plugin.
 " For some reason these have to be manually sourced even if we only used their contents after plug#end
@@ -195,9 +203,9 @@ let g:vimBoxUserPluginDir = PathJoinDir(g:vimBoxXdgConfigDir, 'user')
 let g:vimBoxUserSettings = PathJoinFile(g:vimBoxUserPluginDir, 'settings.json')
 " Sourced after vimbox does all the deafult behavior.
 " Maybe the user init file should actualy be the one to source.
-let g:vimBoxUserInit = PathJoinFile(g:vimBoxUserPluginDir, 'vimBoxUserInit.vim')
+let g:vimBoxUserInit = PathJoinFile(g:vimBoxUserPluginDir, 'init.vim')
 " See .gvimrc
-let g:vimBoxUserGVimInit = PathJoinFile(g:vimBoxUserPluginDir, 'vimBoxUserGVimInit.vim')
+let g:vimBoxUserGVimInit = PathJoinFile(g:vimBoxUserPluginDir, 'ginit.vim')
 
 if !isdirectory(g:vimBoxXdgConfigDir)
   call mkdir(g:vimBoxXdgConfigDir, "p")

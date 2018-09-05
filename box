@@ -1,0 +1,101 @@
+#!/bin/bash
+#
+# This shell script passes all its arguments to the binary inside the
+# MacVim.app application bundle.  If you make links to this script as view,
+# gvim, etc., then it will peek at the name used to call it and set options
+# appropriately.
+#
+# Based on a script by Wout Mertens and suggestions from Laurent Bihanic.  This
+# version is the fault of Benji Fisher, 16 May 2005 (with modifications by Nico
+# Weber and Bjorn Winckler, Aug 13 2007).
+# First, check "All the Usual Suspects" for the location of the Vim.app bundle.
+# You can short-circuit this by setting the VIM_APP_DIR environment variable
+# or by un-commenting and editing the following line:
+# VIM_APP_DIR=/Applications
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
+
+if [ -z "$VIM_APP_DIR" ]
+then
+	for i in $DIR; do
+		if [ -x "$i/VimBox.app" ]; then
+			VIM_APP_DIR="$i"
+			break
+		fi
+	done
+fi
+
+if [ -z "$VIM_APP_DIR" ]
+then
+	for i in ~/Applications ~/Applications/vim $DIR $DIR/vim /Applications /Applications/vim /Applications/Utilities /Applications/Utilities/vim; do
+		if [ -x "$i/VimBox.app/VimBox.app" ]; then
+			VIM_APP_DIR="$i"
+			break
+		fi
+	done
+fi
+if [ -z "$VIM_APP_DIR" ]
+then
+	echo "Sorry, cannot find VimBox.app.  Try setting the VIM_APP_DIR environment variable to the directory containing VimBox.app."
+	exit 1
+fi
+binary="$VIM_APP_DIR/VimBox.app/Contents/MacOS/Vim"
+
+# Next, peek at the name used to invoke this script, and set options
+# accordingly.
+
+name="`basename "$0"`"
+gui=
+opts=
+
+# GUI mode, implies forking
+case "$name" in b*|g*|rb*|rg*) gui=true ;; esac
+
+# Restricted mode
+case "$name" in r*) opts="$opts -Z";; esac
+
+# vimdiff, view, and ex mode
+case "$name" in
+	*diff)
+		opts="$opts -dO"
+		;;
+	*view)
+		opts="$opts -R"
+		;;
+	*ex)
+		opts="$opts -e"
+		;;
+esac
+
+# Last step:  fire up vim.
+# The program should fork by default when started in GUI mode, but it does
+# not; we work around this when this script is invoked as "gvim" or "rgview"
+# etc., but not when it is invoked as "vim -g".
+if [ "$gui" ]; then
+	# Note: this isn't perfect, because any error output goes to the
+	# terminal instead of the console log.
+	# But if you use open instead, you will need to fully qualify the
+	# path names for any filenames you specify, which is hard.
+  #
+  # Can't use the open trick for zero args because we need to force the path to
+  # vimrc.
+  # if [ "$#" == "0" ]; then
+  #   open "$VIM_APP_DIR/VimBox.app"
+  # else
+	#   exec "$binary" -g $opts ${1:+"$@"}
+  # fi
+  echo "$binary -g -u ${VIM_APP_DIR}/dotVimRc" -U "${VIM_APP_DIR}/dotGVimRc $opts ${1:+"$@"}"
+  # export MYVIMRC="${VIM_APP_DIR}/dotVimRc"
+  # MYGVIMRC IS NOT RESPECTED!
+  # Have to use unix files https://stackoverflow.com/a/4618219
+  # export MYGVIMRC="${VIM_APP_DIR}/dotGVimRc"
+	exec "$binary" -g $opts ${1:+"$@"}
+else
+	exec "$binary" $opts ${1:+"$@"}
+fi

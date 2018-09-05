@@ -4,6 +4,13 @@
 " For example t_vb, and application menus.
 " Can add config support later.
 
+" When overriding init files, the standard ones don't get sourced.
+if ($VIMBOX_OVERRIDING_INIT)
+  let g:vimBoxInitialVimRcPath = resolve(expand('<sfile>:p'))
+  let g:vimBoxInstallationRoot = fnamemodify(g:vimBoxInitialVimRcPath, ':h')
+  exec "source " . g:vimBoxInstallationRoot . "/VimBox.app/Contents/Resources/vim/gvimrc"
+endif
+
 if has('gui')
   if has("gui_macvim")
 
@@ -69,17 +76,17 @@ func! s:VimBoxShow()
   let  g:bmenu_priority=21
   " remove old menu, if exists; keep one entry to avoid a torn off menu to
   " disappear.
-  silent! unmenu &VimBox
-  exe 'noremenu ' . g:bmenu_priority . ".1 &VimBox.Dummy l"
+  silent! unmenu &Settings
+  exe 'noremenu ' . g:bmenu_priority . ".1 &Settings.Dummy l"
   silent! unmenu! &Buffers
 
   " create new menu; set 'cpo' to include the <CR>
   let cpo_save = &cpo
   set cpo&vim
-  exe 'an ' . g:bmenu_priority . ".2 &VimBox.&Settings :execute 'e ' . g:vimBoxUserSettings<CR>"
-  exe 'an ' . g:bmenu_priority . ".2 &VimBox.&DefaultSettings :execute 'e ' . g:vimBoxSettingsDefault<CR>"
+  exe 'an ' . g:bmenu_priority . ".2 &Settings.&UserSettings :execute 'e ' . g:vimBoxUserSettings<CR>"
+  exe 'an ' . g:bmenu_priority . ".2 &Settings.&DefaultSettings :execute 'e ' . g:vimBoxSettingsDefault<CR>"
   let &cpo = cpo_save
-  unmenu &VimBox.Dummy
+  unmenu &Settings.Dummy
 endfunc
 
 if has("vim_starting") && !has("gui_macvim")

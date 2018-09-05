@@ -29,7 +29,7 @@
     },
     "vim": {
       "config": {
-        "guioptions": "gm",
+        "guioptions": "gmM",
          "shell": "eval:&shell =~# 'fish$' ? 'sh' : &shell"
       }
     }

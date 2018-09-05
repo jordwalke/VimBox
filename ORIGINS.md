@@ -28,3 +28,8 @@ and vendored just to show something nice while plugins load.
 The color utilities in `dotVim/localBundle/color-tools/` were combined from
 [vim-one](https://github.com/rakr/vim-one) as well as
 [vim-airline](https://github.com/vim-airline/vim-airline).
+
+
+`box`: The included `box` script is included [from MacVim's
+repo](https://github.com/macvim-dev/macvim/blob/6ff781f67eca346595b501c862dae12c3fca1e82/src/MacVim/mvim)
+and retains its original license.
