@@ -17,16 +17,23 @@
 " Mac ProTips:
 "  To further improve the text rendering on Mac OSX:
 "  1. From the shell: defaults write org.vim.MacVim MMCellWidthMultiplier 0.9
-"  2. Opens all files from other apps in vert split defaults write
-"  org.vim.MacVim MMVerticalSplit YES
+"  2. Opens all files from other apps in vert split
+"
+"      defaults write org.vim.MacVim MMVerticalSplit YES
+"      default write org.vim.VimBox MMVerticalSplit YES
+"
 "  3. If when changing monitors, your fonts go from nice and thin to ugly and
 "  bold: This should fix it:
 "   Textmate disables font smoothing only for dark backgrounds, but MacVim
 "   only has a global setting. If you use dark backgrounds consider disabling.
 "   https://stackoverflow.com/questions/24598390/macvim-thicker-font-rendering-compared-to-textmate
+"
 "   defaults write org.vim.MacVim AppleFontSmoothing -int 0
+"
 "  4. Speed up full screen transition:
-"  defaults write org.vim.MacVim MMFullScreenFadeTime 0.05
+"
+"      defaults write org.vim.MacVim MMFullScreenFadeTime 0.05
+"      defaults write org.vim.VimBox MMFullScreenFadeTime 0.05
 "
 " Cygwin:
 " Tested and should work. AutoHotkey exist that provide an identical experience
