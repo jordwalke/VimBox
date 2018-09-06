@@ -24,8 +24,8 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 if [ -z "$VIM_APP_DIR" ]
 then
 	for i in $DIR "${DIR}/.."; do
-		if [ -x "$i/VimBox.app" ]; then
-			VIM_APP_DIR="$i"
+		if [ -x "$i/../../VimBox.app" ]; then
+			VIM_APP_DIR="$i/../../"
 			break
 		fi
 	done
@@ -34,7 +34,7 @@ fi
 if [ -z "$VIM_APP_DIR" ]
 then
 	for i in ~/Applications ~/Applications/vim $DIR $DIR/vim /Applications /Applications/vim /Applications/Utilities /Applications/Utilities/vim; do
-		if [ -x "$i/VimBox.app/VimBox.app" ]; then
+		if [ -x "$i/VimBox.app/Contents/Resources/VimBox.app" ]; then
 			VIM_APP_DIR="$i"
 			break
 		fi
