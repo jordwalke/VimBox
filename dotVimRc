@@ -124,7 +124,7 @@ let g:vimBoxInstallationRoot = fnamemodify(g:vimBoxInitialVimRcPath, ':h')
 
 " When overriding init files, the standard ones don't get sourced.
 if ($VIMBOX_OVERRIDING_INIT)
-  exec "source " . g:vimBoxInstallationRoot . "/VimBox.app/Contents/Resources/vim/vimrc"
+  exec "source " . g:vimBoxInstallationRoot . "/../VimBox.app/Contents/Resources/vim/vimrc"
 endif
 
 
