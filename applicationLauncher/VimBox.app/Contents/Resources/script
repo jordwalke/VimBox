@@ -54,6 +54,7 @@ else
     cp -rp "${DIR}/VimBoxCheckout/applicationPatches/MainMenu.nib" "${DIR}/VimBox.app/Contents/Resources/English.lproj/MainMenu.nib" || FAILMSG="Could not copy over main menu"
     sed -i.bak 's;<string>MacVim</string>;<string>VimBox</string>;g' "${DIR}/VimBox.app/Contents/Info.plist" || FAILMSG="Failed running sed on plist."
     sed -i.bak 's;<string>org.vim.MacVim</string>;<string>org.vim.VimBox</string>;g' "${DIR}/VimBox.app/Contents/Info.plist" || FAILMSG="Failed running sed on plist 2."
+    sed -i.bak 's;<string>mvim</string>;<string>box</string>;g' "${DIR}/VimBox.app/Contents/Info.plist" || FAILMSG="Failed running sed on plist 2."
     if [ "${FAILMSG}" == "" ]; then
       true
     else
