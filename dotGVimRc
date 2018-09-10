@@ -79,37 +79,26 @@ if has('gui')
     " an 10.190 File.New\ File <nop>
     " macmenu File.New\ File action=addNewTab: key=<D-n>
 
+    " To the right of Edit.
+    let  g:bmenu_priority=21
+    " remove old menu, if exists; keep one entry to avoid a torn off menu to
+    " disappear.
+    silent! unmenu &Settings
+    exe 'noremenu ' . g:bmenu_priority . ".1 &Settings.Dummy l"
+    silent! unmenu! &Buffers
+
+    " create new menu; set 'cpo' to include the <CR>
+    let cpo_save = &cpo
+    set cpo&vim
+    exe 'an ' . g:bmenu_priority . ".2 &Settings.&UserSettings :execute 'e ' . g:vimBoxUserSettings<CR>"
+    exe 'an ' . g:bmenu_priority . ".2 &Settings.&DefaultSettings :execute 'e ' . g:vimBoxSettingsDefault<CR>"
+    macmenu &Settings.UserSettings key=<D-,>
+    let &cpo = cpo_save
+    unmenu &Settings.Dummy
+
   endif
 endif
 
-" Create the buffer menu (delete an existing one first).
-func! s:VimBoxShow()
-  " To the right of Edit.
-  let  g:bmenu_priority=21
-  " remove old menu, if exists; keep one entry to avoid a torn off menu to
-  " disappear.
-  silent! unmenu &Settings
-  exe 'noremenu ' . g:bmenu_priority . ".1 &Settings.Dummy l"
-  silent! unmenu! &Buffers
-
-  " create new menu; set 'cpo' to include the <CR>
-  let cpo_save = &cpo
-  set cpo&vim
-  exe 'an ' . g:bmenu_priority . ".2 &Settings.&UserSettings :execute 'e ' . g:vimBoxUserSettings<CR>"
-  exe 'an ' . g:bmenu_priority . ".2 &Settings.&DefaultSettings :execute 'e ' . g:vimBoxSettingsDefault<CR>"
-  macmenu &Settings.UserSettings key=<D-,>
-  let &cpo = cpo_save
-  unmenu &Settings.Dummy
-endfunc
-
-if has("vim_starting") && !has("gui_macvim")
-  augroup LoadVimBoxMenu
-    au! VimEnter * call <SID>VimBoxShow()
-    au  VimEnter * au! LoadVimBoxMenu
-  augroup END
-else
-  call <SID>VimBoxShow()
-endif
 
 set visualbell
 set t_vb=

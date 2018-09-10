@@ -197,6 +197,15 @@ let g:vimBoxXdgCacheDir = exists('$XDG_CACHE_HOME') ? PathJoinDir($XDG_CACHE_HOM
 let g:vimBoxXdgDataDir = exists('$XDG_DATA_HOME') ? PathJoinDir($XDG_DATA_HOME, 'vim-box') : PathJoinDir(g:vimBoxDefaultDataDir, 'vim-box')
 " Where User Specific Configuration Should Be Stored: (Default $HOME/.config)
 let g:vimBoxXdgConfigDir = exists('$XDG_CONFIG_HOME') ? PathJoinDir($XDG_CONFIG_HOME, 'vim-box') : PathJoinDir(g:vimBoxDefaultConfigDir, 'vim-box')
+if !isdirectory(g:vimBoxXdgCacheDir)
+  call mkdir(g:vimBoxXdgCacheDir, "p")
+endif
+if !isdirectory(g:vimBoxXdgDataDir)
+  call mkdir(g:vimBoxXdgDataDir, "p")
+endif
+if !isdirectory(g:vimBoxXdgConfigDir)
+  call mkdir(g:vimBoxXdgConfigDir, "p")
+endif
 
 " TODO: This should be sourced from the location of current vim script so that
 " you can use VimBox without having to install it over your old vim install.
@@ -233,9 +242,6 @@ let g:vimBoxUserInit = PathJoinFile(g:vimBoxUserPluginDir, 'init.vim')
 " See .gvimrc
 let g:vimBoxUserGVimInit = PathJoinFile(g:vimBoxUserPluginDir, 'ginit.vim')
 
-if !isdirectory(g:vimBoxXdgConfigDir)
-  call mkdir(g:vimBoxXdgConfigDir, "p")
-endif
 if !isdirectory(g:vimBoxUserPluginDir)
   call mkdir(g:vimBoxUserPluginDir, "p")
 endif
