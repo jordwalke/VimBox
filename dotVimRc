@@ -129,24 +129,43 @@ let skipGeneration = 0
 let g:vimBoxInitialVimRcPath = resolve(expand('<sfile>:p'))
 let g:vimBoxInstallationRoot = fnamemodify(g:vimBoxInitialVimRcPath, ':h')
 
-" When overriding init files, the standard ones don't get sourced.
-if ($VIMBOX_OVERRIDING_INIT)
-  exec "source " . g:vimBoxInstallationRoot . "/../VimBox.app/Contents/Resources/vim/vimrc"
-endif
-
 
 " Source The Utilities That Help Us Bootstrap The Startup:
 " ========================================================
 " For some reason these have to be manually sourced even if we only used their contents after plug#end
 " Any functions used in the startup process, even if we've executed plug#end.
-" We first need to manually source this one file which defines all the path utilities.
+" We first need to manually source this one file which defines all the path
+" utilities and the OS:
 execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxUtils.vim"
 let g:vimBoxStockPluginsDir = PathJoinDir(PathJoinDir(g:vimBoxInstallationRoot, 'dotVim'), 'localBundle')
+
+" When overriding init files, the standard ones don't get sourced.  They are
+" very important. Things fail without this and I don't know why.  Probably
+" some cpoptions settings?  We set `VIMBOX_OVERRIDING_INIT` to tell these
+" loading scripts they need to source the defaults.
+" See `./developerDocs/LOCATIONS.md`
+if ($VIMBOX_OVERRIDING_INIT)
+  if g:vimBoxOs == 'windows'
+    " Cygwin installed vim
+    if g:vimBoxSupportsUnix
+      if file_readable('/etc/vimrc')
+        exec "source /etc/vimrc"
+      endif
+    else
+      " GVim binary (command line or GUI)
+      exec "source " . $VIM . "/_vimrc"
+    endif
+  elseif g:vimBoxOs == 'osx'
+    exec "source " . $VIM . "/vimrc"
+  elseif g:vimBoxOs == 'linux'
+    exec "source " . $VIM . "/vimrc"
+  endif
+  " Passing -u even turns off `defaults` loading.
+  exec "source " . $VIMRUNTIME . "/defaults.vim"
+endif
 " VimBox Comes With One Stock Plugin For VimBox: Called the vim-box plugin.
 " For some reason these have to be manually sourced even if we only used their contents after plug#end
 " Any functions used in the startup process, even if we've executed plug#end.
-" We first need to manually source this one file which defines all the path utilities.
-execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxUtils.vim"
 execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxMessage.vim"
 execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxConfig.vim"
 execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBox.vim"

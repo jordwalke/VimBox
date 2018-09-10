@@ -32,19 +32,78 @@ else
   endfunction
 endif
 
-" https://vi.stackexchange.com/questions/2572/detect-os-in-vimscript?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-" Sets the g:vimBoxOs to one of (osx, linux, windows)
+" Note about platform detection. You can use 'has()' for the following:
+" gui_running   A GUI is running (MacVim, or windows/linux Gvim shell.)
+" macunix       Macintosh version of Vim, using Unix files (OS-X).
+" unix          Unixy versions of Vim: MacVim, Mac CLI, linux, or cygwin.
+" win32         Actual windows vim.
+" win32unix     Win32 version of Vim, using Unix files (Cygwin)
+"
+" Note: The Vim.exe was installed via the Windows GVim installer, but a
+" different command line binary started from windows Cmd.exe.
+"
+" Note: Notice that `macunix` behaves strangely - it is false for command line
+" stock vim but true for anything build for MacVim even if on CLI. Same with
+" 'mac'. There's no great way to tell if you're running "on a mac" besides
+" `uname`. I've seen problems running any `system()` command in cygwin vim
+" though.
+"
+" https://vi.stackexchange.com/questions/2572/detect-os-in-vimscript/2577#2577
+"
+" |                    | MacVimGUI | MacVim(CLI)| osx vim      | gvim.exe   | vim.exe    | cygwin   |
+" |--------------------|-----------|------------|--------------|------------|------------|----------|
+" | Description:       | OSX UI App| MacVim CLI | stock CLI vim| Windows UI | WindowsCLI | CygwinVim|
+" | has('gui'):        | 1         | 1          | 0            | 1          | 0          | 0        |
+" | has('gui_running'):| 1         | 0          | 0            | 1          | 0          | 0        |
+" | has('unix'):       | 1         | 1          | 1            | 0          | 0          | 1        |
+" | has('win32unix'):  | 0         | 0          | 0            | 0          | 0          | 1        |
+" | has('macunix'):    | 1         | 1          | 0            | 0          | 0          | 0        |
+" | has('win32'):      | 0         | 0          | 0            | 1          | 1          | 0        |
+" | has('mac'):        | 1         | 1          | 0            | 0          | 0          | 0        |
+" | has('gui_mac'):    | 0         | 0          | 0            | 0          | 0          | 0        |
+
+" g:vimBoxOs: OS the end use is running (ignoring if they are in WSL or VM etc.)
+"
+"   - "osx"
+"   - "linux"
+"   - "windows"
+"
+" g:vimBoxGui
+"
+"   - "gui" Running in some GUI app (MacVim, Oni, GVim)
+"   - "term" Running in a terminal
+"
+" g:vimBoxSupportsUnix
+"   - 1 Supports unix APIs (running on Mac/Linux or in a windows env like Cygwin)
+"   - 0 Doesn't support unix APIs.
 if !exists("g:vimBoxOs")
   if has("win64") || has("win32") || has("win16")
     let g:vimBoxOs = "windows"
   else
-    let uname = substitute(system('uname'), '\n', '', '')
-    let g:vimBoxOs = uname == 'Darwin' ? 'osx' : 'linux'
+    if has("macunix")
+      let g:vimBoxOs = "osx"
+    else
+      " Cygwin gets wrapped up in using uname (sometimes fails with /tmp dir
+      " errors).
+      if has("win32unix")
+        let g:vimBoxOs = "windows"
+      else
+        " Kind of sucks that we have to spawn a completely new process at
+        " startup time just to check the os - we should allow invokers to
+        " supply this.
+        let uname = substitute(system('uname'), '\n', '', '')
+        let g:vimBoxOs = uname == 'Darwin' ? 'osx' : 'linux'
+      endif
+    endif
   endif
 endif
 
 if !exists("g:vimBoxGui")
   let g:vimBoxGui = has('gui_running') || exists('g:gui_oni') ? 'gui' : 'term'
+endif
+
+if !exists("g:vimBoxSupportsUnix")
+  let g:vimBoxSupportsUnix = has('unix')
 endif
 
 " https://vi.stackexchange.com/a/2559

@@ -4,7 +4,9 @@
 " For example t_vb, and application menus.
 " Can add config support later.
 
-" When overriding init files, the standard ones don't get sourced.
+" When overriding init files, the standard ones don't get sourced.  We set
+" `VIMBOX_OVERRIDING_INIT` to tell these loading scripts they need to source
+" the system vimrcs.  See `./developerDocs/LOCATIONS.md`
 if ($VIMBOX_OVERRIDING_INIT)
   let g:vimBoxInitialVimRcPath = resolve(expand('<sfile>:p'))
   let g:vimBoxInstallationRoot = fnamemodify(g:vimBoxInitialVimRcPath, ':h')
