@@ -222,6 +222,9 @@ endif
 if !isdirectory(g:vimBoxLogsDir)
   call mkdir(g:vimBoxLogsDir, "p")
 endif
+if !isdirectory(g:vimBoxPluginInstallDir)
+  call mkdir(g:vimBoxPluginInstallDir, "p")
+endif
 let g:vimBoxLogsCurrentSession = PathJoinFile(g:vimBoxLogsDir, strftime("%F"))
 " The automatically generated vimrc file based on config. Useful for reproing
 " and sharing.
@@ -235,16 +238,16 @@ let g:vimBoxErrorsDuringLoad = 0
 " autoload/
 " ftdetect/
 let g:vimBoxUserPluginDir = PathJoinDir(g:vimBoxXdgConfigDir, 'user')
+if !isdirectory(g:vimBoxUserPluginDir)
+  call mkdir(g:vimBoxUserPluginDir, "p")
+endif
+
 let g:vimBoxUserSettings = PathJoinFile(g:vimBoxUserPluginDir, 'settings.json')
 " Sourced after vimbox does all the deafult behavior.
 " Maybe the user init file should actualy be the one to source.
 let g:vimBoxUserInit = PathJoinFile(g:vimBoxUserPluginDir, 'init.vim')
 " See .gvimrc
 let g:vimBoxUserGVimInit = PathJoinFile(g:vimBoxUserPluginDir, 'ginit.vim')
-
-if !isdirectory(g:vimBoxUserPluginDir)
-  call mkdir(g:vimBoxUserPluginDir, "p")
-endif
 
 if has('gui_win32')
   set rtp+=~/.vim
