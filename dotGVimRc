@@ -10,7 +10,17 @@
 if ($VIMBOX_OVERRIDING_INIT)
   let g:vimBoxInitialVimRcPath = resolve(expand('<sfile>:p'))
   let g:vimBoxInstallationRoot = fnamemodify(g:vimBoxInitialVimRcPath, ':h')
-  exec "source " . g:vimBoxInstallationRoot . "/../VimBox.app/Contents/Resources/vim/gvimrc"
+  if g:vimBoxOs == 'windows'
+    " Cygwin installed vim
+    if g:vimBoxSupportsUnix
+    else
+      " GVim binary (command line or GUI)
+    endif
+  elseif g:vimBoxOs == 'osx'
+    exec "source " . $VIM . "/gvimrc"
+  elseif g:vimBoxOs == 'linux'
+    exec "source " . $VIM . "/gvimrc"
+  endif
 endif
 
 if has('gui')

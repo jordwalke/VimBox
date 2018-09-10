@@ -23,7 +23,7 @@ default vimrc files don't load, so VimBox has to manually load them.
         user gvimrc file: "$HOME/.gvimrc"
     2nd user gvimrc file: "~/.vim/gvimrc"
            defaults file: "$VIMRUNTIME/defaults.vim"
-        system menu file: "$VIMRUNTIME/menu.vim"       
+        system menu file: "$VIMRUNTIME/menu.vim"
 
 **Variables set by Vim:**
 
@@ -48,7 +48,7 @@ default vimrc files don't load, so VimBox has to manually load them.
 
     $MYGVIMRC (empty)
     $MYVIMRC  ~/.vimrc
-    
+
 
 
 ## OSX Vim (CLI)
@@ -61,7 +61,7 @@ default vimrc files don't load, so VimBox has to manually load them.
           user exrc file: "$HOME/.exrc"
            defaults file: "$VIMRUNTIME/defaults.vim"
       fall-back for $VIM: "/usr/share/vim"
-      
+
 
 **Variables set by Vim:**
 
@@ -102,7 +102,7 @@ time you set -u it clears this env var).
     2nd user gvimrc file: "$HOME\vimfiles\gvimrc"
     3rd user gvimrc file: "$VIM\_gvimrc"
            defaults file: "$VIMRUNTIME\defaults.vim"
-        system menu file: "$VIMRUNTIME\menu.vim"   
+        system menu file: "$VIMRUNTIME\menu.vim"
 
 **Variables set by Vim:**
 
@@ -115,7 +115,7 @@ time you set -u it clears this env var).
 
     $VIMRUNTIME
     C:\Program\ Files(x86)\Vim\vim81\
-    
+
     $MYGVIMRC (empty)
     $MYVIMRC: "$VIM\_vimrc"
 
