@@ -1,13 +1,13 @@
 #! /bin/bash
 # see http://jeetworks.org/node/90
-if [[ -f /Applications/MacVim.app/Contents/MacOS/Vim ]]
+if [[ -f /Applications/VimBox.app/Contents/Resources/VimBox.app/Contents/MacOs/Vim ]]
 then
-    # bypass mvim for speed
-    VIMPATH='/Applications/MacVim.app/Contents/MacOS/Vim -g -O -f --nomru'
-elif [[ -f /usr/local/bin/mvim ]]
+    # bypass box for speed
+    VIMPATH='/Applications/VimBox.app/Contents/Resources/VimBox.app/Contents/MacOs/Vim -g -O -f --nomru'
+elif [[ -f /usr/local/bin/box ]]
 then
-    # fall back to mvim
-    VIMPATH='mvim -d -f --nomru'
+    # fall back to box
+    VIMPATH='box -d -f --nomru'
 else
     # fall back to original vim
     VIMPATH='vimdiff'
