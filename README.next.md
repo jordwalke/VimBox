@@ -119,3 +119,51 @@ in insert mode.
 | Enter newline above current line.            | `O`              | `<c-o>`          |
 | Kill until end of current line.              | `K`              | `<c-k>`          |
 | Join current line with next line.            | `J`              | `<c-j>`          |
+
+
+
+
+
+Git Integration:
+---------
+
+#### Setup DiffTool:
+
+Any result of a `git diff` command can be viewed in a side-by-side diff view inside of `MacVim`. All of your familiar `vim` key commands work while browsing your diff. Place this in your `~/.gitconfig`:
+
+        [diff]
+            tool = default-difftool
+        [difftool "default-difftool"]
+            cmd = "/Applications/VimBox.app/Contents/Resources/VimBoxCheckout/dotVim/vimboxgitdiff.sh" $LOCAL $REMOTE
+
+Now you can use the `git difftool` command exactly like you use `git diff`, but a MacVim window will appear:
+
+<img width="744px" height="642px" src="dotVim/images/VimDiff_1488x1284.png" />
+
+#### Setup MergeTool:
+
+Resolving merge conflicts is simple with `MacVim`. Just put this in your `~/.gitconfig`.
+
+        [mergetool]
+          prompt = false
+          # See bashrc for exporting the editor across all apps, not just git.
+        [mergetool "boxmerge"]
+          cmd="/Applications/MacVim.app/Contents/MacOS/Vim -g -f '+windo set diff scrollbind scrollopt+=hor nowrap' -c 'Gvdiff' $MERGED -c 'au VimLeave * !open -a iTerm'"     # use fugitive.vim for 3-way merge
+          # cmd="box -c 'Gdiff' $MERGED"     # use fugitive.vim for 3-way merge
+          keepbackup=false
+
+         [merge]
+           tool = boxmerge
+
+
+Now, `git mergetool` will resolve rebase and merge conflicts directly inside of `MacVim`.
+
+
+#### Setup Commit Message Editor:
+
+Make sure to tell your shell that `MacVim` is the way that you'd like to edit commit messages. This special command will ensure that when you close your `MacVim` window, you will return back to the command line `iTerm`. Replace with your shell rc file and terminal app name.
+
+
+    echo export EDITOR='mvim -f --nomru -c "au VimLeave * !open -a iTerm"' >> ~/.bashrc
+    echo export GIT_EDITOR='mvim -f --nomru -c "au VimLeave * !open -a iTerm"' >> ~/.bashrc
+
