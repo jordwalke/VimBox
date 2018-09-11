@@ -1,13 +1,9 @@
 #! /bin/bash
 # see http://jeetworks.org/node/90
-if [[ -f /Applications/VimBox.app/Contents/Resources/VimBox.app/Contents/MacOs/Vim ]]
+if [[ -f /Applications/VimBox.app/Contents/Resources/VimBoxCheckout/applicationPatches/box ]]
 then
     # bypass box for speed
-    VIMPATH='/Applications/VimBox.app/Contents/Resources/VimBox.app/Contents/MacOs/Vim -g -O -f --nomru'
-elif [[ -f /usr/local/bin/box ]]
-then
-    # fall back to box
-    VIMPATH='box -d -f --nomru'
+    VIMPATH='/Applications/VimBox.app/Contents/Resources/VimBoxCheckout/applicationPatches/box -d -g -O -f --nomru'
 else
     # fall back to original vim
     VIMPATH='vimdiff'
