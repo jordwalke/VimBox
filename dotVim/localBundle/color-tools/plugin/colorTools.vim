@@ -222,9 +222,6 @@ fun! ColorToolsHighlight(...)
   let l:fgArg = a:2
   let l:bgArg = a:3
   let l:attrArg = a:4
-  if g:one_allow_italics == 0 && l:attrArg ==? 'italic'
-      let l:attrArg= 'none'
-  endif
 
   let l:bg = ""
   let l:fg = ""
@@ -232,18 +229,28 @@ fun! ColorToolsHighlight(...)
   let l:decoration = ""
 
   if l:bgArg != ''
-    let l:bg = " guibg=#" . l:bgArg . " ctermbg=" . ColorToolsRgb(l:bgArg)
+    " If color is 'NONE' or "DarkCyan" etc. Check for integers first.
+    if l:bgArg =~# '^\(\d\|[a-f]\)\+$'
+      let l:bg = " guibg=#" . l:bgArg . " ctermbg=" . ColorToolsRgb(l:bgArg)
+    else
+      let l:bg = " guibg=" . l:bgArg . " ctermbg=" . l:bgArg
+    endif
   endif
 
   if l:fgArg != ''
-    let l:fg = " guifg=#" . l:fgArg . " ctermfg=" . ColorToolsRgb(l:fgArg)
+    " If color is 'NONE' or "DarkCyan" etc. Check for integers first.
+    if l:fgArg =~# '^\(\d\|[a-f]\)\+$'
+      let l:fg = " guifg=#" . l:fgArg . " ctermfg=" . ColorToolsRgb(l:fgArg)
+    else
+      let l:fg = " guifg=" . l:fgArg . " ctermfg=" . l:fgArg
+    endif
   endif
 
   if l:attrArg != ''
     let l:decoration = " gui=" . l:attrArg . " cterm=" . l:attrArg
   endif
 
-  if g:hasGuiRunning && a:0 >= 5 && a:5 != ''
+  if g:vimBoxGui == 'gui' && a:0 >= 5 && a:5 != ''
     let l:guispArg = a:5
     let l:guisp = " guisp=#" . l:guispArg
   endif
