@@ -266,6 +266,9 @@ let g:vimBoxUserInit = PathJoinFile(g:vimBoxUserPluginDir, 'init.vim')
 " See .gvimrc
 let g:vimBoxUserGVimInit = PathJoinFile(g:vimBoxUserPluginDir, 'ginit.vim')
 
+let g:vimBoxExampleUserConfigDir=PathJoinDir(g:vimBoxInstallationRoot, 'exampleUserConfig')
+call VimBoxPopulateDefaultConfigs(g:vimBoxExampleUserConfigDir, g:vimBoxUserPluginDir)
+
 if has('gui_win32')
   set rtp+=~/.vim
 endif
