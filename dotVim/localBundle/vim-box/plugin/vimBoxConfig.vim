@@ -113,35 +113,43 @@ function! __VimBoxGetPluginInstallData(s)
   endif
   if strpart(a:s, 0, 5) == 'file:'
     let fileSpec = strpart(a:s, 5)
+    " See :help sub-replace-special. Backslashes have special meaning in the
+    " substituted string and there's no way to just have substitute() treat
+    " the string as a regular string! Double backslash means single backslash
+    " in the substituted string so we need to first turn every backslash in
+    " the substitute string into double backslashes.
+    let installRoot = substitute(g:vimBoxInstallationRoot, "\\", "\\\\\\\\", "g")
+    let userPluginDir = substitute(g:vimBoxUserPluginDir, "\\", "\\\\\\\\", "g")
+    let xdgConfigDir = substitute(g:vimBoxXdgConfigDir, "\\", "\\\\\\\\", "g")
+    let stockPluginsDir = substitute(g:vimBoxStockPluginsDir, "\\", "\\\\\\\\", "g")
 
-    let fileSpec = substitute(fileSpec, "$vimBoxInstallationRoot/", g:vimBoxInstallationRoot, "g")
+    let fileSpec = substitute(fileSpec, "$vimBoxInstallationRoot/", installRoot, "g")
     " In case they entered it with a backslash:
-    let fileSpec = substitute(fileSpec, "$vimBoxInstallationRoot\\", g:vimBoxInstallationRoot, "g")
+    let fileSpec = substitute(fileSpec, "$vimBoxInstallationRoot\\", installRoot, "g")
     " or heck, even with no slash (imagine just setting the whole config val
     " to "file:$vimBoxInstallationRoot")
-    let fileSpec = substitute(fileSpec, "$vimBoxInstallationRoot", g:vimBoxInstallationRoot, "g")
+    let fileSpec = substitute(fileSpec, "$vimBoxInstallationRoot", installRoot, "g")
 
-    let fileSpec = substitute(fileSpec, "$vimBoxUserPluginDir/", g:vimBoxUserPluginDir, "g")
+    let fileSpec = substitute(fileSpec, "$vimBoxUserPluginDir/", userPluginDir, "g")
     " In case they entered it with a backslash:
-    let fileSpec = substitute(fileSpec, "$vimBoxUserPluginDir\\", g:vimBoxUserPluginDir, "g")
+    let fileSpec = substitute(fileSpec, "$vimBoxUserPluginDir\\", userPluginDir, "g")
     " or heck, even with no slash (imagine just setting the whole config val
     " to "file:$vimBoxUserPluginDir")
-    let fileSpec = substitute(fileSpec, "$vimBoxUserPluginDir", g:vimBoxUserPluginDir, "g")
+    let fileSpec = substitute(fileSpec, "$vimBoxUserPluginDir", userPluginDir, "g")
 
-    let fileSpec = substitute(fileSpec, "$vimBoxXdgConfigDir/", g:vimBoxXdgConfigDir, "g")
+    let fileSpec = substitute(fileSpec, "$vimBoxXdgConfigDir/", xdgConfigDir, "g")
     " In case they entered it with a backslash:
-    let fileSpec = substitute(fileSpec, "$vimBoxXdgConfigDir\\", g:vimBoxXdgConfigDir, "g")
+    let fileSpec = substitute(fileSpec, "$vimBoxXdgConfigDir\\", xdgConfigDir, "g")
     " or heck, even with no slash (imagine just setting the whole config val
     " to "file:$vimBoxXdgConfigDir")
-    let fileSpec = substitute(fileSpec, "$vimBoxXdgConfigDir", g:vimBoxXdgConfigDir, "g")
+    let fileSpec = substitute(fileSpec, "$vimBoxXdgConfigDir", xdgConfigDir, "g")
 
-
-    let fileSpec = substitute(fileSpec, "$vimBoxStockPluginsDir/", g:vimBoxStockPluginsDir, "g")
+    let fileSpec = substitute(fileSpec, "$vimBoxStockPluginsDir/", stockPluginsDir, "g")
     " In case they entered it with a backslash:
-    let fileSpec = substitute(fileSpec, "$vimBoxStockPluginsDir\\", g:vimBoxStockPluginsDir, "g")
+    let fileSpec = substitute(fileSpec, "$vimBoxStockPluginsDir\\", stockPluginsDir, "g")
     " or heck, even with no slash (imagine just setting the whole config val
     " to "file:$vimBoxStockPluginsDir")
-    let fileSpec = substitute(fileSpec, "$vimBoxStockPluginsDir", g:vimBoxStockPluginsDir, "g")
+    let fileSpec = substitute(fileSpec, "$vimBoxStockPluginsDir", stockPluginsDir, "g")
 
     let dir = (fileSpec)
     return {'repoName': dir, 'domain': 'fileSystem', 'branch': ''}
