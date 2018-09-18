@@ -1,8 +1,19 @@
+" Problem: On windows, if set as -U, it won't run *after* the -u set .vimrc is
+" executed.
 " Why even have a .gvimrc? Because some settings can only be set here for gui
 " apps:
 " https://vi.stackexchange.com/a/473
 " For example t_vb, and application menus.
-" Can add config support later.
+"
+" Potential Solution: Can't the GUI specific settings be set in autocommands?
+"
+"   if has('autocmd')
+"     autocmd GUIEnter * set visualbell t_vb=
+"   endif
+" (Note: I found another solution to visual bell that doesn't even involve
+" gvimrc, but for other settings like menus, we need something that works on
+" all platforms when we use `-u` and/or `-U`. I think autocommands might be
+" the answer.
 
 " When overriding init files, the standard ones don't get sourced.  We set
 " `VIMBOX_OVERRIDING_INIT` to tell these loading scripts they need to source
@@ -74,7 +85,7 @@ if has('gui')
     macmenu File.Print key=<nop>
 
     " From subvim: Why do this again? Why not just swap like I've done?
-    " create a new menu item with title "New File" and bind it to cmd+n 
+    " create a new menu item with title "New File" and bind it to cmd+n
     " new files will be created on a new tab
     " an 10.190 File.New\ File <nop>
     " macmenu File.New\ File action=addNewTab: key=<D-n>
