@@ -42,6 +42,23 @@ function! VimBoxSearchSettingsFiles()
       \ ]
 endfunction
 
+
+" Copies example settings files for current platform/ui when none exist.
+" TODO: Move all the directory initialization here, not just copying of
+" example configs.
+function! VimBoxPopulateDefaultConfigs(defaultDir, userConfigDir)
+  let files = []
+  for filename in VimBoxSearchSettingsFiles()
+    let userConfigPath = PathJoinFile(a:userConfigDir, filename)
+    if !file_readable(userConfigPath)
+      let defaultConfigPath = PathJoinFile(a:defaultDir, filename)
+      if file_readable(defaultConfigPath)
+        call writefile(readfile(defaultConfigPath), userConfigPath)
+      endif
+    endif
+  endfor
+endfunction
+
 " We will skip over the "user plugin" because we always want it to have the
 " highest priority so will be processed last.
 " Searches for these files at the root of every runtime path root (in
