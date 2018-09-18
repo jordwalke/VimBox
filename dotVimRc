@@ -166,6 +166,16 @@ endif
 if g:vimBoxOs == 'windows'
   set fileformats=unix,dos
   set encoding=utf-8
+  " If starting gvim from mingw bash shell need to restart shell.
+  " https://github.com/junegunn/vim-plug/issues/539
+  " This might be not everything that is necessary. The latest vim-plug
+  " includes more support for windows. Need to resync.
+  if g:vimBoxGui=='gui'
+    let &shell='cmd.exe'
+  else
+    " You really shouldn't be starting the *non* gui vim.exe from within git
+    " bash shell apparently:
+  endif
 endif
 
 " VimBox Comes With One Stock Plugin For VimBox: Called the vim-box plugin.
