@@ -1,4 +1,289 @@
 {
   "*": {
+    "disabler": {
+      "config": {
+        "vimreason": false,
+        "wintabs": false
+      }
+    },
+    "installer": {
+      "config": {
+        "nerdcommenter": "scrooloose/nerdcommenter",
+        "flatwhite": "kamwitsta/flatwhite-vim",
+        "sensible": "tpope/vim-sensible",
+        "repeat": "tpope/vim-repeat",
+        "fugitive": "tpope/vim-fugitive",
+        "surround": "tpope/vim-surround",
+        "markdown": "tpope/vim-markdown",
+        "misc": "xolox/vim-misc",
+        "session": "xolox/vim-session",
+        "pairtools": "MartinLafreniere/vim-PairTools",
+        "Gitv": "gregsexton/gitv",
+        "one": "jordwalke/vim-one",
+        "airline": "jordwalke/vim-airline#AirlineOnTop",
+        "airline_themes": "vim-airline/vim-airline-themes",
+        "wintabs": "jordwalke/vim-wintabs#PreFilter",
+        "far": "brooth/far.vim",
+        "sensible": "tpope/vim-sensible",
+        "incsearch": "haya14busa/incsearch.vim",
+        "vimreason": "jordwalke/vim-reason",
+        "VimAutoMakeDirectory": "jordwalke/VimAutoMakeDirectory",
+        "NERDTree": "scrooloose/nerdtree",
+        "VimSplitBalancer": "jordwalke/VimSplitBalancer",
+        "webdevicons": "ryanoasis/vim-devicons",
+        "syntastic": "scrooloose/syntastic",
+        "comfortable_motion": "yuttie/comfortable-motion.vim",
+        "mucomplete": "lifepillar/vim-mucomplete",
+        "ultisnips": "SirVer/ultisnips",
+        "gundo": "sjl/gundo.vim"
+      }
+    },
+    "fakeMap": {
+      "mappings": {
+        "<F2>": ""
+      }
+    },
+    "vim": {
+      "config": {
+        "showmode": false,
+        "colorscheme": "taste",
+        "hidden": "eval:has_key(g:plugs, 'vim-wintabs')",
+        "showtabline": "eval:has_key(g:plugs, 'vim-wintabs') ? 2 : &showtabline",
+        "equalalways": "eval:has_key(g:plugs, 'VimSplitBalancer') ? 0 : 1",
+        "completeopt": "eval: has('patch-7.4.784') ? 'menu,menuone,noinsert' : 'menu,menuone'"
+      },
+      "mappings": {
+        "normal operatorPending select visual:;": "keys::",
+        "visualRemapped:<C-h>": "keys:<Esc><Cr>:w<Cr>",
+        "insertRemapped:<C-h>": "keys:<Esc>:w<Cr>l",
+        "normalRemapped operatorPendingRemapped selectRemapped visualRemapped:<c-h>": "keys:<Esc>:w<Cr>",
+        "commandLineRemapped:<C-h>": "keys:<C-c>:w<Cr>",
+
+        "normal:K": "keys:d$",
+        "insert:<C-k>": "keys:<c-\\><c-o>D",
+        "insert:<C-j>": "keys:<c-\\><c-o>J",
+        "insert:<C-o>": "keys:<c-\\><c-o>O",
+        "insert:<s-Enter>": "keys:<c-\\><c-o>o",
+
+        "normalRemapped operatorPendingRemapped selectRemapped visualRemapped:<m-j>": "keys:<C-d>",
+        "normalRemapped operatorPendingRemapped selectRemapped visualRemapped:<m-k>": "keys:<C-u>"
+      }
+    },
+    "mucomplete": {
+      "config": {
+        "#enable_auto_at_startup": 1,
+        "#no_mappings": 1,
+        "#can_complete": {},
+        "#chains": { "default" : ["path", "omni"], "vim" : ["path", "cmd", "ulti", "keyn"] }
+      },
+      "mappings": {
+        "insert @expr:<cr>": "keys:mucomplete#popup_exit(\"\<cr>\")"
+      }
+    },
+    "vimBox": {
+      "config": {
+        "useDevIcons": true,
+        "supportsDoubleWide": true,
+        "tabSystem": "standard"
+      }
+    },
+    "vimreason": {
+      "config": {
+        "clean_project_airline":1
+      }
+    },
+    "webdevicons": {
+      "config": {
+        "enable": 1,
+        "enable_airline_statusline": 1,
+        "enable_airline_tabline": 1,
+        "g:WebDevIconsUnicodeDecorateFolderNodes": 1,
+        "g:DevIconsEnableFolderPatternMatching": 0,
+        "g:WebDevIconsUnicodeGlyphDoubleWidth": 1,
+        "g:WebDevIconsNerdTreeAfterGlyphPadding": "  ",
+        "g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol": "",
+        "g:DevIconsEnableFoldersOpenClose": 1,
+        "g:DevIconsDefaultFolderOpenSymbol": "",
+        "conceal_nerdtree_brackets": 1,
+        "g:WebDevIconsNerdTreeGitPluginForceVAlign": 0,
+        "g:WebDevIconsOS": "Darwin"
+      }
+    },
+    "ultisnips": {
+      "config": {
+        "g:UltiSnipsSnippetsDir": "~/.config/vim-box/user/",
+        "g:UltiSnipsSnippetDirectories": ["myUltiSnippets"],
+        "g:UltiSnipsExpandTrigger": "<tab>",
+        "g:UltiSnipsJumpForwardTrigger": "<tab>",
+        "g:UltiSnipsJumpBackwardTrigger": "<s-tab>"
+      }
+    },
+
+    "comfortable_motion": {
+      "config": {
+        "no_default_key_mappings": 1,
+        "friction": 100.0,
+        "air_drag": 4.0,
+        "impulse_multiplier": 1
+      },
+      "mappings": {
+        "normal @silent:<C-j>": "keys::call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>",
+        "normal @silent:<C-k>": "keys::call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>"
+      }
+    },
+    "merlin": {
+      "config": {
+        "split_method": "vertical",
+        "completion_dwim": 0
+      }
+    },
+    "toggly": {
+      "config": {
+        "copen_command": "bo copen 15",
+        "lopen_command": "lopen 10"
+      }
+    },
+    "syntastic": {
+      "config": {
+        "enable_signs": 0,
+        "always_populate_loc_list": 1,
+        "loc_list_height": 15
+      }
+    },
+    "NERDTree": {
+      "config": {
+        "g:NERDTreeDirArrows": 0,
+        "g:NERDTreeMinimalUI": 1,
+        "g:NERDTreeShowBookmarks": 1,
+        "g:NERDTreeWinSize": 40,
+        "todo": "autocmd bufenter * if (winnr(\"$\") == 1 && exists(\"b:NERDTree\")) | q | endif",
+        "todo": "hi def link NERDTreeRO Normal",
+        "todo": "hi def link NERDTreeDir Normal",
+        "todo": "hi def link NERDTreePart StatusLine",
+        "todo": "hi def link NERDTreeDirSlash NonText",
+        "todo": "hi def link NERDTreeOpenable Normal",
+        "todo": "hi def link NERDTreeClosable Normal",
+        "todo": "hi def link NERDTreeCurrentNode Search",
+        "todo": "hi def link NERDTreeCWD Normal"
+      }
+    },
+    "Gitv": {
+      "OpenHorizontal": 0,
+      "WipeAllOnClose": 1,
+      "DoNotMapCtrlKey": 1
+    },
+    "one": {
+      "config": {
+        "allow_italics": "eval:has('gui_running')"
+      }
+    },
+    "incsearch": {
+      "mappings": {
+        "normalRemapped operatorPendingRemapped selectRemapped visualRemapped:/": "keys:<Plug>(incsearch-forward)",
+        "normalRemapped operatorPendingRemapped selectRemapped visualRemapped:?": "keys:<Plug>(incsearch-stay)"
+      },
+      "config": {
+        "#emacs_like_keymap": 1
+      }
+    },
+    "session": {
+      "config": {
+        "autosave_periodic": 0,
+        "autosave": "yes",
+        "autoload": "no",
+        "directory": "eval:g:vimBoxSessionDir"
+      }
+    },
+    "airline": {
+      "config": {
+        "airline_whitespace_checks": ["indent", "trailing", "long", "mixed-indent-file"],
+        "statusline_ontop": "eval:has_key(g:plugs, 'vim-wintabs')",
+        "powerline_fonts": "eval:g:vimBox_useDevIcons",
+        "skip_empty_sections": 1,
+        "#extensions#branch#enabled": 0,
+        "#parts#ffenc#skip_expected_string": "utf-8[unix]"
+      }
+    },
+    "wintabs": {
+      "config": {
+        "display": "statusline",
+        "autoclose": 2,
+        "autoclose_vim": 1,
+        "autoclose_vimtab": 1,
+        "switchbuf": "useopen,usetab",
+        "ui_active_higroup ":  "TabLineSel",
+        "ui_buffer_name_format":"  %t ",
+        "ui_sep_leftmost": " ",
+        "ui_sep_inbetween": " ",
+        "ui_active_left": "▍",
+        "ui_active_right": " ",
+        "ui_sep_rightmost": " ",
+        "ui_modified": " ◎",
+        "ignored_filetypes": [],
+        "ui_active_vimtab_left":"▍",
+        "ui_active_vimtab_right":" ",
+        "ui_arrow_left":"«",
+        "ui_arrow_right":"»"
+      }
+    },
+    "gundo": {
+      "config": {
+        "close_on_revert": true
+      }
+    }
+  },
+  "javascript": {
+    "pairtools": {
+      "config": {
+        "g:pairtools_javascript_pairclamp": 1,
+        "g:pairtools_javascript_closepairs": "eval: \"(:),[:],{:}\" . ',\":\"' ",
+        "g:pairtools_javascript_antimagicfield": "Comment,String,Special",
+        "g:pairtools_javascript_tagwrenchhook": "tagwrench#BuiltinHTML5Hook",
+        "g:pairtools_javascript_smartcloserule": "\\w,(,&,\\*",
+        "g:pairtools_javascript_tagwrench": 0,
+        "g:pairtools_javascript_jigsaw":  1,
+        "g:pairtools_javascript_autoclose":  1,
+        "g:pairtools_javascript_forcepairs": 0,
+        "g:pairtools_javascript_smartclose": 1,
+        "g:pairtools_javascript_antimagic":  1,
+        "g:pairtools_javascript_pcexpander": 1,
+        "g:pairtools_javascript_pceraser":  1,
+        "g:pairtools_javascript_twexpander": 1,
+        "g:pairtools_javascript_tweraser":  0,
+        "g:pairtools_javascript_apostrophe": 0
+      }
+    }
+  },
+  "reason": {
+    "vim": {
+      "config": {
+        "conceallevel": 2
+      }
+    },
+    "pairtools": {
+      "config": {
+        "notes": " Tag wrench mode remaps <Esc> in insert mode which prevents having your",
+        "notes": " terminal (iTerm) remap comand+s to escape sequences.  Disabling tag wrench,",
+        "notes": " but you may enable later if you guard this setting under:",
+        "notes": " if exists('g:gui_oni') || has('gui') && has('mac') && has('gui_running')",
+        "notes": " \"  let g:pairtools_ocaml_tagwrench = 1",
+        "g:pairtools_reason_pairclamp": 1,
+        "g:pairtools_reason_closepairs": "eval: \"(:),[:],{:}\" . ',\":\"' ",
+        "g:pairtools_reason_antimagicfield": "Comment,String,Special",
+        "g:pairtools_reason_tagwrenchhook": "tagwrench#BuiltinHTML5Hook",
+        "g:pairtools_reason_smartcloserule": "\\w,(,&,\\*",
+        "g:pairtools_reason_tagwrench": 0,
+        "g:pairtools_reason_jigsaw":  1,
+        "g:pairtools_reason_autoclose":  1,
+        "g:pairtools_reason_forcepairs": 0,
+        "g:pairtools_reason_smartclose": 1,
+        "g:pairtools_reason_antimagic":  1,
+        "g:pairtools_reason_pcexpander": 1,
+        "g:pairtools_reason_pceraser":  1,
+        "g:pairtools_reason_twexpander": 1,
+        "g:pairtools_reason_tweraser":  0,
+        "g:pairtools_reason_apostrophe": 0
+      }
+    }
   }
 }

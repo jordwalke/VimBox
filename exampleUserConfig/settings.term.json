@@ -1,0 +1,22 @@
+{
+  "*": {
+    "Gundo": {
+      "mappings": {
+        "all:<Undo>": "command:GundoToggle"
+      }
+    },
+    "toggly": {
+      "mappings": {
+        "all:<F2>": "command:call Toggly(1)",
+        "all:<S-F2>": "command:call Toggly(0)"
+      }
+    }
+  },
+  "reason": {
+    "vimreason": {
+      "mappings": {
+        "all:<S-F5>": "command:ReasonPrettyPrint"
+      }
+    }
+  }
+}

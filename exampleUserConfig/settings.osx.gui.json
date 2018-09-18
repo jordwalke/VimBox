@@ -1,0 +1,28 @@
+{
+  "*": {
+    "vim": {
+      "mappings": {
+        "insert:<D-f>": "keys:<Esc>/",
+        "normal:<D-f>": "keys:<Esc>/"
+      }
+    },
+    "Gundo": {
+      "mappings": {
+        "all:<D-U>": "command:GundoToggle"
+      }
+    },
+    "toggly": {
+      "mappings": {
+        "all:<D-d>": "command:call Toggly(1)",
+        "all:<D-D>": "command:call Toggly(0)"
+      }
+    }
+  },
+  "reason": {
+    "vimreason": {
+      "mappings": {
+        "all:<D-C>": "command:ReasonPrettyPrint"
+      }
+    }
+  }
+}

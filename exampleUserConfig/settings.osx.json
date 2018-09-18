@@ -1,0 +1,24 @@
+{
+  "*": {
+    "nerdcommenter": {
+      "config": {
+         "g:NERDCompactSexyComs": 0,
+         "g:NERDSpaceDelims": 1,
+         "g:NERDDefaultAlign": "left",
+         "g:NERDToggleCheckAllLines": 1,
+         "g:NERDCustomDelimiters": { "reason": { "left": "/*","right": "*/", "nested": 1 } }
+      },
+      "mappings": {
+        "visualRemapped selectRemapped:<D-/>": "keys:<Plug>NERDCommenterToggle",
+        "normalRemapped:<D-/>": "keys:<Plug>NERDCommenterToggle"
+      }
+    }
+  },
+  "reason": {
+    "vimreason": {
+      "mappings": {
+        "all:<D-C>": "command:ReasonPrettyPrint"
+      }
+    }
+  }
+}
