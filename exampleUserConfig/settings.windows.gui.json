@@ -1,9 +1,9 @@
 {
   "*": {
-    "vimBox": {
+    "installer": {
       "config": {
-      },
-      "mappings": {
+        "misc": "xolox/vim-misc",
+        "shell": "xolox/vim-shell"
       }
     },
     "vim": {
@@ -11,6 +11,14 @@
       "config": {
         "fileformats": "unix,dos",
         "guioptions": "gmMk"
+      },
+      "mappings": {
+        "all:<F11>": "command:Fullscreen"
+      }
+    },
+    "shell": {
+      "config": {
+        "fullscreen_message": ""
       }
     }
   }
