@@ -8,12 +8,9 @@
     },
     "vim": {
       "Notes": "http://unix.stackexchange.com/questions/44616/why-is-vim-creating-files-with-dos-line-endings",
-      "Notes": "http://unix.stackexchange.com/questions/44616/why-is-vim-creating-files-with-dos-line-endings",
-      "notes": " backupopy is Needed to NOT break symlinks on windows! Will write to new file instead of original symlinked file if you do not inclue the following line: Doesn't seem to fix the issue - always go to the source when editing files!",
       "config": {
         "fileformats": "unix,dos",
-        "visualbell": false,
-        "backupcopy": true
+        "guioptions": "gmMk"
       }
     }
   }

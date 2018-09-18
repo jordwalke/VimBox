@@ -83,7 +83,7 @@
         "fileformats": "unix",
         "showmode": false,
         "background": "dark",
-        "colorscheme": "default",
+        "colorscheme": "taste",
         "fillchars": "vert: ,diff: "
       }
     },
