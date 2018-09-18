@@ -163,13 +163,30 @@ if ($VIMBOX_OVERRIDING_INIT)
   " Passing -u even turns off `defaults` loading.
   exec "source " . $VIMRUNTIME . "/defaults.vim"
 endif
+if g:vimBoxOs == 'windows'
+  set fileformats=unix,dos
+  set encoding=utf-8
+endif
+
 " VimBox Comes With One Stock Plugin For VimBox: Called the vim-box plugin.
 " For some reason these have to be manually sourced even if we only used their contents after plug#end
 " Any functions used in the startup process, even if we've executed plug#end.
+" I think these end up getting sourced twice. So we should add a check in
+" these files to determine if they've already been loaded.
 execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxMessage.vim"
 execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxConfig.vim"
 execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBox.vim"
 execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxGeneratedRc.vim"
+
+" When creating directory paths to be joined into a RTP, we do *not* want to
+" include a trailing final `\` because it escapes the comma! So we
+" intentionally use PathJoinFile even though it's a dir.
+" https://github.com/google/vim-maktaba/issues/72
+let &runtimepath=&runtimepath . ',' .  PathJoinFile(g:vimBoxStockPluginsDir, 'vim-plug')
+let &runtimepath=&runtimepath . ',' .  PathJoinFile(g:vimBoxStockPluginsDir, 'json-ponyfill.vim')
+let &runtimepath=&runtimepath . ',' .  PathJoinFile(g:vimBoxStockPluginsDir, 'color-tools')
+let &runtimepath=&runtimepath . ',' .  PathJoinFile(g:vimBoxStockPluginsDir, 'vim-box')
+" execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/json-ponyfill.vim/autoload/json_ponyfill.vim"
 
 
 " We will follow the XDG Spec as NeoVim Does:
@@ -269,12 +286,6 @@ endif
 " The User is none the wiser. It's a little slower though, so we should avoid
 " doing any computation unless config files changed.'
 call VimBoxLog('INIT', "Initializing New VimBox Session via home directory vimrc")
-" Load all the stock plugins that we use in the process of doing all the
-" other plugin/settings loading.
-let &runtimepath=&runtimepath . ',' .  PathJoinDir(g:vimBoxStockPluginsDir, 'vim-plug')
-let &runtimepath=&runtimepath . ',' .  PathJoinDir(g:vimBoxStockPluginsDir, 'json-ponyfill.vim')
-let &runtimepath=&runtimepath . ',' .  PathJoinDir(g:vimBoxStockPluginsDir, 'color-tools')
-let &runtimepath=&runtimepath . ',' .  PathJoinDir(g:vimBoxStockPluginsDir, 'vim-box')
 
 if !skipGeneration
   call VimBoxInitConfigs()
@@ -293,11 +304,10 @@ call __VimBoxGeneratedPlugCalls()
 call plug#end()
 
 
-" Disable visualbell by default
+" The suggestions here seemed overly complex.
 " http://unix.stackexchange.com/a/5313
-set visualbell
-" This actually needs to be set in .gvimrc for gui forms
-set t_vb=
+" The final comment here worked: http://vim.wikia.com/wiki/Disable_beeping
+set belloff=all
 
 try
   set shortmess+=filmnrxoOtTc
@@ -331,7 +341,7 @@ if !len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   set listchars = "eol:$"
 else
   " Don't show statusline when airline might not be loaded or configured.
-  if exists("g:gui_oni") || has('gui') && has('mac') && has('gui_running')
+  if g:vimBoxGui=='gui'
     set background=dark
     colorscheme taste
     set guioptions-=r
