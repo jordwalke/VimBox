@@ -167,3 +167,8 @@ Make sure to tell your shell that `MacVim` is the way that you'd like to edit co
     echo export EDITOR='mvim -f --nomru -c "au VimLeave * !open -a iTerm"' >> ~/.bashrc
     echo export GIT_EDITOR='mvim -f --nomru -c "au VimLeave * !open -a iTerm"' >> ~/.bashrc
 
+
+#### Terminal Integration:
+*iTerm*: To make compiler error messages clickable (with suport for jump to
+line number), in the Advanced Settings page of iTerm, select Semantic History >
+Custom Command and enter `open 'box://open?url=file://\1&line=\2'`
