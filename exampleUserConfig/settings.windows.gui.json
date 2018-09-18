@@ -1,0 +1,17 @@
+{
+  "*": {
+    "vimBox": {
+      "config": {
+      },
+      "mappings": {
+      }
+    },
+    "vim": {
+      "Notes": "http://unix.stackexchange.com/questions/44616/why-is-vim-creating-files-with-dos-line-endings",
+      "config": {
+        "fileformats": "unix,dos",
+        "guioptions": "gmMk"
+      }
+    }
+  }
+}
