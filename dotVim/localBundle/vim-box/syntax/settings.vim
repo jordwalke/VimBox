@@ -4,10 +4,11 @@ syn region ExplainHeadingActions matchgroup=ExplainHeadingActionsEnd start="^ ac
 syn region ExplainHeadingMappings matchgroup=ExplainHeadingMappingsEnd start="^ mappings " end="$" keepend contains=TOP
 
 " For the :Where command
-syn region ExplainHeadingConfig matchgroup=ExplainHeadingConfigEnd start="^ User Config " end="$" keepend contains=TOP
-syn region ExplainHeadingConfig matchgroup=ExplainHeadingConfigEnd start="^ User Data " end="$" keepend contains=TOP
-syn region ExplainHeadingConfig matchgroup=ExplainHeadingConfigEnd start="^ VimBox Installation " end="$" keepend contains=TOP
-syn region ExplainHeadingConfig matchgroup=ExplainHeadingConfigEnd start="^ Cache Data " end="$" keepend contains=TOP
+syn region ExplainLocationSection matchgroup=ExplainLocationSectionEnd start="^ User Config " end="$" keepend contains=TOP
+syn region ExplainLocationSection matchgroup=ExplainLocationSectionEnd start="^ User Data " end="$" keepend contains=TOP
+syn region ExplainLocationSection matchgroup=ExplainLocationSectionEnd start="^ VimBox Installation " end="$" keepend contains=TOP
+syn region ExplainLocationSection matchgroup=ExplainLocationSectionEnd start="^ Cache Data " end="$" keepend contains=TOP
+syn match ExplainTitle /^\s\+VimBox Locations\s*/
 
 syn match ExplainHeadingPlugin /^ \S* .*  .*$/
 

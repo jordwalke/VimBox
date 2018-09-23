@@ -20,7 +20,7 @@ function! s:VimBoxSettingsFixHighlight()
   let panelBg = ColorToolsBlend(normalBg, normalFg, 10)
   let panelBgLight = ColorToolsBlend(normalBg, normalFg, 20)
   let panelFg = normalFg
-  let headingConfigBg = diffdeleted[fg]
+  let headingConfigBg = diffadd[fg]
   let headingConfigFg = ColorToolsBlend(diffdeleted[bg], diffdeleted[fg], 10)
   let headingActionsBg = diffadd[fg]
   let headingActionsFg = ColorToolsBlend(diffadd[bg], diffadd[fg], 10)
@@ -47,6 +47,12 @@ function! s:VimBoxSettingsFixHighlight()
   call ColorToolsHighlight('ExplainHeadingActions', headingActionsBg, panelBgLight, 'bold')
   call ColorToolsHighlight('ExplainHeadingMappings', headingMappingsBg, panelBgLight, 'bold')
   call ColorToolsHighlight('ExplainHeadingConfigEnd', headingConfigFg, headingConfigBg, 'bold')
+
+  " For :Locations command.
+  call ColorToolsHighlight('ExplainTitle', headingConfigFg, headingConfigBg, 'bold')
+  call ColorToolsHighlight('ExplainLocationSection', panelFg, panelBgLight, 'italic')
+  call ColorToolsHighlight('ExplainLocationSectionEnd', headingConfigFg, headingConfigBg, 'bold')
+
   call ColorToolsHighlight('ExplainHeadingActionsEnd', headingActionsFg, headingActionsBg, 'bold')
   call ColorToolsHighlight('ExplainHeadingMappingsEnd', headingMappingsFg, headingMappingsBg, 'bold')
   call ColorToolsHighlight('ExplainHeadingPlugin', headingPluginFg, headingPluginBg, 'bold')
