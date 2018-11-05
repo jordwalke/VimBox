@@ -3,22 +3,45 @@
     "installer": {
       "config": {
         "misc": "xolox/vim-misc",
-        "shell": "xolox/vim-shell"
+        "shell": "xolox/vim-shell",
+        "bargreybars": "dreadnaut/vim-bargreybars",
+        "winPython": "file:$vimBoxStockPluginsDir/vim-win-python"
       }
     },
     "vim": {
       "Notes": "http://unix.stackexchange.com/questions/44616/why-is-vim-creating-files-with-dos-line-endings",
       "config": {
         "fileformats": "unix,dos",
-        "guioptions": "gmMk"
+        "guioptions": "gmMk",
+        "pythonthreehome": "eval:PathJoinDir(g:vimBoxStockPluginsDir, 'vim-win-python')",
+        "pythonthreedll": "eval:PathJoinFile(PathJoinDir(g:vimBoxStockPluginsDir, 'vim-win-python'), 'python37.dll')"
       },
       "mappings": {
         "all:<F11>": "command:Fullscreen"
       }
     },
+    "nerdcommenter": {
+      "mappings": {
+        "visualRemapped selectRemapped:<F15>": "keys:<Plug>NERDCommenterToggle",
+        "normalRemapped:<F15>": "keys:<Plug>NERDCommenterToggle"
+      }
+    },
     "shell": {
       "config": {
-        "fullscreen_message": ""
+        "fullscreen_always_on_top": false,
+        "fullscreen_items": "mT",
+        "fullscreen_message": "",
+        "shell_mappings_enabled": 0
+      }
+    },
+    "webdevicons": {
+      "config": {
+        "enable": false
+      }
+    },
+    "vimBox": {
+      "config": {
+        "useDevIcons": false
       }
     }
   }
