@@ -1,8 +1,13 @@
 {
   "*": {
     "resetKeys": {
-      "notes": "Resets keys to noop that would likely lead to confusing new user experiences.",
+      "notes": [
+        "Resets keys to noop that would likely lead to confusing new user experiences.",
+        "Also resetting q because it leads to a confusing macro state for new vimmers."
+      ],
       "mappings": {
+        "normal:q": "nop",
+        "visual:q": "nop",
         "normal operatorPending visual select:~": "nop",
         "normal:K": "nop",
         "visual:u": "nop",
