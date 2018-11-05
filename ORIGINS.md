@@ -40,4 +40,5 @@ a snapshot of python 3 for 32 bit systems. The reason why this is included, is
 because on Windows, the default GVim distribution is compiled for 32 bit
 systems, but the version of Python often installed is 64 bit based and the two
 won't work together. VimBox includes the right python out of the box so that
-you can use popular plugins like UltiSnips on Windows and Mac.
+you can use popular plugins like UltiSnips on Windows and Mac.  Origin:
+`https://www.python.org/ftp/python/3.7.0/python-3.7.0-embed-win32.zip`
