@@ -126,6 +126,7 @@ let skipGeneration = 0
 " =====================================
 " From: https://stackoverflow.com/questions/4976776/how-to-get-path-to-the-current-vimscript-being-executed
 " Symlink Resolved Location Of VimBox Installation: (Won't Always Be .vim!):
+" Note: Has to be run from top level scope, not inside function.
 let g:vimBoxInitialVimRcPath = resolve(expand('<sfile>:p'))
 let g:vimBoxInstallationRoot = fnamemodify(g:vimBoxInitialVimRcPath, ':h')
 
