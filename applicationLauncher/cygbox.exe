@@ -1,0 +1,17 @@
+#! /bin/bash
+
+# Wrapper for invoking VimBox from a cygwin/git-bash/mingw shell. 
+# Assumes you have ~/cyg-wrapper.sh. Customize to your liking then put
+# something like the following in your bashrc:
+# alias box="path/to/cygbox.exe"
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
+
+# export VIMBOX_OVERRIDING_INIT=1
+~/cyg-wrapper.sh "${DIR}/gvim.bat" --binary-opt=-c,--cmd,-T,-t,--servername,--remote-send,--remote-expr --cyg-verbose --fork=1 "$@"
+# ~/cyg-wrapper.sh "C:/Windows/gvim.bat" --binary-opt=-c,--cmd,-T,-t,--servername,--remote-send,--remote-expr --cyg-verbose --fork=1 -u "${DIR}/../dotVimRc" "$@"
