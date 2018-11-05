@@ -153,7 +153,8 @@ if ($VIMBOX_OVERRIDING_INIT)
       endif
     else
       " GVim binary (command line or GUI)
-      exec "source " . $VIM . "/_vimrc"
+      " Nothing actually important here. Commenting out.
+      " exec "source " . $VIM . "/_vimrc"
     endif
   elseif g:vimBoxOs == 'osx'
     exec "source " . $VIM . "/vimrc"
@@ -399,3 +400,11 @@ if file_readable(g:vimBoxUserInit)
   execute "source " . g:vimBoxUserInit
 endif
 let g:vimBoxIsLoading = 0
+
+
+" Silence python3 deprecation warnings. There are some deprecation warnings in
+" Ultisnips with the python3 API. Just clear out any of them once for all
+" plugins that might use deprecated python APIs.
+if has('python3')
+  silent! python3 1
+endif
