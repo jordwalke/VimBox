@@ -371,7 +371,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
     let s:chrome_fg_dim = s:fg_dim
     " Text on chrome that should be less visible (deactivated pane chrome etc)
     let s:gutter_bg = s:chrome_bg
-    let s:gutter_fg = s:fg
+    let s:gutter_fg = s:fg_dim
     let s:gutter_fg_dim = s:fg_dim
     let s:vertsplit_bg = s:chrome_bg
 
@@ -382,14 +382,19 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
     " modal_bg is things like popup menus, visual selection - things
     " generally overlayed on top of the background color that might bump up
     " against chrome as well.
-    let s:modal_bg  = <SID>blend(colorsDarker['black'], colorsLighter['black'], 30)
+    let s:modal_bg  = <SID>blend(colorsDarker['black'], colors['black'], 80)
     " modal_button_bg is things like popup menu scrollbar thumbs, wildmenu
     " cursor that may appear on top of modal_bg.
-    let s:modal_button_bg  = <SID>blend(colorsDarker['black'], colorsLighter['black'], 60)
-    let s:syntax_cursor =  s:modal_bg
+    let s:modal_button_bg  = <SID>blend(colors['black'], colorsLighter['black'], 0)
+    let s:syntax_cursorline =  s:modal_bg
 
     let s:syntax_accent = colorsLighter['blueberry']
     let s:special_grey = 'ffffff' " NOT SURE WHAT THIS EVEN IS.
+
+    " Have to add a slight tint to the visual otherwise it gets lost in the
+    " chrome too easily. Purple is a nice choice because airline shows visual
+    " mode as purple.
+    let s:visual  = <SID>blend(s:modal_bg, colorsDarker['grape'], 8)
 
 
     " DIFF BGS:
@@ -448,7 +453,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
     let s:chrome_fg_dim = s:fg_dim
     " Text on chrome that should be less visible (deactivated pane chrome etc)
     let s:gutter_bg = s:chrome_bg
-    let s:gutter_fg = s:fg
+    let s:gutter_fg = s:fg_dim
     let s:gutter_fg_dim = s:fg_dim
     let s:vertsplit_bg = s:chrome_bg
 
@@ -463,10 +468,14 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
     " modal_button_bg is things like popup menu scrollbar thumbs, wildmenu
     " cursor that may appear on top of modal_bg.
     let s:modal_button_bg  = <SID>blend(colorsDarker['silver'], colors['silver'], 0)
-    let s:syntax_cursor =  s:modal_bg
+    let s:syntax_cursorline =  s:modal_bg
 
     let s:syntax_accent = colorsDarker['blueberry']
     let s:special_grey = 'ffffff' " NOT SURE WHAT THIS EVEN IS.
+    " Have to add a slight tint to the visual otherwise it gets lost in the
+    " chrome too easily. Purple is a nice choice because airline shows visual
+    " mode as purple.
+    let s:visual  = <SID>blend(s:modal_bg, colorsDarker['grape'], 8)
 
 
     " DIFF BGS:
@@ -490,12 +499,12 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
 
   " Vim editor color --------------------------------------------------------{{{
   call <sid>X('bold',         '',              '',               'bold')
-  call <sid>X('ColorColumn',  '',              s:syntax_cursor,  '')
-  call <sid>X('Conceal',      '',              '',               '')
+  call <sid>X('ColorColumn',  '',              s:syntax_cursorline,  '')
+  call <sid>X('Conceal',      '',              s:syntax_bg,               '')
   call <sid>X('Cursor',       s:syntax_bg,     s:blue,          '')
   call <sid>X('CursorIM',     '',              '',               '')
-  call <sid>X('CursorColumn', '',              s:syntax_cursor,  '')
-  call <sid>X('CursorLine',   '',              s:syntax_cursor,  'none')
+  call <sid>X('CursorColumn', '',              s:syntax_cursorline,  '')
+  call <sid>X('CursorLine',   '',              s:syntax_cursorline,  'none')
   call <sid>X('Directory',    s:blue,         '',               '')
   call <sid>X('ErrorMsg',     s:red,         s:syntax_bg,      'none')
   " Strongly suggested:
@@ -505,7 +514,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
   call <sid>X('FoldColumn',   s:fg_dim,        s:chrome_bg,  '')
   call <sid>X('IncSearch',    s:search_bg,     s:search,        'none')
   call <sid>X('LineNr',       s:gutter_fg,     s:gutter_bg,  '')
-  call <sid>X('CursorLineNr', s:syntax_fg,     s:gutter_bg,  'none')
+  call <sid>X('CursorLineNr', s:gutter_fg,     s:syntax_cursorline,  'none')
   call <sid>X('MatchParen',   s:syntax_bg,     s:red,          '')
   call <sid>X('Italic',       '',              '',               'italic')
   call <sid>X('ModeMsg',      s:syntax_fg,     '',               '')
@@ -530,7 +539,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
   call <sid>X('TabLineFill',  s:chrome_fg_dim, s:chrome_bg,  'none')
   call <sid>X('TabLineSel',   s:blue,         s:syntax_bg,          '')
   call <sid>X('Title',        s:fg,         '',               'none')
-  call <sid>X('Visual',       '',              s:modal_bg,    '')
+  call <sid>X('Visual',       '',              s:visual,    '')
   call <sid>X('VisualNOS',    '',              s:modal_bg,    '')
   call <sid>X('WarningMsg',   s:red,         '',               '')
   call <sid>X('TooLong',      s:red,         '',               '')
@@ -764,20 +773,28 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
 
   " Markdown highlighting ---------------------------------------------------{{{
   call <sid>X('markdownUrl',              s:fg_dim,  '', '')
+  " Heading rules are the ==== and --- below a heading
+  call <sid>X('markdownHeadingRule',      s:fg_dim,  '', '')
+  " Rules also include free floating rules like - - - - and * * * * *
+  call <sid>X('markdownRule',             s:fg_dim,  '', '')
+  
+  call <sid>X('markdownBlockquote',       s:fg_dim, s:modal_bg , '')
+  call <sid>X('markdownBlock',       s:fg_dim,  s:fg_dim, 'italic')
   call <sid>X('markdownBold',             s:orange,   '', 'bold')
-  call <sid>X('markdownItalic',           s:orange,   '', 'bold')
-  call <sid>X('markdownCode',             s:green,   '', '')
+  call <sid>X('markdownBoldItalic',       s:orange,   '', 'bold,italic')
+  call <sid>X('markdownItalic',           s:blue,   '', 'italic')
+  call <sid>X('markdownCode',             s:green,   s:modal_bg, '')
   call <sid>X('markdownCodeBlock',        s:red,   '', '')
-  call <sid>X('markdownCodeDelimiter',    s:green,   '', '')
-  call <sid>X('markdownHeadingDelimiter', s:red2, '', '')
-  call <sid>X('markdownH1',               s:red,   '', '')
-  call <sid>X('markdownH2',               s:red,   '', '')
-  call <sid>X('markdownH3',               s:red,   '', '')
-  call <sid>X('markdownH3',               s:red,   '', '')
-  call <sid>X('markdownH4',               s:red,   '', '')
-  call <sid>X('markdownH5',               s:red,   '', '')
-  call <sid>X('markdownH6',               s:red,   '', '')
-  call <sid>X('markdownListMarker',       s:red,   '', '')
+  call <sid>X('markdownCodeDelimiter',    s:fg_dim,   '', '')
+  call <sid>X('markdownHeadingDelimiter', s:red, '', '')
+  call <sid>X('markdownH1',               s:red,         '', 'bold')
+  call <sid>X('markdownH2',               s:red,         '', 'bold')
+  call <sid>X('markdownH3',               s:syntax_fg,   '', 'bold')
+  call <sid>X('markdownH3',               s:syntax_fg,   '', 'bold')
+  call <sid>X('markdownH4',               s:syntax_fg,   '', '')
+  call <sid>X('markdownH5',               s:syntax_fg,   '', '')
+  call <sid>X('markdownH6',               s:syntax_fg,   '', '')
+  call <sid>X('markdownListMarker',       s:red,   '', 'bold')
   " }}}
 
   " PHP highlighting --------------------------------------------------------{{{
