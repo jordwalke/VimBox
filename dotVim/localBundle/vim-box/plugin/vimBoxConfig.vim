@@ -189,6 +189,10 @@ function! __VimBoxGetPluginInstallData(s)
   endif
 endfunction
 
+function! __VimBoxIsConfigComment(ss)
+  return a:ss ==? "note" || a:ss ==? "notes" || a:ss ==? "comment" || a:ss ==? "comments" || a:ss ==? "config-comment" || a:ss ==? "configcomment" || a:ss ==? "configcomments"|| a:ss ==? "config-comments"
+endfunction
+
 " Also builds up a "searchIndex" which is used as a convenient keyword search.
 " Reorganizes the configuration to be different from the json form.
 " The resolvedConfig is stored in a form different than it is configured
@@ -199,13 +203,32 @@ endfunction
 function! VimBoxAppendToNextResolvedConfig(searchIndex, resolvedConfig, nextConfig, nextConfigPath)
   for scope in keys(a:nextConfig)
     let nextScope = a:nextConfig[scope]
+    if type(nextScope) != v:t_dict
+      if !__VimBoxIsConfigComment(scope)
+        call VimBoxUserMessageError("Problem in config file " . a:nextConfigPath . ". Scope " . scope . " should be a dictionary with short plugin names as keys and {mappings, config, actions} as values.")
+      endif
+      continue
+    endif
     for pluginName in Keys(nextScope)
       if !empty(nextScope[pluginName])
+        if type(nextScope[pluginName]) != v:t_dict
+          if !__VimBoxIsConfigComment(pluginName)
+            call VimBoxUserMessageError("Problem in config file " . a:nextConfigPath . ". Config for plugin '" . pluginName . "' in scope '" . scope . "' should be a dictionary of the form {mappings, config, actions}.")
+          endif
+          continue
+        endif
         if !has_key(a:resolvedConfig, pluginName) || empty(a:resolvedConfig[pluginName])
           let a:resolvedConfig[pluginName] = {'actions': {}, 'config': {}, 'mappings': {}}
         endif
         let resolvedPlugin = a:resolvedConfig[pluginName]
         let nextScopePlugin = nextScope[pluginName]
+        for fieldName in keys(nextScopePlugin)
+          if fieldName != 'config' && fieldName != 'mappings' && fieldName != 'actions'
+            if !__VimBoxIsConfigComment(fieldName)
+              call VimBoxUserMessageError("Problem in config file " . a:nextConfigPath . ". Config for plugin '" . pluginName . "' in scope '" . scope . "' contains an invalid key '" . fieldName . "'. It should be one of 'mappings', c)onfig, or 'actions' (or alternatively you can use the key 'notes' which can be used to write freeform notes that are ignored.)")
+            endif
+          endif
+        endfor
         let nextScopePluginActions = (!has_key(nextScopePlugin, 'actions') || empty(nextScopePlugin['actions'])) ? {} : nextScopePlugin['actions']
         let nextScopePluginSettings = (!has_key(nextScopePlugin, 'config') || empty(nextScopePlugin['config'])) ? {} : nextScopePlugin['config']
         let nextScopePluginMappings = (!has_key(nextScopePlugin, 'mappings') || empty(nextScopePlugin['mappings'])) ? {} : nextScopePlugin['mappings']
