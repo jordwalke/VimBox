@@ -33,3 +33,11 @@ The color utilities in `dotVim/localBundle/color-tools/` were combined from
 `box`: The included `box` script is included [from MacVim's
 repo](https://github.com/macvim-dev/macvim/blob/6ff781f67eca346595b501c862dae12c3fca1e82/src/MacVim/mvim)
 and retains its original license.
+
+
+Inside of `./dotVim/localBundle/` is `python-3.7.0-embed-win32/` which contains
+a snapshot of python 3 for 32 bit systems. The reason why this is included, is
+because on Windows, the default GVim distribution is compiled for 32 bit
+systems, but the version of Python often installed is 64 bit based and the two
+won't work together. VimBox includes the right python out of the box so that
+you can use popular plugins like UltiSnips on Windows and Mac.

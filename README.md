@@ -326,6 +326,8 @@ may have their own license. In the event any dependency is include in `VimBox`,
 an attempt has been made to also include its corresponding license in the
 directory containing that licensed work.
 
-Origins:
---------
-See [./ORIGINS.md](ORIGINS.md).
+#### ORIGINS
+
+See [./ORIGINS.md](ORIGINS.md) for information on where various pieces of this
+repo came from. Some libraries inside this repo merely for convenience and
+those retain their own licenses.
