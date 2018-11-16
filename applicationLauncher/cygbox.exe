@@ -13,5 +13,5 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 
 # export VIMBOX_OVERRIDING_INIT=1
-~/cyg-wrapper.sh "${DIR}/gvim.bat" --binary-opt=-c,--cmd,-T,-t,--servername,--remote-send,--remote-expr --cyg-verbose --fork=1 "$@"
+~/cyg-wrapper.sh "${DIR}/gvim.bat" --binary-opt=-c,--cmd,-T,-t,--servername,--remote-send,--remote-expr --cyg-verbose "$@"
 # ~/cyg-wrapper.sh "C:/Windows/gvim.bat" --binary-opt=-c,--cmd,-T,-t,--servername,--remote-send,--remote-expr --cyg-verbose --fork=1 -u "${DIR}/../dotVimRc" "$@"

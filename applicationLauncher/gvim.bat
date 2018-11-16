@@ -41,7 +41,7 @@ set VIMBOX_OVERRIDING_INIT=1 && start "dummy" /b "%PROGRAM_FILES_VIM_EXE_DIR%\gv
 goto eof
 
 :nofork
-set VIMBOX_OVERRIDING_INIT=1 && start "dummy" /b "%PROGRAM_FILES_VIM_EXE_DIR%\gvim.exe" -u "%scriptdir%\..\dotVimRc " %*
+set VIMBOX_OVERRIDING_INIT=1 && start "dummy" /b /wait "%PROGRAM_FILES_VIM_EXE_DIR%\gvim.exe" -u "%scriptdir%\..\dotVimRc " %*
 
 :eof
 set VIMARGS=
