@@ -176,9 +176,11 @@
       }
     },
     "Gitv": {
-      "OpenHorizontal": 0,
-      "WipeAllOnClose": 1,
-      "DoNotMapCtrlKey": 1
+      "config": {
+        "OpenHorizontal": 0,
+        "WipeAllOnClose": 1,
+        "DoNotMapCtrlKey": 1
+      }
     },
     "one": {
       "config": {

@@ -14,7 +14,8 @@ endfunction
 " Shown to user and logged.
 function! VimBoxUserMessageError(msg)
   if g:vimBoxIsLoading
-    let g:vimBoxErrorsDuringLoad = 1
+    call extend(g:vimBoxErrorsDuringLoad, [a:msg])
+    return
   endif
   " regular :echomsg doesn't shorten messages with +T
   " but for some reason, with "norm echomsg", it does.
@@ -37,6 +38,10 @@ endfunction
 " User facing messages. Logged.
 " Causes "hit enter" when passing double quoted strings wat1?
 function! VimBoxUserMessage(msg)
+  if g:vimBoxIsLoading
+    call extend(g:vimBoxInfosDuringLoad, [a:msg])
+    return
+  endif
   let typ = type(a:msg)
   let msg = a:msg
   if typ != v:t_string
@@ -56,6 +61,10 @@ endfunction
 
 " Shown to user and logged.
 function! VimBoxUserMessageSuccess(msg)
+  if g:vimBoxIsLoading
+    call extend(g:vimBoxSuccessesDuringLoad, [a:msg])
+    return
+  endif
   " regular :echomsg doesn't shorten messages with +T
   " but for some reason, with "norm echomsg", it does.
   " The same trick doesn't work for echoerr :(
@@ -76,6 +85,10 @@ endfunction
 
 " Shown to user and logged.
 function! VimBoxUserMessageWarn(msg)
+  if g:vimBoxIsLoading
+    call extend(g:vimBoxWarningsDuringLoad, [a:msg])
+    return
+  endif
   " regular :echomsg doesn't shorten messages with +T
   " but for some reason, with "norm echomsg", it does.
   " The same trick doesn't work for echoerr :(

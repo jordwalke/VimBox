@@ -88,7 +88,7 @@ function! VimBoxInitConfigs()
         try
           let data = json_ponyfill#json_decode(join(readfile(configPath)))
         catch
-          call VimBoxUserMessageError("Config file " . configPath . " has a syntax error.")
+          call console#Error("Config file " . configPath . " has a syntax error.")
         endtry
         let g:vimBox__trackedConfigs[configPath] = {'pluginRootDir': configPath, 'data': data}
         call add(g:vimBox__trackedConfigPriorities, configPath)
@@ -109,7 +109,7 @@ function! VimBoxInitConfigs()
       try
         let vimBoxUserConfigJsonData = json_ponyfill#json_decode(fileContents)
       catch
-        call VimBoxUserMessageError("Config file " . vimBoxUserConfigJsonPath . " has a syntax error.")
+        call console#Error("Config file " . vimBoxUserConfigJsonPath . " has a syntax error.")
       endtry
     endif
     let g:vimBox__trackedConfigs[vimBoxUserConfigJsonPath] = {'pluginRootDir': g:vimBoxUserPluginDir, 'data': vimBoxUserConfigJsonData}
@@ -205,7 +205,7 @@ function! VimBoxAppendToNextResolvedConfig(searchIndex, resolvedConfig, nextConf
     let nextScope = a:nextConfig[scope]
     if type(nextScope) != v:t_dict
       if !__VimBoxIsConfigComment(scope)
-        call VimBoxUserMessageError("Problem in config file " . a:nextConfigPath . ". Scope " . scope . " should be a dictionary with short plugin names as keys and {mappings, config, actions} as values.")
+        call console#Error("Problem in config file " . a:nextConfigPath . ". Scope " . scope . " should be a dictionary with short plugin names as keys and {mappings, config, actions} as values.")
       endif
       continue
     endif
@@ -213,7 +213,7 @@ function! VimBoxAppendToNextResolvedConfig(searchIndex, resolvedConfig, nextConf
       if !empty(nextScope[pluginName])
         if type(nextScope[pluginName]) != v:t_dict
           if !__VimBoxIsConfigComment(pluginName)
-            call VimBoxUserMessageError("Problem in config file " . a:nextConfigPath . ". Config for plugin '" . pluginName . "' in scope '" . scope . "' should be a dictionary of the form {mappings, config, actions}.")
+            call console#Error("Problem in config file " . a:nextConfigPath . ". Config for plugin '" . pluginName . "' in scope '" . scope . "' should be a dictionary of the form {mappings, config, actions}.")
           endif
           continue
         endif
@@ -225,7 +225,7 @@ function! VimBoxAppendToNextResolvedConfig(searchIndex, resolvedConfig, nextConf
         for fieldName in keys(nextScopePlugin)
           if fieldName != 'config' && fieldName != 'mappings' && fieldName != 'actions'
             if !__VimBoxIsConfigComment(fieldName)
-              call VimBoxUserMessageError("Problem in config file " . a:nextConfigPath . ". Config for plugin '" . pluginName . "' in scope '" . scope . "' contains an invalid key '" . fieldName . "'. It should be one of 'mappings', c)onfig, or 'actions' (or alternatively you can use the key 'notes' which can be used to write freeform notes that are ignored.)")
+              call console#Error("Problem in config file " . a:nextConfigPath . ". Config for plugin '" . pluginName . "' in scope '" . scope . "' contains an invalid key '" . fieldName . "'. It should be one of 'mappings', c)onfig, or 'actions' (or alternatively you can use the key 'notes' which can be used to write freeform notes that are ignored.)")
             endif
           endif
         endfor
@@ -309,7 +309,7 @@ endfunction
 function! VimBoxGetConfigChains(keyPath)
   let chain = split(a:keyPath, "\\.")
   if len(chain) != 3
-    call VimBoxUserMessageError("Called GetConfig with invalid key path " . a:keyPath . " - Must be pluginName.field.configName")
+    call console#Error("Called GetConfig with invalid key path " . a:keyPath . " - Must be pluginName.field.configName")
     return {}
   endif
   let byScope = VimBoxGetConfigChainsByScope(chain[0], chain[1], chain[2])
@@ -408,9 +408,9 @@ function! VimBoxSettingUICommand(keyPath)
   endif
   if VimBoxHasValueFromResolvedConfigEntry(resolvedEntry)
     let gottenValue = VimBoxGetValueFromResolvedConfigEntry(resolvedEntry)
-    call VimBoxUserMessage(VimBoxValuePrint(gottenValue))
+    call console#Info(VimBoxValuePrint(gottenValue))
   else
-    call VimBoxUserMessage("Not configured for this file type")
+    call console#Info("Not configured for this file type")
   endif
 endfunction
 
@@ -473,7 +473,7 @@ function! VimBoxConfigsplain(keyPath)
   else
     let chain = split(a:keyPath, "\\.")
     if len(chain) != 3
-      call VimBoxUserMessageError("SettingsUI may only be passed one of (pluginName.actions.name, pluginName.config.name, pluginName.mappings.name)")
+      call console#Error("SettingsUI may only be passed one of (pluginName.actions.name, pluginName.config.name, pluginName.mappings.name)")
       return
     endif
     let mdLines = _VimBoxExplainMarkdown(a:keyPath)

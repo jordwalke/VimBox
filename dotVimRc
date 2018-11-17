@@ -119,6 +119,10 @@
 let s:useSettingsSystem = 1
 
 let g:vimBoxIsLoading = 1
+let g:vimBoxInfosDuringLoad = []
+let g:vimBoxSuccessesDuringLoad = []
+let g:vimBoxWarningsDuringLoad = []
+let g:vimBoxErrorsDuringLoad = []
 
 let skipGeneration = 0
 
@@ -185,6 +189,7 @@ endif
 " Any functions used in the startup process, even if we've executed plug#end.
 " I think these end up getting sourced twice. So we should add a check in
 " these files to determine if they've already been loaded.
+execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-console/plugin/console.vim"
 execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxMessage.vim"
 execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxConfig.vim"
 execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBox.vim"
@@ -194,12 +199,12 @@ execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plug
 " include a trailing final `\` because it escapes the comma! So we
 " intentionally use PathJoinFile even though it's a dir.
 " https://github.com/google/vim-maktaba/issues/72
+let &runtimepath=&runtimepath . ',' .  PathJoinFile(g:vimBoxStockPluginsDir, 'vim-console')
 let &runtimepath=&runtimepath . ',' .  PathJoinFile(g:vimBoxStockPluginsDir, 'vim-plug')
 let &runtimepath=&runtimepath . ',' .  PathJoinFile(g:vimBoxStockPluginsDir, 'json-ponyfill.vim')
 let &runtimepath=&runtimepath . ',' .  PathJoinFile(g:vimBoxStockPluginsDir, 'color-tools')
 let &runtimepath=&runtimepath . ',' .  PathJoinFile(g:vimBoxStockPluginsDir, 'vim-box')
 " execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/json-ponyfill.vim/autoload/json_ponyfill.vim"
-
 
 " We will follow the XDG Spec as NeoVim Does:
 " https://github.com/neovim/neovim/issues/78
@@ -240,6 +245,7 @@ endif
 " you can use VimBox without having to install it over your old vim install.
 let g:vimBoxUndoDir = PathJoinDir(g:vimBoxXdgDataDir, 'undo')
 let g:vimBoxSessionDir = PathJoinDir(g:vimBoxXdgDataDir, 'vim_sessions')
+" This isn't really that valuable, now that we have :Console
 let g:vimBoxLogsDir = PathJoinDir(g:vimBoxXdgDataDir, 'logs')
 let g:vimBoxPluginInstallDir = PathJoinFile(g:vimBoxXdgDataDir, 'bundle')
 if !isdirectory(g:vimBoxUndoDir)
@@ -258,7 +264,6 @@ let g:vimBoxLogsCurrentSession = PathJoinFile(g:vimBoxLogsDir, strftime("%F"))
 " The automatically generated vimrc file based on config. Useful for reproing
 " and sharing.
 let g:vimBoxGeneratedRc = PathJoinFile(g:vimBoxXdgCacheDir, ".generated.vimrc")
-let g:vimBoxErrorsDuringLoad = 0
 
 " In Vim-box, the user customizes vim by making a "user" plugin which is in
 " the simplest form, just an settings.json file, but can include directories
@@ -300,7 +305,7 @@ endif
 " we regenerate the config, and call the configure hook in that.
 " The User is none the wiser. It's a little slower though, so we should avoid
 " doing any computation unless config files changed.'
-call VimBoxLog('INIT', "Initializing New VimBox Session via home directory vimrc")
+" call VimBoxLog('INIT', "Initializing New VimBox Session via home directory vimrc")
 
 if !skipGeneration
   call VimBoxInitConfigs()

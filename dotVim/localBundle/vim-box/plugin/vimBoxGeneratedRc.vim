@@ -68,7 +68,7 @@ function! s:Comment(indent, origin, pluginName, kind, name, v)
 endfunction
 
 function! s:LogInitError(indent, origin, str)
-  return [a:indent . 'call VimBoxUserMessageError("Configuration Error In ' . a:origin . ' '  . escape(a:str, '"') . '")']
+  return [a:indent . 'call console#Error("Configuration Error In ' . escape(a:origin, '\') . ' '  . escape(a:str, '\"') . '")']
 endfunction
 
 

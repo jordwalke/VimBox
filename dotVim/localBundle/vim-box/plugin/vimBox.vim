@@ -23,14 +23,70 @@ endfunction
 
 
 function! s:VimBoxReportLoadErrors()
-  if g:vimBoxErrorsDuringLoad
-    call VimBoxUserMessageError("Error During Initialization. See error in :Logs")
+  if !empty(g:vimBoxInfosDuringLoad)
+    if len(g:vimBoxInfosDuringLoad) > 1
+      let i = 0
+      while i < len(g:vimBoxInfosDuringLoad)
+        call console#Info(g:vimBoxInfosDuringLoad[i])
+        let i = i + 1
+      endwhile
+      call console#Info("Multiple Info messages during load. See :Console")
+    else
+      if len(g:vimBoxInfosDuringLoad) == 1
+        call console#Info(g:vimBoxInfosDuringLoad[0])
+      else
+      endif
+    endif
+  endif
+  if !empty(g:vimBoxSuccessesDuringLoad)
+    if len(g:vimBoxSuccessesDuringLoad) > 1
+      let i = 0
+      while i < len(g:vimBoxSuccessesDuringLoad)
+        call console#Success(g:vimBoxSuccessesDuringLoad[i])
+        let i = i + 1
+      endwhile
+      call console#Success("Multiple Success messages during load. See :Console")
+    else
+      if len(g:vimBoxSuccessesDuringLoad) == 1
+        call console#Success(g:vimBoxSuccessesDuringLoad[0])
+      else
+      endif
+    endif
+  endif
+  if !empty(g:vimBoxWarningsDuringLoad)
+    if len(g:vimBoxWarningsDuringLoad) > 1
+      let i = 0
+      while i < len(g:vimBoxWarningsDuringLoad)
+        call console#Warn(g:vimBoxWarningsDuringLoad[i])
+        let i = i + 1
+      endwhile
+      call console#Warn("Multiple Warn messages during load. See :Console")
+    else
+      if len(g:vimBoxWarningsDuringLoad) == 1
+        call console#Warn(g:vimBoxWarningsDuringLoad[0])
+      else
+      endif
+    endif
+  endif
+  if !empty(g:vimBoxErrorsDuringLoad)
+    if len(g:vimBoxErrorsDuringLoad) > 1
+      let i = 0
+      while i < len(g:vimBoxErrorsDuringLoad)
+        call console#Error(g:vimBoxErrorsDuringLoad[i])
+        let i = i + 1
+      endwhile
+      call console#Error("Multiple Error messages during load. See :Console")
+    else
+      if len(g:vimBoxErrorsDuringLoad) == 1
+        call console#Error(g:vimBoxErrorsDuringLoad[0])
+      else
+      endif
+    endif
   endif
 endfunction
 
 " Less important, more for debugging and exploring
 command! -nargs=0 VimBoxRc :execute 'e ' . g:vimBoxGeneratedRc
-command! -nargs=0 VimBoxLogs :execute 'e +9999999 ' . g:vimBoxLogsCurrentSession
 command! -nargs=0 VimBoxSettings :call <SID>VimBoxSplitSettings(g:vimBoxUserPluginDir, 0)
 command! -nargs=0 VimBoxLocations :call VimBoxPathsplane()
 command! -nargs=0 VimBoxSettingsDefaults :call <SID>VimBoxSplitSettings(PathJoinDir(g:vimBoxStockPluginsDir, 'vim-box'), 1)
@@ -49,7 +105,6 @@ endfun
 
 " Shorter Aliases To Top Level Commands.
 command! -nargs=0 Rc :execute 'e ' . g:vimBoxGeneratedRc
-command! -nargs=0 Logs :execute 'e +9999999 ' . g:vimBoxLogsCurrentSession
 command! -nargs=0 Settings :call <SID>VimBoxSplitSettings(g:vimBoxUserPluginDir, 0)
 command! -nargs=0 Locations :call VimBoxPathsplane()
 command! -nargs=0 SettingsDefaults :call <SID>VimBoxSplitSettings(PathJoinDir(g:vimBoxStockPluginsDir, 'vim-box'), 1)
