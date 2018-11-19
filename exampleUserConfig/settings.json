@@ -1,9 +1,11 @@
 {
   "*": {
     "disabler": {
+      "note": "If you don't want VimBox's markdown highlighting you can use stock one by setting to true",
       "config": {
         "vimreason": false,
-        "wintabs": false
+        "wintabs": false,
+        "markdown": false
       }
     },
     "installer": {
@@ -14,7 +16,6 @@
         "repeat": "tpope/vim-repeat",
         "fugitive": "tpope/vim-fugitive",
         "surround": "tpope/vim-surround",
-        "markdown": "tpope/vim-markdown",
         "misc": "xolox/vim-misc",
         "session": "xolox/vim-session",
         "pairtools": "MartinLafreniere/vim-PairTools",

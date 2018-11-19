@@ -116,6 +116,17 @@
 " But before doing this, we need to reconstruct the menus.
 " set guioptions+=M
 
+
+" These will be useful one day when detecting old VimBox installs. Most of
+" vim-box can simply be plugins which are auto-updated using Plug, but the
+" shell, loader, initialization vimrc, and application wrappers cannot be.
+" These version numbers describe the version of all of that "host"
+" infrastructure which is more difficult to update. The plugs updated via
+" Plug, can check these vars.
+let g:vimBox_host_version_major = 0
+let g:vimBox_host_version_minor = 0
+let g:vimBox_host_version_patch = 0
+
 let s:useSettingsSystem = 1
 
 let g:vimBoxIsLoading = 1

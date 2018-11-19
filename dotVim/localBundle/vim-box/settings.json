@@ -3,6 +3,7 @@
     "installer": {
       "config": {
         "user": "file:$vimBoxUserPluginDir",
+        "markdown": "file:$vimBoxStockPluginsDir/vim-markdown",
         "toggly": "file:$vimBoxStockPluginsDir/toggly",
         "taste": "file:$vimBoxStockPluginsDir/vim-taste",
         "platformyKeys": "file:$vimBoxStockPluginsDir/vim-platformyKeys",
