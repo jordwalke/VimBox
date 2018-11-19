@@ -348,3 +348,71 @@ function! console#Error(msg)
   endif
   call console#ShortHl(console#GetLogTokens()[s:ERROR_IDX], console#GetLogHls()[s:ERROR_IDX], a:msg)
 endfunction
+
+" Command form which evals its arguments as a string and gracefully fails,
+" printing a nice error message instead of an obtrusive Press-Enter box.
+function! console#InfoCmd(msg)
+  let errorEvaling = 0
+  try
+    let result = eval(a:msg)
+  catch /.*/
+    let result = v:exception
+    let errorEvaling = 1
+  finally
+    if errorEvaling
+      call console#Error("Error running expression(" . a:msg . ") - " . result  . " - See :Console")
+    else
+      call console#Info(result)
+    endif
+  endtry
+endfunction
+
+
+function! console#SuccessCmd(msg)
+  let errorEvaling = 0
+  try
+    let result = eval(a:msg)
+  catch /.*/
+    let result = v:exception
+    let errorEvaling = 1
+  finally
+    if errorEvaling
+      call console#Error("Error running expression(" . a:msg . ") - " . result  . " - See :Console")
+    else
+      call console#Success(result)
+    endif
+  endtry
+endfunction
+
+function! console#WarnCmd(msg)
+  let errorEvaling = 0
+  try
+    let result = eval(a:msg)
+  catch /.*/
+    let result = v:exception
+    let errorEvaling = 1
+  finally
+    if errorEvaling
+      call console#Error("Error running expression(" . a:msg . ") - " . result  . " - See :Console")
+    else
+      call console#Warn(result)
+    endif
+  endtry
+endfunction
+
+function! console#ErrorCmd(msg)
+  let errorEvaling = 0
+  try
+    let result = eval(a:msg)
+  catch /.*/
+    let result = v:exception
+    let errorEvaling = 1
+  finally
+    if errorEvaling
+      call console#Error("Error running expression(" . a:msg . ") - " . result  . " - See :Console")
+    else
+      call console#Error(result)
+    endif
+  endtry
+endfunction
+
