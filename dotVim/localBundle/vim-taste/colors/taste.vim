@@ -788,6 +788,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
   " call <sid>X('markdownBoldItalicDelimiter', s:syntax_bg,  s:syntax_bg, 'italic')
   call <sid>X('markdownCode',                s:green,     s:modal_bg, '')
   call <sid>X('markdownCodeBlock',           s:red,       '',         '')
+  call <sid>X('markdownCodeFenceBlock',      s:red,       '',         '')
   call <sid>X('markdownCodeDelimiter',       s:modal_bg,  s:modal_bg, '')
   call <sid>X('markdownCodeFenceDelimiter',  s:modal_bg,  '', 'italic')
   call <sid>X('markdownHeadingDelimiter',    s:red,       '',         '')
