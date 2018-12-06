@@ -45,6 +45,17 @@ endfunc
 command! VSplitIntoPrevTab call s:VSplitIntoPrevTab()
 command! VSplitIntoNextTab call s:VSplitIntoNextTab()
 
+"=============== CLEARING REGISTERS ====================
+" http://stackoverflow.com/questions/19430200/how-to-clear-vim-registers-effectively/19431165#19431165  
+function ClearReg()
+  let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"'
+  let i=0
+  while (i<strlen(regs))
+    exec 'let @'.regs[i].'=""'
+    let i=i+1
+  endwhile
+  unlet regs
+endfunction
 
 "================ FINDING FILES =========================
 " http://robertmarkbramprogrammer.blogspot.com/2008/12/searching-files-within-vim-and-opening.html
