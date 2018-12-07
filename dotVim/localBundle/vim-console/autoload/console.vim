@@ -139,9 +139,15 @@ function! console#Console()
   endif
 endfun
 
+" Recent Vims have a built-in Trim.
+function! s:trim(str)
+  return substitute(a:str, '[\/]\+$', '', '')
+endfunction
+
+
 function! console#IsLogWorthy(line)
   return a:line != 'Already at newest change'
-        \ && !empty(trim(a:line))
+        \ && !empty(s:trim(a:line))
         \ && match(a:line, '[0-9]\+ line less') != 0
         \ && match(a:line, 'search hit BOTTOM') != 0
         \ && match(a:line, 'search hit TOP') != 0
