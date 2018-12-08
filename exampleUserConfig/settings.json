@@ -79,6 +79,26 @@
          "g:NERDCustomDelimiters": { "reason": { "left": "/*","right": "*/", "nested": 1 } }
       }
     },
+    "NERDTree": {
+      "config": {
+        "g:NERDTreeDirArrows": 0,
+        "g:NERDTreeMinimalUI": 1,
+        "g:NERDTreeShowBookmarks": 1,
+        "g:NERDTreeWinSize": 40,
+        "g:_nerdCloseIfLast": "eval: execute('autocmd bufenter * if (winnr(\"$\") == 1 && exists(\"b:NERDTree\")) | q | endif')",
+        "g:_nerdRemoveUglyRO": "eval: execute('hi def link NERDTreeRO Normal')",
+        "g:_nerdRemoveUglyDir": "eval: execute('hi def link NERDTreeDir Normal')",
+        "g:_nerdRemoveUglyTreePart": "eval: execute('hi def link NERDTreePart StatusLine')",
+        "g:_nerdRemoveUglyDirSlash": "eval: execute('hi def link NERDTreeDirSlash NonText')",
+        "g:_nerdRemoveUglyOpenable": "eval: execute('hi def link NERDTreeOpenable Normal')",
+        "g:_nerdRemoveUglyClosable": "eval: execute('hi def link NERDTreeClosable Normal')",
+        "g:_nerdRemoveUglyCurrentNode": "eval: execute('hi def link NERDTreeCurrentNode Search')",
+        "g:_nerdRemoveUglyCWD": "eval: execute('hi def link NERDTreeCWD Normal')",
+        "g:_nerdRemoveUglyUp": "eval: execute('hi def link NERDTreeUp Normal')",
+        "g:_nerdRemoveUglyNERDTreeFlags": "eval: execute('hi def link NERDTreeFlags Normal')"
+        
+      }
+    },
     "mucomplete": {
       "config": {
         "#enable_auto_at_startup": 1,
@@ -157,23 +177,6 @@
         "enable_signs": 0,
         "always_populate_loc_list": 1,
         "loc_list_height": 15
-      }
-    },
-    "NERDTree": {
-      "config": {
-        "g:NERDTreeDirArrows": 0,
-        "g:NERDTreeMinimalUI": 1,
-        "g:NERDTreeShowBookmarks": 1,
-        "g:NERDTreeWinSize": 40,
-        "todo": "autocmd bufenter * if (winnr(\"$\") == 1 && exists(\"b:NERDTree\")) | q | endif",
-        "todo": "hi def link NERDTreeRO Normal",
-        "todo": "hi def link NERDTreeDir Normal",
-        "todo": "hi def link NERDTreePart StatusLine",
-        "todo": "hi def link NERDTreeDirSlash NonText",
-        "todo": "hi def link NERDTreeOpenable Normal",
-        "todo": "hi def link NERDTreeClosable Normal",
-        "todo": "hi def link NERDTreeCurrentNode Search",
-        "todo": "hi def link NERDTreeCWD Normal"
       }
     },
     "Gitv": {
