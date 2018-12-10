@@ -13,9 +13,12 @@ git fetch --all
 
 ## VimBox Commands:
 
+
+**Settings**
+
 | Command                   | Action                                                   |
 | ------------------------- |----------------------------------------------------------|
-| `:Settings`               | Open All User Settings                                   |
+| `:Settings`               | Open *All* User **Settings**                             |
 | `:SettingsDefaults`       | Open All Default Settings                                |
 | `:Rc`                     | Open `.vim` file generated from all `settings.json` files|
 | `:Logs`                   | Open VimBox logs. Plugins can append to this log.        |
@@ -174,6 +177,9 @@ line number), in the Advanced Settings page of iTerm, select Semantic History >
 Custom Command and enter `open 'box://open?url=file://\1&line=\2'`
 
 
+#### Updating/building/testing the docs:
+
+See [developerDocs/UPDATING_DOCS.md](./developerDocs/UPDATING_DOCS.md).
 
 #### ORIGINS
 
