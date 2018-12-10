@@ -1,5 +1,56 @@
 # Vim Markdown runtime files
 
+## Forked For VimBox
+
+This markdown language plugin was enhanced for the purpose of being included as
+the out-of-the-box markdown plugin for VimBox.
+
+Some improvements over the default `vim-markdown`:
+
+- Like the markdown plugin it was forked from, `VimBox`'s `vim-markdown` plugin
+  supports highlighting of fenced languages. But `VimBox`'s `vim-markdown`
+  extends this with the ability to _automatically_ infer the fenced language if
+  it is not specified or if the code block is one of those indented four spaces
+  block. You can configure how that inference occurs.
+- `VimBox`'s `vim-markdown` provides more granular highlighting regions for the
+  backticks, so that the backticks can be a different color than the contents
+  inside the backticks. This allows hiding the backticks without needing to
+  conceal.
+
+
+Here's an example VimBox `settings.json` config that auto-detects Reason and
+shell syntax based on the leading content/tokens. The patterns to check are
+indexed by keys representing the syntax names that should be inferred.
+
+```json
+"*": {
+  "markdown": {
+    "config": {
+      "fenced_languages": ["json", "reason", "sh", "javascript"],
+      "fenced_languages_leading_token_inference": {
+        "reason": ["include [A-Z]", "let ", "module ", "/\\*"],
+        "javascript": ["const "],
+        "sh": ["#", "git clone ", "cd ", "mkdir "]
+      },
+      "folding": 1
+    }
+  }
+}
+```
+
+## TODO:
+- Add sign placements for headings.
+- Table highlighting
+- Add a doc file that shows up when people do `:help markdown`.
+
+New syntax groups that color schemes can take advantage of:
+
+- `markdownCodeFenceDelimiter` default highlight linked to
+  `markdownCodeDelimiter`. This allows special highlighting of the single
+  backticks (distinct from highlighting of tripple backticks)
+
+> The rest of the original README is below:
+
 This is the development version of Vim's included syntax highlighting and
 filetype plugins for Markdown.  Generally you don't need to install these if
 you are running a recent version of Vim.

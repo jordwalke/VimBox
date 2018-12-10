@@ -104,6 +104,9 @@ exe 'syn region markdownBold matchgroup=markdownBoldDelimiter start="\S\@<=__\|_
 exe 'syn region markdownBoldItalic matchgroup=markdownBoldItalicDelimiter start="\S\@<=\*\*\*\|\*\*\*\S\@=" end="\S\@<=\*\*\*\|\*\*\*\S\@=" keepend contains=markdownLineStart,@Spell' . s:concealends
 exe 'syn region markdownBoldItalic matchgroup=markdownBoldItalicDelimiter start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" keepend contains=markdownLineStart,@Spell' . s:concealends
 
+" syn region markdownTableRow matchgroup=markdownTableBorder start="|" end="|\|\n"me=e-1 keepend oneline contains=@markdownInline
+" syn match markdownTableBorder "|[-|[:space:]]*|\n"
+
 syn region markdownCode matchgroup=markdownCodeDelimiter start="`" end="`" keepend contains=markdownLineStart
 syn region markdownCode matchgroup=markdownCodeDelimiter start="`` \=" end=" \=``" keepend contains=markdownLineStart
 " syn region markdownCode matchgroup=markdownCodeDelimiter start="^\s*````*.*$" end="^\s*````*\ze\s*$" keepend
@@ -124,10 +127,10 @@ if main_syntax ==# 'markdown'
       for s:pattern in g:markdown_fenced_languages_leading_token_inference[s:type]
         " See 9. Compare with Perl patterns
         " The \& matches at zero width, everything that comes before it.
-        exe 'syn region markdownHighlight'.substitute(matchstr(s:type,'[^=]*$'),'\..*','','').' matchgroup=markdownCodeFenceDelimiter start="^```\(\n*' . s:pattern . '\&\)" end="^\s*````*\ze\s*$" keepend contains=@markdownHighlight'.substitute(matchstr(s:type,'[^=]*$'),'\.','','g')
+        exe 'syn region markdownHighlight'.substitute(matchstr(s:type,'[^=]*$'),'\..*','','').' matchgroup=markdownCodeFenceDelimiter start="^```\(\n*\s*' . s:pattern . '\&\)" end="^\s*````*\ze\s*$" keepend contains=@markdownHighlight'.substitute(matchstr(s:type,'[^=]*$'),'\.','','g')
         " Corresponding to:
         "   syn region markdownCodeBlock start="    \|\t" end="$" contained
-        exe 'syn region markdownHighlight'.substitute(matchstr(s:type,'[^=]*$'),'\..*','','').' matchgroup=markdownCodeBlock start="^\(    \|\t\)\(\(\n\(    \|\t\))*\)*' . s:pattern . '\&\)" end="^$" keepend contains=@markdownHighlight'.substitute(matchstr(s:type,'[^=]*$'),'\.','','g')
+        exe 'syn region markdownHighlight'.substitute(matchstr(s:type,'[^=]*$'),'\..*','','').' matchgroup=markdownCodeBlock start="^\(    \|\t\)\(\(\n\(    \|\t\))*\)*\s*' . s:pattern . '\&\)" end="^$" keepend contains=@markdownHighlight'.substitute(matchstr(s:type,'[^=]*$'),'\.','','g')
       endfor
     endif
     let s:done_include[matchstr(s:type,'[^.]*')] = 1
