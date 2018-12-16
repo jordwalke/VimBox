@@ -249,7 +249,7 @@ function! s:Setting(indent, pluginName, kind, name, v, isScoped, origin)
       else
         let normalizedVal = string(a:v)
       endif
-      if len(a:name) > 1 && a:name[1] == ":"
+      if len(a:name) > 1 && (a:name[1] == ":" || a:name[0] == "$")
         return [a:indent . "let " . a:name . " = " . normalizedVal]
       else
         let joiner = a:name[0] == "#" ? "" : "_"
