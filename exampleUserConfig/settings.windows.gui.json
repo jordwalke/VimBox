@@ -5,19 +5,36 @@
         "misc": "xolox/vim-misc",
         "shell": "xolox/vim-shell",
         "bargreybars": "dreadnaut/vim-bargreybars",
-        "winPython": "file:$vimBoxStockPluginsDir/vim-win-python"
+        "winPython": "file:$vimBoxStockPluginsDir/vim-win-python",
+        "winbox": "file:$vimBoxStockPluginsDir/vim-winbox"
+      }
+    },
+    "winbox": {
+      "Notes": "pythonthreehome option is only made available in new/bleeding edge gvim. For now set the PYTHONHOME variable.",
+      "config": {
+        "$PYTHONHOME": "eval:has(\"win64\") ? PathJoinDir(g:vimBoxStockPluginsDir, 'python-3.7.0-embed-amd64') : PathJoinDir(g:vimBoxStockPluginsDir, 'python-3.7.0-embed-win32')"
+      },
+      "mappings": {
+        "all:<F11>": "command:call WinBoxToggleFullScreen()",
+        "all:<c-up>": "command:call WinBoxIncreaseFont()",
+        "all:<c-down>": "command:call WinBoxDecreaseFont()"
       }
     },
     "vim": {
+      "Notes": "pythonthreehome option is only made available in new/bleeding edge gvim. For now set the PYTHONHOME variable.",
       "Notes": "http://unix.stackexchange.com/questions/44616/why-is-vim-creating-files-with-dos-line-endings",
       "config": {
         "fileformats": "unix,dos",
         "guioptions": "gmMk",
-        "pythonthreehome": "eval:PathJoinDir(g:vimBoxStockPluginsDir, 'vim-win-python')",
-        "pythonthreedll": "eval:PathJoinFile(PathJoinDir(g:vimBoxStockPluginsDir, 'vim-win-python'), 'python37.dll')"
+        "pythonthreedll": "eval:PathJoinFile($PYTHONHOME, 'python37.dll')"
       },
       "mappings": {
-        "all:<F11>": "command:Fullscreen"
+        "all:<F11>": "command:call WinBoxToggleFullScreen()",
+        "all:<c-s>": "command:w",
+        "all:<c-n>": "command:enew",
+        "all:Ü": "command:NERDTreeToggle",
+        "all:ü": "command:NERDTreeFind"
+      }
       }
     },
     "nerdcommenter": {
@@ -42,6 +59,35 @@
     "vimBox": {
       "config": {
         "useDevIcons": false
+      }
+    },
+    "wintabs": {
+      "config": {
+        "display": "statusline",
+        "autoclose": 2,
+        "autoclose_vim": 1,
+        "autoclose_vimtab": 1,
+        "switchbuf": "useopen,usetab",
+        "ui_active_higroup ":  "TabLineSel",
+        "ui_buffer_name_format":" %t ",
+        "ui_sep_leftmost": " ",
+        "ui_sep_inbetween": " ",
+        "ui_active_left": "▍",
+        "ui_active_right": " ",
+        "ui_sep_rightmost": " ",
+        "ui_modified": " ◎",
+        "ignored_filetypes": [],
+        "ui_active_vimtab_left":"▍",
+        "ui_active_vimtab_right":" ",
+        "ui_arrow_left":"«",
+        "ui_arrow_right":"»"
+      }
+    }
+  },
+  "reason": {
+    "vim": {
+      "mappings": {
+        "all:Ã": "command:ReasonPrettyPrint"
       }
     }
   }
