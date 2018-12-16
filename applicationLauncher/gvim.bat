@@ -7,8 +7,9 @@ SET scriptdir=%scriptdir:~0,-1%
 setlocal
 set PROGRAM_FILES_VIM_EXE_DIR=C:\Program Files (x86)\Vim\vim80
 
-if exist "%VIM%\vim80\gvim.exe" set PROGRAM_FILES_VIM_EXE_DIR=%VIM%\vim80
-if exist "%VIM%\vim81\gvim.exe" set PROGRAM_FILES_VIM_EXE_DIR=%VIM%\vim81
+if exist "C:\Program Files (x86)\Vim\vim80\gvim.exe" set PROGRAM_FILES_VIM_EXE_DIR=C:\Program Files (x86)\Vim\vim80
+if exist "C:\Program Files (x86)\Vim\vim81\gvim.exe" set PROGRAM_FILES_VIM_EXE_DIR=C:\Program Files (x86)\Vim\vim81
+
 
 if exist "%VIMRUNTIME%\gvim.exe" set PROGRAM_FILES_VIM_EXE_DIR=%VIMRUNTIME%
 
