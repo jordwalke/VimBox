@@ -48,7 +48,7 @@ if has("gui_running") " all this for gui use
     set transparency=0
     set fuoptions=maxvert,maxhorz
     " The following is how you set a special linespace *per* font:
-    set guifont=PragmataPro:h12,Essential\ PragmataPro:h12,iosevka:h12
+    set guifont=Menlo:h14
     " For iosevka to render perfectly in macvim, linespace -1
     set nolazyredraw
     " Change to `1` if your font is patched with webdev icons.

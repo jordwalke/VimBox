@@ -504,3 +504,5 @@ map <D-T> <Esc>:Undoquit<CR>
 " ========================= JavaScript Beautify ===============================
 Plug 'maksimr/vim-jsbeautify'
 " =============================================================================
+
+Plug 'Yggdroot/indentLine'
