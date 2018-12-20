@@ -107,7 +107,7 @@ exe 'syn region markdownBoldItalic matchgroup=markdownBoldItalicDelimiter start=
 " syn region markdownTableRow matchgroup=markdownTableBorder start="|" end="|\|\n"me=e-1 keepend oneline contains=@markdownInline
 " syn match markdownTableBorder "|[-|[:space:]]*|\n"
 
-syn region markdownCode matchgroup=markdownCodeDelimiter start="`" end="`" keepend contains=markdownLineStart
+syn region markdownCode matchgroup=markdownCodeDelimiter start="`" end="`" keepend oneline contains=markdownLineStart
 syn region markdownCode matchgroup=markdownCodeDelimiter start="`` \=" end=" \=``" keepend contains=markdownLineStart
 " syn region markdownCode matchgroup=markdownCodeDelimiter start="^\s*````*.*$" end="^\s*````*\ze\s*$" keepend
 syn region markdownCodeFenceBlock matchgroup=markdownCodeFenceDelimiter start="^\s*````*.*$" end="^\s*````*\ze\s*$" keepend
