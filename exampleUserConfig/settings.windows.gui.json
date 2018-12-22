@@ -10,9 +10,7 @@
       }
     },
     "winbox": {
-      "Notes": "pythonthreehome option is only made available in new/bleeding edge gvim. For now set the PYTHONHOME variable.",
       "config": {
-        "$PYTHONHOME": "eval:has(\"win64\") ? PathJoinDir(g:vimBoxStockPluginsDir, 'python-3.7.0-embed-amd64') : PathJoinDir(g:vimBoxStockPluginsDir, 'python-3.7.0-embed-win32')"
       },
       "mappings": {
         "all:<F11>": "command:call WinBoxToggleFullScreen()",
@@ -26,6 +24,7 @@
       "config": {
         "fileformats": "unix,dos",
         "guioptions": "gmMk",
+        "$PYTHONHOME": "eval:has(\"win64\") ? PathJoinDir(g:vimBoxStockPluginsDir, 'python-3.7.0-embed-amd64') : PathJoinDir(g:vimBoxStockPluginsDir, 'python-3.7.0-embed-win32')",
         "pythonthreedll": "eval:PathJoinFile($PYTHONHOME, 'python37.dll')"
       },
       "mappings": {

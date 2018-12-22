@@ -235,7 +235,7 @@ function! s:Setting(indent, pluginName, kind, name, v, isScoped, origin)
       else
         let normalizedVal = string(a:v)
       endif
-      let setPrefix = a:isScoped ? "let &l:" : "let &"
+      let setPrefix = a:name[0]=='$' ? "let " : (a:isScoped ? "let &l:" : "let &")
       " Leave no space around = so that you can name a variable 'setting+' to
       " have it render as: let &setting+=foo
       return [a:indent . setPrefix . a:name . "=" . normalizedVal]

@@ -3,7 +3,7 @@
     "disabler": {
       "note": "If you don't want VimBox's markdown highlighting you can use stock one by setting to true",
       "config": {
-        "vimreason": false,
+        "reasonml": false,
         "wintabs": false,
         "markdown": false
       }
@@ -27,7 +27,7 @@
         "far": "brooth/far.vim",
         "sensible": "tpope/vim-sensible",
         "incsearch": "haya14busa/incsearch.vim",
-        "vimreason": "jordwalke/vim-reason",
+        "reasonml": "jordwalke/vim-reason#WIP",
         "VimAutoMakeDirectory": "jordwalke/VimAutoMakeDirectory",
         "NERDTree": "scrooloose/nerdtree",
         "VimSplitBalancer": "jordwalke/VimSplitBalancer",
@@ -116,7 +116,7 @@
         "tabSystem": "standard"
       }
     },
-    "vimreason": {
+    "reasonml": {
       "config": {
         "clean_project_airline":1
       }
