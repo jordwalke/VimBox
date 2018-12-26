@@ -4,7 +4,7 @@
 " returns an approximate grey index for the given grey level
 
 " Utility functions -------------------------------------------------------{{{
-fun <SID>grey_number(x)
+fun! <SID>grey_number(x)
   if &t_Co == 88
     if a:x < 23
       return 0
@@ -43,7 +43,7 @@ fun <SID>grey_number(x)
 endfun
 
 " returns the actual grey level represented by the grey index
-fun <SID>grey_level(n)
+fun! <SID>grey_level(n)
   if &t_Co == 88
     if a:n == 0
       return 0
@@ -76,7 +76,7 @@ fun <SID>grey_level(n)
 endfun
 
 " returns the palette index for the given grey index
-fun <SID>grey_color(n)
+fun! <SID>grey_color(n)
   if &t_Co == 88
     if a:n == 0
       return 16
@@ -97,7 +97,7 @@ fun <SID>grey_color(n)
 endfun
 
 " returns an approximate color index for the given color level
-fun <SID>rgb_number(x)
+fun! <SID>rgb_number(x)
   if &t_Co == 88
     if a:x < 69
       return 0
@@ -124,7 +124,7 @@ fun <SID>rgb_number(x)
 endfun
 
 " returns the actual color level for the given color index
-fun <SID>rgb_level(n)
+fun! <SID>rgb_level(n)
   if &t_Co == 88
     if a:n == 0
       return 0
@@ -145,7 +145,7 @@ fun <SID>rgb_level(n)
 endfun
 
 " returns the palette index for the given R/G/B color indices
-fun <SID>rgb_color(x, y, z)
+fun! <SID>rgb_color(x, y, z)
   if &t_Co == 88
     return 16 + (a:x * 16) + (a:y * 4) + a:z
   else
@@ -154,7 +154,7 @@ fun <SID>rgb_color(x, y, z)
 endfun
 
 " returns the palette index to approximate the given R/G/B color levels
-fun <SID>color(r, g, b)
+fun! <SID>color(r, g, b)
   " get the closest grey
   let l:gx = <SID>grey_number(a:r)
   let l:gy = <SID>grey_number(a:g)
@@ -189,7 +189,7 @@ fun <SID>color(r, g, b)
 endfun
 
 " returns the palette index to approximate the 'rrggbb' hex string
-fun <SID>rgb(rgb)
+fun! <SID>rgb(rgb)
   let l:r = ('0x' . strpart(a:rgb, 0, 2)) + 0
   let l:g = ('0x' . strpart(a:rgb, 2, 2)) + 0
   let l:b = ('0x' . strpart(a:rgb, 4, 2)) + 0
@@ -197,7 +197,7 @@ fun <SID>rgb(rgb)
   return <SID>color(l:r, l:g, l:b)
 endfun
 
-fun <SID>blend(from, to, pct)
+fun! <SID>blend(from, to, pct)
 
   let l:from = strpart(a:from, 0, 1) == '#' ? strpart(a:from, 1, 6) : a:from
   let l:to = strpart(a:to, 0, 1) == '#' ? strpart(a:to, 1, 6) : a:to
@@ -213,12 +213,12 @@ fun <SID>blend(from, to, pct)
   return printf('%02x%02x%02x', l:r, l:g, l:b) 
 endfun
 
-fun <SID>blendBang(from, to, pct)
+fun! <SID>blendBang(from, to, pct)
   return '#'.<SID>blend(a:from, a:to, a:pct)
 endfun
 
 " sets the highlighting for the given group
-fun <sid>X(...)
+fun! <sid>X(...)
   let l:groupArg = a:1
   let l:fgArg = a:2
   let l:bgArg = a:3
