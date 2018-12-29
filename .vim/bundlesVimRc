@@ -509,5 +509,6 @@ Plug 'maksimr/vim-jsbeautify'
 Plug 'Yggdroot/indentLine'
 "============================================================================
 
+Plug 'jordwalke/vim-taste'
 
-
+Plug 'sickill/vim-monokai'
