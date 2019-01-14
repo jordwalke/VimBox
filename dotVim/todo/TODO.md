@@ -1,3 +1,13 @@
+Include Copy Of esy-bash with VimBox
+------------------------------------
+
+- Automatically set the shell to:
+
+    let &shell = 'C:\\Program Files\\Git\\git-cmd.exe --command=usr/bin/bash.exe -l -i'
+
+Ejected entire plugins/config into one generated Vimrc
+------------------------------------------------------
+
 Customizing/Writing Plugins:
 ----------------------------
 - `:execute x`  will run the command x as if you had done `:x`.

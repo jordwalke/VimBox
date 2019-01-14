@@ -110,7 +110,9 @@
   " echomsg "VimBox works best with Vim8 or newer. Please upgrade your Vim/MacVim"
 " endif
 
-" TODO: This entire file should/could be ejected into the generated Vimrc.
+" TODO: Integrate a mingw/cygwin shell via:
+"  shell: 'C:\\Program Files\\Git\\git-cmd.exe --command=usr/bin/bash.exe -l -i'
+"  let &shell = 'C:\\Program Files\\Git\\git-cmd.exe --command=usr/bin/bash.exe -l -i'
 
 " This has to be before setting any settings like filetype/syntax on.
 " But before doing this, we need to reconstruct the menus.

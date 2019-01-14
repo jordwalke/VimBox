@@ -279,7 +279,7 @@ function! airline#themes#taste#refresh()
   let s:N3 = airline#themes#get_highlight('StatusLine')
   let g:airline#themes#taste#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3)
 
-  let group = airline#themes#get_highlight('Normal')
+  let normalGroup = airline#themes#get_highlight('Normal')
   let g:airline#themes#taste#palette.normal_modified = g:airline#themes#taste#palette.normal
 
   let s:I1_ = airline#themes#get_highlight2(['Normal', 'bg'], ['DiffLine', 'fg'], 'none')
@@ -316,16 +316,14 @@ function! airline#themes#taste#refresh()
     \ s:V1_[3],
     \ s:V1_[4]
     \ ]
-  let s:V2 = airline#themes#get_highlight2(['Constant', 'fg'], ['Normal', 'bg'])
+  let s:V2 = s:N2
   let s:V3 = s:N3
   let g:airline#themes#taste#palette.visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3)
   let g:airline#themes#taste#palette.visual_modified = g:airline#themes#taste#palette.visual
 
   let s:IA = airline#themes#get_highlight2(['StatusLineNC', 'bg'], ['StatusLine', 'bg'])
   let g:airline#themes#taste#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
-  let g:airline#themes#taste#palette.inactive_modified = {
-        \ 'airline_c': [ group[0], '', group[2], '', '' ]
-        \ }
+  let g:airline#themes#taste#palette.inactive_modified =g:airline#themes#taste#palette.inactive 
 
   " Warnings
   let s:WI = airline#themes#get_highlight2(['IncSearch', 'fg'], ['IncSearch', 'bg'], 'bold')
@@ -381,6 +379,18 @@ function! airline#themes#taste#refresh()
 
   let g:airline#themes#taste#palette.replace_modified.airline_error =
       \ g:airline#themes#taste#palette.normal.airline_error
+
+  let s:TM = airline#themes#get_highlight2(['StatusLineNC', 'bg'], ['StatusLine', 'bg'], 'none')
+  let g:airline#themes#taste#palette.normal.airline_term = [ <SID>blendBang(s:TM[0], s:TM[1], 10), s:TM[1], s:TM[2], s:TM[3] ]
+  let g:airline#themes#taste#palette.insert.airline_term  = g:airline#themes#taste#palette.normal.airline_term
+  let g:airline#themes#taste#palette.visual.airline_term  = g:airline#themes#taste#palette.normal.airline_term 
+  let g:airline#themes#taste#palette.replace.airline_term = g:airline#themes#taste#palette.normal.airline_term 
+  
+  " This doesn't solve the main problem of inactive.
+  " let g:airline#themes#taste#palette.inactive.airline_term = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
+  " let g:airline#themes#taste#palette.inactive_modified.airline_term = {
+  "       \ 'airline_c': [ normalGroup[0], '', normalGroup[2], '', '' ]
+  "       \ }
 
 endfunction
 

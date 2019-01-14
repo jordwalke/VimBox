@@ -1,4 +1,4 @@
-  " Name:    taste vim colorscheme
+" Name:    taste vim colorscheme
 " Author:  Ramzi Akremi, modified by jordwalke
 " License: MIT
 " Version: 1.1.1-pre
@@ -496,6 +496,27 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
   endif
 
   "}}}
+  if has('terminal')
+    " This is close enough.
+    let g:terminal_ansi_colors = [
+          \ '#' . s:syntax_bg,
+          \ '#' . s:red,
+          \ '#' . s:green,
+          \ '#' . s:search,
+          \ '#' . s:blue,
+          \ '#' . s:purple,
+          \ '#' . s:cyan,
+          \ '#' . s:syntax_fg,
+          \ '#' . s:chrome_bg,
+          \ '#' . s:red2,
+          \ '#' . colors['lime'],
+          \ '#' . s:search2,
+          \ '#' . colors['blueberry'],
+          \ '#' . colors['grape'],
+          \ '#' . colors['blueberry'],
+          \ '#' . s:syntax_fg_dim 
+          \ ]
+  endif
 
   " Vim editor color --------------------------------------------------------{{{
   call <sid>X('bold',         '',              '',               'bold')
@@ -534,6 +555,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
   " Remove the ugly grey nub (first param has to be chrome_bg - same as vertsplit_bg)
   call <sid>X('StatusLineNC', s:chrome_bg,     s:chrome_fg_dim,               '')
   call <sid>X('StatusLineTerm',   s:syntax_fg,     s:chrome_bg,  'none')
+  call <sid>X('StatusLineTermNC', s:chrome_bg,     s:chrome_fg_dim,               'reverse')
   call <sid>X('StatusLineTermNC', s:chrome_bg,     s:chrome_fg_dim,               'reverse')
   call <sid>X('TabLine',      s:fg,        s:chrome_bg,      'none')
   call <sid>X('TabLineFill',  s:chrome_fg_dim, s:chrome_bg,  'none')
