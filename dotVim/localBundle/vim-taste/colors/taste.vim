@@ -497,7 +497,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
 
   "}}}
   if has('terminal')
-    " This is close enough.
+    " This is close enough. After cyan is the black
     let g:terminal_ansi_colors = [
           \ '#' . s:syntax_bg,
           \ '#' . s:red,
@@ -506,7 +506,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
           \ '#' . s:blue,
           \ '#' . s:purple,
           \ '#' . s:cyan,
-          \ '#' . s:syntax_fg,
+          \ '#' . s:chrome_bg,
           \ '#' . s:chrome_bg,
           \ '#' . s:red2,
           \ '#' . colors['lime'],

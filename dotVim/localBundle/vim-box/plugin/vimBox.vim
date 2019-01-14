@@ -116,3 +116,7 @@ augroup vimbox-report-load-errors
   autocmd!
   autocmd VimEnter * call <SID>VimBoxReportLoadErrors()
 augroup END
+
+if has('patch-8.0.0')
+  command! -nargs=0 VimBoxTerm :execute 'terminal ++close ' . g:vimBox_embeddedTermShell
+endif

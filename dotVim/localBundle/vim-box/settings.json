@@ -21,7 +21,7 @@
         "reformat:description": "Reformats the document"
       },
       "config": {
-
+        "embeddedTermShell": "eval:&shell",
         "useDevIcons": true,
         "useDevIcons:description": "Use vim dev-icons in UI elements / airline etc.",
         "useDevIcons:possibleValues": [{"value": true}, {"value": false}],

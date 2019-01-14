@@ -1,3 +1,4 @@
+
 syn match ExplainConfigLine /^\S*\.\S*\.\S*\s\+.*/
 syn region ExplainHeadingConfig matchgroup=ExplainHeadingConfigEnd start="^ config " end="$" keepend contains=TOP
 syn region ExplainHeadingActions matchgroup=ExplainHeadingActionsEnd start="^ actions " end="$" keepend contains=TOP
