@@ -542,7 +542,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256 || &t_Co == 16777216
   call <sid>X('MoreMsg',      s:syntax_fg,     '',               '')
   " jordwalke: Hide NonText clutter.
   call <sid>X('NonText',      s:syntax_bg,     s:syntax_bg,      '')
-  call <sid>X('PMenu',        '',              s:modal_bg,    '')
+  call <sid>X('PMenu',        s:syntax_fg,     s:modal_bg,    '')
   " jordwalke: make the popup stand out just a bit.
   call <sid>X('PMenuSel',     s:syntax_bg,              s:blue,  '')
   " jordwalke: Avoid floating scrollbar thumb.
