@@ -108,7 +108,9 @@ function! console#Console()
     endif
     let b:didSetSignsYet = 0
     setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap
-    setlocal signcolumn=no
+    if exists('&signcolumn')
+      setlocal signcolumn=no
+    endif
     setlocal foldminlines=1
     setlocal foldmethod=expr
     set foldexpr=v:lnum>5\ &&\ console#foldExpr(getline(v:lnum))
@@ -124,7 +126,9 @@ function! console#Console()
     silent! execute 'resize '
     silent! redraw
     setlocal foldenable
-    silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+    " This causes some problems on older vim and the docs say that
+    " BufUnload shouldn't change to another buffer during the handling.
+    " silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
     silent! execute 'au BufLeave <buffer> execute "call console#StopMessagesTimer()"'
     silent! execute 'au BufEnter <buffer> execute "call console#ReloadMessagesWhileFocused(0)"'
     silent! execute 'au BufEnter <buffer> execute "call console#StartMessagesTimer()"'
@@ -236,7 +240,9 @@ function! console#ReloadMessagesWhileFocused(placeCursor)
 endfun
 
 function! console#StopMessagesTimer()
-  call timer_stop(g:consoleMessageTimer)
+  if has('patch-7.4.1578')
+    call timer_stop(g:consoleMessageTimer)
+  endif
   let g:consoleMessageTimer = 0
 endfunction
 
@@ -249,7 +255,9 @@ endfunction
 
 
 function! console#StartMessagesTimer()
-  let g:consoleMessageTimer = timer_start(1000, 'OnMessagesTimer',{'repeat':-1})
+  if has('patch-7.4.1578')
+    let g:consoleMessageTimer = timer_start(1000, 'OnMessagesTimer',{'repeat':-1})
+  endif
 endfunction
 
 function! OnMessagesTimer(timer)
@@ -271,7 +279,7 @@ function! console#ShortHl(prefix, hl, msg)
   set shortmess+=T
   let typ1 = type(a:msg)
   let msg = a:msg
-  if typ1 != v:t_string
+  if typ1 != g:v_t_string
     let msg = string(msg)
   endif
   let cols = &columns
