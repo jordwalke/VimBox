@@ -1,0 +1,15 @@
+{
+  "*": {
+    "paneKeys": {
+      "notes": "The cmap is required for incsearch to work",
+      "mappings": {
+        "all:Ü": "command:NERDTreeToggle",
+        "all:ü": "command:NERDTreeFind",
+        "insert:¾": "command:vertical resize +10",
+        "insert:¼":"command:vertical resize -10",
+        "normal:¾":"command:vertical resize +10",
+        "normal:¼":"command:vertical resize -10"
+      }
+    }
+  }
+}
