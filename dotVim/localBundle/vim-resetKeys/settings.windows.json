@@ -6,12 +6,6 @@
         "Also resetting q because it leads to a confusing macro state for new vimmers."
       ],
       "mappings": {
-        "normal:q": "nop",
-        "visual:q": "nop",
-        "normal operatorPending visual select:~": "nop",
-        "normal:K": "nop",
-        "visual:u": "nop",
-        "visual:U": "nop"
       }
     }
   }
