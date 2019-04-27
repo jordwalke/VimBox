@@ -56,8 +56,8 @@ Installation:
         # cd ~/github/     # Or wherever you like to keep github clones
         git clone https://github.com/jordwalke/VimBox/
         ln -s `pwd`/VimBox/.vim ~/.vim      # Link to the cloned vim config
-        ln -s `pwd`/VimBox/.vimRc ~/.vimrc
-        ln -s `pwd`/VimBox/dotGVimRc ~/.gvimrc
+        ln -s `pwd`/VimBox/.vimrc ~/.vimrc
+        ln -s `pwd`/VimBox/.gvimrc ~/.gvimrc
 
 4. Start `MacVim` that you just installed. It will prompt you to download the
    plugins in the background. If you opt to do so, it may take a while to
