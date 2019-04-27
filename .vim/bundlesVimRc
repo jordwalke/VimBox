@@ -509,5 +509,9 @@ Plug 'maksimr/vim-jsbeautify'
 Plug 'Yggdroot/indentLine'
 "============================================================================
 
+"====== TypeScript Syntax Highlighting ==================================
+Plug 'leafgarland/typescript-vim'
+"============================================================================
+
 
 

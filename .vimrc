@@ -129,7 +129,7 @@ set nobackup
 syntax on
 set virtualedit=block
 set tabstop=2
-set nonumber
+set number
 set noswapfile
 
 set mouse=a

@@ -6,7 +6,7 @@
 <td>
 <h2>VimBox</h2>
 <blockquote>Modern MacVim Configuration</blockquote>
-<img src="dotVim/images/VimBox.png" height="256px" width="256px" />
+<img src=".vim/images/VimBox.png" height="256px" width="256px" />
 </td>
 <td>
 
@@ -27,11 +27,11 @@
 
 > VimBox with Atom inspired one-dark theme.
 
-<img width="744px" height="642px" src="dotVim/images/VimBoxScreen_1488x1284.png" />
+<img width="744px" height="642px" src=".vim/images/VimBoxScreen_1488x1284.png" />
 
 > VimBox's matching application icon
 
-<img src="dotVim/images/iconScreenshot.png" />
+<img src=".vimim/images/iconScreenshot.png" />
 
 
 Installation:
@@ -55,8 +55,8 @@ Installation:
 
         # cd ~/github/     # Or wherever you like to keep github clones
         git clone https://github.com/jordwalke/VimBox/
-        ln -s `pwd`/VimBox/dotVim ~/.vim      # Link to the cloned vim config
-        ln -s `pwd`/VimBox/dotVimRc ~/.vimrc
+        ln -s `pwd`/VimBox/.vim ~/.vim      # Link to the cloned vim config
+        ln -s `pwd`/VimBox/.vimRc ~/.vimrc
         ln -s `pwd`/VimBox/dotGVimRc ~/.gvimrc
 
 4. Start `MacVim` that you just installed. It will prompt you to download the
@@ -66,7 +66,7 @@ Installation:
 5. `[Recommended]` Install the included vim-airline font so `VimBox` looks like
    the screenshot with the `vim-airline` bar. From the command line:
 
-        open ./VimBox/dotVim/Fonts/InconsolataDz/Inconsolata-dz\ for\ Powerline.otf # Then click "Install Font"
+        open ./VimBox/.vim/Fonts/InconsolataDz/Inconsolata-dz\ for\ Powerline.otf # Then click "Install Font"
 
 6. Install up-to-date node.js if you want JS linting (http://nodejs.org/)
 
@@ -75,7 +75,7 @@ Installation:
 ```lang=bash
 open /Applications/
 # Find the MacVim app icon and press `⌘+i` to open the information window
-open ./dotVim/images
+open ./.vim/images
 # drag the ApplicationIcon.icns onto the little icon in the information window
 # and restart MacVim.
 ```
@@ -252,7 +252,7 @@ Any result of a `git diff` command can be viewed in a side-by-side diff view ins
 
 Now you can use the `git difftool` command exactly like you use `git diff`, but a MacVim window will appear:
 
-<img width="744px" height="642px" src="dotVim/images/VimDiff_1488x1284.png" />
+<img width="744px" height="642px" src=".vim/images/VimDiff_1488x1284.png" />
 
 #### Setup MergeTool:
 
