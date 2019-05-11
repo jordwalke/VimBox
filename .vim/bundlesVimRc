@@ -158,7 +158,7 @@ let s:homeFolder = $HOME
 if (exists('g:vimBoxSessionDir'))
   let g:session_directory=g:vimBoxSessionDir
 else
-  let g:session_directory=s:homeFolder . '/vim_sessions'
+  let g:session_directory=s:homeFolder . '/.vim_sessions'
 endif
 " ==============================================================================
 
@@ -507,6 +507,10 @@ Plug 'maksimr/vim-jsbeautify'
 
 "====== create beautiful border line indent ==================================
 Plug 'Yggdroot/indentLine'
+"============================================================================
+
+"====== TypeScript Syntax Highlighting ==================================
+Plug 'leafgarland/typescript-vim'
 "============================================================================
 
 
