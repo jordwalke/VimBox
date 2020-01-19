@@ -325,6 +325,9 @@ function! VimBoxValuePrint(v)
   if typ == v:t_list
     return string(a:v)
   endif
+  if typ == v:t_float
+    return string(a:v)
+  endif
   if typ == v:t_dict
     return string(a:v)
   endif
