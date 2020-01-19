@@ -30,7 +30,13 @@ if ($VIMBOX_OVERRIDING_INIT)
   elseif g:vimBoxOs == 'osx'
     exec "source " . $VIM . "/gvimrc"
   elseif g:vimBoxOs == 'linux'
-    exec "source " . $VIM . "/gvimrc"
+    "if file_readable($VIM . '/vim82/gvimrc_example.vim')
+    "  exec "source " . $VIM . "/vim82/gvimrc_example.vim"
+    "else
+      if file_readable($VIM . '/gvimrc')
+        exec "source " . $VIM . '/gvimrc'"
+      endif
+    "endif
   endif
 endif
 
