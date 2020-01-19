@@ -177,7 +177,13 @@ if ($VIMBOX_OVERRIDING_INIT)
   elseif g:vimBoxOs == 'osx'
     exec "source " . $VIM . "/vimrc"
   elseif g:vimBoxOs == 'linux'
-    exec "source " . $VIM . "/vimrc"
+    if file_readable($VIM . '/vim82/vimrc_example.vim')
+      exec "source " . $VIM . "/vim82/vimrc_example.vim"
+    else
+      if file_readable($VIM . '/vimrc')
+        exec "source " . $VIM . '/vimrc'"
+      endif
+    endif
   endif
   " Passing -u even turns off `defaults` loading.
   exec "source " . $VIMRUNTIME . "/defaults.vim"
