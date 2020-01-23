@@ -129,7 +129,7 @@ set nobackup
 syntax on
 set virtualedit=block
 set tabstop=2
-set nonumber
+set number
 set noswapfile
 
 set mouse=a
@@ -204,7 +204,7 @@ let s:homeFolder = $HOME
 if (exists('g:vimBoxUndoDir'))
   let s:undoDir = g:vimBoxUndoDir
 else
-  let s:undoDir = s:homeFolder . '/vimUndo'
+  let s:undoDir = s:homeFolder . '/.vimUndo'
 endif
 set undofile
 " " Create undo dir if needed - not in your dotVim folder! It should be local to
