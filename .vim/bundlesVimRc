@@ -512,3 +512,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'jordwalke/vim-taste'
 
 Plug 'sickill/vim-monokai'
+
+Plug 'leafgarland/typescript-vim'
+
+Plug 'michaeljsmith/vim-indent-object'
