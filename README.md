@@ -6,15 +6,15 @@
 <td>
 <h2>VimBox</h2>
 <blockquote>Modern MacVim Configuration</blockquote>
-<img src="dotVim/images/VimBox.png" height="256px" width="256px" />
+<img src="docs/images/VimBoxIcon_512x512.png" height="256px" width="256px" />
 </td>
 <td>
-
 <ul>
-  <li><h5>Mac Keyboard mappings</h5></li>
-  <li><h5>Familiar autocomplete behavior</h5></li>
-  <li><h5>JavaScript indentation and lint support</h5></li>
-  <li><h5>Snippets (with JavaScript examples)</h5></li>
+  <li><h5>Sane defaults and platformy keybindings</h5></li>
+  <li><h5>Layered `.json` based vim configuration</h5></li>
+  <li><h5>Automatically generates fast vimrc file</h5></li>
+  <li><h5>Try without fear. Doesn't disturb existing Vim configuration.</h5></li>
+  <li><h5>(beta)Now with Terminal, Windows, and Linux(gvim) support</h5></li>
 </ul>
 </td>
 </tr>
@@ -24,61 +24,26 @@
 
 <br>
 
-> VimBox with Atom inspired one-dark theme.
-
-<img width="744px" height="642px" src="dotVim/images/VimBoxScreen_1488x1284.png" />
-
-> VimBox's matching application icon
-
-<img src="dotVim/images/iconScreenshot.png" />
+<img width="744px" height="642px" src="docs/images/ScreenShot_1488x1284.png" />
 
 
-Installation:
+Installation (Mac):
 -------------
-> Quickly try VimBox in place of your existing setup. Back up your existing vim files, and move them out of the way as instructed:
+1. Install [MacVim](http://macvim-dev.github.io/macvim/)
+2. [Download a `.zip` of this repo](https://github.com/jordwalke/VimBox/archive/json.zip)
+3. Drag `applicationLauncher/VimBox.app` into your `/Applications` folder.
+4. Open `/Applications/VimBox.app` (control+click, then select "Open").
 
-1. If you already have a vim setup, move it safely out of the way or back it up.
+It will pull the latest support from this github repo, and then finally it will
+ask if you want to install the configured (default) plugins. After doing so,
+restart `VimBox.app`  and everything will be setup.
 
-        mv ~/.vim ~/.vim_backup    #No trailing slashes to preserve symlinks!
-        mv ~/.vimrc ~/.vimrc_backup
-        mv ~/.gvimrc ~/.gvimrc_backup
+> `VimBox.app` requires that you first install `MacVim.app` (step one), and it
+will use that as its basis for installation, but once you open VimBox,
+everything VimBox does from that point on is isolated from any existing Vim
+installation so you don't need to worry about it messing up your existing Vim
+configuration. Try without fear.
 
-
-2. You *Must* Install a [Recent Version of MacVim](http://macvim-dev.github.io/macvim/): (with python support)
-
-        # Alternatively, if you'd rather install via `brew`
-        brew install macvim --with-cscope --python --HEAD
-        brew linkapps    # Put the app in your /Applications directory
-
-3. Clone `VimBox` wherever you like to keep your github clones
-
-        # cd ~/github/     # Or wherever you like to keep github clones
-        git clone https://github.com/jordwalke/VimBox/
-        ln -s `pwd`/VimBox/dotVim ~/.vim      # Link to the cloned vim config
-        ln -s `pwd`/VimBox/dotVimRc ~/.vimrc
-        ln -s `pwd`/VimBox/dotGVimRc ~/.gvimrc
-
-4. Start `MacVim` that you just installed. It will prompt you to download the
-   plugins in the background. If you opt to do so, it may take a while to
-   startup but be patient.
-
-5. `[Recommended]` Install the included vim-airline font so `VimBox` looks like
-   the screenshot with the `vim-airline` bar. From the command line:
-
-        open ./VimBox/dotVim/Fonts/InconsolataDz/Inconsolata-dz\ for\ Powerline.otf # Then click "Install Font"
-
-6. Install up-to-date node.js if you want JS linting (http://nodejs.org/)
-
-7. Make your MacVim use the VimBox icon (optional):
-
-```lang=bash
-open /Applications/
-# Find the MacVim app icon and press `⌘+i` to open the information window
-open ./dotVim/images
-# drag the ApplicationIcon.icns onto the little icon in the information window
-# and restart MacVim.
-```
-  
   
 Features:
 ----------
@@ -87,11 +52,11 @@ Features:
 
 | Key                       | Action                                                   |
 | ------------------------- |----------------------------------------------------------|
-| `⌘+p`                     | Open Anything (`ctrl-p`)                                 |
+| `⌘+,`                     | Open personal `.json` based configuration file.          |
 | `⌘+n`                     | New Tab                                                  |
 | `⌘+shift+n`               | New Window                                               |
-| `⌘+shift+t`               | Reopen Last Closed Tab                                   |
-| `⌘+w`                     | Close tab/split: Opens to the left (like Sublime) not right (like vim)  |
+| `⌘+shift+t`               | Reopen Last Closed File in current tab                   |
+| `⌘+w`                     | Close tab/split:                                         |
 | `⌘+s`                     | Save file                                                |
 | `⌘+z`                     | Undo                                                     |
 | `⌘+shift+z`               | Redo                                                     |
@@ -102,7 +67,6 @@ Features:
 | `⌘+shift+[` / `⌘+shift+]` | Go to previous/next tab                                  |
 | `^+tab` / `^+shift+tab`   | Go to previous/next tab (in normal Vim mode)             |
 | `⌘+1 `                    |                 Go to tab `1`                            |
-| `F5`                      | Sort lines (like Textmate)                               |
 | `⌘+/`                     | Toggle comments - selected range - or line               |
 | `⌘+shift+c`               | format/indent entire file then restore cursor            |
 | `⌘+d`                     | Toggle Diagnostics (errors in location list)             |
@@ -126,150 +90,213 @@ not disturb window positions (just like Atom or other modern editors).
 | ------------ |-------------|
 | `^+l`        | Mega Escape |
 
-#### Airline/Spacegray
 
-`VimBox` includes `vim-airline` and `Spacegray` color scheme.
+## Special VimBox Commands:
 
-#### Braces and Pairs
+**Settings**
 
-- Inserting `{`, `[`, `'`, or `"` automatically inserts the closing character.
-- When hitting enter with the cursor between two braces `{|}` the newline is formatted with an extra indentation.
-- The behavior is identical to Sublime/Textmate.
+| Command                   | Action                                                   |
+| ------------------------- |----------------------------------------------------------|
+| `:Settings`               | Open *All* User **Settings**                             |
+| `:SettingsDefaults`       | Open All Default Settings                                |
+| `:Rc`                     | Open `.vim` file generated from all `settings.json` files|
+| `:Logs`                   | Open VimBox logs. Plugins can append to this log.        |
+| `:Locations`              | Panel showing where every important thing is located     |
 
-#### AutoComplete/Snippets
-
-- Completions pop up automatically.
-- Like Sublime, `VimBox` accepts highlighted entries via `tab` or `enter`.
-- `tab` also triggers a snippet when applicable, and `tab` will allow "tabbing" through the snippet placeholders.
-- Place custom snippets in `~/.vim/myUltiSnippets/`
-- If the completion window is open and you want to insert a newline instead of inserting the completion, press `shift+enter` or `control+enter`.
-
-
-#### Distraction Free UI Tabs
-
-- When not in full screen mode, Mac style metalic tabs are used.
-- When in full-screen mode, those tabs become flat and blend into the background so you can focus on the code.
+#### Tasteful color scheme and matching icon out of the box:
+  - [`vim-taste`](https://github.com/jordwalke/vim-taste) colors.
+  
+<img width="744px" height="642px" src="docs/images/vim-taste-side-by-side_1488x642.png" />
 
 
-#### One File, One Location
+# User Settings:
 
-Included plugins are configured so that opening a file will always focus the window/tab/split where that file is already open. This is how most modern editors work.
+The `:Settings` command will open your personal user settings which are stored
+in `~/.config/vim-box/user/settings.json`. This settings file can configure
+other plugins, including the installation/disabling of other plugins, as well
+as configure mappings.
 
-#### Many Plugins, One Interaction Language
-
-Multiple plugins (`ctrl-p` and `NERDTree`) have been configured so that they have consistent keyboard mappings. For example, `s` represents the notion of a "vertical split", and `h` represents horizontal in both plugins (though one plugin might require a `ctrl` modifier in some cases.)
-
-#### Command-P Search Window
-
-The `ctrl-p` plugin has been configured to "do the right thing", which means searching for some combination of recently used files and/or the contents under the current working directory. It caches the results, but if you open it from your home directory, it could take a while to scan your entire directory.
-
-| Key          | Action        |
-| ------------ |-------------|
-| `⌘+p`       | Open Anything and begin searching for file|
-| `enter`      | While searching, opens the top hit in new tab or jump to existing window if already open |
-| `c-s`        | While searching, opens the top hit in a vertical split or jump to existing window if already open |
-| `c-h`        | While searching, opens the top hit in horizontal split or jump to existing window if already open |
-| `⌘+shift+c`  | While searching, refreshes the search results if files have changed on disk|
-| `ctrl+c`     | Kills a slow search |
-
-#### NERDTree
-
-`NERDTree` is included and is configured to act as a left-nav bar (toggle it via `⌘+e`). Its keymappings have been configured to be consistent with the `ctrl-p` plugin.
-
-| Key          | Action        |
-| ------------ |-------------|
-| `⌘+e`       | Toggle side bar file explorer |
-| `⌘+E`       | Reveal current file in side bar file explorer |
-| `j`/`k`      | While explorer focused, move up and down |
-| `enter`      | While explorer focused, opens a file in new tab or jump to existing window if already open |
-| `s`          | While explorer focused, opens a file in a vertical split or jump to existing window if already open |
-| `h`          | While explorer focused, opens a file in horizontal split or jump to existing window if already open |
-| `u`          | While explorer focused, Move up a directory |
-| `o`          | While explorer focused, Expand a subdirectory |
-| `CD`         | While explorer focused, Make the file explorer's directory equal to Vim's `cwd`  |
-| `cd`         | While explorer focused, make Vim's `cwd` equal to the directory under the cursor |
-| `m`         | While explorer focused, show complete menu of possible commands to execute |
+The directory where your `settings.json` file lives is itself a vim plugin -
+your own personal vim plugin. It isn't special except that it has the highest
+priority. Like any plugin you can define custom utilities/functions/commands
+but most people will get by with just editing the `settings.json` file.
 
 
-#### Tabs And Splits Navigation
-> Jump around quickly to the next tab or split with a single key press. Go back the other direction by pressing shift.
+## Configuration:
 
-| Key          | Action        |
-| ------------ |-------------|
-| `⌘+shift+h`, `⌘+shift+l` | While in Vim's normal mode - focus split to the left or right |
-| `⌘+shift+j`, `⌘+shift+k` | While in Vim's normal mode - focus split to the top or bottom (not in diff mode) |
-| `⌘+shift+j`, `⌘+shift+k` | While in Vim's normal mode - *and* diff mode, go to next / previous changes |
-| `⌘+shift+p`              | While in Vim's normal mode - focus *previously* focused tab |
-| `Space`/`shift+Space`    | While in Vim's normal mode - go to next/preious tab |
-| `tab`/`shift+tab`        | While in Vim's normal mode - go to next/previous split |
-
-
-####JavaScript Development
-
-#### JavaScript Linting
-- Excellent JavaScript indenting and inline linting with support for `JSX`.
-- Syntax error highlighting via Syntastic.
-- Type error highlighting via `flow`. Just have `flow` installed on your path, and type/syntax errors will be underlined in red. As always, hit `⌘+l` to toggle the summary of the file's errors.
-
-#### JavaScript Snippets
-- JavaScript snippets are include, but you can add your own for any language you like
-
-| Key          | Action        |
-| ------------ |-------------|
-| `for` `tab`  | `for` loop |
-| `if`       | `if` statement|
-| `forin` `tab`| `for`-`in` loop |
-| `fun` `tab`| `function` definition |
-| `lam` `tab`| Lambda function |
-| `try` `tab`| `try`/`catch` |
-| `log` `tab`| `console.log` |
-| `logo` `tab`| Log stringified object to console |
-| `tag` `tab`| `JSX` tag `<typeHere att={}></typeHere>`|
-| `logo` `tab`| Many more including <a href="https://github.com/facebook/react">ReactJS</a> helpers |
+In VimBox, everything is modelled as a configurable plugin. All stock Vim
+plugins work with VimBox, but they just don't make use of VimBox's extra json
+configuration feature.
+All plugins can optionally include a `settings.json` file in their plugin root
+and VimBox will apply the settings specified in it. Any plugin's included
+`settings.json` can configure any other plugin. Your personal `settings.json`
+is actually just the configuration file for the special `user` plugin - and it
+configures other plugins.
 
 
-#### JavaScript DocBlock Generator
+Json configuration is of the form:
 
-The following key mapping generates docblock comments. `<tab>` will select the parameters in the generated docblock so you can edit the descriptions/types. Works with `ES6` functions.
+```json
+"my-file-type": {
+  "pluginName": {
+    "config": {
+      "configName": "value"
+    },
+    "mappings": {
+    }
+  }
+}
+```
 
-| Key          | Action        |
-| ------------ |-------------|
-| `⌘+shift+i` | Generate JS Docblock  - when cursor is above a function|
+This enables plugin configurations to only apply to certain filetypes. The fact
+that mappings are nested inside of a pluginName, allows those mappings to only
+be applied when that plugin `pluginName` is actually installed and activated.
+Since VimBox generates the `vimrc` behind the scenes, this is automatic!
+
+In the above example, only for filetype `my-file-type` and if the plugin named
+`pluginName` is installed and activated, the value `g:pluginName_configName`
+will be set to `"value"`. See the convention? `g:`, plugin name and an
+underscore are prepended to the config key. Almost all vim plugins have some
+prefix to their global config variables. That's their conventional "plugin
+name" that you should use everywhere.
+
+
+### Configuring Vim Itself:
+
+There's a special plugin called "vim" which allows you to configure vim
+settings. When you configure this plugin, there isn't a `g:vim_` prepended to
+all your configuration key/values - instead these just set vim settings
+directly. For example to configure the vim setting `foldminlines` for all
+filetypes, you would do: (note that `"*"` matches all file types).
+
+```json
+{
+  "*": {
+    "vim": {
+      "config": {
+        "foldminlines": 0,
+      },
+      "mappings": {
+      }
+    }
+  }
+}
+```
+
+### Installing Plugins From Github:
+
+To install plugins, configure the "installer" plugin! Then open a new window
+and it will install plugins for you. See the "key" of the config? (In this case
+`incsearch`?) That's the name of the plugin (that will eventually form the
+prefix to configuration values when configuring `incsearch` itself).  I used
+`incsearch` as the key string because incsearch expects configuration of the
+form: `g:incsearch_XYZ`. Don't worry if you don't know the appropriate plugin
+name for automatic prefixing you can always fall back to just specifying the
+full `g:whateveryouwant` when it comes time to configure plugins.
+
+
+```json
+{
+  "*": {
+    "installer": {
+      "config": {
+        "incsearch": "haya14busa/incsearch.vim"
+      }
+    }
+  }
+}
+```
+
+#### Mappings:
+
+The mappings system is rad and undocumented.
+
+#### Why json?
+
+> Why go through all this trouble of declarative configuration? So that all the
+> configurations can be "resolved" and ties can be broken when multiple plugins
+> want to configure the same thing or override a default. Furthermore, in
+> VimBox there is a "trace" showing exactly how/why a setting was set based on
+> who wanted to apply a setting, and how it got overridden. All of this work is
+> done ahead of time and compiled into a compressed vimrc with helpful traces.
+> Also, noobs have a really hard time configuring filetype specific
+> configurations or bindings.  It's really annoying to get right, so let's just
+> automate it based on config.
+
+
+#### built-in plugins:
+- `vimBox`: VimBox sees itself as a configurable plugin named `vim-box`.
+  (Recall that "everything is a plugin" in VimBox - that includes VimBox
+  itself).
+- `vim`: Even vim itself is modeled as a plugin named `vim`. Configuring vim
+  settings (such as `incsearch`) is done by configuring the plugin named `vim`.
+- `installer`: The plugin which performs installing other plugins. Configuring
+  this plugin results in the installation of other plugins.
+- `disabler`: The plugin that can disable installation/configuration of other
+  plugins.
+- `user`: The special plugin that represents "your personal vim setup". It is
+  located at `~/.config/vim-box/user/`. It is encouraged that you back this up
+  using version control, share it with others on Github, and synchronized it
+  between all machines you use.
+
+> Note that plugin names must not contain hyphens since those plugin names end
+> up becoming part of variable names. If a plugin is on github under a project
+> name like `vim-colors`, usually the "plugin name" in configuration will end
+> up being `vimcolors` or `vimColors`.
+
+
+## More On The User Plugin
+
+The user plugin, located at  `~/.config/vim-box/user/`. All your personal
+configuration occurs through this user plugin. And since plugins can configure
+other plugins the way you configure everything is by having your user plugin
+configure all the other plugins including some special ones like "the vim
+plugin".  Also, there is a special plugin called "the installer plugin" and you
+install packages by simply having your user plugin configure the installer
+plugin. See?  Everything is totally consistent. Everything is a plugin. Want to
+disable an installed plugin so it doesn't initialize and none of its attempts
+to configure other plugins ever happen? Well then you configure the "disabler
+plugin" hahaha.
+
+## Use the User Plugin To Install Local Plugins From FileSystem:
+You can place other local plugins not obtained from Github in new directories
+inside of `~/.config/vim-box/` for example. Enable them by adding an entry in
+your `:Settings`:
+
+```json
+"*": {
+  "installer": {
+    "config": {
+      "yourPluginName": "file:~/.config/vim-box/someLocalPlugin/"
+    }
+  }
+}
+```
+
 
 
 Git Integration:
 ---------
 
-#### Setup DiffTool:
-
-Any result of a `git diff` command can be viewed in a side-by-side diff view inside of `MacVim`. All of your familiar `vim` key commands work while browsing your diff. Place this in your `~/.gitconfig`:
-
-        [diff]
-            tool = default-difftool
-        [difftool "default-difftool"]
-            cmd = "~/.vim/mvimgitdiff.sh " $LOCAL $REMOTE
-
-Now you can use the `git difftool` command exactly like you use `git diff`, but a MacVim window will appear:
+#### Setup MergeTool:
 
 <img width="744px" height="642px" src="dotVim/images/VimDiff_1488x1284.png" />
 
-#### Setup MergeTool:
+Resolving merge conflicts is simple with `VimBox`. Just put this in your `~/.gitconfig`.
 
-Resolving merge conflicts is simple with `MacVim`. Just put this in your `~/.gitconfig`.
-
-        [mergetool]
-          prompt = false
-          # See bashrc for exporting the editor across all apps, not just git.
-        [mergetool "mvimdiff"]
-          cmd="/Applications/MacVim.app/Contents/MacOS/Vim -g -f '+windo set diff scrollbind scrollopt+=hor nowrap' -c 'Gdiff' $MERGED -c 'au VimLeave * !open -a iTerm'"
-          # cmd="mvim -c 'Gdiff' $MERGED"     # use fugitive.vim for 3-way merge
-          keepbackup=false
-
-        [merge]
-          tool = mvimdiff
 
 
 Now, `git mergetool` will resolve rebase and merge conflicts directly inside of `MacVim`.
+
+
+      [mergetool]
+        keepBackup = false
+        keepTemporaries = false
+        prompt = false
+      [mergetool "mvimmerge"]
+        cmd="/Applications/VimBox.app/Contents/Resources/VimBoxCheckout/applicationPatches/box -g -f '+windo set diff scrollbind scrollopt+=hor nowrap' -c 'Gvdiff' $MERGED"     # use fugitive.vim for 3-way merge
+        # cmd="mvim -c 'Gdiff' $MERGED"     # use fugitive.vim for 3-way merge
+        keepbackup=false
 
 
 #### Setup Commit Message Editor:
@@ -282,41 +309,14 @@ Make sure to tell your shell that `MacVim` is the way that you'd like to edit co
 
 
 
+Uninstalling:
+-------------
+- Just remove `/Applications/VimBox.app`.
+- VimBox shouldn't have touched anything in your regular Vim config.
+- There are some `vim-box` data directories that it has written to with your
+  personal configuration in various places in your home directory (XDG
+  compliant). Run `:Locations` to see where it places things.
 
-Plugin System:
----------
-
-`VimBox` achieves its features through configuration of several plugins, but
-those should be considered implementation details of the `VimBox` distribution.
-`VimBox` uses modern editors as a "spec" for features and will configure
-several plugins in order to conform to that spec.
-
-- You can add any plugin you like using the `Plug` command.
-- Add custom plugins using the `Plug` command inside
-  `~/.vim/bundlesVimRc.custom`.
-- Customize `~/.vim/vimrc.custom.before` to configure Vim before any of the
-  bundles are loaded, and customize `~/.vim/vimrc.custom.after` to configure
-  Vim after plugins are loaded.
-
-
-Customizing:
----------
-In `~/.vim/vimrc.custom.before`/`~/.vim/vimrc.custom.after` you may set any options you like. (See "Plugin System" section above).
-
-`VimBox` will look to see if you have defined the following variables defined in your `~/.vim/vimrc.custom.before`:
-
-| Key                      | Behavior                |
-| ------------------------ |-------------------------|
-| `let g:textColumns = 82` | Set text wrapping width |
-| `let g:tabSize = 2`      | Set tab width           |
-
-
-Using VimBox's configuration from NeoVim
----------
-
-    mkdir ~/.config
-    ln -s ~/.vim ~/.config/nvim
-    ln -s ~/.vimrc ~/.config/nvim/init.vim
 
 License:
 -------
@@ -324,7 +324,7 @@ License:
 See the license file included. Any dependencies that are included in `VimBox`
 may have their own license. In the event any dependency is include in `VimBox`,
 an attempt has been made to also include its corresponding license in the
-directory containing that licensed work.
+directory containing that licensed work. See `ORIGINS.md`.
 
 #### ORIGINS
 
