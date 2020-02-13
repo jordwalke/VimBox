@@ -106,7 +106,7 @@ not disturb window positions (just like Atom or other modern editors).
 #### Tasteful color scheme and matching icon out of the box:
   - [`vim-taste`](https://github.com/jordwalke/vim-taste) colors.
   
-<img width="744px" height="642px" src="docs/images/vim-taste-side-by-side_1488x642.png" />
+<img width="744px" height="321px" src="docs/images/vim-taste-side-by-side_1488x642.png" />
 
 
 # User Settings:
