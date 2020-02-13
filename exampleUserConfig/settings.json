@@ -1,15 +1,17 @@
 {
+  "config-comment": 0,
   "*": {
     "disabler": {
-      "note": "If you don't want VimBox's markdown highlighting you can use stock one by setting to true",
       "config": {
+        "clap": true,
         "reasonml": false,
-        "wintabs": false,
-        "markdown": false
+        "mucomplete": false,
+        "fuf": true
       }
     },
     "installer": {
       "config": {
+        "clap": "liuchengxu/vim-clap",
         "nerdcommenter": "scrooloose/nerdcommenter",
         "flatwhite": "kamwitsta/flatwhite-vim",
         "sensible": "tpope/vim-sensible",
@@ -23,12 +25,13 @@
         "one": "jordwalke/vim-one",
         "airline": "jordwalke/vim-airline#AirlineOnTop",
         "airline_themes": "vim-airline/vim-airline-themes",
-        "wintabs": "jordwalke/vim-wintabs#PreFilter",
         "far": "brooth/far.vim",
         "sensible": "tpope/vim-sensible",
         "incsearch": "haya14busa/incsearch.vim",
-        "reasonml": "jordwalke/vim-reason#WIP",
+        "reasonml": "jordwalke/vim-reasonml",
         "VimAutoMakeDirectory": "jordwalke/VimAutoMakeDirectory",
+        "vimNerdTreeTabs": "jistr/vim-nerdtree-tabs",
+        "undoquit": "AndrewRadev/undoquit.vim",
         "NERDTree": "scrooloose/nerdtree",
         "VimSplitBalancer": "jordwalke/VimSplitBalancer",
         "webdevicons": "ryanoasis/vim-devicons",
@@ -44,16 +47,50 @@
         "<F2>": ""
       }
     },
+    "markdown": {
+      "notes": "This is a built in markdown vim plugin",
+      "config": {
+        "fenced_languages": ["reason", "javascript", "html", "ocaml"],
+        "syntax_conceal": true
+      }
+    },
+    "clap": {
+      "config": {
+        "layout": { "relative": "editor" },
+        "search_box_border_style": null,
+        "current_selection_sign": {
+          "text": " »",
+          "texthl": "StatusLine",
+          "linehl": "StatusLine"
+        },
+        "enable_icon": 0,
+        "open_action": {
+          "ctrl-t": "tab split",
+          "ctrl-x": "split",
+          "ctrl-v": "vsplit"
+        },
+        "spinner_frames": [" ", "⠙", "⠚", "⠞", "⠖", "⠦", "⠴", "⠲", "⠳", "⠓"],
+        "prompt_format": " %spinner% %provider_id%: "
+        
+      }
+    },
     "vim": {
       "config": {
+        "foldminlines": 0,
         "showmode": false,
         "colorscheme": "taste",
-        "hidden": "eval:has_key(g:plugs, 'vim-wintabs')",
-        "showtabline": "eval:has_key(g:plugs, 'vim-wintabs') ? 2 : &showtabline",
         "equalalways": "eval:has_key(g:plugs, 'VimSplitBalancer') ? 0 : 1",
         "completeopt": "eval: has('patch-7.4.784') ? 'menu,menuone,noinsert' : 'menu,menuone'"
       },
       "mappings": {
+  
+        "insert @silent: <c-Tab>": "keys:<Esc>gt",
+        "insert @silent: <c-S-Tab>": "keys:<Esc>gT",
+        "normal @silent: <c-S-Tab>": "keys:gT",
+        "normal visual select operatorPending @silent:<c-Tab>": "keys:<Esc>gt",
+        "normal visual select operatorPending @silent:<c-s-Tab>": "keys:<Esc>gT",
+        
+        
         "normal operatorPending select visual:;": "keys::",
         "visualRemapped:<C-h>": "keys:<Esc><Cr>:w<Cr>",
         "insertRemapped:<C-h>": "keys:<Esc>:w<Cr>l",
@@ -70,37 +107,9 @@
         "normalRemapped operatorPendingRemapped selectRemapped visualRemapped:<m-k>": "keys:<C-u>"
       }
     },
-    "nerdcommenter": {
-      "config": {
-         "g:NERDCompactSexyComs": 0,
-         "g:NERDSpaceDelims": 1,
-         "g:NERDDefaultAlign": "left",
-         "g:NERDToggleCheckAllLines": 1,
-         "g:NERDCustomDelimiters": { "reason": { "left": "/*","right": "*/", "nested": 1 } }
-      }
-    },
-    "NERDTree": {
-      "config": {
-        "g:NERDTreeDirArrows": 0,
-        "g:NERDTreeMinimalUI": 1,
-        "g:NERDTreeShowBookmarks": 1,
-        "g:NERDTreeWinSize": 40,
-        "g:_nerdCloseIfLast": "eval: execute('autocmd bufenter * if (winnr(\"$\") == 1 && exists(\"b:NERDTree\")) | q | endif')",
-        "g:_nerdRemoveUglyRO": "eval: execute('hi def link NERDTreeRO Normal')",
-        "g:_nerdRemoveUglyDir": "eval: execute('hi def link NERDTreeDir Normal')",
-        "g:_nerdRemoveUglyTreePart": "eval: execute('hi def link NERDTreePart StatusLine')",
-        "g:_nerdRemoveUglyDirSlash": "eval: execute('hi def link NERDTreeDirSlash NonText')",
-        "g:_nerdRemoveUglyOpenable": "eval: execute('hi def link NERDTreeOpenable Normal')",
-        "g:_nerdRemoveUglyClosable": "eval: execute('hi def link NERDTreeClosable Normal')",
-        "g:_nerdRemoveUglyCurrentNode": "eval: execute('hi def link NERDTreeCurrentNode Search')",
-        "g:_nerdRemoveUglyCWD": "eval: execute('hi def link NERDTreeCWD Normal')",
-        "g:_nerdRemoveUglyUp": "eval: execute('hi def link NERDTreeUp Normal')",
-        "g:_nerdRemoveUglyNERDTreeFlags": "eval: execute('hi def link NERDTreeFlags Normal')"
-        
-      }
-    },
     "mucomplete": {
       "config": {
+        "#completion_delay": 100,
         "#enable_auto_at_startup": 1,
         "#no_mappings": 1,
         "#can_complete": {},
@@ -147,7 +156,7 @@
         "g:UltiSnipsJumpBackwardTrigger": "<s-tab>"
       }
     },
-
+    
     "comfortable_motion": {
       "config": {
         "no_default_key_mappings": 1,
@@ -163,7 +172,8 @@
     "merlin": {
       "config": {
         "split_method": "vertical",
-        "completion_dwim": 0
+        "completion_dwim": 0,
+        "disable_default_keybindings": true
       }
     },
     "toggly": {
@@ -177,6 +187,26 @@
         "enable_signs": 0,
         "always_populate_loc_list": 1,
         "loc_list_height": 15
+      }
+    },
+    "NERDTree": {
+      "config": {
+        "g:NERDTreeDirArrows": 0,
+        "g:NERDTreeMinimalUI": 1,
+        "g:NERDTreeShowBookmarks": 1,
+        "g:NERDTreeWinSize": 40,
+        "g:_nerdCloseIfLast": "eval: execute('autocmd bufenter * if (winnr(\"$\") == 1 && exists(\"b:NERDTree\")) | q | endif')",
+        "g:_nerdRemoveUglyRO": "eval: execute('hi def link NERDTreeRO Normal')",
+        "g:_nerdRemoveUglyDir": "eval: execute('hi def link NERDTreeDir Normal')",
+        "g:_nerdRemoveUglyTreePart": "eval: execute('hi def link NERDTreePart StatusLine')",
+        "g:_nerdRemoveUglyDirSlash": "eval: execute('hi def link NERDTreeDirSlash NonText')",
+        "g:_nerdRemoveUglyOpenable": "eval: execute('hi def link NERDTreeOpenable Normal')",
+        "g:_nerdRemoveUglyClosable": "eval: execute('hi def link NERDTreeClosable Normal')",
+        "g:_nerdRemoveUglyCurrentNode": "eval: execute('hi def link NERDTreeCurrentNode Search')",
+        "g:_nerdRemoveUglyCWD": "eval: execute('hi def link NERDTreeCWD Normal')",
+        "g:_nerdRemoveUglyUp": "eval: execute('hi def link NERDTreeUp Normal')",
+        "g:_nerdRemoveUglyNERDTreeFlags": "eval: execute('hi def link NERDTreeFlags Normal')"
+        
       }
     },
     "Gitv": {
@@ -211,33 +241,12 @@
     "airline": {
       "config": {
         "airline_whitespace_checks": ["indent", "trailing", "long", "mixed-indent-file"],
-        "statusline_ontop": "eval:has_key(g:plugs, 'vim-wintabs')",
-        "powerline_fonts": true,
+        "notes": "airline on top is great, if we had a way to render tab pages in it too",
+        "statusline_ontop": "0",
+        "powerline_fonts": "eval:exists('g:vimBox_useDevIcons') ? g:vimBox_useDevIcons : 1",
         "skip_empty_sections": 1,
         "#extensions#branch#enabled": 0,
         "#parts#ffenc#skip_expected_string": "utf-8[unix]"
-      }
-    },
-    "wintabs": {
-      "config": {
-        "display": "statusline",
-        "autoclose": 2,
-        "autoclose_vim": 1,
-        "autoclose_vimtab": 1,
-        "switchbuf": "useopen,usetab",
-        "ui_active_higroup ":  "TabLineSel",
-        "ui_buffer_name_format":"  %t ",
-        "ui_sep_leftmost": " ",
-        "ui_sep_inbetween": " ",
-        "ui_active_left": "▍",
-        "ui_active_right": " ",
-        "ui_sep_rightmost": " ",
-        "ui_modified": " ◎",
-        "ignored_filetypes": [],
-        "ui_active_vimtab_left":"▍",
-        "ui_active_vimtab_right":" ",
-        "ui_arrow_left":"«",
-        "ui_arrow_right":"»"
       }
     },
     "gundo": {
@@ -271,7 +280,7 @@
   "reason": {
     "vim": {
       "config": {
-        "conceallevel": 2
+        "conceallevel": 0
       }
     },
     "pairtools": {
@@ -297,6 +306,34 @@
         "g:pairtools_reason_twexpander": 1,
         "g:pairtools_reason_tweraser":  0,
         "g:pairtools_reason_apostrophe": 0
+      }
+    }
+  },
+  "fuf": {
+    "notes": [
+      "tab mapped to c-y which means 'accept the completion but dont enter it'"
+    ],
+    "vim": {
+      "notes": "for some reason the (superior) mapping for c-a doesn't work well: inoremap <C-a> <c-o>^",
+      "mappings": {
+        "insert:<c-a>": "keys:<Home>",
+        "insert:<c-e>": "keys:<End>",
+        "insert:<Tab>": "keys:<C-y>",
+        "insertRemapped:<D-t>": "keys:<Esc>:FufMruFile<Cr>",
+        "insertRemapped:<D-F>": "keys:<Esc>:FufFile<Cr>",
+        "insertRemapped:<D-H>": "keys:<Esc>:FufHelp<Cr>"
+      }
+    }
+  },
+  "markdown": {
+    "notes": [
+      "For markdown filetype. Conceallevel 1 replaced concealed characters with one char",
+      "with Highlight Conceal color"
+    ],
+    "vim": {
+      "config": {
+        "conceallevel": 2,
+        "concealcursor": "nv"
       }
     }
   }
