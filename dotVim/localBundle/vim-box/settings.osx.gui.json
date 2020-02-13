@@ -9,27 +9,14 @@
 
         "supportsDoubleWide": true,
         "supportsDoubleWide:description": "Whether or not this version of Vim supports double wide glyph rendering",
-        "supportsDoubleWide:possibleValues": [{"value": true}, {"value": false}],
-
-        "tabSystem": "wintabs",
-        "tabSystem:description": "Style of Window/Split/Tab management to use.",
-        "tabSystem:possibleValues": [
-          {
-            "value": "wintabs",
-            "description": "Places airline at the top of the screen, file navigation on left, and tags at the bottom of each split"
-          },
-          {
-            "value": "standard",
-            "description": "Regular platform tabs are used."
-          }
-        ]
+        "supportsDoubleWide:possibleValues": [{"value": true}, {"value": false}]
       },
       "mappings": {
       }
     },
     "vim": {
       "config": {
-        "guioptions": "gmM",
+        "guioptions": "gmMe",
          "shell": "eval:&shell =~# 'fish$' ? 'sh' : &shell"
       }
     }
