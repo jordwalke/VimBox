@@ -10,7 +10,6 @@
         "megaEscape": "file:$vimBoxStockPluginsDir/vim-megaEscape",
         "paneKeys": "file:$vimBoxStockPluginsDir/vim-paneKeys",
         "runIt": "file:$vimBoxStockPluginsDir/vim-runIt",
-        "wintabsKeys": "file:$vimBoxStockPluginsDir/vim-wintabsKeys",
         "resetKeys": "file:$vimBoxStockPluginsDir/vim-resetKeys",
         "enhanceTerm": "file:$vimBoxStockPluginsDir/vim-enhanceTerm"
       }
@@ -30,7 +29,7 @@
         "supportsDoubleWide:description": "Whether or not this version of Vim supports double wide glyph rendering",
         "supportsDoubleWide:possibleValues": [{"value": true}, {"value": false}],
 
-        "tabSystem": "wintabs",
+        "tabSystem": "standard",
         "tabSystem:description": "Style of Window/Split/Tab management to use.",
         "tabSystem:possibleValues": [
           {
@@ -44,7 +43,12 @@
         ]
       },
       "mappings": {
-        "insert:<C-Cr>": "keys:<Left><Right><Cr>"
+        "insert:<C-Cr>": "keys:<Left><Right><Cr>",
+        "insert @silent: <c-Tab>": "keys:<Esc>gt",
+        "insert @silent: <c-S-Tab>": "keys:<Esc>gT",
+        "normal @silent: <c-S-Tab>": "keys:gT",
+        "normal visual select operatorPending @silent:<c-Tab>": "keys:<Esc>gt",
+        "normal visual select operatorPending @silent:<c-s-Tab>": "keys:<Esc>gT"
       }
     },
     "netrw": {
@@ -86,15 +90,6 @@
         "background": "dark",
         "colorscheme": "taste",
         "fillchars": "vert: ,diff: "
-      }
-    },
-    "wintabs": {
-      "mappings": {
-        "insert @silent: <c-Tab>": "keys:<c-Tab> <Esc>:WintabsNext<Cr>",
-        "insert @silent: <c-S-Tab>": "keys:<Esc>:WintabsPrevious<Cr>",
-        "normal @silent: <c-S-Tab>": "keys:WintabsPrevious<Cr>",
-        "normal visual select operatorPending @silent:<c-Tab>": "command:WintabsNext",
-        "normal visual select operatorPending @silent:<c-s-Tab>": "command:WintabsPrevious"
       }
     }
   }
