@@ -37,6 +37,7 @@ else
   if [ -e "/Applications/MacVim.app" ]; then
     osascript -e 'display notification "Installing VimBox from system MacVim" with title "Initializing VimBox"'
     cp -rp "/Applications/MacVim.app" "${DIR}/VimBox.app" || FAILMSG="Could not copy system MacVim.app into vendored MacVim"
+    rm -rf "${DIR}/VimBox.app/Contents/_CodeSignature/"
     # cp -p so it preserves permissions.
     cp -p "${DIR}/VimBox.app/Contents/MacOS/Vim" "${DIR}/VimBox.app/Contents/MacOS/VimOrig" || FAILMSG="Failed copying Vim to VimOrig"
     cp -p "${DIR}/VimBox.app/Contents/MacOS/MacVim" "${DIR}/VimBox.app/Contents/MacOS/VimBox" || FAILMSG="Failed copying MacVim to VimBox"
