@@ -3,7 +3,9 @@
     "vim": {
       "mappings": {
         "insert:<D-f>": "keys:<Esc>/",
-        "normal:<D-f>": "keys:<Esc>/"
+        "normal:<D-f>": "keys:<Esc>/",
+        "all:<D-w>": "command:confirm close",
+        "all:<D-S-t>": "command:UndoQuit"
       }
     },
     "Gundo": {
