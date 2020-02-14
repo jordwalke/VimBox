@@ -48,56 +48,47 @@ configuration. Try without fear.
 Features:
 ----------
 
-#### Familiar Mac Key Commands
+### Familiar Mac Key Commands
 
-| Key                       | Action                                                   |
-| ------------------------- |----------------------------------------------------------|
-| `⌘+,`                     | Open personal `.json` based configuration file.          |
-| `⌘+n`                     | New Tab                                                  |
-| `⌘+shift+n`               | New Window                                               |
-| `⌘+shift+t`               | Reopen Last Closed File in current tab                   |
-| `⌘+w`                     | Close tab/split:                                         |
-| `⌘+s`                     | Save file                                                |
-| `⌘+z`                     | Undo                                                     |
-| `⌘+shift+z`               | Redo                                                     |
-| `⌘+enter`                 | Special Distraction-Free FullScreen Mode                 |
-| `⌘+\`                     | Toggle File Explorer (Docked `NERDTree`)                 |
-| `⌘+shift+\`               | Find current file in file explorer                       |
-| `^+\`                     | Toggle focus between file explorer                       |
-| `⌘+shift+[` / `⌘+shift+]` | Go to previous/next tab                                  |
-| `^+tab` / `^+shift+tab`   | Go to previous/next tab (in normal Vim mode)             |
-| `⌘+1 `                    |                 Go to tab `1`                            |
-| `⌘+/`                     | Toggle comments - selected range - or line               |
-| `⌘+shift+c`               | format/indent entire file then restore cursor            |
-| `⌘+d`                     | Toggle Diagnostics (errors in location list)             |
-| `⌘+D`                     | Toggle QuickFix list                                     |
-| `⌘+r`                     | "Run" - invokes pwd/runFromEditor.sh                     |
+| Key                                            | Action                                                   |
+| ---------------------------------------------- |----------------------------------------------------------|
+| <kbd>⌘+,</kbd>                                 | Open personal `.json` based configuration file.          |
+| <kbd>⌘+n</kbd>                                 | New Tab                                                  |
+| <kbd>⌘+shift+n</kbd>                           | New Window                                               |
+| <kbd>⌘+shift+t</kbd>                           | Reopen Last Closed File in current tab                   |
+| <kbd>⌘+w</kbd>                                 | Close tab/split:                                         |
+| <kbd>⌘+s</kbd>                                 | Save file                                                |
+| <kbd>⌘+z</kbd>                                 | Undo                                                     |
+| <kbd>⌘+shift+z</kbd>                           | Redo                                                     |
+| <kbd>⌘+enter</kbd>                             | Special Distraction-Free FullScreen Mode                 |
+| <kbd>⌘+\</kbd>                                 | Toggle File Explorer (Docked `NERDTree`)                 |
+| <kbd>⌘+shift+\</kbd>                           | Find current file in file explorer                       |
+| <kbd>ctrl+\</kbd>                              | Toggle focus between file explorer                       |
+| <kbd>⌘+shift+[</kbd> / <kbd>⌘+shift+]</kbd>    | Go to previous/next tab                                  |
+| <kbd>ctrl+tab</kbd> / <kbd>ctrl+shift+tab</kbd>| Go to previous/next tab (in normal Vim mode)             |
+| <kbd>⌘+1 </kbd>                                | Go to tab `1`                                            |
+| <kbd>⌘+/</kbd>                                 | Toggle comments - selected range - or line               |
+| <kbd>⌘+shift+c</kbd>                           | format/indent entire file then restore cursor            |
+| <kbd>⌘+d</kbd>                                 | Toggle Diagnostics (errors in location list)             |
+| <kbd>⌘+D</kbd>                                 | Toggle QuickFix list                                     |
+| <kbd>⌘+r</kbd>                                 | "Run" - invokes pwd/runFromEditor.sh                     |
+| <kbd>ctrl+l</kbd>                              | Mega Escape                                              |
 
 
-The file browser shortcuts are carefully setup so that when you use the
-shortcuts for opening/closing/toggling-focus, the window positions will not be
-resized. Make sure to use `^+\` if you want to jump back and forth between the
-file tree and your editor - it will remember the editor you were last in, and
-not disturb window positions (just like Atom or other modern editors).
 
-#### Mega Escape
-> - `VimBox` has mapped `^+l` to exit out of any modal window/prompt/mode/command to bring you back to normal Vim navigation mode.
+> ### Mega Escape
+> - <kbd>ctrl+l</kbd> exits insert mode _or_ any modal window/prompt/mode/command to bring you back to normal Vim mode.
 > - It's like the home button on the iPhone.
 > - Unlike regular `<Esc>`, mega-escape doesn't move your cursor when escaping.
 > - Remap <a href="http://stackoverflow.com/questions/15435253/how-to-remap-the-caps-lock-key-to-control-in-os-x-10-8"> CapsLock to control</a> and never reach for `Escape` again. Hit the `CapsLock` key and `l` right on the home row.
 
-| Key          | Action      |
-| ------------ |-------------|
-| `^+l`        | Mega Escape |
 
-
-#### Tasteful color scheme and matching icon out of the box:
-  - [`vim-taste`](https://github.com/jordwalke/vim-taste) colors.
+### Tasteful colors with matching icon using [`vim-taste`](https://github.com/jordwalke/vim-taste).
   
 <img width="744px" height="321px" src="docs/images/vim-taste-side-by-side_1488x642.png" />
 
 
-# User Settings:
+### User Settings:
 
 <img width="744px" height="642px" src="docs/images/Settings_1488x1284.png" />
 
@@ -112,7 +103,8 @@ priority. Like any plugin you can define custom utilities/functions/commands
 but most people will get by with just editing the `settings.json` file.
 
 
-## Configuration:
+Configuration:
+--------------
 
 In VimBox, everything is modelled as a configurable plugin. All stock Vim
 plugins work with VimBox, but they just don't make use of VimBox's extra json
@@ -263,19 +255,8 @@ your `:Settings`:
 }
 ```
 
-
-
-Git Integration:
----------
-
-#### Setup MergeTool:
-
-<img width="744px" height="642px" src="dotVim/images/VimDiff_1488x1284.png" />
-
-Resolving merge conflicts is simple with `VimBox`. Just put this in your `~/.gitconfig`.
-
-
-## Special VimBox Commands:
+Special VimBox Commands:
+------------------------
 
 **Settings**
 
@@ -289,6 +270,17 @@ Resolving merge conflicts is simple with `VimBox`. Just put this in your `~/.git
 
 
 <img width="744px" height="642px" src="docs/images/Locations_1488x1284.png" />
+
+
+
+Git Integration:
+---------
+
+#### Setup MergeTool:
+
+<img width="744px" height="642px" src="dotVim/images/VimDiff_1488x1284.png" />
+
+Resolving merge conflicts is simple with `VimBox`. Just put this in your `~/.gitconfig`.
 
 
 
@@ -332,7 +324,8 @@ may have their own license. In the event any dependency is include in `VimBox`,
 an attempt has been made to also include its corresponding license in the
 directory containing that licensed work. See `ORIGINS.md`.
 
-#### ORIGINS
+ORIGINS:
+--------
 
 See [./ORIGINS.md](ORIGINS.md) for information on where various pieces of this
 repo came from. Some libraries inside this repo merely for convenience and
