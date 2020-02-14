@@ -91,18 +91,6 @@ not disturb window positions (just like Atom or other modern editors).
 | `^+l`        | Mega Escape |
 
 
-## Special VimBox Commands:
-
-**Settings**
-
-| Command                   | Action                                                   |
-| ------------------------- |----------------------------------------------------------|
-| `:Settings`               | Open *All* User **Settings**                             |
-| `:SettingsDefaults`       | Open All Default Settings                                |
-| `:Rc`                     | Open `.vim` file generated from all `settings.json` files|
-| `:Logs`                   | Open VimBox logs. Plugins can append to this log.        |
-| `:Locations`              | Panel showing where every important thing is located     |
-
 #### Tasteful color scheme and matching icon out of the box:
   - [`vim-taste`](https://github.com/jordwalke/vim-taste) colors.
   
@@ -110,6 +98,8 @@ not disturb window positions (just like Atom or other modern editors).
 
 
 # User Settings:
+
+<img width="744px" height="642px" src="docs/images/Settings_1488x1284.png" />
 
 The `:Settings` command will open your personal user settings which are stored
 in `~/.config/vim-box/user/settings.json`. This settings file can configure
@@ -283,6 +273,22 @@ Git Integration:
 <img width="744px" height="642px" src="dotVim/images/VimDiff_1488x1284.png" />
 
 Resolving merge conflicts is simple with `VimBox`. Just put this in your `~/.gitconfig`.
+
+
+## Special VimBox Commands:
+
+**Settings**
+
+| Command                   | Action                                                   |
+| ------------------------- |----------------------------------------------------------|
+| `:Settings`               | Open *All* User **Settings**                             |
+| `:SettingsDefaults`       | Open All Default Settings                                |
+| `:Rc`                     | Open `.vim` file generated from all `settings.json` files|
+| `:Logs`                   | Open VimBox logs. Plugins can append to this log.        |
+| `:Locations`              | Panel showing where every important thing is located     |
+
+
+<img width="744px" height="642px" src="docs/images/Locations_1488x1284.png" />
 
 
 
