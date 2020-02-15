@@ -87,6 +87,8 @@ Features:
   
 <img width="744px" height="321px" src="docs/images/vim-taste-side-by-side_1488x642.png" />
 
+<img width="744px" height="321px" src="docs/images/doc_1488x170.png" />
+
 
 ### User Settings:
 
