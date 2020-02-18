@@ -1,11 +1,28 @@
+let g:airline_theme='deus'
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
 " Git status can be expensive.
 let g:airline#extensions#branch#enabled = 0
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 set laststatus=2
-" Disable truncation
-" let g:airline#extensions#default#section_truncate_width = {}
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '◀'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.notexists = '∄'
+let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.readonly = '⭤'
+let g:airline_symbols.linenr = '⭡'
 
 function! AirlineInit()
   " This has to be configured after plugins are loaded.
