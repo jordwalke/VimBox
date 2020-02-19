@@ -61,9 +61,9 @@ Features:
 | <kbd>⌘+z</kbd>                                 | Undo                                                     |
 | <kbd>⌘+shift+z</kbd>                           | Redo                                                     |
 | <kbd>⌘+enter</kbd>                             | Special Distraction-Free FullScreen Mode                 |
-| <kbd>⌘+\</kbd>                                 | Toggle File Explorer (Docked `NERDTree`)                 |
-| <kbd>⌘+shift+\</kbd>                           | Find current file in file explorer                       |
-| <kbd>ctrl+\</kbd>                              | Toggle focus between file explorer                       |
+| <kbd>⌘+\\</kbd>                                | Toggle File Explorer (Docked `NERDTree`)                 |
+| <kbd>⌘+shift+\\</kbd>                          | Find current file in file explorer                       |
+| <kbd>ctrl+\\</kbd>                             | Toggle focus between file explorer                       |
 | <kbd>⌘+shift+[</kbd> / <kbd>⌘+shift+]</kbd>    | Go to previous/next tab                                  |
 | <kbd>ctrl+tab</kbd> / <kbd>ctrl+shift+tab</kbd>| Go to previous/next tab (in normal Vim mode)             |
 | <kbd>⌘+1 </kbd>                                | Go to tab `1`                                            |
