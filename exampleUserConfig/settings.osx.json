@@ -1,9 +1,31 @@
 {
   "*": {
+    "vim": {
+      "mappings": {
+        "all:<D-n>": "command:tabnew",
+        "insert @silent: <D-}>": "keys:<Esc>gt",
+        "insert @silent: <D-{>": "keys:<Esc>gT",
+        "normal @silent: <D-{>": "keys:gT",
+        "normal visual select operatorPending @silent:<D-}>": "keys:<Esc>gt",
+        "normal visual select operatorPending @silent:<D-{>": "keys:<Esc>gT"
+      }
+    },
     "nerdcommenter": {
+      "config": {
+         "g:NERDCompactSexyComs": 0,
+         "g:NERDSpaceDelims": 1,
+         "g:NERDDefaultAlign": "left",
+         "g:NERDToggleCheckAllLines": 1,
+         "g:NERDCustomDelimiters": { "reason": { "left": "/*","right": "*/", "nested": 1 } }
+      },
       "mappings": {
         "visualRemapped selectRemapped:<D-/>": "keys:<Plug>NERDCommenterToggle",
         "normalRemapped:<D-/>": "keys:<Plug>NERDCommenterToggle"
+      }
+    },
+    "console": {
+      "config": {
+        "message_token_format": [" INFO", " INFO", " WARN", " ERR "]
       }
     }
   },
