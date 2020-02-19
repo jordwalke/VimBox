@@ -42,6 +42,11 @@
         "gundo": "sjl/gundo.vim"
       }
     },
+    "nerdtree_tabs": {
+      "config": {
+        "open_on_gui_startup": 0
+      }
+    },
     "fakeMap": {
       "mappings": {
         "<F2>": ""
