@@ -105,6 +105,22 @@ priority. Like any plugin you can define custom utilities/functions/commands
 but most people will get by with just editing the `settings.json` file.
 
 
+### The `:Console`:
+
+<img width="744px" height="642px" src="docs/images/Console_1488x1284.png" />
+
+The `:Console` command is Vim's missing "Console". It shows errors highlighted
+in red. VimBox also exposes `console#error(..)`, `console#warn(..)`, `console#log(..)`,
+and `console#info(..)` commands which your plugins can use. Those commands will render
+nicely highlighted vim console logs in the VimBox console.
+There are also `:Log ..`, `:Warn ..`, `:Error ,.` forms for convenient command mode usage.
+
+You can also vendor that console into your independent plugins. If using VimBox, users
+will see nice `:Console` logs - if not, then they will still see beautifully rendered messages
+in Vim.
+
+
+
 Configuration:
 --------------
 
