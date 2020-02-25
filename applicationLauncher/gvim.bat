@@ -9,6 +9,7 @@ set PROGRAM_FILES_VIM_EXE_DIR=C:\Program Files (x86)\Vim\vim80
 
 if exist "C:\Program Files (x86)\Vim\vim80\gvim.exe" set PROGRAM_FILES_VIM_EXE_DIR=C:\Program Files (x86)\Vim\vim80
 if exist "C:\Program Files (x86)\Vim\vim81\gvim.exe" set PROGRAM_FILES_VIM_EXE_DIR=C:\Program Files (x86)\Vim\vim81
+if exist "C:\Program Files (x86)\Vim\vim82\gvim.exe" set PROGRAM_FILES_VIM_EXE_DIR=C:\Program Files (x86)\Vim\vim82
 
 
 if exist "%VIMRUNTIME%\gvim.exe" set PROGRAM_FILES_VIM_EXE_DIR=%VIMRUNTIME%
