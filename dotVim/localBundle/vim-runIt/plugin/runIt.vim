@@ -19,10 +19,20 @@ endfunction
 fun! s:RunItRunCmdOrShowErrorNicely(cmd)
     silent let f = systemlist(a:cmd)
     if v:shell_error
-      call VimBoxUserMessageError(join(f, '   '))
+      " Replace carriage return (control m) ascii hex code OD only on windows.
+      " The next regex replaces terminal ascii escape sequences.
+      if g:vimBoxOs == 'windows'
+        call VimBoxUserMessageError(substitute(substitute(join(f, '   '), "\\%xOD", " ", "g"), '\e\[[0-9;]\+[mK]', '', 'g'))
+      else
+        call VimBoxUserMessageError(substitute(join(f, '   '), '\e\[[0-9;]\+[mK]', '', 'g'))
+      endif
       return
     else
-      call VimBoxUserMessageSuccess(join(f, '   '))
+      if g:vimBoxOs == 'windows'
+        call VimBoxUserMessageSuccess(substitute(substitute(join(f, '   '), "\\%xOD", " ", "g"), '\e\[[0-9;]\+[mK]', '', 'g'))
+      else
+        call VimBoxUserMessageSuccess(substitute(join(f, '   '), '\e\[[0-9;]\+[mK]', '', 'g'))
+      endif
     endif
 endfun
 
