@@ -1,3 +1,17 @@
+# 📢 Announcement: 📢
+
+**I have been working on a new version of vimbox that uses Atom/VSCode style json configuration and allows you to just drag a `VimBox.app` into your applications directory. Some good features:**
+- Self contained `.app` (but still requires that you have MacVim installed).
+- `.json` based configuration.
+- When loading the app, it automatically pulls everything down from this repo.
+- It creates an isolated Vim environment that doesn't disturb your current `~/.vim`/`~/.vimrc`. It is a different approach - better in my opinion. It really is "vim in a box" - a sandbox.
+- Also will work on terminal / Linux / Windows. Share your config across platforms. Json configuration can be platform specific `settings.json` vs. `settings.linux.json`, and `settings.osx.gui.json` etc. (no one click `.app` for linux/windows though, you need to create your own launcher).
+
+**[Here is the branch](https://github.com/jordwalke/VimBox/tree/json) that it lives at. Follow the instructions there to try it out.**
+
+Thank you for your patience while I have not been super responsive to issues on `#master` branch - it is because I have been working on the new `#json` branch linked above which should take the place of `#master`. Feedback appreciated.
+
+
 <table width="100%">
 <tr>
 </tr>
