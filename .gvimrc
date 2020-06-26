@@ -54,4 +54,3 @@ if filereadable(expand("~/.vim/gvimrc.custom.after"))
 endif
 
 set visualbell
-set t_vb=
