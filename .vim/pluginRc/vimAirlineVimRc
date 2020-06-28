@@ -1,14 +1,39 @@
-let g:airline_powerline_fonts = 1
-let g:airline_skip_empty_sections = 1
-" Git status can be expensive.
-let g:airline#extensions#branch#enabled = 0
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-set laststatus=2
-" Disable truncation
-" let g:airline#extensions#default#section_truncate_width = {}
+"=====================================================
+"" Powerline settings
+"=====================================================
+
+set guifont=Inconsolata\ for\ Powerline:h15
+let g:Powerline_symbols = 'fancy'
+set encoding=utf-8
+set t_Co=256
+set fillchars+=stl:\ ,stlnc:\
+set term=xterm-256color
+set termencoding=utf-8
+
+if has("gui_running")
+    let s:uname = system("uname")
+    if s:uname == "Darwin\n"
+        set guifont=Source\ Code\ Pro\ for\ Powerline:h15
+    endif
+endif
+
+"=====================================================
+"" AirLine settings
+"=====================================================
+let g:airline_theme='deus'
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#formatter='unique_tail'
+let g:airline_powerline_fonts=1
+
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = '⮀'
+let g:airline_right_sep = '◀'
 
 function! AirlineInit()
-  " This has to be configured after plugins are loaded.
   call airline#parts#define_condition('ffenc', '&fileformat != "unix" || &fileencoding != "utf-8" && &fileencoding != ""')
   function! GetSyntasticErrors()
     let spc = g:airline_symbols.space

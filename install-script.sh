@@ -5,7 +5,7 @@ PWD=$(pwd)
 # Make sure to enable develoepr more before installing
 export CYGWIN="$CYGWIN winsymlinks:nativestrict"
 
-if [[ -f "$PWD/dotVimRc" && ! -L "$PWD/dotVimRc" ]]; then
+if [[ -f "$PWD/.vimrc" && ! -L "$PWD/.vimrc" ]]; then
   # first, backup any existing scripts if they are not symlinks
   if [[ -d "$HOME/.vim" && ! -L "$HOME/.vim" ]]; then
     echo -e "Moving ~/.vim to ~/.vim_backup"
@@ -43,35 +43,35 @@ if [[ -f "$PWD/dotVimRc" && ! -L "$PWD/dotVimRc" ]]; then
 
   # now we can link all the new VimBox to our home directory
   if [[ ! -d "$HOME/.vim" && ! -L "$HOME/.vim" ]]; then
-    echo -e "Linking $HOME/.vim to $PWD/dotVim"
-    ln -s "$PWD/dotVim" ~/.vim
+    echo -e "Linking $HOME/.vim to $PWD/.vim"
+    ln -s "$PWD/.vim" ~/.vim
   else
     echo -e "Not linking from $HOME/.vim - it was already moved, or already existed"
   fi
 
   if [[ ! -d "$HOME/.config/nvim" && ! -L "$HOME/.config/nvim" ]]; then
-    echo -e "Linking $HOME/.config/nvim to $PWD/dotVim"
-    ln -s "$PWD/dotVim" "$HOME/.config/nvim"
+    echo -e "Linking $HOME/.config/nvim to $PWD/.vim"
+    ln -s "$PWD/.vim" "$HOME/.config/nvim"
   else
     echo -e "Not linking from $HOME/.config/nvim - it was already moved, or already existed"
   fi
 
   if [[ ! -f "$HOME/.vimrc" && ! -L "$HOME/.vimrc" ]]; then
-    echo -e "Linking $HOME/.vimrc to $PWD/dotVimRc"
-    ln -s "$PWD/dotVimRc" ~/.vimrc
+    echo -e "Linking $HOME/.vimrc to $PWD/.vimrc"
+    ln -s "$PWD/.vimrc" ~/.vimrc
   else
     echo -e "Not linking from $HOME/.vimrc - it was already moved, or already existed"
   fi
 
   if [[ ! -f "$HOME/.gvimrc" && ! -L "$HOME/.gvimrc" ]]; then
-    echo -e "Moving $PWD/dotGVimRc to ~/.gvimrc"
-    ln -s "$PWD/dotGVimRc" ~/.gvimrc
+    echo -e "Moving $PWD/.gvimrc to ~/.gvimrc"
+    ln -s "$PWD/.gvimrc" ~/.gvimrc
   else
     echo -e "Not linking from $HOME/.gvimrc - it was already moved, or already existed"
   fi
 
   if [ -d "$HOME/Library/Fonts" ]; then
-    FONT_SOURCE="$PWD/dotVim/Fonts/Iosevka/iosevka-regular.ttf"
+    FONT_SOURCE="$PWD/.vimrc/Fonts/Iosevka/iosevka-regular.ttf"
     FONT_DEST="$HOME/Library/Fonts/iosevka-regular.ttf"
     if [[ ! -f "$FONT_DEST" ]]; then
       echo -e "Installing font $FONT_SOURCE into $FONT_DEST"
@@ -79,7 +79,7 @@ if [[ -f "$PWD/dotVimRc" && ! -L "$PWD/dotVimRc" ]]; then
     else
       echo -e "The font $FONT_DEST was already installed"
     fi
-    FONT_SOURCE="$PWD/dotVim/Fonts/Iosevka/iosevka-bold.ttf"
+    FONT_SOURCE="$PWD/.vim/Fonts/Iosevka/iosevka-bold.ttf"
     FONT_DEST="$HOME/Library/Fonts/iosevka-bold.ttf"
     if [[ ! -f "$FONT_DEST" ]]; then
       echo -e "Installing font $FONT_SOURCE into $FONT_DEST"
@@ -87,7 +87,7 @@ if [[ -f "$PWD/dotVimRc" && ! -L "$PWD/dotVimRc" ]]; then
     else
       echo -e "The font $FONT_DEST was already installed"
     fi
-    FONT_SOURCE="$PWD/dotVim/Fonts/Iosevka/iosevka-italic.ttf"
+    FONT_SOURCE="$PWD/.vim/Fonts/Iosevka/iosevka-italic.ttf"
     FONT_DEST="$HOME/Library/Fonts/iosevka-italic.ttf"
     if [[ ! -f "$FONT_DEST" ]]; then
       echo -e "Installing font $FONT_SOURCE into $FONT_DEST"
