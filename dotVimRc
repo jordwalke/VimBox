@@ -20,7 +20,7 @@
 "  2. Opens all files from other apps in vert split
 "
 "      defaults write org.vim.MacVim MMVerticalSplit YES
-"      default write org.vim.VimBox MMVerticalSplit YES
+"      defaults write org.vim.VimBox MMVerticalSplit YES
 "
 "  3. If when changing monitors, your fonts go from nice and thin to ugly and
 "  bold: This should fix it:
@@ -29,6 +29,7 @@
 "   https://stackoverflow.com/questions/24598390/macvim-thicker-font-rendering-compared-to-textmate
 "
 "   defaults write org.vim.MacVim AppleFontSmoothing -int 0
+"   defaults write org.vim.VimBox AppleFontSmoothing -int 0
 "
 "  4. Speed up full screen transition:
 "
