@@ -38,7 +38,7 @@
         "syntastic": "scrooloose/syntastic",
         "comfortable_motion": "yuttie/comfortable-motion.vim",
         "mucomplete": "lifepillar/vim-mucomplete",
-        "ultisnips": "SirVer/ultisnips",
+        "ultisnips": "SirVer/ultisnips#3.2",
         "gundo": "sjl/gundo.vim"
       }
     },
