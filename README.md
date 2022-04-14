@@ -29,7 +29,7 @@
 
 Installation (Mac):
 -------------
-1. Install [MacVim](http://macvim-dev.github.io/macvim/)
+1. Install latest [MacVim](https://github.com/macvim-dev/macvim/releases/tag/snapshot-172)
 2. [Download a `.zip` of this repo](https://github.com/jordwalke/VimBox/archive/json.zip)
 3. Drag `applicationLauncher/VimBox.app` into your `/Applications` folder.
 4. Open `/Applications/VimBox.app` (control+click, then select "Open").
