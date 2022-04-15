@@ -133,7 +133,7 @@ let s:validMapAttrs = {
 " languageArg, but that seems rare enough.
 function! s:Mapping(indent, pluginName, kind, name, v, isScoped, origin, fakeMappingsLookup)
   let mappingFrom = split(a:name, ":")
-  let mappingTo = split(a:v, ":")
+  let mappingTo = split(a:v, ":", 1)
   if empty(mappingTo)
     return s:LogInitError(a:indent, a:origin, 'Key mapping (value) configured incorrectly "' . a:name . '":"' . a:v. '"')
   endif
