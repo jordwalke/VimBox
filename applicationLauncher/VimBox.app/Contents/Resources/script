@@ -49,6 +49,7 @@ else
     cp -p "${DIR}/VimBox.app/Contents/Resources/MacVim.icns" "${DIR}/VimBox.app/Contents/Resources/VimBox.icns" || FAILMSG="Could not copy system MacVim.app into vendored MacVim"
     rm "${DIR}/VimBox.app/Contents/Resources/MacVim.icns"
     cat "${DIR}/VimBoxCheckout/dotVim/images/ApplicationIcon.icns" > "${DIR}/VimBox.app/Contents/Resources/VimBox.icns" || FAILMSG="Failed setting the icon to the rad VimBox icon."
+    cat "${DIR}/VimBoxCheckout/dotVim/images/ApplicationIcon.icns" > "${DIR}/VimBox.app/Contents/Resources/appIcon.icns" || FAILMSG="Failed setting the icon to the rad VimBox icon."
     # Allows cmd+, to be remapped and fixes some wording in the menu.
     # Also fixes cmd+shift+n to open window when none yet open.
     mv "${DIR}/VimBox.app/Contents/Resources/Base.lproj/MainMenu.nib" "${DIR}/VimBox.app/Contents/Resources/Base.lproj/MainMenu_backup.nib" || FAILMSG="Could not move main menu nib to backup"
@@ -67,7 +68,7 @@ else
     exit 1
   fi
 fi
-open "${DIR}/VimBox.app" --args "$@"
+open -a "${DIR}/VimBox.app" "$@"
 # open "${DIR}/VimBox.app" "$@"
 
 
@@ -84,3 +85,4 @@ open "${DIR}/VimBox.app" --args "$@"
 #
 # exec "source " . g:vimBoxInstallationRoot . "/VimBox.app/Contents/Resources/vim/vimrc"
 #
+
