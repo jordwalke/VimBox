@@ -66,7 +66,8 @@ if has('gui')
 
     " Clear these up - if you want them back you can remap them
     " in Vim.
-    macmenu &Edit.Find.Find\.\.\. key=<nop>
+    macmenu &Edit.Find.Find… key=<nop>
+    " macmenu &Edit.Find.Find\.\.\. key=<nop>
     macmenu &Edit.Find.Find\ Next key=<nop>
     macmenu &Edit.Find.Find\ Previous key=<nop>
     macmenu &Edit.Find.Use\ Selection\ for\ Find key=<nop>
