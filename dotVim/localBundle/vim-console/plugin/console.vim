@@ -54,7 +54,8 @@ if !exists('g:polyfilled_v_type')
   let g:v_t_float = type(0.0) 
   if has("patch-8.0.0")
     let g:v_t_bool = type(v:false) 
-    let g:v_t_none = type(v:none) 
+    " For some reason neovim doesn't have a v:none even though vim 8+ does.
+    " let g:v_t_none = type(v:none) 
   endif
 endif
 
