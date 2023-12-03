@@ -35,10 +35,15 @@ endfunction
 function! VimBoxSearchSettingsFiles()
   return [
       \ 'settings.json',
+      \ 'settings.' . g:vimBoxVimType . '.json',
       \ 'settings.' . g:vimBoxOs . '.json',
       \ 'settings.' . g:vimBoxGui . '.json',
-      \ 'settings.' . g:vimBoxGui . '.' . g:vimBoxOs . '.json',
       \ 'settings.' . g:vimBoxOs . '.' . g:vimBoxGui . '.json',
+      \ 'settings.' . g:vimBoxVimType . g:vimBoxOs . '.json',
+      \ 'settings.' . g:vimBoxVimType . g:vimBoxGui . '.json',
+      \ 'settings.' . g:vimBoxVimType . g:vimBoxOs . '.' . g:vimBoxGui . '.json',
+      \ 'settings.' . g:vimBoxVimType . g:vimBoxGui . '.' . g:vimBoxOs . '.json',
+      \ 'settings.' . g:vimBoxGui . '.' . g:vimBoxOs . '.json',
       \ ]
 endfunction
 
@@ -190,7 +195,7 @@ function! __VimBoxGetPluginInstallData(s)
 endfunction
 
 function! __VimBoxIsConfigComment(ss)
-  return a:ss ==? "note" || a:ss ==? "notes" || a:ss ==? "comment" || a:ss ==? "comments" || a:ss ==? "config-comment" || a:ss ==? "configcomment" || a:ss ==? "configcomments"|| a:ss ==? "config-comments"
+  return a:ss == "//" || a:ss ==? "note" || a:ss ==? "notes" || a:ss ==? "comment" || a:ss ==? "comments" || a:ss ==? "config-comment" || a:ss ==? "configcomment" || a:ss ==? "configcomments"|| a:ss ==? "config-comments"
 endfunction
 
 " Also builds up a "searchIndex" which is used as a convenient keyword search.
@@ -236,37 +241,43 @@ function! VimBoxAppendToNextResolvedConfig(searchIndex, resolvedConfig, nextConf
         let resolvedPluginSettings = resolvedPlugin['config']
         let resolvedPluginMappings = resolvedPlugin['mappings']
         for actionName in keys(nextScopePluginActions)
-          if !has_key(resolvedPluginActions, actionName)
-            let resolvedPluginActions[actionName] = {}
+          if !__VimBoxIsConfigComment(actionName)
+            if !has_key(resolvedPluginActions, actionName)
+              let resolvedPluginActions[actionName] = {}
+            endif
+            if !has_key(resolvedPluginActions[actionName], scope)
+              let resolvedPluginActions[actionName][scope] = []
+            endif
+            call add(resolvedPluginActions[actionName][scope], {'origin': a:nextConfigPath, 'config': nextScopePluginActions[actionName] })
+            let indexKey = pluginName . '.actions.' . actionName
+            let a:searchIndex['actions'][indexKey] = 1
           endif
-          if !has_key(resolvedPluginActions[actionName], scope)
-            let resolvedPluginActions[actionName][scope] = []
-          endif
-          call add(resolvedPluginActions[actionName][scope], {'origin': a:nextConfigPath, 'config': nextScopePluginActions[actionName] })
-          let indexKey = pluginName . '.actions.' . actionName
-          let a:searchIndex['actions'][indexKey] = 1
         endfor
         for settingName in keys(nextScopePluginSettings)
-          if !has_key(resolvedPluginSettings, settingName)
-            let resolvedPluginSettings[settingName] = {}
+          if !__VimBoxIsConfigComment(settingName)
+            if !has_key(resolvedPluginSettings, settingName)
+              let resolvedPluginSettings[settingName] = {}
+            endif
+            if !has_key(resolvedPluginSettings[settingName], scope)
+              let resolvedPluginSettings[settingName][scope] = []
+            endif
+            call add(resolvedPluginSettings[settingName][scope], {'origin': a:nextConfigPath, 'config': nextScopePluginSettings[settingName] })
+            let indexKey = pluginName . '.config.' . settingName
+            let a:searchIndex['config'][indexKey] = 1
           endif
-          if !has_key(resolvedPluginSettings[settingName], scope)
-            let resolvedPluginSettings[settingName][scope] = []
-          endif
-          call add(resolvedPluginSettings[settingName][scope], {'origin': a:nextConfigPath, 'config': nextScopePluginSettings[settingName] })
-          let indexKey = pluginName . '.config.' . settingName
-          let a:searchIndex['config'][indexKey] = 1
         endfor
         for mappingName in keys(nextScopePluginMappings)
-          if !has_key(resolvedPluginMappings, mappingName)
-            let resolvedPluginMappings[mappingName] = {}
-          endif
-          if !has_key(resolvedPluginMappings[mappingName], scope)
-            let resolvedPluginMappings[mappingName][scope] = []
-          endif
-          call add(resolvedPluginMappings[mappingName][scope], {'origin': a:nextConfigPath, 'config': nextScopePluginMappings[mappingName] })
-          let indexKey = pluginName . '.mappings.' . mappingName
-          let a:searchIndex['mappings'][indexKey] = {}
+          if !__VimBoxIsConfigComment(mappingName)
+            if !has_key(resolvedPluginMappings, mappingName)
+              let resolvedPluginMappings[mappingName] = {}
+            endif
+            if !has_key(resolvedPluginMappings[mappingName], scope)
+              let resolvedPluginMappings[mappingName][scope] = []
+            endif
+            call add(resolvedPluginMappings[mappingName][scope], {'origin': a:nextConfigPath, 'config': nextScopePluginMappings[mappingName] })
+            let indexKey = pluginName . '.mappings.' . mappingName
+            let a:searchIndex['mappings'][indexKey] = {}
+        endif
         endfor
       endif
     endfor

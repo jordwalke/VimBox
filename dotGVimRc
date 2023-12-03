@@ -78,8 +78,8 @@ if has('gui')
     if g:vimBox_tabSystem == 'wintabs' || 1
       " Let the vim keybindings handle it.
       macmenu &File.Close key=<nop>
-      macmenu  Window.Select\ Next\ Tab	key=<nop>
-      macmenu  Window.Select\ Previous\ Tab	key=<nop>
+      macmenu  Window.Show\ Next\ Tab	key=<nop>
+      macmenu  Window.Show\ Previous\ Tab	key=<nop>
       macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-CR>
     else
       macmenu &File.New\ Tab key=<D-n>

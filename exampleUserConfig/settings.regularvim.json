@@ -1,0 +1,10 @@
+{
+  "*": {
+    "vim": {
+      "//": "Put your vim config settings that apply to all file types in the following config",
+      "//": "(You can include comments in your config by using the double slash as the key)",
+      "config": {
+      }
+    }
+  }
+}

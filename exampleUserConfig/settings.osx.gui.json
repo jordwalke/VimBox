@@ -12,12 +12,6 @@
       "mappings": {
         "all:<D-U>": "command:GundoToggle"
       }
-    },
-    "toggly": {
-      "mappings": {
-        "all:<D-d>": "command:call Toggly(1)",
-        "all:<D-D>": "command:call Toggly(0)"
-      }
     }
   },
   "reason": {

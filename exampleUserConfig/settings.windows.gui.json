@@ -50,36 +50,9 @@
         "shell_mappings_enabled": 0
       }
     },
-    "webdevicons": {
-      "config": {
-        "enable": false
-      }
-    },
     "vimBox": {
       "config": {
         "useDevIcons": false
-      }
-    },
-    "wintabs": {
-      "config": {
-        "display": "statusline",
-        "autoclose": 2,
-        "autoclose_vim": 1,
-        "autoclose_vimtab": 1,
-        "switchbuf": "useopen,usetab",
-        "ui_active_higroup ":  "TabLineSel",
-        "ui_buffer_name_format":" %t ",
-        "ui_sep_leftmost": " ",
-        "ui_sep_inbetween": " ",
-        "ui_active_left": "▍",
-        "ui_active_right": " ",
-        "ui_sep_rightmost": " ",
-        "ui_modified": " ◎",
-        "ignored_filetypes": [],
-        "ui_active_vimtab_left":"▍",
-        "ui_active_vimtab_right":" ",
-        "ui_arrow_left":"«",
-        "ui_arrow_right":"»"
       }
     }
   },

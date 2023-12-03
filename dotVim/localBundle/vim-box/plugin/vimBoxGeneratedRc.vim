@@ -88,6 +88,23 @@ endfunction
 "   :imap  :inoremap :iunmap    Insert
 "   :lmap  :lnoremap :lunmap    Insert, Command-line, Lang-Arg
 "   :cmap  :cnoremap :cunmap    Command-line
+"
+"   "nore" just means "no recursive", so...
+"   TODO, Rename this lookup table as follows:
+"   'normal': ['nnoremap', 'nunmap'],
+"   'select': ['snoremap', 'sunmap'],
+"   'visual': ['xnoremap', 'xunmap'],
+"   'insert': ['inoremap', 'iunmap'],
+"   'commandLine': ['cnoremap', 'cunmap'],
+"   'normal operatorPending select visual': ['noremap', 'unmap'],
+"   'select visual': ['vnoremap', 'vunmap'],
+"   'operatorPending': ['onoremap', 'ounmap'],
+"   'commandLine insert': ['noremap!', 'unmap!'],
+"   'commandLine insert languageArg': ['lnoremap', 'lunmap'],
+"
+"   And then require a @recursive attribute to distinguish between "nore"
+"   and recursive. The "Remapped" naming convention used below is misleading
+"   and should be marked legacy.
 let s:sortedMappings = {
     \ 'normal': ['nnoremap', 'nunmap'],
     \ 'select': ['snoremap', 'sunmap'],
@@ -229,6 +246,13 @@ function! s:Setting(indent, pluginName, kind, name, v, isScoped, origin)
       else
         return s:LogInitError(indent, a:origin, "Colorscheme configured incorrectly. Must be a string. Try :SettingsUI vim.config.colorscheme")
       endif
+    elseif (a:name == "wildcharm" || a:name=="wildchar") && type(a:v) == v:t_string && a:v[0] == '<'
+      " Wildchar/charm are special in that they are set to numbers or strings
+      " but also accepts special keys like "<tab>" which cannot be set with
+      " the let & syntax. Maybe we should just use the "set" syntax instead.
+      " Leave no space around = so that you can name a variable 'setting+' to
+      " have it render as: let &setting+=foo
+      return [a:indent . "set " . a:name . "=" . a:v]
     else
       if type(a:v) == v:t_string && strpart(a:v, 0, 5) == 'eval:'
         let normalizedVal = strpart(a:v, 5)

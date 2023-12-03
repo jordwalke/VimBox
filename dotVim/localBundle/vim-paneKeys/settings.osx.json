@@ -8,7 +8,11 @@
         "insert:<D->>": "command:vertical resize +10",
         "insert:<D-<>":"command:vertical resize -10",
         "normal:<D->>":"command:vertical resize +10",
-        "normal:<D-<>":"command:vertical resize -10"
+        "normal:<D-<>":"command:vertical resize -10",
+        "insert:<S-D-.>": "command:vertical resize +10",
+        "insert:<S-D-,>":"command:vertical resize -10",
+        "normal:<S-D-.>":"command:vertical resize +10",
+        "normal:<S-D-,>":"command:vertical resize -10"
       }
     }
   }

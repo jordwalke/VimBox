@@ -98,6 +98,14 @@ if !exists("g:vimBoxOs")
   endif
 endif
 
+if !exists("g:vimBoxVimType")
+  if has("nvim")
+    let g:vimBoxVimType = 'neovim'
+  else
+    let g:vimBoxVimType = 'regularvim'
+  endif
+endif
+
 if !exists("g:vimBoxGui")
   let g:vimBoxGui = has('gui_running') || exists('g:gui_oni') ? 'gui' : 'term'
 endif

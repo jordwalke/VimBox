@@ -158,12 +158,20 @@ let g:vimBoxInstallationRoot = fnamemodify(g:vimBoxInitialVimRcPath, ':h')
 execute "source " . g:vimBoxInstallationRoot . "/dotVim/localBundle/vim-box/plugin/vimBoxUtils.vim"
 let g:vimBoxStockPluginsDir = PathJoinDir(PathJoinDir(g:vimBoxInstallationRoot, 'dotVim'), 'localBundle')
 
-" When overriding init files, the standard ones don't get sourced.  They are
-" very important. Things fail without this and I don't know why.  Probably
-" some cpoptions settings?  We set `VIMBOX_OVERRIDING_INIT` to tell these
-" loading scripts they need to source the defaults.
+" When overriding init files (-u/-U flags), the standard ones don't get
+" sourced. They are very important on some systems/guis. Things fail without
+" this and I don't know why. Probably some cpoptions settings?  We set
+" `VIMBOX_OVERRIDING_INIT` to tell these loading scripts they need to source
+" the defaults.
+" NOTE: On second thought, there is no need to set a flag. This vimrc file
+" will always be sourced only at init time.
+" `vim --version` will tell you where these system vim files are, but on
+" macos, neovim claims to load $VIM/sysinit.vim but it doesn't even exist
+" when installed through brew. It doesn't seem to be necessary though.
+"
 " See `./developerDocs/LOCATIONS.md`
-if ($VIMBOX_OVERRIDING_INIT)
+" if g:vimBoxVimType == 'regularvim' && ($VIMBOX_OVERRIDING_INIT)
+if g:vimBoxVimType == 'regularvim'
   if g:vimBoxOs == 'windows'
     " Cygwin installed vim
     if g:vimBoxSupportsUnix
@@ -188,6 +196,11 @@ if ($VIMBOX_OVERRIDING_INIT)
   endif
   " Passing -u even turns off `defaults` loading.
   exec "source " . $VIMRUNTIME . "/defaults.vim"
+elseif g:vimBoxVimType == 'neovim'
+  " Neovim requires:
+  " let g:python_host_prog = '/full/path/to/neovim2/bin/python'
+  " let g:python3_host_prog = '/full/path/to/neovim3/bin/python'
+  " Usually the user will need to use pip (bleh)
 endif
 if g:vimBoxOs == 'windows'
   set fileformats=unix,dos
@@ -235,7 +248,25 @@ let &runtimepath=&runtimepath . ',' .  PathJoinFile(g:vimBoxStockPluginsDir, 'vi
 "     ~/.local/share/vim-box/
 " User Config:
 "     ~/.config/vim-box/
-let g:vimBoxSettingsDefault = PathJoinFile(PathJoinDir(g:vimBoxStockPluginsDir, 'vim-box'), 'settings.json')
+"
+" Because neovim and regular vim cannot mix every type of config file (for
+" example, undo file format), we have separate directories for all your vim
+" config/cache/data and all your neovim config/cache/data.  Instead of
+" appending `vim-box` we will append `vim-box-neovim`.
+" Let's also allow for creating clean plugin sandboxes to test blank configs.
+" They will be created like `..../vim-box-sandboxname` or
+" `..../vim-box-neovim-sandbox-name`.
+" That directory name pattern will be called the "suffix".
+
+if g:vimBoxVimType == 'neovim'
+  let g:vimBoxSandboxSuffix = 'vim-box-neovim'
+else
+  let g:vimBoxSandboxSuffix = 'vim-box'
+endif
+if ($VIMBOX_SANDBOX_NAME != "")
+  let g:vimBoxSandboxSuffix = g:vimBoxSandboxSuffix . '-' . $VIMBOX_SANDBOX_NAME
+endif
+let g:vimBoxSettingsDefault = PathJoinFile(PathJoinDir(g:vimBoxStockPluginsDir, g:vimBoxSandboxSuffix), 'settings.json')
 
 " Location Of Home Directory:
 let g:vimBoxHomeDir = $HOME . _VimBoxSlashFor( $HOME )
@@ -246,11 +277,11 @@ let g:vimBoxDefaultDataDir = PathJoinDir(PathJoinDir(g:vimBoxHomeDir, '.local'),
 let g:vimBoxDefaultConfigDir = PathJoinDir(g:vimBoxHomeDir, '.config')
 
 " Where Cache Files Should Be Stored: (Default $HOME/.cache):
-let g:vimBoxXdgCacheDir = exists('$XDG_CACHE_HOME') ? PathJoinDir($XDG_CACHE_HOME, 'vim-box') : PathJoinDir(g:vimBoxDefaultCacheDir, 'vim-box')
+let g:vimBoxXdgCacheDir = exists('$XDG_CACHE_HOME') ? PathJoinDir($XDG_CACHE_HOME, g:vimBoxSandboxSuffix) : PathJoinDir(g:vimBoxDefaultCacheDir, g:vimBoxSandboxSuffix)
 " Where User Specific Data Files Should Be Written: (undo/backup files) (Default $HOME/.local/share):
-let g:vimBoxXdgDataDir = exists('$XDG_DATA_HOME') ? PathJoinDir($XDG_DATA_HOME, 'vim-box') : PathJoinDir(g:vimBoxDefaultDataDir, 'vim-box')
+let g:vimBoxXdgDataDir = exists('$XDG_DATA_HOME') ? PathJoinDir($XDG_DATA_HOME, g:vimBoxSandboxSuffix) : PathJoinDir(g:vimBoxDefaultDataDir, g:vimBoxSandboxSuffix)
 " Where User Specific Configuration Should Be Stored: (Default $HOME/.config)
-let g:vimBoxXdgConfigDir = exists('$XDG_CONFIG_HOME') ? PathJoinDir($XDG_CONFIG_HOME, 'vim-box') : PathJoinDir(g:vimBoxDefaultConfigDir, 'vim-box')
+let g:vimBoxXdgConfigDir = exists('$XDG_CONFIG_HOME') ? PathJoinDir($XDG_CONFIG_HOME, g:vimBoxSandboxSuffix) : PathJoinDir(g:vimBoxDefaultConfigDir, g:vimBoxSandboxSuffix)
 if !isdirectory(g:vimBoxXdgCacheDir)
   call mkdir(g:vimBoxXdgCacheDir, "p")
 endif
@@ -381,9 +412,9 @@ if !len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   set listchars = "eol:$"
 else
   " Don't show statusline when airline might not be loaded or configured.
+  colorscheme taste
   if g:vimBoxGui=='gui'
     set background=dark
-    colorscheme taste
     set guioptions-=r
     set guioptions-=R
     set guioptions-=l

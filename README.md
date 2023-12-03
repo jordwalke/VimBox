@@ -95,9 +95,10 @@ Features:
 <img width="744px" height="642px" src="docs/images/Settings_1488x1284.png" />
 
 The `:Settings` command will open your personal user settings which are stored
-in `~/.config/vim-box/user/settings.json`. This settings file can configure
-other plugins, including the installation/disabling of other plugins, as well
-as configure mappings.
+in `~/.config/vim-box/user/settings.json` (or
+`~/.config/nevim-box/user/settings.json` if using neovim). This settings file can
+configure other plugins, including the installation/disabling of other plugins,
+as well as configure mappings.
 
 The directory where your `settings.json` file lives is itself a vim plugin -
 your own personal vim plugin. It isn't special except that it has the highest
@@ -124,15 +125,10 @@ in Vim.
 Configuration:
 --------------
 
-In VimBox, everything is modelled as a configurable plugin. All stock Vim
-plugins work with VimBox, but they just don't make use of VimBox's extra json
-configuration feature.
-All plugins can optionally include a `settings.json` file in their plugin root
-and VimBox will apply the settings specified in it. Any plugin's included
-`settings.json` can configure any other plugin. Your personal `settings.json`
-is actually just the configuration file for the special `user` plugin - and it
-configures other plugins.
-
+VimBox provides the `:Settings` command which will open up your personal
+`.json` configuration file(s) that allow you to configure vim similarly to how
+you might configure VSCode or Atom. You can use this `.json` configuration to
+set vim variables, declare which plugins you wish to install, remap keys.
 
 Json configuration is of the form:
 
@@ -159,6 +155,41 @@ will be set to `"value"`. See the convention? `g:`, plugin name and an
 underscore are prepended to the config key. Almost all vim plugins have some
 prefix to their global config variables. That's their conventional "plugin
 name" that you should use everywhere.
+
+#### Per platform (and gui specific) config
+
+You can also specify per-platform or gui specific `.json` config files in your
+config directory, and different configuration depending on whether or not you
+are using a terminal or gui program (like MacVim). You can also specify config
+that should only apply when using Neovim (or non-Neovim ("Regular Vim")).
+
+VimBox will load the following config files in this order (if present).
+
+- `settings.json` (Config you want to always apply).
+- `settings.<NEOVIM_TYPE>.json`
+- `settings.<YOUR_OS>.json`
+- `settings.<GUI_KIND>.json`
+- `settings.<YOUR_OS>.<GUI_KIND>.json`
+- `settings.<NEOVIM_TYPE>.<YOUR_OS>.json`
+- `settings.<NEOVIM_TYPE>.<GUI_KIND>.json`
+- `settings.<NEOVIM_TYPE>.<YOUR_OS>.<GUI_KIND>.json`
+
+Where `<NEOVIM_TYPE>` is one of `neovim`, `regularvim`.
+Where `<YOUR_OS>` is one of `osx`, `linux`, `windows`.
+Where `<GUI_KIND>` is one of `gui`, `term`.
+
+
+For example, if you are using neovim on osx, in the terminal then the following
+config files will be searched for:
+
+- `settings.json`
+- `settings.neovim.json`
+- `settings.osx.json`
+- `settings.term.json`
+- `settings.osx.term.json`
+- `settings.neovim.osx.json`
+- `settings.neovim.term.json`
+- `settings.neovim.osx.term.json`
 
 
 ### Configuring Vim Itself:
@@ -235,9 +266,9 @@ The mappings system is rad and undocumented.
 - `disabler`: The plugin that can disable installation/configuration of other
   plugins.
 - `user`: The special plugin that represents "your personal vim setup". It is
-  located at `~/.config/vim-box/user/`. It is encouraged that you back this up
-  using version control, share it with others on Github, and synchronized it
-  between all machines you use.
+  located at `~/.config/vim-box/user/` (or`~/.config/neovim-box/user/` if using
+  neovim) .It is encouraged that you back this up using version control, share
+  it with others on Github, and synchronized it between all machines you use.
 
 > Note that plugin names must not contain hyphens since those plugin names end
 > up becoming part of variable names. If a plugin is on github under a project
@@ -247,21 +278,28 @@ The mappings system is rad and undocumented.
 
 ## More On The User Plugin
 
-The user plugin, located at  `~/.config/vim-box/user/`. All your personal
+
+In VimBox, everything is modeled as a configurable plugin. All stock Vim
+plugins work with VimBox, but they just don't make use of VimBox's extra json
+configuration feature (they could if they wanted to).
+
+
+The user plugin, located at  `~/.config/vim-box/user/`
+(or`~/.config/neovim-box/user/` if using neovim) . All your personal
 configuration occurs through this user plugin. And since plugins can configure
 other plugins the way you configure everything is by having your user plugin
 configure all the other plugins including some special ones like "the vim
 plugin".  Also, there is a special plugin called "the installer plugin" and you
 install packages by simply having your user plugin configure the installer
-plugin. See?  Everything is totally consistent. Everything is a plugin. Want to
+plugin. See? Everything is totally consistent. Everything is a plugin. Want to
 disable an installed plugin so it doesn't initialize and none of its attempts
 to configure other plugins ever happen? Well then you configure the "disabler
-plugin" hahaha.
+plugin"!
 
 ## Use the User Plugin To Install Local Plugins From FileSystem:
 You can place other local plugins not obtained from Github in new directories
-inside of `~/.config/vim-box/` for example. Enable them by adding an entry in
-your `:Settings`:
+inside of `~/.config/vim-box/` (or `~/.config/neovim-box/` if using neovim) for
+example. Enable them by adding an entry in your `:Settings`:
 
 ```json
 "*": {
@@ -332,6 +370,25 @@ Uninstalling:
 - There are some `vim-box` data directories that it has written to with your
   personal configuration in various places in your home directory (XDG
   compliant). Run `:Locations` to see where it places things.
+
+
+
+
+Philosophy:
+-----------
+All plugins can optionally include a `settings.json` file in their plugin root
+and VimBox will apply the settings specified in it. Any plugin's included
+`settings.json` can configure any other plugin. Your personal `settings.json`
+is actually just the configuration file for the special `user` plugin - and it
+configures other plugins.
+
+No published vim plugins include a `settings.json` file, so in practice only
+your own `settings.json` will be respected (it was just a design decision that
+your personal configuration should just be a plugin like any other and all
+plugins are able to configure via json. VimBox is just demonstrating that it
+would be possible for all vim plugins to adopt this approach if everyone
+standardized on json (not that it's going to happen).
+
 
 
 License:
